@@ -1,4 +1,3 @@
-# ThanhCL's Assigment Directory
 
 ### Assignment List
 
