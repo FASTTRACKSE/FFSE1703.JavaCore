@@ -8,7 +8,7 @@ public class Tong2so {
 		a =5;
 		b=10;
 		c= a + b ;
-		System.out.print("Tong cua " + a + " + " + b + " = " + c );
+		System.out.println("Tong cua " + a + " + " + b + " = " + c );
 		
 
 	}
