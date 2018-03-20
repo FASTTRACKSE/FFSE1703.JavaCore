@@ -5,7 +5,7 @@ public class Assignment {
 		int a,b,c;
 		Scanner input = new Scanner(System.in);
 		double x1,x2,d;
-		System.out.println("Tính phương trình bật 2 có dạng : A^2X + BX + C = 0");
+		System.out.println("Tính phương trình bật 2 có dạng : AX^2 + BX + C = 0");
 		System.out.print("Nhập hệ số bậc 2 : A =");
 		a = input.nextInt();
 		System.out.print("Nhập hệ số bậc 1 :B=");
