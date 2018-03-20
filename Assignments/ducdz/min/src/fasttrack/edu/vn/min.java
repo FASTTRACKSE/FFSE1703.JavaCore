@@ -1,7 +1,7 @@
 package fasttrack.edu.vn;
 import java.util.Scanner;
 
-public class scanner {
+public class min {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
