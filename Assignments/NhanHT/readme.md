@@ -2,4 +2,4 @@
 
 ### Assignment List
 
-1. Assigment 0: [Hello World](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThanhCL/HelloWorld/src/HelloWorld.java)
+1. Assigment 0: [Hello World](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/NhanHT/Hello%20word/src/Helloword.java)
