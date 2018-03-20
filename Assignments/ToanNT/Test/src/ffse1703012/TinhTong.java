@@ -8,7 +8,7 @@ public class TinhTong {
 	b=3;
 	c= a+b;
 	System.out.println("Tổng của " + a + "+" +b+"="+c);
-
+	
 	}
 
 }
