@@ -11,7 +11,6 @@ public class scanner {
 		a = myInput.nextInt();
 		System.out.print("Nhap vao so b : ");
 		b = myInput.nextInt();
-		c = a+b;
-		System.out.print("Tong "+ a + " va " + b +":"+c);
+		System.out.print("So nho nhat : "+Math.min(a, b));
 	}
 }
