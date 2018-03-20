@@ -7,7 +7,6 @@ public class tinh_tong {
 		a = 5;
 		b = 10;
 		c = a + b;
-		System.out.println("Tong cua a va b :" + c);
+		System.out.println("Tong cua " + a + " va " + b + " : " + c);
 	}
-
 }
