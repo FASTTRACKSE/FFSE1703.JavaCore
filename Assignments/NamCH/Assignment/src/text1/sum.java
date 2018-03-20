@@ -4,7 +4,6 @@ public class sum {
 
 	public static void main(String[] args) {
 		int a, b, c, d, e;
-		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Nhap so a :");
 		a = input.nextInt();
