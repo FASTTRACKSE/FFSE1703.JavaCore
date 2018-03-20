@@ -5,8 +5,8 @@ public class phuongtinhbac2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int a,b,c;
-		double denta,e,b2,x1,x2,candenta,x;
-		char f;
+		double denta,b2,x1,x2,candenta,x;
+		
 		Scanner myInput = new Scanner(System.in);
 		System.out.print("nhap vao so a :");
 		a= myInput.nextInt();
