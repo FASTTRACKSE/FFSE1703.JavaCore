@@ -1,12 +1,18 @@
 package ex1;
-
+import java.util.Scanner;
 public class ffse1703020 {
 	public static void main(String[] args) {
 		int a, b, c;
-		a = 5;
-		b = 8;
+		Scanner myInput = new Scanner(System.in);
+		
+		System.out.print("Nhap vao so a : ");
+		a = myInput.nextInt();
+		
+		System.out.print("Nhap vao so b : ");
+		b = myInput.nextInt();
+		
 		c = a + b;
-		System.out.println("Tong cua" + a + "+" + b + "=" + c);
+		
+		System.out.printf("Tong cua %d + %d = %d \n", a, b, c);
 	}
-
 }
