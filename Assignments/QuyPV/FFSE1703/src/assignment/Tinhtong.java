@@ -17,6 +17,7 @@ public class Tinhtong {
 		 c = a+b;
 		 System.out.println("Tổng của " + a + " và " + b + " là:" + c);
 		 System.out.printf("Tổng của %d và %d là:%d \n", a,b,c);
+	
 
 	}
 
