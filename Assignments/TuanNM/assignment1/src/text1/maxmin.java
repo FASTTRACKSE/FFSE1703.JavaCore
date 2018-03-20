@@ -1,6 +1,6 @@
 package text1;
 	import java.util.Scanner;
-	public class tinhtong {
+	public class maxmin {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,9 +13,8 @@ package text1;
 		b= myInput.nextInt();	
 		c = Math.min(a,b);
 		d = Math.max(a,b);
-		
 		System.out.println("Gia tri nho nhat : "+c);
 		System.out.println("Gia tri lon nhat : "+d);
-		System.out.println("can bac hai cua so lon nhat : "+e);
+
 	}
 }
