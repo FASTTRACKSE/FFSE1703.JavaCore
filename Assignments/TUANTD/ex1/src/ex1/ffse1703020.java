@@ -11,8 +11,10 @@ public class ffse1703020 {
 		System.out.print("Nhap vao so b : ");
 		b = myInput.nextInt();
 		
-		c = a + b;
+		System.out.print("Nhap vao so c : ");
+		c = myInput.nextInt();
 		
-		System.out.printf("Tong cua %d + %d = %d \n", a, b, c);
+		System.out.printf("So nho nhat la %d, %d, %d la %d \n", a, b, c,Math.min(Math.min(a, b), c));
+		System.out.printf("So lon nhat la %d, %d, %d la %d \n", a, b, c,Math.max(Math.max(a, b), c));
 	}
 }
