@@ -1,6 +1,7 @@
 package Fasttrack.edu.vn;
 import java.util.Scanner;
 public class Phuongtrinhbac2 {
+	public static void main(String[] args) {
 	int a, b, c;
 	Scanner myInput = new Scanner(System.in);
 	
@@ -12,6 +13,7 @@ public class Phuongtrinhbac2 {
 	
 	System.out.print("Nhap so c: ");
 	c = myInput.nextInt();
+	
 	
 	if(a==0) {
 		System.out.println("Khong phai phuong trinh bac 2");
