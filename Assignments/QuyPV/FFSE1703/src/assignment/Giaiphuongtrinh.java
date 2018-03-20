@@ -16,6 +16,8 @@ public class Giaiphuongtrinh {
 		System.out.print("Nhập c:");
 		c = myInput.nextDouble();
 		
+		
+		
 //		tính delta
 		delta = (b*b) - 4*a*c;
 		
