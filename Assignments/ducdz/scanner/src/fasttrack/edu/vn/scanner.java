@@ -14,5 +14,4 @@ public class scanner {
 		c = a+b;
 		System.out.print("Tong "+ a + " va " + b +":"+c);
 	}
-
-}		
+}
