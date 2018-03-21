@@ -7,7 +7,7 @@
 ### Pratise List
 
 
-   +pratise 1: [sonhonhat]
-  (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/MySample1/src/fasttrack/edu/vn/timsonhonhattrong3so.java)
+   +pratise 1: [sonhonhat](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/MySample1/src/fasttrack/edu/vn/timsonhonhattrong3so.java)
   
-   +pratise 2: [tinhtong] (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/MySample1/src/fasttrack/edu/vn/tong2so.java)
+   +pratise 2: [tinhtong](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/MySample1/src/fasttrack/edu/vn/tong2so.java)
+   +pratise 2: [vòng lặp](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/vonglap/src/fasttrack/edu/vn/vonglap.java) 
