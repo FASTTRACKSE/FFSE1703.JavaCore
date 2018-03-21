@@ -1,5 +1,5 @@
 package assignment;
-import java.util.Scanner;;
+import java.util.Scanner;
 public class Giaiphuongtrinh {
 
 	public static void main(String[] args) {
@@ -23,7 +23,13 @@ public class Giaiphuongtrinh {
 		
 		if (a == 0) {
 			if (b == 0) {
-				System.out.println("Phương trình vô nghiệm");
+				if (c != 0) {
+					System.out.println("Phương trình vô nghiệm");
+				}
+				else {
+					System.out.println("Phương trình vô số nghiệm");
+				}
+				
 			}
 			else {
 				x = -c/b;
