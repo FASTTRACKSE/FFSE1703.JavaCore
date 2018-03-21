@@ -1,13 +1,10 @@
 package assignment_day3;
-
 import java.util.Scanner;
-
 public class solonnhattrongmang {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int size;
-
 		Scanner myInput = new Scanner(System.in);
 		System.out.print("Nhap vao so phan tu mang : ");
 		size = myInput.nextInt();
@@ -20,18 +17,13 @@ public class solonnhattrongmang {
 		for (int a = 0; a < mang.length; a++) {
 			System.out.print(+mang[a] + "; ");
 		}
-		int max = mang[0];
-		int vtmax = 0;
-
+		int max = mang[0],vtmax = 0;
 		for (int c = 1; c < mang.length; c++) {
 			if (max < mang[c]) {
 				max = mang[c];
-				vtmax = c;
-				
+				vtmax = c;		
 			}
 		}
 		System.out.println("\nVị trí số lớn nhất thứ" + vtmax + "có giá trị" + max);
-
 	}
-
 }
