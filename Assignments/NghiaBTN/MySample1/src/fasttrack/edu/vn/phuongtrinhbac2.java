@@ -9,25 +9,26 @@ public class phuongtrinhbac2 {
 		
 		Scanner myInput = new Scanner(System.in);
 		
-		System.out.print("nhap vao so a : ");
+		System.out.print("Nhap vao so a : ");
 		a = myInput.nextInt();
 		
-		System.out.print("nhap vao so b : ");
+		System.out.print("Nhap vao so b : ");
 		b = myInput.nextInt();
 		
-		System.out.print("nhap vao so c : ");
+		System.out.print("Nhap vao so c : ");
 		c = myInput.nextInt();
 		
 		if(a==0) {
 			System.out.println("khong phai phuong trinh bac 2");
-		}else {
+		}
+		else {
 			double x =Math.pow(b, 2)-4*a*c;
 			if( x < 0) {
-				System.out.println("phuong trinh vo nghiem ");}
+				System.out.println("Phuong trinh vo nghiem ");}
 			if(x > 0) {
-				System.out.println("phuong trinh co 2 nghiem ");
+				System.out.println("Phuong trinh co 2 nghiem ");
 			}if(x==0) {
-				System.out.println("phuong trinh co nghiem kep");
+				System.out.println("Phuong trinh co nghiem kep");
 					}
 				}
 		}
