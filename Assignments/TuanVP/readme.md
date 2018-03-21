@@ -2,4 +2,5 @@
 
 ### Assignment List
 
-1. Assigment 0: [Hello World](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanVP/HelloWorld/src/HelloWorld.java)
+1. Assignment 0: [Hello World](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanVP/HelloWorld/src/HelloWorld.java)
+2. Assignment 1: [Giai PT bac 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanVP/Assignment/src/Assignment_1/Giaiptbac2.java)
