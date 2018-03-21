@@ -10,7 +10,7 @@ public class phuong_trinh_bac2 {
 		a = myInput.nextInt();
 		System.out.println("Nhap so b:");
 		b = myInput.nextInt();
-		System.out.println("Nhap so c:");
+		System.out.println("Nhap so c:	");
 		c = myInput.nextInt();
 		double delta = b*b-4*a*c;
 		if(delta<0) {
