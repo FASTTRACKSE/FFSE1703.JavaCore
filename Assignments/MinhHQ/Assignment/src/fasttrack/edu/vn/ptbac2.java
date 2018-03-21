@@ -6,7 +6,8 @@ import java.lang.Math;
 
 public class ptbac2 {
 	public static void main(String[] args) {
-		double a,b,c,x,x1,x2;
+		int a,b,c;
+		double x,x1,x2;
 		
 		Scanner myInput = new Scanner(System.in);
 		
