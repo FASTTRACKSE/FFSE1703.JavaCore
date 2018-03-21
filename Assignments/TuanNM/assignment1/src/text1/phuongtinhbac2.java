@@ -31,8 +31,8 @@ public class phuongtinhbac2 {
 			candenta = Math.sqrt(denta);
 			
 			if(denta > 0) {
-				x1 = (-b+candenta)/2*a;
-				x2 = (-b-candenta)/2*a;
+				x1 = (-b+candenta)/(2*a);
+				x2 = (-b-candenta)/(2*a);
 				System.out.println("x1 = "+x1);
 				System.out.println("x2 = "+ x2);
 			}else if(denta ==0) {

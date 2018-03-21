@@ -15,7 +15,7 @@ public class giaiphuongtrinhbachai {
 		c = myInput.nextInt();
 		
 		if (a==0) {
-			System.out.print("vi phuong trinh bac hai la a khac 0");
+			System.out.print(" khong phai la phuong trinh bac hai vi phuong trinh bac hai la a khac 0");
 		}
 			double x ;
 			x=Math.pow(b,2)- 4*a*c;
