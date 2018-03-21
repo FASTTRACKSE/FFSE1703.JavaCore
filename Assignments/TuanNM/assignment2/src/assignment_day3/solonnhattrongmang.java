@@ -21,15 +21,16 @@ public class solonnhattrongmang {
 			System.out.print(+mang[a] + "; ");
 		}
 		int max = mang[0];
+		int vtmax = 0;
 
 		for (int c = 1; c < mang.length; c++) {
 			if (max < mang[c]) {
 				max = mang[c];
+				vtmax = c;
 				
 			}
 		}
-		
-		System.out.println("\n Gia tri lon nhat la:"+max);
+		System.out.println("\nVị trí số lớn nhất thứ" + vtmax + "có giá trị" + max);
 
 	}
 
