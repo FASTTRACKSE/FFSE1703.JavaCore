@@ -48,7 +48,7 @@ public class Mang {
 			}
 		}
 
-		System.out.println("Số nhỏ nhất là: " + min + ". " + "Vị trí phần tử trong mảng: " + vtMin + "quy");
+		System.out.println("Số nhỏ nhất là: " + min + ". " + "Vị trí phần tử trong mảng: " + vtMin);
 	}
 
 }
