@@ -1,4 +1,4 @@
-package Assignment_1;
+package fasstrack.edu.vn;
 
 
 import java.util.Scanner;
