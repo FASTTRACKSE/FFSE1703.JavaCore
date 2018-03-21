@@ -9,25 +9,26 @@ public class phuongtrinhbac2 {
 		
 		Scanner myInput = new Scanner(System.in);
 		
-		System.out.print("nhap vao so a : ");
+		System.out.print("Nhập vào số a : ");
 		a = myInput.nextInt();
 		
-		System.out.print("nhap vao so b : ");
+		System.out.print("Nhập vào số b : ");
 		b = myInput.nextInt();
 		
-		System.out.print("nhap vao so c : ");
+		System.out.print("Nhập vào số c : ");
 		c = myInput.nextInt();
 		
 		if(a==0) {
-			System.out.println("khong phai phuong trinh bac 2");
-		}else {
+			System.out.println("không phải phương trình bậc 2");
+		}
+		else {
 			double x =Math.pow(b, 2)-4*a*c;
 			if( x < 0) {
-				System.out.println("phuong trinh vo nghiem ");}
+				System.out.println("Phương trình vô nghiệm ");}
 			if(x > 0) {
-				System.out.println("phuong trinh co 2 nghiem ");
+				System.out.println("Phương trình có 2 nghiệm ");
 			}if(x==0) {
-				System.out.println("phuong trinh co nghiem kep");
+				System.out.println("Phương trình có nghiệm kép");
 					}
 				}
 		}
