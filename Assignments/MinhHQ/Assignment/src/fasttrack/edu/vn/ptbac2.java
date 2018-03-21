@@ -40,7 +40,7 @@ public class ptbac2 {
 				} else if(denta > 0) {
 					x1 = (-b + Math.sqrt(denta)) / (2*a);
 					x2 = (-b - Math.sqrt(denta)) / (2*a);
-					System.out.println("Phương trình có 2 nghiệm : x1 = " + x1 + " và x2 = " + x2);
+					System.out.printf("Phương trình có 2 nghiệm : x1 = %.2f và x2 = %.2f \n",x1,x2);
 					} else {
 						x1 = -b/(2*a);
 						System.out.println("Phương trình có nghiệm kép là : x1 = x2 = " + x1);
