@@ -1,4 +1,4 @@
-package ex1;
+package Assignment1;
 import java.util.Scanner;
 public class ffse1703020 {
 	public static void main(String[] args) {
