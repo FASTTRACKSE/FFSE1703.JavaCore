@@ -24,7 +24,7 @@ public class ptb2 {
 		            System.out.println("Phuong trinh vo nghiem ");
 		          }
 		        }
-		        else{
+		        else{	
 		          x1=(-c)/b;
 		          System.out.println("Phuong trinh co nghiem duy nhat : " + x1);
 		        }
