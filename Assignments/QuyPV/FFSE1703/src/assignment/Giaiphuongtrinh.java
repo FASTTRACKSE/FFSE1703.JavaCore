@@ -30,6 +30,8 @@ public class Giaiphuongtrinh {
 				}
 
 			} else {
+				// tránh trường hợp x = -0.0
+				
 					if (c == 0) {
 						x = c / b;
 						System.out.println("Phương trình có nghiệm x = " + x);
