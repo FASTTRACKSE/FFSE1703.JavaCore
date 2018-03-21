@@ -13,7 +13,7 @@ public class phuong_trinh_bac2 {
 		System.out.println("Nhap so c:	");
 		c = myInput.nextInt();
 		double delta = b*b-4*a*c;
-		if(delta<0) {
+		if(delta<0 && b==0 && a==0) {
 			System.out.println("phuong trinh vo nghiem");
 		}
 		if(delta==0) {
@@ -27,5 +27,4 @@ public class phuong_trinh_bac2 {
 			System.out.println("Phuong trinh co nghiem x2 : "+x2);
 		}
 	}
-
 }
