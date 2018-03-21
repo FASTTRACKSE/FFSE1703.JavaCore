@@ -16,6 +16,9 @@ public class phuong_trinh_bac2 {
 		if(delta<0) {
 			System.out.println("phuong trinh vo nghiem");
 		}
+		if(b==0) {
+			System.out.println("phuong trinh vo nghiem");
+		}
 		if(delta==0) {
 			int x = -b/2*a;
 			System.out.println("phuong trinh co nghiem kep : "+x);
