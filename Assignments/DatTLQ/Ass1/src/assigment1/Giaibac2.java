@@ -30,8 +30,8 @@ public class Giaibac2 {
 				x=-b/2*a;
 				System.out.print("Phuong trinh co nghiem kep la:"+ x);
 			}else if(d>0){
-				x=-b-Math.sqrt(d)/2*a;
-				y=-b+Math.sqrt(d)/2*a;
+				x=(-b-Math.sqrt(d))/(2*a);
+				y=(-b+Math.sqrt(d))/(2*a);
 				System.out.println("Phuong trinh co 2 nghiem" +"\n"+x+ "\n"+y);
 				
 			}else {System.out.print("Phuong trinh vo nghiem");}
