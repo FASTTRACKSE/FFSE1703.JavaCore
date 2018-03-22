@@ -20,10 +20,10 @@ public class Giaibac2 {
 		d = (b * b) - 4 * a * c;
 		if (a == 0) {
 			if (b == 0) {
-			
-				if(c==0) {
+
+				if (c == 0) {
 					System.out.print("Phuong trinh vo so nghiem");
-				}else {
+				} else {
 					System.out.print("Phuong trinh vo nghiem");
 				}
 			} else {
