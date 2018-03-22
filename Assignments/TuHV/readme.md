@@ -12,5 +12,5 @@
 <h1> FFSE1703 TuHV's Repository for ASSIGMENT</h1>
 <h1>Assigment 1</h1>  [giải phương trình bậc hai]
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/MySample1/src/fasttrack/edu/vn/Giaiphuongtrinhbachai2.java)
-<h1>Assigment 2</h1> [Tìm max, min và vị trí]
+<h1>Assigment 2</h1>  [Tìm max, min và vị trí]
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Vonglap/src/fasttrack/edu/vn/Timsolonnhattrongmang.java)

@@ -8,13 +8,13 @@ public class solonnhattrongmang {
 		n = myInput.nextInt();
 		 int[] a = new int[n];
 		 for (i=0; i < n; i++) {
-			 System.out.println("nhập giá trị phần tử a[" + i +"] là ");
+			 System.out.println("nhập giá trị phần tử a[" + (i+1) +"] là ");
 	            a[i] = myInput.nextInt();
 
 		 }
 		 nho=a[0];
 		 lon=a[0];
-			int x=0,y=0;
+			int x=1,y=1;
 			
 			for(i=0;i<n;i++) {
 				if(nho>a[i]) {
