@@ -14,7 +14,7 @@ public class solonnhattrongmang {
 		 }
 		 nho=a[0];
 		 lon=a[0];
-			int x=0,y=0;
+			int x=1,y=1;
 			
 			for(i=0;i<n;i++) {
 				if(nho>a[i]) {
