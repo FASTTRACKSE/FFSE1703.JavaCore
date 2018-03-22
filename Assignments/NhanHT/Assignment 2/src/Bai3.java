@@ -14,7 +14,7 @@ public class Bai3 {
 		int maxvt = 0;
 		
 		for(int i=0;i<a;i++) {
-			System.out.print("Nhap " + "["+ i +"]");
+			System.out.print("Nhap " + "["+ (i +1)+"]");
 			 arr[i] = myInput.nextInt();
 		}
 		int min = arr[0];
