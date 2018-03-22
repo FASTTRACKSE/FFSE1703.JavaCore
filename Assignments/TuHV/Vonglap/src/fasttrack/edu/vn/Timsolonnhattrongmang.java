@@ -13,12 +13,11 @@ public class Timsolonnhattrongmang {
 		for (i = 1; i <= a; i++) {
 			System.out.println("Nhap so phan tu cua mang " + i + ":");
 			b[i - 1] = input.nextInt();
-
 		}
 		int max=b[0];
 		int min=b[0];
-		int vitrimax=0;
-		int vitrimin=0;
+		int vitrimax=1;
+		int vitrimin=1;
 		
 		for(i = 1; i <= a; i++) {
 			if(max<b[i-1]) {
