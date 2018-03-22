@@ -15,7 +15,7 @@ public class baitap2
 	 		 System.out.println("Nhập các phần tử cho mảng: ");
  		for (int i = 0; i < n; i++) 
  			{
-			  System.out.print("Nhập phần tử thứ " + i + ": ");
+			  System.out.print("Nhập phần tử thứ " + (i + 1) + ": ");
 			  arr[i] = scanner.nextInt();
  			}
 		 //Đếm số lần xuất hiện của 1 phần tử 
@@ -31,15 +31,22 @@ public class baitap2
 		 //tìm min & max
 		 int max = arr[0];
 		 int min = arr[0];
-		 for (int i=0;i<n;i++)
+		 int vitri1=1, vitri2=1;
+		 for (int i=1;i<n;i++)
 		 {
 		     if(max<arr[i])
-			  max=arr[i];
-		     if(min>arr[i])
-		      min=arr[i];
+		     {
+			   max    = arr[i];
+		       vitri1 = i + 1;
+		     }
+		     if(min>arr[i]) 
+		     {
+		       min    = arr[i];
+		       vitri2 = i + 1;
+		      }
 		 }
-		 System.out.println("Số phần tử lớn nhất trong mảng là : " + max);
-		 System.out.println("Số phần tử nhỏ nhất trong mảng là : " + min);
+		 System.out.println("Số phần tử lớn nhất trong mảng là : " + max + " và nằm ở vị trí thứ "+ vitri1 +" của mảng");
+		 System.out.println("Số phần tử nhỏ nhất trong mảng là : " + min + " và nằm ở vị trí thứ "+ vitri2 +" của mảng");
 	}
 }
 
