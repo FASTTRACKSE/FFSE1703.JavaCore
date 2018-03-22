@@ -1,6 +1,6 @@
-package Asm1;
+package Assignment_list;
 import java.util.Scanner;
-public class Assignment {
+public class Assignment1 {
 	public static void main(String[] args) {
 		int a,b,c;
 		Scanner input = new Scanner(System.in);

@@ -6,11 +6,11 @@ public class phuong_trinh_bac2 {
 		// TODO Auto-generated method stub
 		int a,b,c;
 		Scanner myInput = new Scanner(System.in);
-		System.out.println("Nhap so a:");
+		System.out.println("Nhap so a: ");
 		a = myInput.nextInt();
-		System.out.println("Nhap so b:");
+		System.out.println("Nhap so b: ");
 		b = myInput.nextInt();
-		System.out.println("Nhap so c:	");
+		System.out.println("Nhap so c: ");
 		c = myInput.nextInt();
 		double delta = b*b-4*a*c;
 		if(a==0) {
