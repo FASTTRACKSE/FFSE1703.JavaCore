@@ -1,7 +1,6 @@
-package Assignment2;
+package Assignment_list;
 import java.util.Scanner;
-public class Asm2 {
-
+public class Assignment2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int size,max=0,min=0,a=0,b=0,dem=1;
@@ -32,5 +31,4 @@ public class Asm2 {
 		System.out.println("\nSố lớn nhất tìm được là số : "+max + " vị trí thứ " +a +" trong các số");
 		System.out.println("Số lớn nhất tìm được là số : "+min + " vị trí thứ " +b +" trong các số");
 	}
-
 }
