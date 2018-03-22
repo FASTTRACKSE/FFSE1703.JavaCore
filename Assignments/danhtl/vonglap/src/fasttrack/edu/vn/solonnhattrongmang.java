@@ -8,7 +8,7 @@ public class solonnhattrongmang {
 		n = myInput.nextInt();
 		 int[] a = new int[n];
 		 for (i=0; i < n; i++) {
-			 System.out.println("nhập giá trị phần tử a[" + i +"] là ");
+			 System.out.println("nhập giá trị phần tử a[" + (i+1) +"] là ");
 	            a[i] = myInput.nextInt();
 
 		 }
