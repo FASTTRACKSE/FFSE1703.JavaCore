@@ -14,7 +14,7 @@ int n,i,min,max;
 		int[] a= new int[n];
 		
 		for(i=0; i<n ;i++) {
-			System.out.print("Nhập giá trị của phần tử  a["+ i +"] :");
+			System.out.print("Nhập giá trị của phần tử  a["+ (i+1) +"] :");
 				a[i] = myInput.nextInt();
 			}
 		
