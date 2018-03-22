@@ -28,6 +28,6 @@ if (delta < 0) {  System.out.println("Phương trình vô nghiệm!");
 } else if (delta == 0) {
 	System.out.println("Phương trình có nghiệm kép x =" + (-b/(2*a)));
 } else  {
-	System.out.println("phương trình có 2 nghiệm là" + "x1 = " + x1 + " và x2 = " + x2);
+	System.out.println("phương trình có 2 nghiệm là " + "x1:  = " + x1 + " và x2 = " + x2);
 }}}}
 		  
