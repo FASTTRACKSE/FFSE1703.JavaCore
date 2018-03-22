@@ -1,11 +1,10 @@
 package fasttrack.edu.vn;
-
 import java.util.Scanner;
-
 public class vonglap {
+
 	public static void main(String[] args) {
-		
-		int n,i,min,max;
+		// TODO Auto-generated method stub
+int n,i,min,max;
 		
 		Scanner myInput = new Scanner(System.in);
 		
