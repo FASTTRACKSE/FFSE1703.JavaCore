@@ -13,7 +13,7 @@ public class Mang {
 		// nhập số phần tử cho mảng
 		System.out.print("Nhập số phần tử cho mảng: ");
 		size = myInput.nextInt();
-
+		// khởi tạo mảng
 		int array[] = new int[size];
 		
 		// nhập giá trị vào mảng
