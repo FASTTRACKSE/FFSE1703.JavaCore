@@ -28,18 +28,15 @@ public class vonglap {
 				min=a[i];
 				x= i+1;
 				} 
-			  }
-
-		System.out.println("Số nhỏ nhất trong "+ n +" phần tử là :"+ min);
-		
-		System.out.println("Là phần tử thứ "+x);
-		
-		for(i=0;i<n;i++) {
 			if(max<a[i]) {
 				max=a[i];
 				y= i+1;
 				}	
 			  }
+
+		System.out.println("Số nhỏ nhất trong "+ n +" phần tử là :"+ min);
+		
+		System.out.println("Là phần tử thứ "+x);
 		
 		System.out.println("Số lớn nhất trong "+ n +" phần tử là :"+ max);
 		
