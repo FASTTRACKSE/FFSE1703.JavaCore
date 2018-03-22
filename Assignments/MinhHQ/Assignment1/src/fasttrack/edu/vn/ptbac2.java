@@ -26,11 +26,10 @@ public class ptbac2 {
 					System.out.println("Phương trình có vô số nghiệm.");
 				} else {
 					System.out.println("Phương trình vô nghiệm.");
-				}
+					}
 			} else {
 				System.out.println("Phương trình có 1 nghiệm là : " + -c/b);
-			}
-			
+				}		
 
 		} else {
 			double denta =Math.pow(b, 2)-4*a*c;
