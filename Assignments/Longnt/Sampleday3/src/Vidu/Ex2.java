@@ -15,7 +15,7 @@ public class Ex2
 	 		 System.out.println("Nhập các phần tử cho mảng: ");
  		for (int i = 0; i < n; i++) 
  			{
-			  System.out.print("Nhập phần tử thứ " + i + ": ");
+			  System.out.print("Nhập phần tử thứ " +(i + 1) +": ");
 			  arr[i] = scanner.nextInt();
  			}
 		 //Đếm số lần xuất hiện của 1 phần tử 
