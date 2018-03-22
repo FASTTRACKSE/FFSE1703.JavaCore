@@ -28,12 +28,16 @@ public class vidu2 {
 
 		int max = arr[0];
 		int keymax = 0;
+		int min=arr[0];
 		for (int b = 1; b < a; b++) {
 			if (max < arr[b]) {
 				max = arr[b];
 				keymax = b;
 
+			}else {
+				
 			}
+			
 
 		}
 		System.out.println("So lon nhat  :" + max + ". " + "Vi tri phan tu trong mang la :" + keymax);
