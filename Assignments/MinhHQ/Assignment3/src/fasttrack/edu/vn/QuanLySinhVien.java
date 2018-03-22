@@ -37,6 +37,8 @@ public class QuanLySinhVien {
 			
 			System.out.print("Nhập điểm môn LP2 "+  " :");
 			diem_lp2[i] = myScanner.nextDouble();
+			
+			diem_tbm[i] = ((diem_lp1[i]+ diem_lp2[i])/2);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -49,12 +51,34 @@ public class QuanLySinhVien {
 		System.out.println("STT      Họ và tên       lp1     lp2     ĐTB");
 		System.out.println("--------------------------------------------");
 		for (i = 0; i < n; i++) {
-			diem_tbm[i] = ((diem_lp1[i]+ diem_lp2[i])/2);
 			System.out.println((i+1)+"   " + ten_SV[i] + "       " +diem_lp1[i]+"     "+diem_lp2[i] + "     "+ diem_tbm[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
+	}
+	
+	public static void topSV() {
+		double
+		min = diem_tbm[0],
+		max = diem_tbm[0];
+		int x =0, y=0;
+
+		for (i = 0; i < n; i++) {
+			if (min > diem_tbm[i]) {
+				min = diem_tbm[i];
+				x =i;
+			}
+			if (max < diem_tbm[i]) {
+				max = diem_tbm[i];
+				y =i;
+			}
+		}
+		System.out.println("Học sinh có kết quả học tập cao nhất là :");
+		System.out.println((y+1)+"   " + ten_SV[y] + "       " +diem_lp1[y]+"     "+diem_lp2[y] + "     "+ diem_tbm[y]);
+
+		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
+		System.out.println((x+1)+"   " + ten_SV[x] + "       " +diem_lp1[x]+"     "+diem_lp2[x] + "     "+ diem_tbm[x]);
 	}
 	
 	public static void ketThuc() {
@@ -79,7 +103,7 @@ public class QuanLySinhVien {
 			} else if (myOption == 2) {
 				inDSSV();
 			} else if (myOption == 3) {
-				
+				topSV();
 			} else if (myOption == 4) {
 				ketThuc();
 			}
