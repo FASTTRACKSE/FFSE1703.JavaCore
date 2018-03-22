@@ -17,7 +17,6 @@ public class solonnhattrongmang {
 		for (int a = 0; a < mang.length; a++) {
 			System.out.print(+mang[a] + "; ");
 		}
-<<<<<<< HEAD
 		int max = mang[0], min = mang[0];
 		int vtmax = 0, vtmin = 0;
 
@@ -37,15 +36,3 @@ public class solonnhattrongmang {
 		System.out.println("Vị trí số nhỏ nhất thứ " + vtmin + " có giá trị :" + min);
 	}
  }
-=======
-		int max = mang[0],vtmax = 0;
-		for (int c = 1; c < mang.length; c++) {
-			if (max < mang[c]) {
-				max = mang[c];
-				vtmax = c;		
-			}
-		}
-		System.out.println("\nVị trí số lớn nhất thứ" + vtmax + "có giá trị" + max);
-	}
-}
->>>>>>> 336e6623891541f8a580db8a7d90d2ffe7f835b6
