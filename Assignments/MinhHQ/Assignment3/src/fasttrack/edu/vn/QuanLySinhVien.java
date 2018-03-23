@@ -9,6 +9,7 @@ public class QuanLySinhVien {
 	
 	public static int i,n=0;
 	public static String[] ten_SV;
+	public static String[] ngay_Sinh;
 	public static double[] diem_lp1;
 	public static double[] diem_lp2;
 	public static double[] diem_tbm;
@@ -23,6 +24,7 @@ public class QuanLySinhVien {
 		System.out.print("Số lượng sinh viên :");
 		n = myScanner.nextInt();
 		 ten_SV = new String[n];
+		 ngay_Sinh = new String[n];
 		 diem_lp1 = new double[n];
 		 diem_lp2 = new double[n];
 		 diem_tbm = new double[n];
@@ -31,6 +33,9 @@ public class QuanLySinhVien {
 			
 			System.out.print("Nhập tên Sinh Viên thứ "+ (i+1) + " :");
 			ten_SV[i] = myScanner.nextLine();
+			
+			System.out.print("Nhập ngày sinh của Sinh Viên thứ "+ (i+1) + " :");
+			ngay_Sinh[i] = myScanner.nextLine();
 			
 			System.out.print("Nhập điểm môn LP1 "+ " :");
 			diem_lp1[i] = myScanner.nextDouble();
@@ -51,7 +56,7 @@ public class QuanLySinhVien {
 		System.out.println("STT      Họ và tên       lp1     lp2     ĐTB");
 		System.out.println("--------------------------------------------");
 		for (i = 0; i < n; i++) {
-			System.out.println((i+1)+"   " + ten_SV[i] + "       " +diem_lp1[i]+"     "+diem_lp2[i] + "     "+ diem_tbm[i]);
+			System.out.println((i+1)+"   " + ten_SV[i] + "  "+ngay_Sinh[i]+"       " +diem_lp1[i]+"     "+diem_lp2[i] + "     "+ diem_tbm[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -75,10 +80,10 @@ public class QuanLySinhVien {
 			}
 		}
 		System.out.println("Học sinh có kết quả học tập cao nhất là :");
-		System.out.println((y+1)+"   " + ten_SV[y] + "       " +diem_lp1[y]+"     "+diem_lp2[y] + "     "+ diem_tbm[y]);
+		System.out.println((y+1)+"   " + ten_SV[y] + "  "+ ngay_Sinh[i] + "       " +diem_lp1[y]+"     "+diem_lp2[y] + "     "+ diem_tbm[y]);
 
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
-		System.out.println((x+1)+"   " + ten_SV[x] + "       " +diem_lp1[x]+"     "+diem_lp2[x] + "     "+ diem_tbm[x]);
+		System.out.println((x+1)+"   " + ten_SV[x] + "  "+ ngay_Sinh[i] + "       " +diem_lp1[x]+"     "+diem_lp2[x] + "     "+ diem_tbm[x]);
 	}
 	
 	public static void ketThuc() {
