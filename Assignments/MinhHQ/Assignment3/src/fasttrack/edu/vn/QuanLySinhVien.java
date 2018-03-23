@@ -13,6 +13,7 @@ public class QuanLySinhVien {
 	public static double[] diem_lp1;
 	public static double[] diem_lp2;
 	public static double[] diem_tbm;
+	public static double[] sx_diem;
 
 	public static void main(String[] args) {
 		showMyMenu();
@@ -85,11 +86,50 @@ public class QuanLySinhVien {
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
 		System.out.println((x + 1) + " \t " + ten_SV[x] + " \t " + ngay_Sinh[x] + " \t " + diem_lp1[x] + " \t "
 				+ diem_lp2[x] + " \t " + diem_tbm[x]);
-		
+
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
-		
+
+	}
+
+	public static void sapxepTBM() {
+		sx_diem = new double[n];
+		for (i = 0; i < n; i++) {
+			sx_diem[i] = diem_tbm[i];
+		}
+		double temp = sx_diem[0];
+		for (i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (sx_diem[i] < sx_diem[j]) {
+					temp = sx_diem[j];
+					sx_diem[j] = sx_diem[i];
+					sx_diem[i] = temp;
+				}
+			}
+		}
+		int[] vitri = new int[n];
+		for (i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (sx_diem[i] == diem_tbm[j]) {
+					vitri[i] = j;
+				}
+			}
+		}
+		for (i = 0; i < n; i++) {
+			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println(" STT \t Họ và tên \t Ngày sinh \t lp1 \t lp2 \t ĐTB");
+			System.out.println("--------------------------------------------------------------------");
+			for (i = 0; i < n; i++) {
+				System.out.println((i + 1) + " \t " + ten_SV[vitri[i]] + " \t " + ngay_Sinh[vitri[i]] + " \t " + diem_lp1[vitri[i]] + " \t "
+						+ diem_lp2[vitri[i]] + " \t " + diem_tbm[vitri[i]]);
+			}
+		}
+
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
 	}
 
 	public static void ketThuc() {
@@ -104,7 +144,8 @@ public class QuanLySinhVien {
 			System.out.println("|1. Nhập danh sách sinh viên             |");
 			System.out.println("|2. In danh sách sinh viên               |");
 			System.out.println("|3. Top sinh viên                        |");
-			System.out.println("|4. Kết thúc chương trình                |");
+			System.out.println("|4. Sắp xếp theo điểm TBM                |");
+			System.out.println("|5. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
 
@@ -116,6 +157,8 @@ public class QuanLySinhVien {
 			} else if (myOption == 3) {
 				topSV();
 			} else if (myOption == 4) {
+				sapxepTBM();
+			} else if (myOption == 5) {
 				ketThuc();
 			}
 
