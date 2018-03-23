@@ -1,7 +1,7 @@
 package fasttrackse.edu.vn;
 
 import java.util.Scanner;
-
+import java.util.Arrays;
 public class QuanLiSvien {
 	public static Scanner myScanner = new Scanner(System.in);
 	public static Double[] arrSTT;
@@ -20,8 +20,8 @@ public class QuanLiSvien {
 			System.out.println("LUA CHON CHUC NANG");
 			System.out.println("1. Nhap danh sach sih vien");
 			System.out.println("2. In danh sach sinh vien");
-			System.out.println("3. SinhVienTieuBieu");
-			System.out.println("4. sinhVienYeuNhat");
+			System.out.println("3. Sinh vien tieu bieu");
+			System.out.println("4. sinh vien diem yeu nhat");
 			System.out.println("5. Kết thúc chương trình");
 			System.out.println("Lựa chọn của bạn");
 			
@@ -37,7 +37,7 @@ public class QuanLiSvien {
 			else if (myOption == 4) {
 				sinhVienYeuNhat();
 			}
-			else if (myOption == 5 ) {
+			else if (myOption == 6 ) {
 				ketThuc();
 			}
 	}}
@@ -70,7 +70,8 @@ public class QuanLiSvien {
 	   System.out.println("      STT      |      Ten SV      |      Diem LP1       |      Diem LP2     |      Diem TB       ");
 	   for (int  i=0 ; i < arrSinhVien.length ; i++) { 
 		   System.out.println("                  "+ arrSinhVien[i] +"               "+ diemLP1[i] +"               "+ diemLP2[i] +"                 "+ diemTB[i] +"     ");
-			myScanner.nextLine();  
+		   Arrays.sort(arrSinhVien);
+		   myScanner.nextLine();  
 	   }
 	   
 	}
@@ -80,7 +81,7 @@ public class QuanLiSvien {
     	for ( int i=0 ; i < arrSinhVien.length   ; i++) { 
     		if (max < diemTB[i])  max = diemTB[i];	
     	}
-    	System.out.println("Sinh vien tieu bieu là :   "+ arrSinhVien[vtri] +" "+ diemTB + " " + max);
+    	System.out.println("Sinh vien tieu bieu là :   "+ arrSinhVien[vtri] +" "+ diemTB[vtri] + " " + max);
     }
     public static void sinhVienYeuNhat() {
     	Double min = diemTB[0];
@@ -88,8 +89,9 @@ public class QuanLiSvien {
     	for ( int i=0 ; i < arrSinhVien.length   ; i++) { 
     		if (min < diemTB[i])  min = diemTB[i];	
     	}
-    	System.out.println("Sinh vien yeu nhat là :   "+ arrSinhVien[vtri] +" "+ diemTB + " " + min);
+    	System.out.println("Sinh vien yeu nhat là :   "+ arrSinhVien[vtri] +" "+ diemTB[vtri] + " " + min);
     }
+   
     public static void ketThuc() {
 		System.out.println("Kết thúc chương trình");
 		System.exit(0);

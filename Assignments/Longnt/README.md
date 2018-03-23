@@ -11,3 +11,4 @@ vidu 1: [Ex1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assig
 Assigment day3: [Mysample](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/Sampleday3/src/Vidu/Ex2.java)
 4. Learning day4.
 vidu 1: [Ex1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/MenuCuaToi/src/fasttrack/edu/vn/practices/MenuCuatoi.java)
+Assigment day4: [demo](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiSinhVien/src/fasttrackse/edu/vn/QuanLiSvien.java)
