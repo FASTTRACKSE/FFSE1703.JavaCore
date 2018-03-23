@@ -15,7 +15,7 @@ public class liststudent {
 		myMenu();
 	}
 	public static void nhapten() {
-		
+		System.out.println("<=====NHAP SINH VIEN=====>");
 		System.out.println("Nhap so luong");
 		 a = myInput.nextInt();
 	 arrSinhvien = new String[a];
@@ -39,7 +39,7 @@ public class liststudent {
 
 	}
 	public static void topsinhvien() {
-		System.out.println("DANH SACH TOP");
+		System.out.println("<=====DANH SACH TOP=====>");
 		double max = arrDiemtb[0];
 		int maxvt = 0;
 		for(int i=0;i<arrDiemtb.length;i++) {
@@ -53,18 +53,44 @@ public class liststudent {
 	}
 	public static void indanhsach() {
 		
-		System.out.println("DANH SACH SINH VIEN");
-		System.out.println("Ten Sinh Vien " + "    Date " + "    Diem LP1 " + "    Diem LP2 " + "    Diem TB ");
+		System.out.println("<=====DANH SACH SINH VIEN=====>");
+		System.out.println("Ten Sinh Vien " + " Date " + "  Diem LP1 " + "  Diem LP2 " + "  Diem TB ");
 		for(int i=0;i<a;i++) {	
-			System.out.println( " \t " + arrSinhvien[i] + " \t " + arrDate[i] +  " \t " + arrDiemlp1[i] +  " \t " + arrDiemlp2[i] +  " \t " + arrDiemtb[i] );
+			System.out.println(arrSinhvien[i] + " \t " + arrDate[i] +  " \t " + arrDiemlp1[i] +  " \t " + arrDiemlp2[i] +  " \t " + arrDiemtb[i] );
 		}
+	}
+	public static void sapxep() {
+		double temp = arrDiemtb[0];
+        for (int i = 0 ; i < arrDiemtb.length - 1; i++) {
+            for (int j = i + 1; j < arrDiemtb.length; j++) {
+                if (arrDiemtb[i] > arrDiemtb[j]) {
+                    temp = arrDiemtb[j];
+                    arrDiemtb[j] = arrDiemtb[i];
+                    arrDiemtb[i] = temp;
+                }
+            }
+        }
+        System.out.println("<==SAP XEP DIEM TU THAP DEN CAO==>");
+        System.out.println("DIEM TU THAP DEN CAO: ");
+        for (int i = 0; i < arrDiemtb.length; i++) {
+            System.out.println( arrDiemtb[i] + " ");
+        }
+
+
+	}
+	public static void ketthuc() {
+		System.exit(0);
 	}
 	public static void myMenu() {
 		while(true) {
-		System.out.println("LUA CHON CUA BAN");
-		System.out.println("1.TEN SINH VIEN");
-		System.out.println("2.TOP SINH VIEN");
-		System.out.println("3.IN DANH SACH");
+			System.out.println("<=====LUA CHON CHUC NANG=====>");
+			System.out.println("|| 1.NHAP TEN SINH VIEN     ||");
+			System.out.println("|| 2.TOP SINH VIEN          ||");
+			System.out.println("|| 3.DANH SACH SINH VIEN    ||");
+			System.out.println("|| 4.SAP XEP TU CAO DEN THAP||");
+			System.out.println("|| 5.KET THUC CHUONG TRINH  ||");
+			System.out.println("<============================>");
+			System.out.println("      LUA CHON CUA BAN        ");
 		int option = myInput.nextInt();
 		if(option==1) {
 			nhapten();
@@ -72,6 +98,10 @@ public class liststudent {
 			topsinhvien();
 		}else if(option == 3) {
 			indanhsach();
+		}else if(option == 4) {
+			sapxep();
+		}else if(option == 5) {
+			ketthuc();
 		}
 		}
 	}
