@@ -213,8 +213,10 @@ public class Assignment3 {
 			System.out.println("         |--1.Nhập danh sinh viên---|");
 			System.out.println("         |-2.In danh sách sinh viên-|");
 			System.out.println("         |-----3.Top sinh viên------|");
+			System.out.println("         |---4.Sắp xếp theo điểm----|");
+			System.out.println("         |---5.Sắp xếp theo họ tên--|");
 			System.out.println("         |==========================|");
-			System.out.println("         |--4.Kết thúc chương trình-|");
+			System.out.println("         |--6.Kết thúc chương trình-|");
 			System.out.println("         |__________________________|");
 			System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
 			int act = input.nextInt();
