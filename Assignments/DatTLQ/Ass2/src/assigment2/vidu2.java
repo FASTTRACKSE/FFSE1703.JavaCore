@@ -14,22 +14,30 @@ public class vidu2 {
 		int[] arr = new int[a];
 		System.out.print("Nhap cac phan tu cua mang: \n");
 		for (int i = 0; i < a; i++) {
-			System.out.printf("a[%d] = ", i);
+			System.out.printf("arr" + "[" + (i+1) + "]" + "=");
 			arr[i] = scanner.nextInt();
+			}
+		System.out.print("Cac phan tu cua mang: ");
+		for (int i=0;i<a;i++) {
+			System.out.print(arr[i]+" ");
 			
 		}
-		System.out.print("Các phần tử của mảng: ");
-        show(arr);
+		System.out.print("\n");
+        
 		
 
 		int max = arr[0];
 		int keymax = 0;
+		int min=arr[0];
 		for (int b = 1; b < a; b++) {
 			if (max < arr[b]) {
 				max = arr[b];
 				keymax = b;
 
+			}else {
+				
 			}
+			
 
 		}
 		System.out.println("So lon nhat  :" + max + ". " + "Vi tri phan tu trong mang la :" + keymax);
@@ -47,11 +55,7 @@ public class vidu2 {
 		System.out.println("So nho nhat  :" + min + ". " + "Vi tri phan tu trong mang la :" + keymin);
 
 	}
-	public static void show(int[]arr) {
-		for (int i=0;i<arr.length;i++) {
-			System.out.println(arr[i] + " ");
-        
-		}
-	}
+	
+	
 
 }

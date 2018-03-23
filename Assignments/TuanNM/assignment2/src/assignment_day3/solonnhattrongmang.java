@@ -17,13 +17,32 @@ public class solonnhattrongmang {
 		for (int a = 0; a < mang.length; a++) {
 			System.out.print(+mang[a] + "; ");
 		}
-		int max = mang[0],vtmax = 0;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7fc314af2d3d6f36358c60253d816d3c1551b724
+		int max = mang[0], min = mang[0];
+		int vtmax = 0, vtmin = 0;
+
 		for (int c = 1; c < mang.length; c++) {
 			if (max < mang[c]) {
 				max = mang[c];
-				vtmax = c;		
+				vtmax = c;
 			}
 		}
-		System.out.println("\nVị trí số lớn nhất thứ" + vtmax + "có giá trị" + max);
+		for (int j = 1; j < mang.length; j++) {
+			if (min > mang[j]) {
+				min = mang[j];
+				vtmin = j;
+			}
+		}
+		System.out.println("\nVị trí số lớn nhất thứ " + vtmax + " có giá trị :" + max);
+		System.out.println("Vị trí số nhỏ nhất thứ " + vtmin + " có giá trị :" + min);
 	}
-}
+ }
+<<<<<<< HEAD
+
+		
+
+=======
+>>>>>>> 7fc314af2d3d6f36358c60253d816d3c1551b724
