@@ -16,3 +16,5 @@
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/MySample1/src/fasttrack/edu/vn/Giaiphuongtrinhbachai2.java)
 <h1>Assigment 2</h1>  [Tìm max, min và vị trí]
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Vonglap/src/fasttrack/edu/vn/Timsolonnhattrongmang.java)
+<h1>Assigment 3</h1> [Quản lí sinh viên]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLiSinhVien/src/fasttrack/edu/vn/QuanLiSinhVien.java)
