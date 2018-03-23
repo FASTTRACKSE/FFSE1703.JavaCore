@@ -40,7 +40,7 @@ public class QuanLiSinhVien {
 			diemLP1[i] = myScanner.nextDouble();
 
 			System.out.print("Nhập điểm môn LP2 " + " :");
-			diemLP1[i] = myScanner.nextDouble();
+			diemLP2[i] = myScanner.nextDouble();
 
 			diemDTB[i] = ((diemLP1[i] + diemLP2[i]) / 2);
 		}
