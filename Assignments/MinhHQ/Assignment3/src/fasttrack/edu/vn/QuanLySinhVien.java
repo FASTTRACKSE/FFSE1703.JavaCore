@@ -52,12 +52,12 @@ public class QuanLySinhVien {
 
 	public static void inDSSV() {
 		System.out.println("Danh sách sinh viên ");
-		System.out.println("--------------------------------------------");
-		System.out.println("STT      Họ và tên       lp1     lp2     ĐTB");
-		System.out.println("--------------------------------------------");
+		System.out.println("--------------------------------------------------------------------");
+		System.out.println(" STT \t Họ và tên \t Ngày sinh \t lp1 \t lp2 \t ĐTB");
+		System.out.println("--------------------------------------------------------------------");
 		for (i = 0; i < n; i++) {
-			System.out.println((i + 1) + "   " + ten_SV[i] + "  " + ngay_Sinh[i] + "       " + diem_lp1[i] + "     "
-					+ diem_lp2[i] + "     " + diem_tbm[i]);
+			System.out.println((i + 1) + " \t " + ten_SV[i] + " \t " + ngay_Sinh[i] + " \t " + diem_lp1[i] + " \t "
+					+ diem_lp2[i] + " \t " + diem_tbm[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -79,12 +79,17 @@ public class QuanLySinhVien {
 			}
 		}
 		System.out.println("Học sinh có kết quả học tập cao nhất là :");
-		System.out.println((y + 1) + "   " + ten_SV[y] + "  " + ngay_Sinh[i] + "       " + diem_lp1[y] + "     "
-				+ diem_lp2[y] + "     " + diem_tbm[y]);
+		System.out.println((y + 1) + " \t " + ten_SV[y] + " \t " + ngay_Sinh[y] + " \t " + diem_lp1[y] + " \t "
+				+ diem_lp2[y] + " \t " + diem_tbm[y]);
 
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
-		System.out.println((x + 1) + "   " + ten_SV[x] + "  " + ngay_Sinh[i] + "       " + diem_lp1[x] + "     "
-				+ diem_lp2[x] + "     " + diem_tbm[x]);
+		System.out.println((x + 1) + " \t " + ten_SV[x] + " \t " + ngay_Sinh[x] + " \t " + diem_lp1[x] + " \t "
+				+ diem_lp2[x] + " \t " + diem_tbm[x]);
+		
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
+		
 	}
 
 	public static void ketThuc() {
