@@ -10,6 +10,7 @@ public class DanhSachSinhVien {
 	public static double arrDiemLP1[];
 	public static double arrDiemLP2[];
 	public static double arrDTB[];
+	public static String arrNgaySinh[];
 
 	public static void main(String[] args) {
 		myMenu();
@@ -46,10 +47,13 @@ public class DanhSachSinhVien {
 		arrDiemLP1 = new double[soLuong];
 		arrDiemLP2 = new double[soLuong];
 		arrDTB = new double[soLuong];
+		arrNgaySinh = new String[soLuong];
 		for (int i = 0; i < soLuong; i++) {
 			myInput.nextLine();
 			System.out.println("Nhập tên sinh viên");
 			arrHoTen[i] = myInput.nextLine();
+			System.out.println("Nhập ngày tháng năm sinh");
+			arrNgaySinh[i] = myInput.nextLine();
 			System.out.println("Nhập điểm LP1");
 			arrDiemLP1[i] = myInput.nextDouble();
 			System.out.println("Nhập điểm LP2");
@@ -61,11 +65,10 @@ public class DanhSachSinhVien {
 	}
 
 	public static void in() {
-		System.out.println("STT        " + "Họ Và tên       " + "Điểm LP1         " + "Điểm LP2         " + "ĐTB");
+		System.out.println("STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 " + "Điểm LP2 " + "ĐTB");
 		for (int i = 0; i < soLuong; i++) {
 
-			System.out.println((i + 1) + "     " + arrHoTen[i] + "            " + arrDiemLP1[i] + "                "
-					+ arrDiemLP2[i] + "                " + arrDTB[i]);
+			System.out.println((i + 1) + " \t" + arrHoTen[i] + " \t \t" + arrNgaySinh[i] + "\t" + arrDiemLP1[i] + " \t"+ arrDiemLP2[i] + " \t" + arrDTB[i]);
 		}
 	}
 

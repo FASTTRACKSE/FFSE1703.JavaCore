@@ -2,17 +2,16 @@ package fasttrack.edu.vn;
 
 import java.util.Scanner;
 
-public class QuanLySinhVien {
-	// tên,ngày sinh, điểm lp1,2,TBM
+public class QuanLiSinhVien {
 
 	public static Scanner myScanner = new Scanner(System.in);
 
 	public static int i, n = 0;
 	public static String[] ten_SV;
-	public static String[] ngay_Sinh;
-	public static double[] diem_lp1;
-	public static double[] diem_lp2;
-	public static double[] diem_tbm;
+	public static double[] diemLP1;
+	public static double[] diemLP2;
+	public static double[] diemDTB;
+	public static String[] ngaySinh;
 
 	public static void main(String[] args) {
 		showMyMenu();
@@ -24,26 +23,26 @@ public class QuanLySinhVien {
 		System.out.print("Số lượng sinh viên :");
 		n = myScanner.nextInt();
 		ten_SV = new String[n];
-		ngay_Sinh = new String[n];
-		diem_lp1 = new double[n];
-		diem_lp2 = new double[n];
-		diem_tbm = new double[n];
+		ngaySinh = new String[n];
+		diemLP1 = new double[n];
+		diemLP2 = new double[n];
+		diemDTB = new double[n];
 		for (i = 0; i < n; i++) {
 			myScanner.nextLine();
 
 			System.out.print("Nhập tên Sinh Viên thứ " + (i + 1) + " :");
 			ten_SV[i] = myScanner.nextLine();
 
-			System.out.print("Nhập ngày sinh của Sinh Viên thứ " + (i + 1) + " :");
-			ngay_Sinh[i] = myScanner.nextLine();
+			System.out.println("Nhập ngày sinh" + " :");
+			ngaySinh[i] = myScanner.nextLine();
 
 			System.out.print("Nhập điểm môn LP1 " + " :");
-			diem_lp1[i] = myScanner.nextDouble();
+			diemLP1[i] = myScanner.nextDouble();
 
 			System.out.print("Nhập điểm môn LP2 " + " :");
-			diem_lp2[i] = myScanner.nextDouble();
+			diemLP2[i] = myScanner.nextDouble();
 
-			diem_tbm[i] = ((diem_lp1[i] + diem_lp2[i]) / 2);
+			diemDTB[i] = ((diemLP1[i] + diemLP2[i]) / 2);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -51,13 +50,13 @@ public class QuanLySinhVien {
 	}
 
 	public static void inDSSV() {
-		System.out.println("Danh sách sinh viên ");
-		System.out.println("--------------------------------------------------------------------");
-		System.out.println(" STT \t Họ và tên \t Ngày sinh \t lp1 \t lp2 \t ĐTB");
-		System.out.println("--------------------------------------------------------------------");
+		System.out.println("        Danh sách sinh viên      ");
+		System.out.println("--------------------------------------------");
+		System.out.println("STT\tHọ và tên\t Ngày sinh\t lp1\t lp2\t ĐTB");
+		System.out.println("--------------------------------------------");
 		for (i = 0; i < n; i++) {
-			System.out.println((i + 1) + " \t " + ten_SV[i] + " \t " + ngay_Sinh[i] + " \t " + diem_lp1[i] + " \t "
-					+ diem_lp2[i] + " \t " + diem_tbm[i]);
+			System.out.println((i + 1) + "\t" + ten_SV[i] + "\t"+ ngaySinh[i] + "\t\t" + diemLP1[i] + "\t" + diemLP2[i]
+					+ "\t" + diemDTB[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -65,31 +64,26 @@ public class QuanLySinhVien {
 	}
 
 	public static void topSV() {
-		double min = diem_tbm[0], max = diem_tbm[0];
+		double min = diemDTB[0], max = diemDTB[0];
 		int x = 0, y = 0;
 
 		for (i = 0; i < n; i++) {
-			if (min > diem_tbm[i]) {
-				min = diem_tbm[i];
+			if (min > diemDTB[i]) {
+				min = diemDTB[i];
 				x = i;
 			}
-			if (max < diem_tbm[i]) {
-				max = diem_tbm[i];
+			if (max < diemDTB[i]) {
+				max = diemDTB[i];
 				y = i;
 			}
 		}
 		System.out.println("Học sinh có kết quả học tập cao nhất là :");
-		System.out.println((y + 1) + " \t " + ten_SV[y] + " \t " + ngay_Sinh[y] + " \t " + diem_lp1[y] + " \t "
-				+ diem_lp2[y] + " \t " + diem_tbm[y]);
+		System.out.println((y + 1) + "   " + ten_SV[y] + " " + ngaySinh[i] + "  " + diemLP1[y] + "     " + diemLP2[y]
+				+ "     " + diemDTB[y]);
 
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
-		System.out.println((x + 1) + " \t " + ten_SV[x] + " \t " + ngay_Sinh[x] + " \t " + diem_lp1[x] + " \t "
-				+ diem_lp2[x] + " \t " + diem_tbm[x]);
-		
-		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
-		myScanner.nextLine();
-		
+		System.out.println((x + 1) + "   " + ten_SV[x] + "  " + ngaySinh[i] + "    " + diemLP1[x] + "     " + diemLP2[x]
+				+ "     " + diemDTB[x]);
 	}
 
 	public static void ketThuc() {
