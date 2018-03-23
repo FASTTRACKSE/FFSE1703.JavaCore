@@ -1,41 +1,50 @@
-package assignment1;
+package assigment1;
+
 import java.util.Scanner;
-public class giaiPhuongTrinh {
+
+public class giaiPTB2 {
 	public static void main(String[] args) {
+		double a, b, c, x, y, d;
+
 		Scanner myInput = new Scanner(System.in);
-		double a, b, c, x1, x2, delta, x;
-		
-		System.out.print("Nhập a:");
+
+		System.out.print("Nhap vao so a:");
 		a = myInput.nextDouble();
-		System.out.print("Nhập b:");
+
+		System.out.print("Nhap vao so b:");
 		b = myInput.nextDouble();
-		System.out.print("Nhập c:");
+
+		System.out.print("Nhap vao so c:");
 		c = myInput.nextDouble();
-		
-	//tính delta
-		delta = (b*b) - 4*a*c;
-		
+
+		d = (b * b) - 4 * a * c;
 		if (a == 0) {
-			if (b == 0 ) {
-				if (c == 0)
-			System.out.println("Phương trình vô nghiệm");
-		}
-		else {
-			x = -c/b;
-			System.out.println("Phương trình vô số nghiệm");
-		}
-	}
-		else {
-			
-			if (delta < 0) {
-				x1 = (-b+Math.sqrt(delta))/(2*a);
-				x2 = (-b+Math.sqrt(delta))/(2*a);
-				System.out.println("Phương trình có nghiệm phân biệt x1 = "+x1);
-				System.out.println("Phương trình có nghiệm phân biệt x1 = "+x2);
+			if (b == 0) {
+
+				if (c == 0) {
+					System.out.print("Phuong trinh vo so nghiem");
+				} else {
+					System.out.print("Phuong trinh vo nghiem");
+				}
+			} else {
+				x = -c / b;
+				System.out.print("Phuong trinh co nghiem la:" + x);
+
 			}
-			else {
-				System.out.println("Phương trình có nghiệm kép x1=x2 "+(-b/(2*a)));
+		} else {
+			if (d == 0) {
+				x = -b / 2 * a;
+				System.out.print("Phuong trinh co nghiem kep la:" + x);
+			} else if (d > 0) {
+				x = (-b - Math.sqrt(d)) / (2 * a);
+				y = (-b + Math.sqrt(d)) / (2 * a);
+				System.out.println("Phuong trinh co 2 nghiem" + "\n" + x + "\n" + y);
+
+			} else {
+				System.out.print("Phuong trinh vo nghiem");
 			}
+
 		}
+
 	}
 }
