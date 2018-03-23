@@ -11,7 +11,7 @@ public class QuanLiSinhVien {
 	public static double[] diemLP1;
 	public static double[] diemLP2;
 	public static double[] diemDTB;
-	public static double[] ngaySinh;
+	public static String[] ngaySinh;
 
 	public static void main(String[] args) {
 		showMyMenu();
@@ -23,7 +23,7 @@ public class QuanLiSinhVien {
 		System.out.print("Số lượng sinh viên :");
 		n = myScanner.nextInt();
 		ten_SV = new String[n];
-		ngaySinh = new double[n];
+		ngaySinh = new String[n];
 		diemLP1 = new double[n];
 		diemLP2 = new double[n];
 		diemDTB = new double[n];
@@ -34,7 +34,7 @@ public class QuanLiSinhVien {
 			ten_SV[i] = myScanner.nextLine();
 
 			System.out.println("Nhập ngày sinh" + " :");
-			ngaySinh[i] = myScanner.nextDouble();
+			ngaySinh[i] = myScanner.nextLine();
 
 			System.out.print("Nhập điểm môn LP1 " + " :");
 			diemLP1[i] = myScanner.nextDouble();
