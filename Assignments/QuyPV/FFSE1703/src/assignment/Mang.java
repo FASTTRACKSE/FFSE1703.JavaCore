@@ -40,6 +40,7 @@ public class Mang {
 				max = array[b];
 
 			}
+			
 		}
 
 		System.out.println("Số lớn nhất là: " + max + ". " + "Vị trí phần tử trong mảng: " + vtMax);
