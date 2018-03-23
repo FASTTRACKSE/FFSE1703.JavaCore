@@ -1,8 +1,6 @@
 package practices;
 import java.util.Scanner;
 public class listhocsinh {
-
-	
 		// TODO Auto-generated method stub
 		public static Scanner myInput = new Scanner(System.in);
 		public static String[] arrSinhvien;
@@ -61,6 +59,9 @@ public class listhocsinh {
 				System.out.println( " \t " + arrSinhvien[i] + " \t " + arrDate[i] +  " \t " + arrDiemlp1[i] +  " \t " + arrDiemlp2[i] +  " \t " + arrDiemtb[i] );
 			}
 		}
+		public static void ketThuc() {
+			System.out.println("<----Kết Thúc Chương Trinh---->");
+		}
 		public static void myMenu() {
 			while(true) {
 			System.out.println("Lựa Chọn Chức Năng");
@@ -68,14 +69,14 @@ public class listhocsinh {
 			System.out.println("2.Top Sinh Viên");
 			System.out.println("3.In Danh Sách");
 			int option = myInput.nextInt();
-			if(option==1) {
+			if(option == 1) {
 				themsinhvien();
 			}else if(option == 2) {
 				topsinhvien();
 			}else if(option == 3) {
 				indanhsach();
 			}
-			}
 		}
+	}
 }
 
