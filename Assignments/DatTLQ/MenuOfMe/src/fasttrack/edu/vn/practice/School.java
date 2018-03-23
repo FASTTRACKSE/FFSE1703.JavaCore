@@ -64,7 +64,7 @@ public class School {
 		double max = arrDiemTB[0];
 		double min = arrDiemTB[0];
 
-		double tenmax = 0, maxdate = 0, tenmin = 0, mindate = 0;
+		int tenmax = 0, maxdate = 0, tenmin = 0, mindate = 0;
 		System.out.println("Sinh Vien Diem Cao Nhat va Diem Thap Nhat");
 		System.out.println("Ten SV      " + "\t" + "Ngay Sinh" + "\t" + "DTB");
 
@@ -74,11 +74,17 @@ public class School {
 				tenmax = b;
 				maxdate = b;
 				
-				
-			}System.out.println(arrHoten[b] + "\t" + arrDate[b] + "\t" + max);
+				}
+			
+				if (min > arrDiemTB[b]) {
+					min = arrDiemTB[b];
+					tenmin = b;
+					mindate = b;
+			}
 			
 		}
-		
+			System.out.println(arrHoten[tenmax] + "\t"+ "\t" + arrDate[maxdate] + "\t"+ "\t" + max);
+			System.out.println(arrHoten[tenmin] + "\t" + "\t"+ arrDate[mindate] + "\t"+ "\t" + min);
 
 	}
 
