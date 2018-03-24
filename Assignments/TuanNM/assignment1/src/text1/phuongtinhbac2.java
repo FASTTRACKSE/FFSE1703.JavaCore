@@ -45,7 +45,7 @@ public class phuongtinhbac2 {
 			} else {
 				System.out.println("phương trình vô nghiệm");
 			}
-			
+
 		}
 
 	}
