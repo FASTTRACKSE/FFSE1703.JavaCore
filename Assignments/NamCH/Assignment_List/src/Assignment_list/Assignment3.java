@@ -34,34 +34,18 @@ public class Assignment3 {
 		}
 		action=input.nextLine();
 		System.out.println("=====================================");
-		System.out.println("Nhập ENTER để Xem DANH SÁCH SINH VIÊN");
+		System.out.println("-------Nhập ENTER để tiếp tục------");
 		System.out.println("Hoặc gõ K để kết thúc trương trình");
 		action=input.nextLine();
 		if(action.equals(sosanh)) {
 			 endsv();
 			  }
-		printsv();
 	}
 	public static void printsv() {
 		System.out.println("-----------DANH SÁCH TẤT CẢ SINH VIÊN-------------");
 		System.out.println("==================================================");
 		System.out.println("STT|| Tên          ||Điểm LP1||Điểm LP2||Điểm TB");
-		System.out.println("--------------------------------------------------");
-		for (int i = 0 ; i < count; i++) {					
-					for (int j=i+1;j<count ;j++) {
-						if (sorf[i]>sorf[j]) {							
-							tempt = sorf[j];
-							sorf[j]=sorf[i];
-							sorf[i]=tempt;
-							tempp = datatensv[j];
-							datatensv[j] = datatensv[i];
-							datatensv[i] = tempp;
-							temp = datadiemtb[j];
-							datadiemtb[j] = datadiemtb[i];
-							datadiemtb[i] = temp;
-						}					
-					}										
-				}
+		System.out.println("--------------------------------------------------");		
 		for(int j=0,randum;j<count;j++) {
 			randum=sorf[j];
 			System.out.print(" " +(j+1)+"   "+datatensv[randum] +"\t");
@@ -69,14 +53,23 @@ public class Assignment3 {
 			System.out.print(datadiemlp2[randum] +"\t");
 			System.out.println(((datadiemlp1[randum]+datadiemlp2[randum])/2) +"\t");
 		}
-		System.out.println("======================");
-		System.out.println("Nhập ENTER để tiếp tục xem SINH VIÊN CÓ ĐIỂM CAO NHẤT");
+		for (int i = 0 ; i < count; i++) {					
+			for (int j=i+1;j<count ;j++) {
+				if (sorf[i]>sorf[j]) {							
+					tempt = sorf[j];
+					sorf[j]=sorf[i];
+					sorf[i]=tempt;					
+				}					
+			}										
+		}
+		action=input.nextLine();
+		System.out.println("=====================================");
+		System.out.println("-------Nhập ENTER để tiếp tục------");
 		System.out.println("Hoặc gõ K để kết thúc trương trình");
 		action=input.nextLine();
 		if(action.equals(sosanh)) {
 			 endsv();
 			  }
-		topsv();
 	}
 	public static void topsv() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM CAO NHẤT-------------");
@@ -95,27 +88,18 @@ public class Assignment3 {
 				System.out.println("Là sinh viên:" +"==>>> " + datatensv[j]+" <<<==" +"\n" +"Có điểm trung bình " +max +"\n" + "Có số thứ tự là "+(j+1));		
 			}
 		}
-		System.out.println("=============================================");
-		System.out.println("Nhập ENTER để xem Danh sách SẮP XẾP THEO ĐIỂM");
+		action=input.nextLine();
+		System.out.println("=====================================");
+		System.out.println("-------Nhập ENTER để tiếp tục------");
 		System.out.println("Hoặc gõ K để kết thúc trương trình");
 		action=input.nextLine();
 		if(action.equals(sosanh)) {
 			 endsv();
 			  }
-		sorfsv();
 	}
 	public static void sorfsv() {
 		System.out.println("-----------SẮP XẾP THEO ĐIỂM TRUNG BÌNH------------");
-		System.out.println("==================================================");
-		for (int i = 0 ; i < count; i++) {					
-			for (int j=i+1;j<count ;j++) {
-				if (sorf[i]>sorf[j]) {							
-					tempt = sorf[j];
-					sorf[j]=sorf[i];
-					sorf[i]=tempt;					
-				}					
-			}										
-		}
+		System.out.println("==================================================");		
 		for (int i = 0 ; i < count; i++) {
 			
 			for (int j=i+1;j<count ;j++) {
@@ -143,27 +127,30 @@ public class Assignment3 {
 			System.out.print(datadiemlp2[ll] +"\t");
 			System.out.println(datadiemtb[i] +"\t");			
 		}
-		System.out.println("===============================================");
-		System.out.println("Nhập ENTER để xem danh sách SẮP XẾP THEO HỌ TÊN");
-		System.out.println("Hoặc gõ K để kết thúc trương trình");
-		action=input.nextLine();
-		if(action.equals(sosanh)) {
-			 endsv();
-			  }
-		sorfnamesv();
-	}
-	public static void sorfnamesv() {
-		System.out.println("---------------SẮP XẾP THEO HỌ TÊN----------------");
-		System.out.println("==================================================");
 		for (int i = 0 ; i < count; i++) {					
 			for (int j=i+1;j<count ;j++) {
 				if (sorf[i]>sorf[j]) {							
 					tempt = sorf[j];
 					sorf[j]=sorf[i];
-					sorf[i]=tempt;				
+					sorf[i]=tempt;					
+					temp = datadiemtb[j];
+					datadiemtb[j] = datadiemtb[i];
+					datadiemtb[i] = temp;
 				}					
 			}										
 		}
+		action=input.nextLine();
+		System.out.println("=====================================");
+		System.out.println("-------Nhập ENTER để tiếp tục------");
+		System.out.println("Hoặc gõ K để kết thúc trương trình");
+		action=input.nextLine();
+		if(action.equals(sosanh)) {
+			 endsv();
+			  }
+	}
+	public static void sorfnamesv() {
+		System.out.println("---------------SẮP XẾP THEO HỌ TÊN----------------");
+		System.out.println("==================================================");		
 		for (int i = 0 ; i < count; i++) {			
 			for (int j=i+1;j<count ;j++) {
 				int result = datatensv[i].compareTo( datatensv[j] );
@@ -189,14 +176,26 @@ public class Assignment3 {
 			System.out.print(datadiemlp2[l] +"\t");
 			System.out.println(((datadiemlp1[l]+datadiemlp2[l])/2) +"\t");			
 		}
-		System.out.println("===========================================");
-		System.out.println("Nhập ENTER để Thêm sinh viên vào danh sách");
+		for (int i = 0 ; i < count; i++) {					
+			for (int j=i+1;j<count ;j++) {
+				if (sorf[i]>sorf[j]) {							
+					tempt = sorf[j];
+					sorf[j]=sorf[i];
+					sorf[i]=tempt;
+					tempp = datatensv[j];
+					datatensv[j] = datatensv[i];
+					datatensv[i] = tempp;					
+				}					
+			}										
+		}
+		action=input.nextLine();
+		System.out.println("=====================================");
+		System.out.println("-------Nhập ENTER để tiếp tục------");
 		System.out.println("Hoặc gõ K để kết thúc trương trình");
 		action=input.nextLine();
 		if(action.equals(sosanh)) {
 			 endsv();
 			  }
-		addsv();
 	}
 	public static void endsv() {
 		System.out.println("Kết thúc chương trình");
@@ -205,7 +204,7 @@ public class Assignment3 {
 		System.exit(0);
 	}
 	public static void myMenu() {
-		
+		while(true) {
 			System.out.println("         ____________________________");
 			System.out.println("         |==========================|");
 			System.out.println("         |----CHỌN LỰA CHỨC NĂNG----|");
@@ -234,6 +233,6 @@ public class Assignment3 {
 				endsv();
 			}
 		}
-	
+	}
 
 }
