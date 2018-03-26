@@ -35,18 +35,18 @@ public class MyMenu {
 	public static void Tong2so() {
 		System.out.println("Phep Cong");
 		System.out.println("---------");
-			int a,b,c;
-			
-			Scanner myInput = new Scanner(System.in);
-		
+		int a, b, c;
+
+		Scanner myInput = new Scanner(System.in);
+
 		System.out.print("Nhap vao so a :");
 		a = myInput.nextInt();
-		
+
 		System.out.print("Nhap vao so b :");
 		b = myInput.nextInt();
-		
+
 		c = a + b;
-		
+
 		System.out.println("Tong cua " + a + " + " + b + " = " + c);
 		myScanner.nextLine();
 		System.out.println("An ENTER de ve menu chinh");
@@ -56,7 +56,7 @@ public class MyMenu {
 	public static void GiaiPTb2() {
 		System.out.println("Phuong Trinh Bac 2");
 		System.out.println("------------------");
-		
+
 		double a, b, c, x, x1, x2, delta;
 
 		System.out.print("Nhap a:");
@@ -103,36 +103,36 @@ public class MyMenu {
 				myScanner.nextLine();
 				System.out.println("An ENTER de ve menu chinh");
 				myScanner.nextLine();
-	}
+			}
 		}
 	}
 
 	public static void MinMax3so() {
 		System.out.println("Tim min max Trong Mang");
 		System.out.println("----------------------");
-		
-		int a,b,c;
-		
+
+		int a, b, c;
+
 		Scanner myInput = new Scanner(System.in);
-		
+
 		System.out.print("Nhap vao so a : ");
 		a = myInput.nextInt();
-		
+
 		System.out.print("Nhap vao so b : ");
 		b = myInput.nextInt();
-		
+
 		System.out.print("Nhap vao so c : ");
 		c = myInput.nextInt();
 
 		if (Math.min(a, b) > c) {
 			System.out.printf("So nho nhat trong 3 so %d, %d, %d la %d \n", a, b, c, c);
-		}else {
+		} else {
 			System.out.printf("So nho nhat trong 3 so %d, %d, %d la %d \n", a, b, c, Math.min(a, b));
 		}
 		if (Math.max(a, b) < c) {
 			System.out.printf("So lon nhat trong 3 so %d, %d, %d la %d \n", a, b, c, c);
-		}else {
-			System.out.printf("So lon nhat trong 3 so %d, %d, %d la %d \n", a, b, c,  Math.max(a, b));
+		} else {
+			System.out.printf("So lon nhat trong 3 so %d, %d, %d la %d \n", a, b, c, Math.max(a, b));
 		}
 		myScanner.nextLine();
 		System.out.println("An ENTER de ve menu chinh");
@@ -144,6 +144,6 @@ public class MyMenu {
 		myScanner.nextLine();
 		System.out.println("Cam on va chao tam biet");
 		System.exit(0);
-		
+
 	}
 }

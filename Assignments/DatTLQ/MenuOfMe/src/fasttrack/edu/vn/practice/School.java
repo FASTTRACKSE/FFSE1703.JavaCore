@@ -64,7 +64,7 @@ public class School {
 		double max = arrDiemTB[0];
 		double min = arrDiemTB[0];
 
-		double tenmax = 0, maxdate = 0, tenmin = 0, mindate = 0;
+		int tenmax = 0, maxdate = 0, tenmin = 0, mindate = 0;
 		System.out.println("Sinh Vien Diem Cao Nhat va Diem Thap Nhat");
 		System.out.println("Ten SV      " + "\t" + "Ngay Sinh" + "\t" + "DTB");
 
@@ -73,13 +73,52 @@ public class School {
 				max = arrDiemTB[b];
 				tenmax = b;
 				maxdate = b;
-				
-				
-			}System.out.println(arrHoten[b] + "\t" + arrDate[b] + "\t" + max);
-			
-		}
-		
 
+			}
+
+			if (min > arrDiemTB[b]) {
+				min = arrDiemTB[b];
+				tenmin = b;
+				mindate = b;
+			}
+
+		}
+		System.out.println(arrHoten[tenmax] + "\t" + "\t" + arrDate[maxdate] + "\t" + "\t" + max);
+		System.out.println(arrHoten[tenmin] + "\t" + "\t" + arrDate[mindate] + "\t" + "\t" + min);
+
+	}
+
+	public static void sosanh() {
+		double cao = arrDiemTB[0];
+		for (int i = 0; i < arrDiemTB.length - 1; i++) {
+			for (int j = i + 1; j < arrDiemTB.length; j++) {
+				if (arrDiemTB[i] < arrDiemTB[j]) {
+					cao = arrDiemTB[j];
+					arrDiemTB[j] = arrDiemTB[i];
+					arrDiemTB[i] = cao;
+					cao = arrDiemLP1[j];
+					arrDiemLP1[j] = arrDiemLP1[i];
+					arrDiemLP1[i] = cao;
+					cao = arrDiemLP2[j];
+					arrDiemLP2[j] = arrDiemLP2[i];
+					arrDiemLP2[i] = cao;
+					String cao1 = arrDate[j];
+					arrDate[j] = arrDate[i];
+					arrDate[i] = cao1;
+					cao1 = arrHoten[j];
+					arrHoten[j] = arrHoten[i];
+					arrHoten[i] = cao1;
+				}
+			}
+		}
+		System.out.println("Danh Sach Sinh Vien Tu Cao Den Thap");
+		System.out.println("Ten SV" + "\t" + "Ngay Sinh" + "\t" + "DLP1" + "\t" + "DLP2" + "\t" + "DTB");
+
+		for (int i = 0; i < a; i++) {
+
+			System.out.println(arrHoten[i] + "\t" + arrDate[i] + "\t" + arrDiemLP1[i] + "\t" + arrDiemLP2[i] + "\t"
+					+ arrDiemTB[i]);
+		}
 	}
 
 	public static void mymenu() {
@@ -90,6 +129,7 @@ public class School {
 			System.out.println("2: In danh sach");
 			System.out.println("3: Top sinh vien");
 			System.out.println("4: Ket thuc");
+			System.out.println("5: In tu cao den thap");
 			System.out.println("_______________________________________" + "\n");
 
 			int input = scanner.nextInt();
@@ -101,6 +141,8 @@ public class School {
 				ketthuc();
 			} else if (input == 3) {
 				top();
+			} else if (input == 5) {
+				sosanh();
 			}
 		}
 	}

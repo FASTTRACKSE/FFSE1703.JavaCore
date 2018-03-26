@@ -2,16 +2,18 @@ package asm2;
 import java.util.Scanner;
 public class asm2 {
 	public static void main(String[] args){
-		int dai, max=0,min=0,dem=1,a=0,b=0;
+		int dai, max=0,min=0,c=1,a=0,b=0;
 		Scanner sc = new Scanner(System.in);
 		System.out.print("bạn muốn so sánh bao nhiêu số: ");
 		dai= sc.nextInt();
+		 // Khai báo và khởi tạo giá trị ban đầu cho mảng
+	    // mảng này có tên là mang và kích thước = dai
 		int[]mang = new int[dai];
 		for (int i=0; i<dai; i++) {
-			System.out.print("nhập số thứ " +dem +" : ");
+			System.out.print("nhập số thứ " +c+" : ");
 			mang[i]=sc.nextInt();
 			min = mang[i];
-			dem++;
+			c=i+1;
 		}
 		System.out.print("các số cần so sánh là: ");
 		for(int j=0; j<dai; j++) {
