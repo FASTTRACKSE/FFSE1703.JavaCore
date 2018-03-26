@@ -34,7 +34,7 @@ public class NhapStudent {
 		System.out.println("Danh Sach Sinh Vien");
 		System.out.println("Name             "+"\t"+"Date    "+"\t"+"DiemLP1     "+"\t"+"DiemLP2"    +"\t"+"DTB");
 		for(int i=0;i<4;i++) {
-			System.out.println(arrStu[i].getStuName() +"\t"  +"\t"         +arrStu[i].getStuDate()	+"\t"	+arrStu[i].DLP1	+"\t"	+"\t"	+arrStu[i].getDLP2()	+"\t"			+arrStu[i].DTB());
+			System.out.println(arrStu[i].getStuName() +"\t"  +"\t"         +arrStu[i].getStuDate()	+"\t"	+arrStu[i].getDLP1()	+"\t"	+"\t"	+arrStu[i].getDLP2()	+"\t"			+arrStu[i].DTB());
 		}
 
 	}
