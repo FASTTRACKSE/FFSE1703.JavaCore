@@ -13,6 +13,7 @@ public class DanhSachSinhVien {
 	public static String arrNgaySinh[];
 
 	public static void main(String[] args) {
+		
 		myMenu();
 
 	}
@@ -65,13 +66,51 @@ public class DanhSachSinhVien {
 	}
 
 	public static void in() {
-		System.out.println("STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 " + "Điểm LP2 " + "ĐTB");
+	        for (int i = 0 ; i < arrDTB.length - 1; i++) {
+	            for (int j = i + 1; j < arrDTB.length; j++) {
+	            	// arrHoTen[i].compareTo(arrHoTen[j])
+	                if (arrDTB[i] < arrDTB[j]) {
+	                    double temp = arrDTB[j];
+	                    arrDTB[j] = arrDTB[i];
+	                    arrDTB[i] = temp;
+	                    temp = arrDiemLP1[j];
+	                    arrDiemLP1[j] = arrDiemLP1[i];
+	                    arrDiemLP1[i] = temp;
+	                    temp = arrDiemLP2[j];
+	                    arrDiemLP2[j] = arrDiemLP2[i];
+	                    arrDiemLP2[i] = temp;
+	                    String temp2 = arrNgaySinh[j];
+	                    arrNgaySinh[j] = arrNgaySinh[i];
+	                    arrNgaySinh[i] = temp2;
+	                    temp2 = arrHoTen[j];
+	                    arrHoTen[j] = arrHoTen[i];
+	                    arrHoTen[i] = temp2;
+	                }
+	            }
+	        }
+		
+		System.out.println("STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB");
 		for (int i = 0; i < soLuong; i++) {
 
-			System.out.println((i + 1) + " \t" + arrHoTen[i] + " \t \t" + arrNgaySinh[i] + "\t" + arrDiemLP1[i] + " \t"+ arrDiemLP2[i] + " \t" + arrDTB[i]);
+			System.out.println((i + 1) + " \t" + arrHoTen[i] + " \t \t" + arrNgaySinh[i] + "\t" + arrDiemLP1[i]
+					+ " \t\t" + arrDiemLP2[i] + " \t\t" + arrDTB[i]);
 		}
 	}
 
+	public static void sapXep() {
+        double temp = arrDTB[0];
+        for (int i = 0 ; i < arrDTB.length - 1; i++) {
+            for (int j = i + 1; j < arrDTB.length; j++) {
+                if (arrDTB[i] > arrDTB[j]) {
+                    temp = arrDTB[j];
+                    arrDTB[j] = arrDTB[i];
+                    arrDTB[i] = temp;
+                }
+            }
+        }
+    }
+
+	
 	public static void top() {
 		double max, min;
 		int vtMax, vtMin;
@@ -94,8 +133,25 @@ public class DanhSachSinhVien {
 			}
 
 		}
-		System.out.println("Sinh viên có số điểm cao nhất: " + arrHoTen[vtMax] + " với " + max);
-		System.out.println("Sinh viên có số điểm thấp nhất: " + arrHoTen[vtMin] + " với " + min);
+		for (int i = 0; i < soLuong; i++) {
+
+			if (max == arrDTB[i]) {
+				max = arrDTB[i];
+				vtMax = i;
+				System.out.println("Sinh viên có số điểm cao nhất: " + arrHoTen[vtMax] + " với " + max);
+			}
+			if (min == arrDTB[i]) {
+				min = arrDTB[i];
+				vtMin = i;
+				System.out.println("Sinh viên có số điểm thấp nhất: " + arrHoTen[vtMin] + " với " + min);
+			}
+
+		}
+		
+
+			
+
+		
 
 	}
 
