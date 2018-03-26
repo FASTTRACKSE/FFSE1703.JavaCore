@@ -36,4 +36,11 @@ public class myStudent {
 	public double DTB() {
 		return ((this.DLP1)+(this.DLP2))/2;
 	}
+	public double sosanh() {
+		double max;
+		for(int i=0;i<3;i++) {
+			
+		}
+		
+	}
 }
