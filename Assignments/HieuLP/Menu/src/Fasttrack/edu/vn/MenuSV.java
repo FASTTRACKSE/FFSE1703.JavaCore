@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class MenuSV {
 	public static Scanner myScanner = new Scanner(System.in);
-	public static String[] arrSinhVien;
-	public static String[] arrNgaySinh;
-	public static Double[] arrLp1;
-	public static Double[] arrLp2;
+	public static String[] arrSinhVien = { "Lê Phước Hiếu", "Hồ Quang Minh", "Hồ Viết Tú" };
+	public static String[] arrNgaySinh = { "16/02/99", "12/02/99", "14/02/99" };
+	public static Double[] arrLp1 = { 8.0, 7.0, 7.0 };
+	public static Double[] arrLp2 = { 7.0, 6.0, 7.0 };
 	public static Double[] arrDTB;
-	public static int tongSinhVien = 0;
+	public static int tongSinhVien = 3;
 	public static int i, n = 0;
 
 	public static void main(String[] args) {
@@ -25,7 +25,8 @@ public class MenuSV {
 			System.out.println("|-1. Nhập tên học sinh                     |");
 			System.out.println("|-2. In danh sách SV                       |");
 			System.out.println("|-3. Top SV                                |");
-			System.out.println("|-4. Kết thúc chương trình                 |");
+			System.out.println("|-4. Top ĐTB                               |");
+			System.out.println("|-5. Kết thúc chương trình                 |");
 			System.out.println("|__________________________________________|");
 			System.out.println("|Lựa chọn chức năng bạn muốn?              |");
 			System.out.println("|__________________________________________|");
@@ -38,6 +39,8 @@ public class MenuSV {
 			} else if (myOption == 3) {
 				thongkeTopSV();
 			} else if (myOption == 4) {
+				topDTB();
+			} else if (myOption == 5) {
 				ketThuc();
 			}
 		}
@@ -54,7 +57,6 @@ public class MenuSV {
 		arrNgaySinh = new String[tongSinhVien];
 		arrLp1 = new Double[tongSinhVien];
 		arrLp2 = new Double[tongSinhVien];
-		arrDTB = new Double[tongSinhVien];
 
 		for (int i = 0; i < tongSinhVien; i++) {
 			myScanner.nextLine();
@@ -78,14 +80,16 @@ public class MenuSV {
 	}
 
 	public static void inSV() {
+		arrDTB = new Double[tongSinhVien];
+
 		System.out.println("Danh sách sinh viên ");
-		System.out.println("________________________________________________");
-		System.out.println("STT\tHọ và tên\tNgày Sinh\tlp1\tlp2\tĐTB  ");
-		System.out.println("________________________________________________");
+		System.out.println("_________________________________________________________");
+		System.out.println("STT   Họ và tên             Ngày Sinh     lp1  lp2  ĐTB  ");
+		System.out.println("_________________________________________________________");
 		for (i = 0; i < tongSinhVien; i++) {
 			arrDTB[i] = ((arrLp1[i] + arrLp2[i]) / 2);
-			System.out.println((i + 1) + "\t" + arrSinhVien[i] + "\t\t" + arrNgaySinh[i] + "\t" + arrLp1[i]
-					+ "\t" + arrLp2[i] + "\t" + arrDTB[i]);
+			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), arrSinhVien[i], arrNgaySinh[i], arrLp1[i],
+					arrLp2[i], arrDTB[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -97,7 +101,7 @@ public class MenuSV {
 		double min = arrDTB[0], max = arrDTB[0];
 		int x = 0, y = 0;
 
-		for (i = 0; i < n; i++) {
+		for (i = 0; i < tongSinhVien; i++) {
 			if (min > arrDTB[i]) {
 				min = arrDTB[i];
 				x = i;
@@ -114,10 +118,43 @@ public class MenuSV {
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
 		System.out.println((x + 1) + "   " + arrSinhVien[x] + "  " + arrNgaySinh[x] + "       " + arrLp1[x] + "     "
 				+ arrLp2[x] + "     " + arrDTB[x]);
-		
+
 		myScanner.nextLine();
 		System.out.println("Nhấn Enter để về menu chính");
 		myScanner.nextLine();
+	}
+
+	public static void topDTB() {
+
+		int[] vitri = new int[tongSinhVien];
+		for (i = 0; i < tongSinhVien; i++) {
+			vitri[i] = i;
+		}
+		int temp;
+		for (i = 0; i < tongSinhVien - 1; i++) {
+			for (int j = i + 1; j < tongSinhVien; j++) {
+				if (arrDTB[vitri[i]] < arrDTB[vitri[j]]) {
+					temp = vitri[j];
+					vitri[j] = vitri[i];
+					vitri[i] = temp;
+				}
+			}
+		}
+
+		System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình            ");
+		System.out.println("____________________________________________________________________");
+		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB             ");
+		System.out.println("____________________________________________________________________");
+		
+		for (i = 0; i < tongSinhVien; i++) {
+			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), arrSinhVien[vitri[i]], arrNgaySinh[vitri[i]],
+					arrLp1[vitri[i]], arrLp2[vitri[i]], arrDTB[vitri[i]]);
+		}
+
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
+
 	}
 
 	public static void ketThuc() {
