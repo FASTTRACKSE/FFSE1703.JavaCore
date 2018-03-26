@@ -5,18 +5,18 @@ import java.util.Scanner;
 public class PTbac2 {
 
 	public static void main(String[] args) {
-		Scanner myInput = new Scanner(System.in);
+		Scanner myScanner = new Scanner(System.in);
 
 		double a, b, c, x, x1, x2, delta;
 
 		System.out.print("Nhap a:");
-		a = myInput.nextDouble();
+		a = myScanner.nextDouble();
 
 		System.out.print("Nhap b:");
-		b = myInput.nextDouble();
+		b = myScanner.nextDouble();
 
 		System.out.print("Nhap c:");
-		c = myInput.nextDouble();
+		c = myScanner.nextDouble();
 
 		delta = (b * b) - 4 * a * c;
 
