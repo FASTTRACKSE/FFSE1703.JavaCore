@@ -1,5 +1,5 @@
 package fasttrack.edu.vn.mycar;
-
+import java.util.Scanner;
 public class Sinhvien {
 	public String SvName;
 	public String SvDate;
@@ -38,4 +38,5 @@ public class Sinhvien {
 	public Double getSvDiemtb() {
 		return ((this.SvDiemlp1) + (this.SvDiemlp2))/2;
 	}
+	
 }
