@@ -42,15 +42,15 @@ public class Sinhvien {
 	public float getDiemTB() {
 		return ((getDiemLp1() + getDiemLp2())/2);
 	}
-	public void getXepLoai() {		 
+	public String getXepLoai() {		 
     	if(getDiemTB()<=4.9) {
-    		System.out.println("Yếu");}
+    		return "Yếu";}
     	else if(getDiemTB()>=5.0 && getDiemTB()<=6.9) {
-    		System.out.println("Trung Bình");}
+    		return "Trung Bình";}
     	else if(getDiemTB()>=7 && getDiemTB()<=8.4) {
-    		System.out.println("Khá");}
+    		return "Khá";}
     	else {
-    		System.out.println("Giỏi");
+    		return "Giỏi";
     	}
-    }
+    }	
 }

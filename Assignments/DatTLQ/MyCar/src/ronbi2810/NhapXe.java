@@ -1,5 +1,5 @@
 package ronbi2810;
-
+import java.util.Scanner;
 public class NhapXe {
 
 	public static void main(String[] args) {
