@@ -104,15 +104,14 @@ public class QuanLiSinhVien {
 			}
 		}
 
-
 		System.out.println("        Danh sách sinh viên      ");
 		System.out.println("--------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh   lp1  lp2  ĐTB");
 		System.out.println("--------------------------------------------");
 		for (i = 0; i < n; i++) {
 
-			System.out.printf("%-5s%-25s%-10s%-5s%-5s%-5s\n", (i + 1), ten_SV[DTB[i]], ngaySinh[DTB[i]], diemLP1[DTB[i]], diemLP2[DTB[i]],
-					diemDTB[DTB[i]]);
+			System.out.printf("%-5s%-25s%-10s%-5s%-5s%-5s\n", (i + 1), ten_SV[DTB[i]], ngaySinh[DTB[i]],
+					diemLP1[DTB[i]], diemLP2[DTB[i]], diemDTB[DTB[i]]);
 
 		}
 		myScanner.nextLine();

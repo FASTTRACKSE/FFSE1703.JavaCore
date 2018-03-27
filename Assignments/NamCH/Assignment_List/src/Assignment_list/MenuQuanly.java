@@ -99,13 +99,13 @@ public class MenuQuanly {
 		float min=10;
 		int stt;
 		for (int i=0;i<soluong;i++) {
-			if(min>sv[i].getDiemTB()) {
+			if(min > sv[i].getDiemTB()) {
 				min =sv[i].getDiemTB();
 				stt=i;				
 			}			
 		}
 		for (int i=0;i<soluong;i++) {
-			if(min<=sv[i].getDiemTB()) {
+			if(min >=sv[i].getDiemTB()) {
 				System.out.println("Là sinh viên:" +"==>>> " + sv[i].getHoTen()+" <<<==" +"\n" +"Có điểm trung bình " +min +"\n" + "Có số thứ tự là "+(i+1));		
 			}
 		}
