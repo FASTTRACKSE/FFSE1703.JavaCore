@@ -9,5 +9,6 @@ Assigment2 :[Nhap du lieu mang](https://github.com/FASTTRACKSE/FFSE1703.JavaCore
 Assigment3 :[Quan Ly Sinh Vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/DatTLQ/MenuOfMe/src/fasttrack/edu/vn/practice/School.java)
 
 Assigment4: [OOP QUAN LY SINH VIEN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/DatTLQ/MyStu/src/sinhvien/Nhapstu.java) 
-(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/DatTLQ/MyStu/src/sinhvien/myStudent.java)
+
+[SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/DatTLQ/MyStu/src/sinhvien/myStudent.java)
 
