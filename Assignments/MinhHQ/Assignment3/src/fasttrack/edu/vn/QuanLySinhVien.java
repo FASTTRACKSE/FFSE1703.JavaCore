@@ -13,7 +13,6 @@ public class QuanLySinhVien {
 	public static double[] diem_lp1 = { 8.0, 7.0, 9.0, 6.0 };
 	public static double[] diem_lp2 = { 4.0, 6.0, 8.0, 4.0 };
 	public static double[] diem_tbm;
-	public static double[] sx_diem;
 
 	public static void main(String[] args) {
 		showMyMenu();
@@ -110,7 +109,6 @@ public class QuanLySinhVien {
 				}
 			}
 		}
-		
 
 		for (i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
