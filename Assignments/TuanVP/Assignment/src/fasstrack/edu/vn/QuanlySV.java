@@ -75,92 +75,108 @@ public class QuanlySV {
 		myInput.nextLine();
 	}
 	public static void Danhsach() {
-		System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
-		for (int i = 0; i < Sv ; i++) {
-			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
+		if (Sv==0) {
+			ThongtinSV();
+		} else {
+			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
+			for (int i = 0; i < Sv ; i++) {
+				System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
+			}
+			myInput.nextLine();
+			System.out.print("\n");
+			System.out.print("\n");
+			myInput.nextLine();
 		}
-		myInput.nextLine();
-		System.out.print("\n");
-		System.out.print("\n");
-		myInput.nextLine();
 	}
 	public static void TieuBieu() {
-		double max = 0,min =DiemTB[0];
-		for (int i = 0; i < Sv; i++) {
-			if (DiemTB[i] >= max) {
-				max = DiemTB[i];
-				Vt1=i;
+		if (Sv==0) {
+			ThongtinSV();
+		} else {
+			double max = 0,min =DiemTB[0];
+			for (int i = 0; i < Sv; i++) {
+				if (DiemTB[i] >= max) {
+					max = DiemTB[i];
+					Vt1=i;
+				}
+				if (DiemTB[i] <= min) {
+					min = DiemTB[i];
+					Vt2=i;
+				}
 			}
-			if (DiemTB[i] <= min) {
-				min = DiemTB[i];
-				Vt2=i;
-			}
+			System.out.println("Danh sach hoc sinh cao diem nhat: "+Hoten[Vt1]);
+			System.out.println("Danh sach hoc sinh thap diem nhat: "+Hoten[Vt2]);
+			myInput.nextLine();
+			System.out.print("\n");
+			System.out.print("\n");
+			myInput.nextLine();
 		}
-		System.out.println("Danh sach hoc sinh cao diem nhat: "+Hoten[Vt1]);
-		System.out.println("Danh sach hoc sinh thap diem nhat: "+Hoten[Vt2]);
-		myInput.nextLine();
-		System.out.print("\n");
-		System.out.print("\n");
-		myInput.nextLine();
 	}
 	public static void DanhsachABC() {
-		for (int i = 0; i < Sv-1; i++) {
-			if (Hoten[i].compareTo(Hoten[i+1])>0) {
-				tmp1= Hoten[i];
-				Hoten[i]=Hoten[i+1];
-				Hoten[i+1]=tmp1;
-				tmp1 = Ngaysinh[i];
-				Ngaysinh[i]=Ngaysinh[i+1];
-				Ngaysinh[i+1]=tmp1;
-				tmp2 = DiemLP1[i];
-				DiemLP1[i]=DiemLP1[i+1];
-				DiemLP1[i+1]=tmp2;
-				tmp2 = DiemLP2[i];
-				DiemLP2[i]=DiemLP2[i+1];
-				DiemLP2[i+1]=tmp2;
-				tmp2 = DiemTB[i];
-				DiemTB[i]=DiemTB[i+1];
-				DiemTB[i+1]=tmp2;
+		if (Sv==0) {
+			ThongtinSV();
+		} else {
+			for (int i = 0; i < Sv-1; i++) {
+				if (Hoten[i].compareTo(Hoten[i+1])>0) {
+					tmp1= Hoten[i];
+					Hoten[i]=Hoten[i+1];
+					Hoten[i+1]=tmp1;
+					tmp1 = Ngaysinh[i];
+					Ngaysinh[i]=Ngaysinh[i+1];
+					Ngaysinh[i+1]=tmp1;
+					tmp2 = DiemLP1[i];
+					DiemLP1[i]=DiemLP1[i+1];
+					DiemLP1[i+1]=tmp2;
+					tmp2 = DiemLP2[i];
+					DiemLP2[i]=DiemLP2[i+1];
+					DiemLP2[i+1]=tmp2;
+					tmp2 = DiemTB[i];
+					DiemTB[i]=DiemTB[i+1];
+					DiemTB[i+1]=tmp2;
+				}
 			}
+			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
+			for (int i = 0; i < Sv ; i++) {
+				System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
+			}
+			myInput.nextLine();
+			System.out.print("\n");
+			System.out.print("\n");
+			myInput.nextLine();
 		}
-		System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
-		for (int i = 0; i < Sv ; i++) {
-			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
-		}
-		myInput.nextLine();
-		System.out.print("\n");
-		System.out.print("\n");
-		myInput.nextLine();
 	}
 
 	public static void DanhsachTB() {
-		for (int i = 0; i < DiemTB.length-1; i++) {
-			if (DiemTB[i]<DiemTB[i+1]) {
-				tmp1= Hoten[i];
-				Hoten[i]=Hoten[i+1];
-				Hoten[i+1]=tmp1;
-				tmp1 = Ngaysinh[i];
-				Ngaysinh[i]=Ngaysinh[i+1];
-				Ngaysinh[i+1]=tmp1;
-				tmp2 = DiemLP1[i];
-				DiemLP1[i]=DiemLP1[i+1];
-				DiemLP1[i+1]=tmp2;
-				tmp2 = DiemLP2[i];
-				DiemLP2[i]=DiemLP2[i+1];
-				DiemLP2[i+1]=tmp2;
-				tmp2 = DiemTB[i];
-				DiemTB[i]=DiemTB[i+1];
-				DiemTB[i+1]=tmp2;
+		if (Sv==0) {
+			ThongtinSV();
+		} else {
+			for (int i = 0; i < DiemTB.length-1; i++) {
+				if (DiemTB[i]<DiemTB[i+1]) {
+					tmp1= Hoten[i];
+					Hoten[i]=Hoten[i+1];
+					Hoten[i+1]=tmp1;
+					tmp1 = Ngaysinh[i];
+					Ngaysinh[i]=Ngaysinh[i+1];
+					Ngaysinh[i+1]=tmp1;
+					tmp2 = DiemLP1[i];
+					DiemLP1[i]=DiemLP1[i+1];
+					DiemLP1[i+1]=tmp2;
+					tmp2 = DiemLP2[i];
+					DiemLP2[i]=DiemLP2[i+1];
+					DiemLP2[i+1]=tmp2;
+					tmp2 = DiemTB[i];
+					DiemTB[i]=DiemTB[i+1];
+					DiemTB[i+1]=tmp2;
+				}
 			}
+			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
+			for (int i = 0; i < Sv ; i++) {
+				System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
+			}
+			myInput.nextLine();
+			System.out.print("\n");
+			System.out.print("\n");
+			myInput.nextLine();
 		}
-		System.out.printf("%-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB");
-		for (int i = 0; i < Sv ; i++) {
-			System.out.printf("%-12s %-12s %-12s %-12s %-12s \n",Hoten[i],Ngaysinh[i],DiemLP1[i],DiemLP2[i],DiemTB[i]);
-		}
-		myInput.nextLine();
-		System.out.print("\n");
-		System.out.print("\n");
-		myInput.nextLine();
 	}
 	public static void ketthuc() {
 		System.out.println("\n");
