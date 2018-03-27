@@ -43,12 +43,13 @@ public class myStudent {
 	public Double getDtb() {
 		return Dtb = (this.lp1 + this.lp2) / 2;
 	}
+
 	public String getXepLoai() {
-		if (Dtb >= 8.5) {
+		if (Dtb >= 8.5&&Dtb<=10) {
 			return xepLoai = "Giỏi";
 		} else if (Dtb >= 6.5 && Dtb < 8.5) {
 			return xepLoai = "khá";
-		} else if (Dtb < 6.5 && Dtb > 5) {
+		} else if (Dtb < 6.5 && Dtb >= 5) {
 			return xepLoai = "Trung BÌnh";
 		} else {
 			return xepLoai = "Yếu";
