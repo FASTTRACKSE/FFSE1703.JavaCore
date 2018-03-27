@@ -16,8 +16,9 @@ public class QuanLySinhVien {
 			System.out.println("1. Nhap thong tin sinh vien.");
 			System.out.println("2. Danh sach sinh vien.");
 			System.out.println("3. Danh sach sinh vien tieu bieu.");
-			System.out.println("4. Sap xep sinh vien theo danh sach DiemTB tu cao den thap.");
-			System.out.println("5. Ket thuc chuong trinh.");
+			System.out.println("4. Sap xep danh sach sinh vien theo diem trung binh tu cao den thap.");
+			System.out.println("5. Sap xep danh sach sinh vien theo ho ten.");
+			System.out.println("6. Ket thuc chuong trinh.");
 			System.out.print("Vui long nhap so de chon bai toan: ");
 			x = myInput.nextInt();
 			switch (x) {
@@ -34,6 +35,9 @@ public class QuanLySinhVien {
 				DanhsachTB();
 				break;
 			case 5:
+				DanhsachABC();
+				break;
+			case 6:
 				ketthuc();
 				break;
 			}
@@ -105,6 +109,25 @@ public class QuanLySinhVien {
 		SinhVien tmp = new SinhVien();
 		for (int i = 0; i < Sinhvien.length-1; i++) {
 			if (Sinhvien[i].DiemTB<Sinhvien[i+1].DiemTB) {
+				 tmp = Sinhvien[i];
+				 Sinhvien[i] =Sinhvien[i+1];
+				 Sinhvien[i+1] = tmp;
+			}
+		}
+		System.out.printf("%-12s %-12s %-12s %-12s %-12s %-12s \n","Ten","Ngay sinh","Diem LP1","Diem LP2","Diem TB","Xep Loai");
+		for (int i = 0; i < Sv ; i++) {
+			System.out.printf("%-12s %-12s %-12.2f %-12.2f %-12.2f %-12s \n",Sinhvien[i].getHoten(),Sinhvien[i].getNgaysinh(),Sinhvien[i].getDiemLP1(),Sinhvien[i].getDiemLP2(),Sinhvien[i].getDiemTB(),Sinhvien[i].getXeploai());
+		}
+		myInput.nextLine();
+		System.out.print("\n");
+		System.out.print("\n");
+		myInput.nextLine();
+	}
+	public static void DanhsachABC() {
+		System.out.print("\n");
+		SinhVien tmp = new SinhVien();
+		for (int i = 0; i < Sinhvien.length-1; i++) {
+			if ((Sinhvien[i].getHoten()).compareTo(Sinhvien[i+1].getHoten())>0) {
 				 tmp = Sinhvien[i];
 				 Sinhvien[i] =Sinhvien[i+1];
 				 Sinhvien[i+1] = tmp;
