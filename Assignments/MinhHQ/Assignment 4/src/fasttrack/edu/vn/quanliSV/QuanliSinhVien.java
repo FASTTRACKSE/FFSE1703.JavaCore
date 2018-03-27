@@ -9,10 +9,10 @@ public class QuanliSinhVien {
 	public static SinhVien[] SV = new SinhVien[4];
 
 	public static void main(String[] args) {
-		SinhVien Sv1= new SinhVien("Hồ Quang Minh","30/10/99",8.0,6.0);
-		SinhVien Sv2= new SinhVien("Lê Phước Hiếu","13/05/99",9.0,6.0);
-		SinhVien Sv3= new SinhVien("Nguyễn Thanh Hiếu","26/09/99",4.0,5.0);
-		SinhVien Sv4= new SinhVien("Hồ Việt Tú","04/04/99",6.0,4.0);
+		SinhVien Sv1 = new SinhVien("Hồ Quang Minh", "30/10/99", 8.0, 6.0);
+		SinhVien Sv2 = new SinhVien("Lê Phước Hiếu", "13/05/99", 9.0, 6.0);
+		SinhVien Sv3 = new SinhVien("Nguyễn Thanh Hiếu", "26/09/99", 4.0, 5.0);
+		SinhVien Sv4 = new SinhVien("Hồ Việt Tú", "04/04/99", 6.0, 4.0);
 		SV[0] = Sv1;
 		SV[1] = Sv2;
 		SV[2] = Sv3;
@@ -57,15 +57,15 @@ public class QuanliSinhVien {
 	}
 
 	public static void inDSSV() {
-		
 
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (i = 0; i < n; i++) {
-			
-			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), SV[i].getName(),SV[i].getDate(),SV[i].getLp1(),SV[i].getLp2(),SV[i].getTBM());
+
+			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), SV[i].getName(), SV[i].getDate(), SV[i].getLp1(),
+					SV[i].getLp2(), SV[i].getTBM());
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -86,12 +86,14 @@ public class QuanliSinhVien {
 				y = i;
 			}
 		}
-		
+
 		System.out.println("Học sinh có kết quả học tập cao nhất là :");
-		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[y].getName(),SV[y].getDate(),SV[y].getLp1(),SV[y].getLp2(),SV[y].getTBM());
+		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[y].getName(), SV[y].getDate(), SV[y].getLp1(), SV[y].getLp2(),
+				SV[y].getTBM());
 
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
-		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[x].getName(),SV[x].getDate(),SV[x].getLp1(),SV[x].getLp2(),SV[x].getTBM());
+		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[x].getName(), SV[x].getDate(), SV[x].getLp1(), SV[x].getLp2(),
+				SV[x].getTBM());
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
@@ -116,7 +118,8 @@ public class QuanliSinhVien {
 			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
-				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(),SV[i].getDate(),SV[i].getLp1(),SV[i].getLp2(),SV[i].getTBM(),SV[i].XepLoai());
+				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
+						SV[i].getLp1(), SV[i].getLp2(), SV[i].getTBM(), SV[i].XepLoai());
 			}
 		}
 
