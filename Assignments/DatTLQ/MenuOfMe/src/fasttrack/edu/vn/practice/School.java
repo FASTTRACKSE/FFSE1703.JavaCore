@@ -89,11 +89,11 @@ public class School {
 	}
 
 	public static void sosanh() {
-		double cao = arrDiemTB[0];
+		
 		for (int i = 0; i < arrDiemTB.length - 1; i++) {
 			for (int j = i + 1; j < arrDiemTB.length; j++) {
 				if (arrDiemTB[i] < arrDiemTB[j]) {
-					cao = arrDiemTB[j];
+					double cao = arrDiemTB[j];
 					arrDiemTB[j] = arrDiemTB[i];
 					arrDiemTB[i] = cao;
 					cao = arrDiemLP1[j];
@@ -120,6 +120,39 @@ public class School {
 					+ arrDiemTB[i]);
 		}
 	}
+	public static void abc() {
+		for(int i=0;i<arrHoten.length - 1;i++) {
+			for(int j=i+1;j<arrHoten.length;j++) {
+				if(arrHoten[i].compareTo(arrHoten[j]) > 0) {
+					String temp=arrHoten[j];
+					arrHoten[j]=arrHoten[i];
+					arrHoten[i]=temp;
+					temp = arrDate[j];
+					arrDate[j] = arrDate[i];
+					arrDate[i] = temp;
+					double cao = arrDiemTB[j];
+					arrDiemTB[j] = arrDiemTB[i];
+					arrDiemTB[i] = cao;
+					cao = arrDiemLP1[j];
+					arrDiemLP1[j] = arrDiemLP1[i];
+					arrDiemLP1[i] = cao;
+					cao = arrDiemLP2[j];
+					arrDiemLP2[j] = arrDiemLP2[i];
+					arrDiemLP2[i] = cao;
+				
+					
+				}
+			}
+		}
+		System.out.println("Danh Sach Sinh Vien ABC");
+		System.out.println("Ten SV" + "\t" + "Ngay Sinh" + "\t" + "DLP1" + "\t" + "DLP2" + "\t" + "DTB");
+
+		for (int i = 0; i < a; i++) {
+
+			System.out.println(arrHoten[i] + "\t" + arrDate[i] + "\t" + arrDiemLP1[i] + "\t" + arrDiemLP2[i] + "\t"
+					+ arrDiemTB[i]);
+		}
+	}
 
 	public static void mymenu() {
 		while (true) {
@@ -130,6 +163,7 @@ public class School {
 			System.out.println("3: Top sinh vien");
 			System.out.println("4: Ket thuc");
 			System.out.println("5: In tu cao den thap");
+			System.out.println("6: In theo thu tu ABC");
 			System.out.println("_______________________________________" + "\n");
 
 			int input = scanner.nextInt();
@@ -143,6 +177,8 @@ public class School {
 				top();
 			} else if (input == 5) {
 				sosanh();
+			}else if(input==6) {
+				abc();
 			}
 		}
 	}
