@@ -1,27 +1,28 @@
 package Student2;
+
 import java.util.Scanner;
 
 public class importStudent {
 	public static int size;
-    public static myStudent[] Student = new myStudent[100];
-    public static Scanner myScanner = new Scanner(System.in);
+	public static myStudent[] Student = new myStudent[100];
+	public static Scanner myScanner = new Scanner(System.in);
+
 	public static void main(String[] args) {
-		
+
 		// TODO Auto-generated method stub
 		myMenu();
-		
-	
+
 	}
+
 	public static void themSv() {
 		System.out.print("Nhap vao so số sinh viên cần thêm : ");
 		size = myScanner.nextInt();
-		
-		
-		for(int i= 0 ;i<size;i++) {
+
+		for (int i = 0; i < size; i++) {
 			Student[i] = new myStudent();
 		}
 		for (int i = 0; i < size; i++) {
-			
+
 			myScanner.nextLine();
 			System.out.println("Nhập tên sinh viên thứ " + (i + 1) + " :");
 			Student[i].setName(myScanner.nextLine());
@@ -34,25 +35,25 @@ public class importStudent {
 			System.out.println("Nhấn Enter để tiếp tục");
 			System.out.println("______________________________");
 			myScanner.nextLine();
-			
+
 		}
-		}
-	
+	}
+
 	public static void dsSinhVien() {
 		System.out.println("+-------------------------Danh sách sinh viên-----------------------+");
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
 		for (int i = 0; i < size; i++) {
-			System.out.println("|" + Student[i].getName() + "\t \t" + Student[i].getBirthday()+"\t \t"+Student[i].getLp1()+" \t"+Student[i].getLp2()+"\t"+Student[i].getDtb()+"\t"+Student[i].getXepLoai());
+			System.out.println("|" + Student[i].getName() + "\t \t" + Student[i].getBirthday() + "\t \t"
+					+ Student[i].getLp1() + " \t" + Student[i].getLp2() + "\t" + Student[i].getDtb() + "\t"
+					+ Student[i].getXepLoai());
 		}
 		System.out.println("================================");
-		System.out.println("Nhấn Enter để về menu");
-		myScanner.nextLine();
 
-		myScanner.nextLine();
 	}
+
 	public static void topSinhVien() {
 		System.out.println("Danh sách tốp sinh viên");
-		Double max = Student[0].getDtb(), min =Student[0].getDtb();
+		Double max = Student[0].getDtb(), min = Student[0].getDtb();
 		int vtmax = 0, vtmin = 0;
 		for (int i = 0; i < size; i++) {
 			if (max < Student[i].getDtb()) {
@@ -69,14 +70,15 @@ public class importStudent {
 		System.out.println("|" + Student[vtmax].getName() + "\t" + Student[vtmax].getBirthday() + "\t" + max);
 		System.out.println("+---------Sinh viên có điểm trung bình thấp nhất-------+");
 		System.out.println("|Tên sinh viên    |  ngày sinh      |    Điểm trung bình    |");
-		System.out.println("|" +Student[vtmin].getName() + "\t" +Student[vtmin].getBirthday()+ "\t" + min);
+		System.out.println("|" + Student[vtmin].getName() + "\t" + Student[vtmin].getBirthday() + "\t" + min);
 		System.out.println("Nhấn Enter để về menu");
 		myScanner.nextLine();
 		System.out.println("============================================================");
 		myScanner.nextLine();
 	}
-public static void sapXepDtb() {
-		
+
+	public static void sapXepDtb() {
+
 		System.out.println("+--------------Danh sách ss sinh viên--------------+");
 		System.out.println("|tên SV                  |          ĐTB         |");
 		for (int i = 0; i < size - 1; i++) {
@@ -85,16 +87,24 @@ public static void sapXepDtb() {
 					myStudent[] temp = new myStudent[100];
 					temp[i] = Student[j];
 					Student[j] = Student[i];
-					Student[i] = temp[i];										
+					Student[i] = temp[i];
 				}
 			}
-			
+
 		}
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
 		for (int i = 0; i < size; i++) {
-			System.out.println("|" + Student[i].getName() + "\t \t" + Student[i].getBirthday()+"\t \t"+Student[i].getLp1()+" \t"+Student[i].getLp2()+"\t"+Student[i].getDtb()+"\t"+Student[i].getXepLoai());
+			System.out.println("|" + Student[i].getName() + "\t \t" + Student[i].getBirthday() + "\t \t"
+					+ Student[i].getLp1() + " \t" + Student[i].getLp2() + "\t" + Student[i].getDtb() + "\t"
+					+ Student[i].getXepLoai());
 		}
 	}
+
+	public static void ketThuc() {
+		System.out.println("Cám ơn bạn đã sử dụng chương trình");
+		System.exit(0);
+	}
+
 	public static void myMenu() {
 		while (true) {
 			System.out.println("+------LỰA CHỌN CHỨC NĂNG-------+");
@@ -110,16 +120,14 @@ public static void sapXepDtb() {
 				themSv();
 			} else if (option == 2) {
 				dsSinhVien();
-			}else if (option == 3) {
+			} else if (option == 3) {
 				topSinhVien();
-			}
-			else if (option == 4) {
+			} else if (option == 4) {
 				sapXepDtb();
-			} 
-//				else if (option == 5) {
-//				ketThuc();
-//			}
+			} else if (option == 5) {
+				ketThuc();
+			}
+
 		}
 	}
-	}
-	
+}
