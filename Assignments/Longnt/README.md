@@ -8,3 +8,7 @@ Assigment 1: [Hello World](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob
 Assigment 2: [MySample](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/Mysample1/src/Tong2So.java)
 3. Learning day3.
 vidu 1: [Ex1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/Sampleday3/src/Vidu/Ex1.java)
+Assigment day3: [Mysample](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/Sampleday3/src/Vidu/Ex2.java)
+4. Learning day4.
+vidu 1: [Ex1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/MenuCuaToi/src/fasttrack/edu/vn/practices/MenuCuatoi.java)
+Assigment day4: [demo](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiSinhVien/src/fasttrackse/edu/vn/QuanLiSvien.java)

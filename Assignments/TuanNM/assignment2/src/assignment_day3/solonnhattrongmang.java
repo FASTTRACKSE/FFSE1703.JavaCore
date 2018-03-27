@@ -17,6 +17,7 @@ public class solonnhattrongmang {
 		for (int a = 0; a < mang.length; a++) {
 			System.out.print(+mang[a] + "; ");
 		}
+
 		int max = mang[0], min = mang[0];
 		int vtmax = 0, vtmin = 0;
 
@@ -36,3 +37,6 @@ public class solonnhattrongmang {
 		System.out.println("Vị trí số nhỏ nhất thứ " + vtmin + " có giá trị :" + min);
 	}
  }
+
+		
+
