@@ -1,20 +1,22 @@
-package fasttrack.edu.vn;
+package fasttrack.edu.vn.quanliSV;
 
 import java.util.Scanner;
 
-public class QuanLySinhVien {
-	// tên,ngày sinh, điểm lp1,2,TBM
-
+public class QuanliSinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
 
 	public static int i, n = 4;
-	public static String[] ten_SV = { "Hồ Quang Minh", "Nguyễn Phước Hiếu", "Nguyễn Thanh Hiếu", "Hồ Viết Tú" };
-	public static String[] ngay_Sinh = { "30/10/99", "13/05/99", "26/09/99", "04/04/99" };
-	public static double[] diem_lp1 = { 8.0, 7.0, 9.0, 6.0 };
-	public static double[] diem_lp2 = { 4.0, 6.0, 8.0, 4.0 };
-	public static double[] diem_tbm;
+	public static SinhVien[] SV = new SinhVien[4];
 
 	public static void main(String[] args) {
+		SinhVien Sv1= new SinhVien("Hồ Quang Minh","30/10/99",8.0,6.0);
+		SinhVien Sv2= new SinhVien("Lê Phước Hiếu","13/05/99",9.0,6.0);
+		SinhVien Sv3= new SinhVien("Nguyễn Thanh Hiếu","26/09/99",4.0,5.0);
+		SinhVien Sv4= new SinhVien("Hồ Việt Tú","04/04/99",6.0,4.0);
+		SV[0] = Sv1;
+		SV[1] = Sv2;
+		SV[2] = Sv3;
+		SV[3] = Sv4;
 		showMyMenu();
 	}
 
@@ -23,25 +25,30 @@ public class QuanLySinhVien {
 		System.out.println("---------------------------");
 		System.out.print("Số lượng sinh viên :");
 		n = myScanner.nextInt();
-		ten_SV = new String[n];
-		ngay_Sinh = new String[n];
-		diem_lp1 = new double[n];
-		diem_lp2 = new double[n];
+		String[] ten_SV = new String[n];
+		String[] ngay_Sinh = new String[n];
+		double[] diem_lp1 = new double[n];
+		double[] diem_lp2 = new double[n];
+		SinhVien[] SV = new SinhVien[n];
 
 		for (i = 0; i < n; i++) {
 			myScanner.nextLine();
 
 			System.out.print("Nhập tên Sinh Viên thứ " + (i + 1) + " :");
 			ten_SV[i] = myScanner.nextLine();
+			SV[i].setName(ten_SV[i]);
 
 			System.out.print("Nhập ngày sinh của Sinh Viên thứ " + (i + 1) + " :");
 			ngay_Sinh[i] = myScanner.nextLine();
+			SV[i].setDate(ngay_Sinh[i]);
 
 			System.out.print("Nhập điểm môn LP1 " + " :");
 			diem_lp1[i] = myScanner.nextDouble();
+			SV[i].setLp1(diem_lp1[i]);
 
 			System.out.print("Nhập điểm môn LP2 " + " :");
 			diem_lp2[i] = myScanner.nextDouble();
+			SV[i].setLp2(diem_lp2[i]);
 
 		}
 		myScanner.nextLine();
@@ -50,16 +57,15 @@ public class QuanLySinhVien {
 	}
 
 	public static void inDSSV() {
-		diem_tbm = new double[n];
+		
 
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (i = 0; i < n; i++) {
-			diem_tbm[i] = ((diem_lp1[i] + diem_lp2[i]) / 2);
-			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), ten_SV[i], ngay_Sinh[i], diem_lp1[i],
-					diem_lp2[i], diem_tbm[i]);
+			
+			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), SV[i].getName(),SV[i].getDate(),SV[i].getLp1(),SV[i].getLp2(),SV[i].getTBM());
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -67,27 +73,25 @@ public class QuanLySinhVien {
 	}
 
 	public static void topSV() {
-		double min = diem_tbm[0], max = diem_tbm[0];
+		double min = SV[0].getTBM(), max = min;
 		int x = 0, y = 0;
 
 		for (i = 0; i < n; i++) {
-			if (min > diem_tbm[i]) {
-				min = diem_tbm[i];
+			if (min > SV[i].getTBM()) {
+				min = SV[i].getTBM();
 				x = i;
 			}
-			if (max < diem_tbm[i]) {
-				max = diem_tbm[i];
+			if (max < SV[i].getTBM()) {
+				max = SV[i].getTBM();
 				y = i;
 			}
 		}
+		
 		System.out.println("Học sinh có kết quả học tập cao nhất là :");
-		System.out.println((y + 1) + " \t " + ten_SV[y] + " \t " + ngay_Sinh[y] + " \t " + diem_lp1[y] + " \t "
-				+ diem_lp2[y] + " \t " + diem_tbm[y]);
+		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[y].getName(),SV[y].getDate(),SV[y].getLp1(),SV[y].getLp2(),SV[y].getTBM());
 
 		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
-		System.out.println((x + 1) + " \t " + ten_SV[x] + " \t " + ngay_Sinh[x] + " \t " + diem_lp1[x] + " \t "
-				+ diem_lp2[x] + " \t " + diem_tbm[x]);
-
+		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[x].getName(),SV[x].getDate(),SV[x].getLp1(),SV[x].getLp2(),SV[x].getTBM());
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
@@ -95,17 +99,13 @@ public class QuanLySinhVien {
 	}
 
 	public static void sapxepTBM() {
-		int[] vitri = new int[n];
-		for (i = 0; i < n; i++) {
-			vitri[i] = i;
-		}
-		int temp;
+		SinhVien[] temp = new SinhVien[n];
 		for (i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
-				if (diem_tbm[vitri[i]] < diem_tbm[vitri[j]]) {
-					temp = vitri[j];
-					vitri[j] = vitri[i];
-					vitri[i] = temp;
+				if (SV[i].getTBM() < SV[j].getTBM()) {
+					temp[i] = SV[j];
+					SV[j] = SV[i];
+					SV[i] = temp[i];
 				}
 			}
 		}
@@ -113,11 +113,10 @@ public class QuanLySinhVien {
 		for (i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
-				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), ten_SV[vitri[i]], ngay_Sinh[vitri[i]],
-						diem_lp1[vitri[i]], diem_lp2[vitri[i]], diem_tbm[vitri[i]]);
+				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(),SV[i].getDate(),SV[i].getLp1(),SV[i].getLp2(),SV[i].getTBM(),SV[i].XepLoai());
 			}
 		}
 
