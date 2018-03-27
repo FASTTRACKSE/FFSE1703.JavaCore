@@ -46,11 +46,10 @@ public class qlysv {
 	public void setLp2(Double lp2) {
 		this.lp2 = lp2;
 	}
+
 	public double dtb() {
-		return ((this.lp1)+(this.lp2))/2;
+		return ((this.lp1) + (this.lp2)) / 2;
 	}
-
-
 
 	public qlysv(String ht, String days, Double lp11, Double lp22, Double dtbb) {
 		hoten = ht;
@@ -58,11 +57,9 @@ public class qlysv {
 		lp1 = lp11;
 		lp2 = lp22;
 		dtb = dtbb;
-
 	}
 
 	public void nhaptt() {
-
 		System.out.println("Ho ten:");
 		hoten = input.nextLine();
 		System.out.println("ngay sinh:");
@@ -72,20 +69,17 @@ public class qlysv {
 		System.out.println("lp2");
 		lp2 = input.nextDouble();
 		input.nextLine();
-
 	}
+
 	public void xeploai() {
-		if (this.dtb()>8.5&&this.dtb()<10) {
+		if (this.dtb() >= 8.5 && this.dtb() <= 10) {
 			System.out.println("		GIOI");
-		}else if(this.dtb()>7&&this.dtb()<8.4) {
+		} else if (this.dtb() >= 7 && this.dtb() <= 8.4) {
 			System.out.println("		Kha");
-		}else if(this.dtb()>5&&this.dtb()<6.9) {
+		} else if (this.dtb() >= 5 && this.dtb() <= 6.9) {
 			System.out.println("		Trung Binh");
-		}else {
+		} else {
 			System.out.println("		Kem");
 		}
 	}
-
-
-
 }
