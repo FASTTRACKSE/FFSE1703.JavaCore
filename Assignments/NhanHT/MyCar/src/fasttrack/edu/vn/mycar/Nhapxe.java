@@ -27,7 +27,7 @@ public class Nhapxe {
 		
 		System.out.println( "Danh sach cac xe cua toi");
 		for(int i = 0;i< 2;i++) {
-			System.out.println((i+1)+ " " + arrMyCar[i].getCarModel());
+			System.out.println((i+1)+ " " + arrMyCar[i].getCarModel()+" "+arrMyCar[i].getCarYear());
 		}
 	}
 	
