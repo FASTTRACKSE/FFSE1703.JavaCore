@@ -3,35 +3,34 @@ import java.util.Scanner;
 public class MenuQuanly {
 	public static Scanner input=new Scanner(System.in);	
 	public static Sinhvien[] sv=new Sinhvien[100];
-	public static int soluong=0;
+	public static int soluong=0,b=0;
 	public static String action,sosanh="k";
 	public static void main(String[] args) {
 		myMenu();
-
-	}
-	public static void addSv() {
+	}	
+	public static void addSv() {		
 		System.out.println("THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("============================");
 		System.out.println("Bạn muốn nhập bao nhiêu sinh viên ?");		
 		int a=input.nextInt();
 		soluong=a+soluong;
-		for(int i=0;i<soluong;i++) {
-			sv[i] = new Sinhvien();
+		for(; b <soluong; b++) {
+			sv[b] = new Sinhvien();
 		}
-		for(int i=0;i<soluong;i++) {
+		for(;b<soluong;b++) {
 			input.nextLine();
-			System.out.println("Nhap tên cho sinh vien thu " + (i+1)  + " : ");
+			System.out.println("Nhap tên cho sinh vien thu " + (b+1)  + " : ");
 			String hoTen = input.nextLine();
-			sv[i].setHoTen(hoTen);
-			System.out.println("Nhap ngày sinh cho sinh vien thu " + (i+1)  + " : ");
+			sv[b].setHoTen(hoTen);
+			System.out.println("Nhap ngày sinh cho sinh vien thu " + (b+1)  + " : ");
 			String ngaySinh = input.nextLine();
-			sv[i].setNgaySinh(ngaySinh);
-			System.out.println("Nhap Điểm LP1 cho sinh vien thu " + (i+1)  + " : ");
+			sv[b].setNgaySinh(ngaySinh);
+			System.out.println("Nhap Điểm LP1 cho sinh vien thu " + (b+1)  + " : ");
 			float diemLp1 = input.nextFloat();
-			sv[i].setDiemLp1(diemLp1);
-			System.out.println("Nhap Điểm LP2 cho sinh vien thu " + (i+1)  + " : ");
+			sv[b].setDiemLp1(diemLp1);
+			System.out.println("Nhap Điểm LP2 cho sinh vien thu " + (b+1)  + " : ");
 			float diemLp2 = input.nextFloat();
-			sv[i].setDiemLp2(diemLp2);			
+			sv[b].setDiemLp2(diemLp2);			
 		}
 		action=input.nextLine();
 		System.out.println("=====================================");
@@ -46,9 +45,9 @@ public class MenuQuanly {
 		System.out.print(sv.getHoTen() +"\t" + 
 				sv.getNgaySinh()+"\t" +
 				"\t" + sv.getDiemLp1() +"\t"+ "\t" + sv.getDiemLp2()+"\t" 
-				+ "\t" + sv.getDiemTB()+"\t"
+				+ "\t" + sv.getDiemTB()+"\t"+ sv.getXepLoai()+"\n"
         );
-		sv.getXepLoai();
+		
 	}
 	
 	public static void printSv() {
@@ -97,7 +96,7 @@ public class MenuQuanly {
 	public static void badSv() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM THẤP NHẤT-------------");
 		System.out.println("==================================================");
-		float min=0;
+		float min=10;
 		int stt;
 		for (int i=0;i<soluong;i++) {
 			if(min>sv[i].getDiemTB()) {
