@@ -8,7 +8,11 @@ public class SinhVien {
 	public int SVLP2;
 	public double SVDTB;
 
-	public SinhVien() {
+	public SinhVien(String SVten, String SVngaysinh, int SVLP1, int SVLP2) {
+		this.SVten = SVten;
+		this.SVngaysinh = SVngaysinh;
+		this.SVLP1 = SVLP1;
+		this.SVLP2 = SVLP2;
 
 	}
 
