@@ -9,6 +9,7 @@
 5. Assignment 4: [Tìm giá trị lớn nhất trong mảng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment2/src/assignment_day3/solonnhattrongmang.java)
 6. Assignment 5: [Menu toán đại số](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/my_Menu/src/assignment3/dsSinhVien.java)
 7. Assignment 6: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/my_Menu/src/assignment3/dsSinhVien.java)
+Lập trình hướng đối tượng
 8. Assignment 7: [ Class Student asm1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student/src/Student_OOP/myStudent.java)
 [Danh sách Student asm1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student/src/Student_OOP/nhapStudent.java)
 
