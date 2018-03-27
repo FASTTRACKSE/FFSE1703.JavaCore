@@ -4,7 +4,7 @@ public class khaibaomang {
 		public static void main(String[] args) {
 			Scanner myInput = new Scanner(System.in);
 			
-			int a;
+		int a;
 		do {
 			System.out.println("Nhập số phần tử cho mảng: ");
 			a = myInput.nextInt();

@@ -6,7 +6,12 @@ public class Mang {
 
 	public static void main(String[] args) {
 		Scanner myInput = new Scanner(System.in);
+		int mangTest[] = new int[] {};
+//		mangTest[0] = 3;
+		mangTest[1] = 1;
+		mangTest[2] = 2;
 		
+		System.out.println(mangTest[1]);
 		// khai báo biến
 		int size, max, min, vtMax, vtMin;
 		
@@ -40,6 +45,7 @@ public class Mang {
 				max = array[b];
 
 			}
+			
 		}
 
 		System.out.println("Số lớn nhất là: " + max + ". " + "Vị trí phần tử trong mảng: " + vtMax);
