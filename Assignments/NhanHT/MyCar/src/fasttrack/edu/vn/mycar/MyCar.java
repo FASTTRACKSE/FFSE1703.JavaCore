@@ -26,7 +26,7 @@ public class MyCar {
 		this.carYear = intyear;
 	}
 	public int getCarYear() {
-		return this.carYear;
+		return (2018-this.carYear);
 	}
 	
 	//
@@ -35,5 +35,5 @@ public class MyCar {
 	}
 	public String getCarColor() {
 		return this.carColor;
-	}
+	} 
 }
