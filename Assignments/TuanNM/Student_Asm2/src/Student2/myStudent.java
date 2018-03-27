@@ -1,4 +1,4 @@
-package Student_OOP;
+package Student2;
 
 public class myStudent {
 	private String nameSv;
@@ -41,9 +41,8 @@ public class myStudent {
 	}
 
 	public Double getDtb() {
-		return Dtb = (this.lp2 + this.lp2) / 2;
+		return Dtb = (this.lp1 + this.lp2) / 2;
 	}
-
 	public String getXepLoai() {
 		if (Dtb >= 8.5) {
 			return xepLoai = "Giỏi";
