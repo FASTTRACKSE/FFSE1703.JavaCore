@@ -24,7 +24,6 @@ public class Mang_min_max {
 				vi_tri_max=i+1;
 			}
 		}
-		
 		for (int i=0;i<0;i++) {
 			if(min>a[i]) {
 				min=a[i];
