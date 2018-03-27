@@ -1,8 +1,8 @@
-package fasttrack.edu.vn.quanliSV;
+package Fasttrack.edu.vn;
 
 import java.util.Scanner;
 
-public class QuanliSinhVien {
+public class NhapSV {
 	public static Scanner myScanner = new Scanner(System.in);
 
 	public static int i, n = 4;
@@ -10,8 +10,8 @@ public class QuanliSinhVien {
 
 	public static void main(String[] args) {
 		SinhVien Sv1 = new SinhVien("Hồ Quang Minh", "30/10/99", 8.0, 6.0);
-		SinhVien Sv2 = new SinhVien("Lê Phước Hiếu", "13/05/99", 9.0, 6.0);
-		SinhVien Sv3 = new SinhVien("Nguyễn Thanh Hiếu", "26/09/99", 4.0, 5.0);
+		SinhVien Sv2 = new SinhVien("Lê Phước Hiếu", "16/02/99", 9.0, 9.0);
+		SinhVien Sv3 = new SinhVien("Bùi Thê Nghĩa", "26/09/99", 8.0, 5.0);
 		SinhVien Sv4 = new SinhVien("Hồ Việt Tú", "04/04/99", 6.0, 4.0);
 		SV[0] = Sv1;
 		SV[1] = Sv2;

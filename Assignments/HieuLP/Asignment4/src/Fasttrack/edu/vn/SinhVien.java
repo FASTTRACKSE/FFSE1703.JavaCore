@@ -1,7 +1,6 @@
-package fasttrack.edu.vn.quanliSV;
+package Fasttrack.edu.vn;
 
 public class SinhVien {
-
 	private String Name;
 	private String Date;
 	private double Lp1;
