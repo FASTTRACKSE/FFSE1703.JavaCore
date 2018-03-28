@@ -34,7 +34,7 @@ public class QuanliSinhVien {
 
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để v�? menu chính");
+		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
 
@@ -50,7 +50,7 @@ public class QuanliSinhVien {
 					SV[i].getLp2(), SV[i].getTBM());
 		}
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để v�? menu chính");
+		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
 
@@ -77,7 +77,7 @@ public class QuanliSinhVien {
 		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[x].getName(), SV[x].getDate(), SV[x].getLp1(), SV[x].getLp2(),
 				SV[x].getTBM());
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để v�? menu chính");
+		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 
 	}
@@ -106,7 +106,7 @@ public class QuanliSinhVien {
 		}
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để v�? menu chính");
+		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
 	
@@ -134,7 +134,7 @@ public class QuanliSinhVien {
 		}
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để v�? menu chính");
+		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
 
@@ -154,7 +154,7 @@ public class QuanliSinhVien {
 			System.out.println("|5. Sắp xếp theo Tên                     |");
 			System.out.println("|6. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
-			System.out.println(">>            Lựa ch�?n của bạn?         <<");
+			System.out.println(">>            Lựa chọn của bạn?         <<");
 			// .compareTo để so sánh chuỗi trong trư�?ng hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
