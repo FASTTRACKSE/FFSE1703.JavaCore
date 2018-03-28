@@ -1,4 +1,4 @@
-package fasttrack.edu.vn;
+package fasttrack.Assignment2.main;
 
 import java.util.Scanner;
 
@@ -34,7 +34,7 @@ public class vonglap {
 			}
 		}
 
-		System.out.println("Số nhỏ nhất trong " + n + " phần tử là :" + min);
+		System.out.println("Số nh�? nhất trong " + n + " phần tử là :" + min);
 
 		System.out.println("Là phần tử thứ " + x);
 
