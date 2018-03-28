@@ -1,4 +1,4 @@
-package fasttrack.edu.vn.quanliSV;
+package fasttrack.Assignment4.model;
 
 import java.util.Scanner;
 

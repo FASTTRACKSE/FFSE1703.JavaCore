@@ -1,4 +1,4 @@
-package fasttrack.edu.vn;
+package fasttrack.Assignment3.main;
 
 import java.util.Scanner;
 
@@ -54,7 +54,7 @@ public class QuanLySinhVien {
 
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
+		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2   ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (i = 0; i < n; i++) {
 			diem_tbm[i] = ((diem_lp1[i] + diem_lp2[i]) / 2);
@@ -113,7 +113,7 @@ public class QuanLySinhVien {
 		for (i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  �?TB  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), ten_SV[vitri[i]], ngay_Sinh[vitri[i]],
@@ -142,7 +142,7 @@ public class QuanLySinhVien {
 			System.out.println("|5. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
-			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			// .compareTo để so sánh chuỗi trong trư�?ng hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();

@@ -1,6 +1,7 @@
-package fasttrack.edu.vn.quanliSV;
+package fasttrack.Assignment4.main;
 
 import java.util.Scanner;
+import fasttrack.Assignment4.model.*;
 
 public class QuanliSinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
@@ -41,7 +42,7 @@ public class QuanliSinhVien {
 
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
+		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2   ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (int i = 0; i < n; i++) {
 
@@ -96,7 +97,7 @@ public class QuanliSinhVien {
 		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("STT  Hồ và tên              Ngày sinh     lp1  lp2   ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
@@ -124,7 +125,7 @@ public class QuanliSinhVien {
 		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2   ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
@@ -154,7 +155,7 @@ public class QuanliSinhVien {
 			System.out.println("|6. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
-			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			// .compareTo để so sánh chuỗi trong trư�?ng hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();
