@@ -21,36 +21,20 @@ public class QuanliSinhVien {
 	}
 
 	public static void nhapDSSV() {
-		System.out.println("Nhập danh sách sinh viên : ");
-		System.out.println("---------------------------");
-		System.out.print("Số lượng sinh viên :");
-		n = myScanner.nextInt();
-		String[] ten_SV = new String[n];
-		String[] ngay_Sinh = new String[n];
-		double[] diem_lp1 = new double[n];
-		double[] diem_lp2 = new double[n];
-		SinhVien[] SV = new SinhVien[n];
 
 		for (i = 0; i < n; i++) {
-			myScanner.nextLine();
-
-			System.out.print("Nhập tên Sinh Viên thứ " + (i + 1) + " :");
-			ten_SV[i] = myScanner.nextLine();
-			SV[i].setName(ten_SV[i]);
-
-			System.out.print("Nhập ngày sinh của Sinh Viên thứ " + (i + 1) + " :");
-			ngay_Sinh[i] = myScanner.nextLine();
-			SV[i].setDate(ngay_Sinh[i]);
-
-			System.out.print("Nhập điểm môn LP1 " + " :");
-			diem_lp1[i] = myScanner.nextDouble();
-			SV[i].setLp1(diem_lp1[i]);
-
-			System.out.print("Nhập điểm môn LP2 " + " :");
-			diem_lp2[i] = myScanner.nextDouble();
-			SV[i].setLp2(diem_lp2[i]);
+			System.out.println("Nhập danh sách sinh viên : ");
+			System.out.println("---------------------------");
+			System.out.print("Số lượng sinh viên :");
+			n = myScanner.nextInt();
+			SV = new SinhVien[n];
+			for (i = 0; i < n; i++) {
+				SV[i] = new SinhVien();
+				SV[i].Input();
+			}
 
 		}
+
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
@@ -105,6 +89,34 @@ public class QuanliSinhVien {
 		for (i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
 				if (SV[i].getTBM() < SV[j].getTBM()) {
+					temp[i] = SV[j];
+					SV[j] = SV[i];
+					SV[i] = temp[i];
+				}
+			}
+		}
+
+		for (i = 0; i < n; i++) {
+			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("--------------------------------------------------------------------");
+			for (i = 0; i < n; i++) {
+				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
+						SV[i].getLp1(), SV[i].getLp2(), SV[i].getTBM(), SV[i].XepLoai());
+			}
+		}
+
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
+	}
+	
+	public static void sapxepTen() {
+		SinhVien[] temp = new SinhVien[n];
+		for (i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (SV[i].getName().compareTo(SV[j].getName())) {
 					temp[i] = SV[j];
 					SV[j] = SV[i];
 					SV[i] = temp[i];
