@@ -9,4 +9,6 @@
 3. Assignment 3: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/EX3/src/fasttrack/edu/vn/practices/Assignment3.java)  
 4. Assignment 4: [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/DanhSachSV.java)
                  [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/QLSinhVi%C3%AAn.java)
-                
+5. Assignment 5:[Khách Hàng]()
+                [Biên Lai]()
+                [Quản Lý Khách Hàng]()
