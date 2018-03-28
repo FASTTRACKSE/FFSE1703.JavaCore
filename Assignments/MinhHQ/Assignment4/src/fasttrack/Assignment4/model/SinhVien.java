@@ -1,4 +1,4 @@
-package fasttrack.edu.vn.quanliSV;
+package fasttrack.Assignment4.model;
 
 import java.util.Scanner;
 
@@ -81,7 +81,7 @@ public class SinhVien {
 		} else if (getTBM() <= 8.4) {
 			return "Khá";
 		} else {
-			return "Giỏi";
+			return "Gi�?i";
 		}
 	}
 

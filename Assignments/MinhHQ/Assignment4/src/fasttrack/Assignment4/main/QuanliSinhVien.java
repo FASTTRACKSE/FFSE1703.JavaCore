@@ -1,6 +1,7 @@
-package fasttrack.edu.vn.quanliSV;
+package fasttrack.Assignment4.main;
 
 import java.util.Scanner;
+import fasttrack.Assignment4.model.*;
 
 public class QuanliSinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
@@ -33,7 +34,7 @@ public class QuanliSinhVien {
 
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
+		System.out.println("Ấn Enter để v�? menu chính");
 		myScanner.nextLine();
 	}
 
@@ -41,7 +42,7 @@ public class QuanliSinhVien {
 
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
+		System.out.println("STT  H�? và tên              Ngày sinh     lp1  lp2  �?TB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (int i = 0; i < n; i++) {
 
@@ -49,7 +50,7 @@ public class QuanliSinhVien {
 					SV[i].getLp2(), SV[i].getTBM());
 		}
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
+		System.out.println("Ấn Enter để v�? menu chính");
 		myScanner.nextLine();
 	}
 
@@ -68,15 +69,15 @@ public class QuanliSinhVien {
 			}
 		}
 
-		System.out.println("Học sinh có kết quả học tập cao nhất là :");
+		System.out.println("H�?c sinh có kết quả h�?c tập cao nhất là :");
 		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[y].getName(), SV[y].getDate(), SV[y].getLp1(), SV[y].getLp2(),
 				SV[y].getTBM());
 
-		System.out.println("Học sinh có kết quả học tập thấp nhất là :");
+		System.out.println("H�?c sinh có kết quả h�?c tập thấp nhất là :");
 		System.out.printf("%-23s%-14s%-5s%-5s%-5s\n", SV[x].getName(), SV[x].getDate(), SV[x].getLp1(), SV[x].getLp2(),
 				SV[x].getTBM());
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
+		System.out.println("Ấn Enter để v�? menu chính");
 		myScanner.nextLine();
 
 	}
@@ -96,7 +97,7 @@ public class QuanliSinhVien {
 		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("STT  H�? và tên              Ngày sinh     lp1  lp2  �?TB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
@@ -105,7 +106,7 @@ public class QuanliSinhVien {
 		}
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
+		System.out.println("Ấn Enter để v�? menu chính");
 		myScanner.nextLine();
 	}
 	
@@ -124,7 +125,7 @@ public class QuanliSinhVien {
 		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("STT  H�? và tên              Ngày sinh     lp1  lp2  �?TB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
@@ -133,7 +134,7 @@ public class QuanliSinhVien {
 		}
 
 		myScanner.nextLine();
-		System.out.println("Ấn Enter để về menu chính");
+		System.out.println("Ấn Enter để v�? menu chính");
 		myScanner.nextLine();
 	}
 
@@ -144,7 +145,7 @@ public class QuanliSinhVien {
 
 	public static void showMyMenu() {
 		while (true) {
-			System.out.println(">>         MENU QUẢN LÝ SINH VIÊN       <<");
+			System.out.println(">>         MENU QUẢN L�? SINH VI�?N       <<");
 			System.out.println("+----------------------------------------+");
 			System.out.println("|1. Nhập danh sách sinh viên             |");
 			System.out.println("|2. In danh sách sinh viên               |");
@@ -153,8 +154,8 @@ public class QuanliSinhVien {
 			System.out.println("|5. Sắp xếp theo Tên                     |");
 			System.out.println("|6. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
-			System.out.println(">>            Lựa chọn của bạn?         <<");
-			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			System.out.println(">>            Lựa ch�?n của bạn?         <<");
+			// .compareTo để so sánh chuỗi trong trư�?ng hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();

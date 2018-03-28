@@ -1,4 +1,4 @@
-package fasttrack.edu.vn;
+package fasttrack.Assignment1.main;
 
 import java.util.Scanner;
 
