@@ -47,21 +47,21 @@ public class QuanLySinhVien {
 		System.out.println("Name " + "\t" + "Date" + "\t" + "DiemLP1" + "\t" + "DiemLP2" + "\t" + "DTB"+"\t"+"XepLoai");
 		
 		for(int i=0;i<soLuong;i++) {
-			System.out.printf("| %-20s | %-10s | %4s | %4s | %4s | %5s |\n", arrStu[i].getStuName(), arrStu[i].getStuDate(), arrStu[i].getDLP1(), arrStu[i].getDLP2(), arrStu[i].DTB(), arrStu[i].Xeploai());
+			System.out.printf("| %-20s | %-10s | %4s | %4s | %4s | %5s |\n", arrStu[i].getStuName(), arrStu[i].getStuDate(), arrStu[i].getDLP1(), arrStu[i].getDLP2(), arrStu[i].getDTB(), arrStu[i].getXeploai());
 		
 		}
 	}
 	public static void topmin() {
 
-		double max = arrStu[0].DTB(), min = arrStu[0].DTB();
+		double max = arrStu[0].getDTB(), min = arrStu[0].getDTB();
 		int keymax=0,keymin=0;
 		for (int b = 1; b < soLuong; b++) {
-			if (max < arrStu[b].DTB()) {
-				max = arrStu[b].DTB();
+			if (max < arrStu[b].getDTB()) {
+				max = arrStu[b].getDTB();
 				 keymax=b;
 			}
-			if (min > arrStu[b].DTB()) {
-				min = arrStu[b].DTB();
+			if (min > arrStu[b].getDTB()) {
+				min = arrStu[b].getDTB();
 				keymin=b;
 			}
 
@@ -78,7 +78,7 @@ public class QuanLySinhVien {
 		}
 		for (int i = 0; i < soLuong - 1; i++) {
 			for (int j = i + 1; j < soLuong; j++) {
-				if (arrStu[sortByDTB[i]].DTB() > arrStu[sortByDTB[j]].DTB()) {
+				if (arrStu[sortByDTB[i]].getDTB() > arrStu[sortByDTB[j]].getDTB()) {
 					int temp = sortByDTB[j];
 					sortByDTB[j] = sortByDTB[i];
 					sortByDTB[i] = temp;
@@ -93,8 +93,8 @@ public class QuanLySinhVien {
 
 			System.out.println((i + 1) + " \t" + arrStu[sortByDTB[i]].getStuName() + " \t \t"
 					+ arrStu[sortByDTB[i]].getStuDate() + "\t" + arrStu[sortByDTB[i]].getDLP1() + " \t \t"
-					+ arrStu[sortByDTB[i]].getDLP2() + " \t \t" + arrStu[sortByDTB[i]].DTB() + "\t"
-					+ arrStu[sortByDTB[i]].Xeploai());
+					+ arrStu[sortByDTB[i]].getDLP2() + " \t \t" + arrStu[sortByDTB[i]].getDTB() + "\t"
+					+ arrStu[sortByDTB[i]].getXeploai());
 
 		}
 	}
@@ -120,8 +120,8 @@ public class QuanLySinhVien {
 
 			System.out.println((i + 1) + " \t" + arrStu[sortByABC[i]].getStuName() + " \t \t"
 					+ arrStu[sortByABC[i]].getStuDate() + "\t" + arrStu[sortByABC[i]].getDLP1() + " \t \t"
-					+ arrStu[sortByABC[i]].getDLP2() + " \t \t" + arrStu[sortByABC[i]].DTB() + "\t"
-					+ arrStu[sortByABC[i]].Xeploai());
+					+ arrStu[sortByABC[i]].getDLP2() + " \t \t" + arrStu[sortByABC[i]].getDTB() + "\t"
+					+ arrStu[sortByABC[i]].getXeploai());
 
 		}
 	}
