@@ -76,9 +76,9 @@ public class SinhVien {
 	public String XepLoai() {
 		if (getTBM() <= 4.9) {
 			return "Yếu";
-		} else if (getTBM() >= 5.0 && getTBM() <= 6.9) {
+		} else if (getTBM() <= 6.9) {
 			return "Trung Bình";
-		} else if (getTBM() >= 7 && getTBM() <= 8.4) {
+		} else if (getTBM() <= 8.4) {
 			return "Khá";
 		} else {
 			return "Giỏi";

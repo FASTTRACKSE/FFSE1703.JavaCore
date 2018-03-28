@@ -134,7 +134,32 @@ public class DanhSachSV {
 		System.out.println("=====================================");
 		System.out.println("-------Nhập ENTER để tiếp tục------");
 	}
-
+	// sắp xếp theo tên sinh viên
+	public static void sapxepTen() {
+		QLSinhViên[] temp = new QLSinhViên[tongsosv];
+		
+		for (int i = 0; i < tongsosv - 1; i++) {
+			for (int j = i + 1; j < tongsosv; j++) {
+				if (sv[i].getNamesv().compareTo(sv[j].getNamesv()) > 0) {
+					temp[i] = sv[j];
+					sv[j] = sv[i];
+					sv[i] = temp[i];
+				}
+			}
+		}
+			System.out.println("Danh sách sinh viên đã được sắp xếp theo Tên ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("--------------------------------------------------------------------");
+			for (int i = 0; i < tongsosv; i++) {
+				System.out.print((i + 1) + "\t");
+				show(sv[i]);
+			}
+		action = input.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		action = input.nextLine();
+	}
+	//kết thúc
 	public static void ketthuc() {
 		System.out.println("=======Tkank you!======");
 		System.exit(0);
@@ -149,8 +174,9 @@ public class DanhSachSV {
 			System.out.println("| 3. Sắp Xếp Điểm Cao -> Thấp   |");
 			System.out.println("| 4. Sắp Xếp Điểm Thấp -> Cao   |");
 			System.out.println("| 5. Sắp Xếp Theo Điểm TB       |");
+			System.out.println("| 6. Sắp Xếp Theo Tên Sinh Viên |");
 			System.out.println("|=============!!!!==============|");
-			System.out.println("| 6. Kết Thúc                   |");
+			System.out.println("| 7. Kết Thúc                   |");
 			System.out.println("|<============????=============>|");
 			int aye = input.nextInt();
 			if (aye == 1) {
@@ -163,7 +189,9 @@ public class DanhSachSV {
 				svthapnhat();
 			} else if (aye == 5) {
 				sapxepĐTB();
-			} else {
+			} else if (aye == 6) {
+				sapxepTen();
+			} else if (aye == 7){
 				ketthuc();
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class QuanliSinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
 
-	public static int i, n = 4;
+	public static int n = 4;
 	public static SinhVien[] SV = new SinhVien[4];
 
 	public static void main(String[] args) {
@@ -22,15 +22,15 @@ public class QuanliSinhVien {
 
 	public static void nhapDSSV() {
 
-		for (i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.println("Nhập danh sách sinh viên : ");
 			System.out.println("---------------------------");
 			System.out.print("Số lượng sinh viên :");
 			n = myScanner.nextInt();
 			SV = new SinhVien[n];
-			for (i = 0; i < n; i++) {
-				SV[i] = new SinhVien();
-				SV[i].Input();
+			for (int j = 0; j < n; j++) {
+				SV[j] = new SinhVien();
+				SV[j].Input();
 			}
 
 		}
@@ -46,7 +46,7 @@ public class QuanliSinhVien {
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
-		for (i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 
 			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), SV[i].getName(), SV[i].getDate(), SV[i].getLp1(),
 					SV[i].getLp2(), SV[i].getTBM());
@@ -60,7 +60,7 @@ public class QuanliSinhVien {
 		double min = SV[0].getTBM(), max = min;
 		int x = 0, y = 0;
 
-		for (i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			if (min > SV[i].getTBM()) {
 				min = SV[i].getTBM();
 				x = i;
@@ -86,7 +86,7 @@ public class QuanliSinhVien {
 
 	public static void sapxepTBM() {
 		SinhVien[] temp = new SinhVien[n];
-		for (i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
 				if (SV[i].getTBM() < SV[j].getTBM()) {
 					temp[i] = SV[j];
@@ -96,7 +96,7 @@ public class QuanliSinhVien {
 			}
 		}
 
-		for (i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
@@ -114,7 +114,7 @@ public class QuanliSinhVien {
 	
 	public static void sapxepTen() {
 		SinhVien[] temp = new SinhVien[n];
-		for (i = 0; i < n - 1; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
 				if (SV[i].getName().compareTo(SV[j].getName()) > 0) {
 					temp[i] = SV[j];
@@ -124,7 +124,7 @@ public class QuanliSinhVien {
 			}
 		}
 
-		for (i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
