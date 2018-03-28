@@ -116,7 +116,7 @@ public class QuanliSinhVien {
 		SinhVien[] temp = new SinhVien[n];
 		for (i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
-				if (SV[i].getName().compareTo(SV[j].getName())) {
+				if (SV[i].getName().compareTo(SV[j].getName()) > 0) {
 					temp[i] = SV[j];
 					SV[j] = SV[i];
 					SV[i] = temp[i];
@@ -153,7 +153,8 @@ public class QuanliSinhVien {
 			System.out.println("|2. In danh sách sinh viên               |");
 			System.out.println("|3. Top sinh viên                        |");
 			System.out.println("|4. Sắp xếp theo điểm TBM                |");
-			System.out.println("|5. Kết thúc chương trình                |");
+			System.out.println("|5. Sắp xếp theo Tên                     |");
+			System.out.println("|6. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
 			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
@@ -167,6 +168,8 @@ public class QuanliSinhVien {
 			} else if (myOption == 4) {
 				sapxepTBM();
 			} else if (myOption == 5) {
+				sapxepTen();
+			} else if (myOption == 6) {
 				ketThuc();
 			}
 
