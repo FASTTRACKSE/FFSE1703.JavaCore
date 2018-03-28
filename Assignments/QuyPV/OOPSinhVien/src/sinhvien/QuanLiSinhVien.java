@@ -2,7 +2,7 @@ package sinhvien;
 
 import java.util.Scanner;
 
-public class NhapSinhVien {
+public class QuanLiSinhVien {
 
 	public static SinhVien arrSinhVien[];
 	public static int soLuong;
