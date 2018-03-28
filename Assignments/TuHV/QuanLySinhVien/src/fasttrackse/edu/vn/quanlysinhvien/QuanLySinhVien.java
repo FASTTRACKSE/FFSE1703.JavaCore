@@ -21,36 +21,20 @@ public class QuanLySinhVien {
 		}
 
 		public static void nhapDSSV() {
-			System.out.println("Nhập danh sách sinh viên : ");
-			System.out.println("---------------------------");
-			System.out.print("Số lượng sinh viên :");
-			n = myScanner.nextInt();
-			String[] ten_SV = new String[n];
-			String[] ngay_Sinh = new String[n];
-			int[] diem_lp1 = new int[n];
-			int[] diem_lp2 = new int[n];
-			SinhVien[] SV = new SinhVien[n];
 
 			for (i = 0; i < n; i++) {
-				myScanner.nextLine();
-
-				System.out.print("Nhập tên Sinh Viên thứ " + (i + 1) + " :");
-				ten_SV[i] = myScanner.nextLine();
-				SV[i].setSVten(ten_SV[i]);
-
-				System.out.print("Nhập ngày sinh của Sinh Viên thứ " + (i + 1) + " :");
-				ngay_Sinh[i] = myScanner.nextLine();
-				SV[i].setSVngaysinh(ngay_Sinh[i]);
-
-				System.out.print("Nhập điểm môn LP1 " + " :");
-				diem_lp1[i] = myScanner.nextInt();
-				SV[i].setSVLP1(diem_lp1[i]);
-
-				System.out.print("Nhập điểm môn LP2 " + " :");
-				diem_lp2[i] = myScanner.nextInt();
-				SV[i].setSVLP2(diem_lp2[i]);
+				System.out.println("Nhập danh sách sinh viên : ");
+				System.out.println("---------------------------");
+				System.out.print("Số lượng sinh viên :");
+				n = myScanner.nextInt();
+				SV = new SinhVien[n];
+				for (i = 0; i < n; i++) {
+					SV[i] = new SinhVien();
+					SV[i].Input();
+				}
 
 			}
+
 			myScanner.nextLine();
 			System.out.println("Ấn Enter để về menu chính");
 			myScanner.nextLine();

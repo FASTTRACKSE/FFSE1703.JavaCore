@@ -66,11 +66,11 @@ public class importStudent {
 			}
 		}
 		System.out.println("+---------Sinh viên có điểm trung bình cao nhất-------+");
-		System.out.println("|Tên sinh viên    |  ngày sinh      |    Điểm trung bình    |");
-		System.out.println("|" + Student[vtmax].getName() + "\t" + Student[vtmax].getBirthday() + "\t" + max);
+		System.out.println("|Tên sinh viên  |  ngày sinh   |  Điểm trung bình  |");
+		System.out.println("|" + Student[vtmax].getName() + "\t\t" + Student[vtmax].getBirthday() + "\t\t" + max);
 		System.out.println("+---------Sinh viên có điểm trung bình thấp nhất-------+");
-		System.out.println("|Tên sinh viên    |  ngày sinh      |    Điểm trung bình    |");
-		System.out.println("|" + Student[vtmin].getName() + "\t" + Student[vtmin].getBirthday() + "\t" + min);
+		System.out.println("|Tên sinh viên  |  ngày sinh   |  Điểm trung bình  |");
+		System.out.println("|" + Student[vtmin].getName() + "\t\t" + Student[vtmin].getBirthday() + "\t\t" + min);
 		System.out.println("Nhấn Enter để về menu");
 		myScanner.nextLine();
 		System.out.println("============================================================");
@@ -90,7 +90,6 @@ public class importStudent {
 					Student[i] = temp[i];
 				}
 			}
-
 		}
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
 		for (int i = 0; i < size; i++) {
@@ -99,7 +98,27 @@ public class importStudent {
 					+ Student[i].getXepLoai());
 		}
 	}
+	public static void sortName() {
 
+		System.out.println("+--------------Danh sách ss sinh viên--------------+");
+		System.out.println("|tên SV                  |          ĐTB         |");
+		for (int i = 0; i < size - 1; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (Student[i].getName().compareTo(Student[j].getName())> 0) {
+					myStudent[] temp = new myStudent[100];
+					temp[i] = Student[j];
+					Student[j] = Student[i];
+					Student[i] = temp[i];
+				}
+			}
+		}
+		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
+		for (int i = 0; i < size; i++) {
+			System.out.println("|" + Student[i].getName() + "\t \t" + Student[i].getBirthday() + "\t \t"
+					+ Student[i].getLp1() + " \t" + Student[i].getLp2() + "\t" + Student[i].getDtb() + "\t"
+					+ Student[i].getXepLoai());
+		}
+	}
 	public static void ketThuc() {
 		System.out.println("Cám ơn bạn đã sử dụng chương trình");
 		System.exit(0);
@@ -112,8 +131,9 @@ public class importStudent {
 			System.out.println("| 2. Danh sach sinh viên        |");
 			System.out.println("| 3. Tốp sinh viên              |");
 			System.out.println("| 4. Sắp xếp theo điểm TB       |");
+			System.out.println("| 5. Sắp xếp theo tên           |");
 			System.out.println("=================================");
-			System.out.println("| 5. Kết thúc                   |");
+			System.out.println("| 6. Kết thúc                   |");
 			System.out.println("+-------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
@@ -125,9 +145,10 @@ public class importStudent {
 			} else if (option == 4) {
 				sapXepDtb();
 			} else if (option == 5) {
+				sortName();
+			} else if (option == 6) {
 				ketThuc();
 			}
-
 		}
 	}
 }
