@@ -13,10 +13,10 @@ public class DanhSachSV {
 	}
 
 	// nhập số sinh viên
-	public static void nhapsv() {
+	public static void NhapSV() {
 		System.out.println("THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("============================");
-		System.out.println("Bạn muốn nhập bao nhiêu sinh viên ?");
+		System.out.println("Bạn muốn nhập bao nhiêu sinh viên:");
 		int a = input.nextInt();
 		tongsosv = a + tongsosv;
 		for (int z = 0; z < tongsosv; z++) {
@@ -46,20 +46,20 @@ public class DanhSachSV {
 	}
 
 	// hiển thị sinh viên
-	public static void show(QLSinhViên sv) {
+	public static void Show(QLSinhViên sv) {
 		System.out.print(sv.getNamesv() + "\t" + sv.getNgaysinhsv() + "\t" + "\t" + sv.getLP1() + "\t" + "\t"
 				+ sv.getLP2() + "\t" + "\t" + sv.getLP3() + "\t" + "\t" + sv.getDiemTB() + "\t" + sv.getXepLoai() + "\n");
 
 	}
 
-	public static void xuatsv() {
+	public static void XuatSV() {
 		System.out.println("-----------DANH SÁCH TẤT CẢ SINH VIÊN-------------");
 		System.out.println("==================================================");
 		System.out.println("STT\tTên\tNgày Sinh\tĐiểm LP#1\tĐiểm LP#2\tĐiểm LP#3\tĐiểm TB\tXếp Loại");
 		System.out.println("--------------------------------------------------");
 		for (int i = 0; i < tongsosv; i++) {
 			System.out.print((i + 1) + "\t");
-			show(sv[i]);
+			Show(sv[i]);
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
@@ -67,7 +67,7 @@ public class DanhSachSV {
 	}
 
 	// sinh viên có điểm cao nhất
-	public static void svcaonhat() {
+	public static void SVCaoNhat() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM CAO NHẤT-------------");
 		System.out.println("==================================================");
 		float max = 0;
@@ -90,10 +90,10 @@ public class DanhSachSV {
 	}
 
 	// sinh viên có điểm thấp nhất
-	public static void svthapnhat() {
+	public static void SVThapNhat() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM THẤP NHẤT-------------");
 		System.out.println("==================================================");
-		float min = 10;
+		float min = 0;
 		int stt;
 		for (int i = 0; i < tongsosv; i++) {
 			if (min > sv[i].getDiemTB()) {
@@ -113,7 +113,7 @@ public class DanhSachSV {
 	}
 
 	// sắp Xếp Điểm Trung Bình
-	public static void sapxepĐTB() {
+	public static void SapXepĐTB() {
 		QLSinhViên[] temp = new QLSinhViên[tongsosv];
 		float tempt;
 		for (int i = 0; i < tongsosv - 1; i++) {
@@ -128,14 +128,14 @@ public class DanhSachSV {
 		}
 		for (int i = 0; i < tongsosv; i++) {
 			System.out.print((i + 1) + "\t");
-			show(sv[i]);
+			Show(sv[i]);
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
 		System.out.println("-------Nhập ENTER để tiếp tục------");
 	}
 	// sắp xếp theo tên sinh viên
-	public static void sapxepTen() {
+	public static void SapXepTen() {
 		QLSinhViên[] temp = new QLSinhViên[tongsosv];
 		
 		for (int i = 0; i < tongsosv - 1; i++) {
@@ -153,14 +153,14 @@ public class DanhSachSV {
 			System.out.println("--------------------------------------------------------------------");
 			for (int i = 0; i < tongsosv; i++) {
 				System.out.print((i + 1) + "\t");
-				show(sv[i]);
+				Show(sv[i]);
 			}
 		action = input.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		action = input.nextLine();
 	}
 	//kết thúc
-	public static void ketthuc() {
+	public static void KetThuc() {
 		System.out.println("=======Tkank you!======");
 		System.exit(0);
 	}
@@ -180,19 +180,19 @@ public class DanhSachSV {
 			System.out.println("|<============????=============>|");
 			int aye = input.nextInt();
 			if (aye == 1) {
-				nhapsv();
+				NhapSV();
 			} else if (aye == 2) {
-				xuatsv();
+				XuatSV();
 			} else if (aye == 3) {
-				svcaonhat();
+				SVCaoNhat();
 			} else if (aye == 4) {
-				svthapnhat();
+				SVThapNhat();
 			} else if (aye == 5) {
-				sapxepĐTB();
+				SapXepĐTB();
 			} else if (aye == 6) {
-				sapxepTen();
+				SapXepTen();
 			} else if (aye == 7){
-				ketthuc();
+				KetThuc();
 			}
 		}
 	}
