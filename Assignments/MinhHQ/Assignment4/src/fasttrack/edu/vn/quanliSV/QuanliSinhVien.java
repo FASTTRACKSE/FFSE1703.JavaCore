@@ -21,8 +21,6 @@ public class QuanliSinhVien {
 	}
 
 	public static void nhapDSSV() {
-
-		for (int i = 0; i < n; i++) {
 			System.out.println("Nhập danh sách sinh viên : ");
 			System.out.println("---------------------------");
 			System.out.print("Số lượng sinh viên :");
@@ -33,7 +31,6 @@ public class QuanliSinhVien {
 				SV[j].Input();
 			}
 
-		}
 
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
