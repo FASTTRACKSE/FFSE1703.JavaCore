@@ -81,7 +81,7 @@ public class SinhVien {
 		} else if (getTBM() <= 8.4) {
 			return "Khá";
 		} else {
-			return "Gi�?i";
+			return "Giỏi";
 		}
 	}
 
