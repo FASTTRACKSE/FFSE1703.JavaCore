@@ -5,7 +5,7 @@ public class Student {
 	public  String stuDate;
 	public double DLP1;
 	public  double DLP2;
-	public int i;
+	
 	
 	
 	

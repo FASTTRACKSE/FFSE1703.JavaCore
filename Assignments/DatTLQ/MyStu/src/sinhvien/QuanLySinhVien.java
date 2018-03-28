@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class QuanLySinhVien {
 	
 	public static Scanner scanner = new Scanner(System.in);
-	public static int a;
-	public static int i;
+	public static int soLuong;
+	
 	public static int sortByDTB[];
 	public static int sortByABC[];
 
@@ -21,10 +21,10 @@ public class QuanLySinhVien {
 	}
 	public static void nhapsinhvien() {
 		System.out.print("Nhap so sinh vien");
-		a = scanner.nextInt();
-		arrStu=new Student[a];
+		soLuong = scanner.nextInt();
+		arrStu=new Student[soLuong];
 		
-		for(i=0;i<a;i++) {
+		for(int i=0;i<soLuong;i++) {
 			arrStu[i] =new Student();
 
 			scanner.nextLine();
@@ -46,7 +46,7 @@ public class QuanLySinhVien {
 		// tự chỉnh lại cái ni cho đều nữa
 		System.out.println("Name " + "\t" + "Date" + "\t" + "DiemLP1" + "\t" + "DiemLP2" + "\t" + "DTB"+"\t"+"XepLoai");
 		
-		for(int i=0;i<a;i++) {
+		for(int i=0;i<soLuong;i++) {
 			System.out.printf("| %-20s | %-10s | %4s | %4s | %4s | %5s |\n", arrStu[i].getStuName(), arrStu[i].getStuDate(), arrStu[i].getDLP1(), arrStu[i].getDLP2(), arrStu[i].DTB(), arrStu[i].Xeploai());
 		
 		}
@@ -55,7 +55,7 @@ public class QuanLySinhVien {
 
 		double max = arrStu[0].DTB(), min = arrStu[0].DTB();
 		int keymax=0,keymin=0;
-		for (int b = 1; b < a; b++) {
+		for (int b = 1; b < soLuong; b++) {
 			if (max < arrStu[b].DTB()) {
 				max = arrStu[b].DTB();
 				 keymax=b;
@@ -72,12 +72,12 @@ public class QuanLySinhVien {
 				+arrStu[keymin].getStuDate() + min);
 	}
 	public static void maxmin() {
-		sortByDTB = new int[a];
-		for (int i = 0; i < a; i++) {
+		sortByDTB = new int[soLuong];
+		for (int i = 0; i < soLuong; i++) {
 			sortByDTB[i] = i;
 		}
-		for (int i = 0; i < a - 1; i++) {
-			for (int j = i + 1; j < a; j++) {
+		for (int i = 0; i < soLuong - 1; i++) {
+			for (int j = i + 1; j < soLuong; j++) {
 				if (arrStu[sortByDTB[i]].DTB() > arrStu[sortByDTB[j]].DTB()) {
 					int temp = sortByDTB[j];
 					sortByDTB[j] = sortByDTB[i];
@@ -89,7 +89,7 @@ public class QuanLySinhVien {
 
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
-		for (int i = 0; i < a; i++) {
+		for (int i = 0; i < soLuong; i++) {
 
 			System.out.println((i + 1) + " \t" + arrStu[sortByDTB[i]].getStuName() + " \t \t"
 					+ arrStu[sortByDTB[i]].getStuDate() + "\t" + arrStu[sortByDTB[i]].getDLP1() + " \t \t"
@@ -99,8 +99,33 @@ public class QuanLySinhVien {
 		}
 	}
 	public static void abc() {
-		
+		sortByABC = new int[soLuong];
+		for (int i = 0; i < soLuong; i++) {
+			sortByABC[i] = i;
+		}
+		for (int i = 0; i < soLuong - 1; i++) {
+			for (int j = i + 1; j < soLuong; j++) {
+				if (arrStu[sortByABC[i]].getStuName().compareTo(arrStu[sortByABC[j]].getStuName())>0) {
+					int temp = sortByABC[j];
+					sortByABC[j] = sortByABC[i];
+					sortByABC[i] = temp;
+				}
+			}
+
+		}
+
+		System.out.println(
+				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
+		for (int i = 0; i < soLuong; i++) {
+
+			System.out.println((i + 1) + " \t" + arrStu[sortByABC[i]].getStuName() + " \t \t"
+					+ arrStu[sortByABC[i]].getStuDate() + "\t" + arrStu[sortByABC[i]].getDLP1() + " \t \t"
+					+ arrStu[sortByABC[i]].getDLP2() + " \t \t" + arrStu[sortByABC[i]].DTB() + "\t"
+					+ arrStu[sortByABC[i]].Xeploai());
+
+		}
 	}
+	
 	public static void mymenu() {
 		while (true) {
 			System.out.println("---LUA CHON CHUC NANG---");
