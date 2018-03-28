@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class SinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
 
-	public String SVten;
-	public String SVngaysinh;
-	public int SVLP1;
-	public int SVLP2;
-	public double SVDTB;
+	private String SVten;
+	private String SVngaysinh;
+	private int SVLP1;
+	private int SVLP2;
+	private double SVDTB;
 
 	public SinhVien(String SVten, String SVngaysinh, int SVLP1, int SVLP2) {
 		this.SVten = SVten;
