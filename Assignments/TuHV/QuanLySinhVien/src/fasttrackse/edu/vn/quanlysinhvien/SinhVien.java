@@ -1,4 +1,5 @@
 package fasttrackse.edu.vn.quanlysinhvien;
+
 import java.util.Scanner;
 
 public class SinhVien {
@@ -17,9 +18,11 @@ public class SinhVien {
 		this.SVLP2 = SVLP2;
 
 	}
+
 	public SinhVien() {
 
 	}
+
 	public void Input() {
 		myScanner.nextLine();
 		System.out.print("Nhập tên Sinh Viên :");
@@ -34,7 +37,6 @@ public class SinhVien {
 		System.out.print("Nhập điểm môn LP2 :");
 		this.SVLP2 = myScanner.nextInt();
 	}
-
 
 	public void setSVten(String name) {
 		this.SVten = name;
@@ -75,9 +77,9 @@ public class SinhVien {
 	public String getSVxeploai() {
 		if (getSVDTB() >= 8.5) {
 			return "Giỏi";
-		} else if (getSVDTB() >= 7.0 && getSVDTB() <= 8.4) {
+		} else if (getSVDTB() <= 8.4) {
 			return "Khá";
-		} else if (getSVDTB() >= 5.0 && getSVDTB() <= 6.9) {
+		} else if (getSVDTB() <= 6.9) {
 			return "Trung Bình";
 		} else {
 			return "Yếu";
