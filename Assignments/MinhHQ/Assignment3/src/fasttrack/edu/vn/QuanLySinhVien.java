@@ -7,13 +7,12 @@ public class QuanLySinhVien {
 
 	public static Scanner myScanner = new Scanner(System.in);
 
-	public static int i, n = 0;
-	public static String[] ten_SV;
-	public static String[] ngay_Sinh;
-	public static double[] diem_lp1;
-	public static double[] diem_lp2;
+	public static int i, n = 4;
+	public static String[] ten_SV = { "Hồ Quang Minh", "Nguyễn Phước Hiếu", "Nguyễn Thanh Hiếu", "Hồ Viết Tú" };
+	public static String[] ngay_Sinh = { "30/10/99", "13/05/99", "26/09/99", "04/04/99" };
+	public static double[] diem_lp1 = { 8.0, 7.0, 9.0, 6.0 };
+	public static double[] diem_lp2 = { 4.0, 6.0, 8.0, 4.0 };
 	public static double[] diem_tbm;
-	public static double[] sx_diem;
 
 	public static void main(String[] args) {
 		showMyMenu();
@@ -28,7 +27,7 @@ public class QuanLySinhVien {
 		ngay_Sinh = new String[n];
 		diem_lp1 = new double[n];
 		diem_lp2 = new double[n];
-		diem_tbm = new double[n];
+
 		for (i = 0; i < n; i++) {
 			myScanner.nextLine();
 
@@ -44,7 +43,6 @@ public class QuanLySinhVien {
 			System.out.print("Nhập điểm môn LP2 " + " :");
 			diem_lp2[i] = myScanner.nextDouble();
 
-			diem_tbm[i] = ((diem_lp1[i] + diem_lp2[i]) / 2);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -52,13 +50,16 @@ public class QuanLySinhVien {
 	}
 
 	public static void inDSSV() {
+		diem_tbm = new double[n];
+
 		System.out.println("Danh sách sinh viên ");
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println(" STT \t Họ và tên \t Ngày sinh \t lp1 \t lp2 \t ĐTB");
+		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");
 		for (i = 0; i < n; i++) {
-			System.out.println((i + 1) + " \t " + ten_SV[i] + " \t " + ngay_Sinh[i] + " \t " + diem_lp1[i] + " \t "
-					+ diem_lp2[i] + " \t " + diem_tbm[i]);
+			diem_tbm[i] = ((diem_lp1[i] + diem_lp2[i]) / 2);
+			System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), ten_SV[i], ngay_Sinh[i], diem_lp1[i],
+					diem_lp2[i], diem_tbm[i]);
 		}
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -94,36 +95,29 @@ public class QuanLySinhVien {
 	}
 
 	public static void sapxepTBM() {
-		sx_diem = new double[n];
-		for (i = 0; i < n; i++) {
-			sx_diem[i] = diem_tbm[i];
-		}
-		double temp = sx_diem[0];
-		for (i = 0; i < n - 1; i++) {
-			for (int j = i + 1; j < n; j++) {
-				if (sx_diem[i] < sx_diem[j]) {
-					temp = sx_diem[j];
-					sx_diem[j] = sx_diem[i];
-					sx_diem[i] = temp;
-				}
-			}
-		}
 		int[] vitri = new int[n];
 		for (i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (sx_diem[i] == diem_tbm[j]) {
-					vitri[i] = j;
+			vitri[i] = i;
+		}
+		int temp;
+		for (i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (diem_tbm[vitri[i]] < diem_tbm[vitri[j]]) {
+					temp = vitri[j];
+					vitri[j] = vitri[i];
+					vitri[i] = temp;
 				}
 			}
 		}
+
 		for (i = 0; i < n; i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
-			System.out.println(" STT \t Họ và tên \t Ngày sinh \t lp1 \t lp2 \t ĐTB");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  ");
 			System.out.println("--------------------------------------------------------------------");
 			for (i = 0; i < n; i++) {
-				System.out.println((i + 1) + " \t " + ten_SV[vitri[i]] + " \t " + ngay_Sinh[vitri[i]] + " \t " + diem_lp1[vitri[i]] + " \t "
-						+ diem_lp2[vitri[i]] + " \t " + diem_tbm[vitri[i]]);
+				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s\n", (i + 1), ten_SV[vitri[i]], ngay_Sinh[vitri[i]],
+						diem_lp1[vitri[i]], diem_lp2[vitri[i]], diem_tbm[vitri[i]]);
 			}
 		}
 
@@ -148,7 +142,7 @@ public class QuanLySinhVien {
 			System.out.println("|5. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
-
+			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();
