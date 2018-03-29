@@ -46,6 +46,7 @@ public class QuanLiTienDien {
 
 		for (int i = 0; i < soLuong; i++) {
 			KhachHang khachhang = new KhachHang();
+			
 			System.out.println("Nhập mã khách hàng: ");
 			khachhang.setMaKhachHang(myInput.nextLine());
 
