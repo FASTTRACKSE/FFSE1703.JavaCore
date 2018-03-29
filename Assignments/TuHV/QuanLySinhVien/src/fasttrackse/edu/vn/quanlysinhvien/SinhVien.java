@@ -1,12 +1,15 @@
 package fasttrackse.edu.vn.quanlysinhvien;
 
-public class SinhVien {
+import java.util.Scanner;
 
-	public String SVten;
-	public String SVngaysinh;
-	public int SVLP1;
-	public int SVLP2;
-	public double SVDTB;
+public class SinhVien {
+	public static Scanner myScanner = new Scanner(System.in);
+
+	private String SVten;
+	private String SVngaysinh;
+	private int SVLP1;
+	private int SVLP2;
+	private double SVDTB;
 
 	public SinhVien(String SVten, String SVngaysinh, int SVLP1, int SVLP2) {
 		this.SVten = SVten;
@@ -14,6 +17,25 @@ public class SinhVien {
 		this.SVLP1 = SVLP1;
 		this.SVLP2 = SVLP2;
 
+	}
+
+	public SinhVien() {
+
+	}
+
+	public void Input() {
+		myScanner.nextLine();
+		System.out.print("Nhập tên Sinh Viên :");
+		this.SVten = myScanner.nextLine();
+
+		System.out.print("Nhập ngày sinh của Sinh Viên :");
+		this.SVngaysinh = myScanner.nextLine();
+
+		System.out.print("Nhập điểm môn LP1 :");
+		this.SVLP1 = myScanner.nextInt();
+
+		System.out.print("Nhập điểm môn LP2 :");
+		this.SVLP2 = myScanner.nextInt();
 	}
 
 	public void setSVten(String name) {
@@ -55,9 +77,9 @@ public class SinhVien {
 	public String getSVxeploai() {
 		if (getSVDTB() >= 8.5) {
 			return "Giỏi";
-		} else if (getSVDTB() >= 7.0 && getSVDTB() <= 8.4) {
+		} else if (getSVDTB() <= 8.4) {
 			return "Khá";
-		} else if (getSVDTB() >= 5.0 && getSVDTB() <= 6.9) {
+		} else if (getSVDTB() <= 6.9) {
 			return "Trung Bình";
 		} else {
 			return "Yếu";

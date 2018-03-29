@@ -22,6 +22,7 @@ public class QuanLiSvien {
 			System.out.println("2. In danh sach sinh vien");
 			System.out.println("3. Sinh vien tieu bieu");
 			System.out.println("4. sinh vien diem yeu nhat");
+			System.out.println("6. sinh vien di");
 			System.out.println("5. Kết thúc chương trình");
 			System.out.println("Lựa chọn của bạn");
 			
@@ -37,7 +38,10 @@ public class QuanLiSvien {
 			else if (myOption == 4) {
 				sinhVienYeuNhat();
 			}
-			else if (myOption == 6 ) {
+			else if (myOption == 6) {
+				sapxeptheodiemtb();
+			}
+			else if (myOption == 5 ) {
 				ketThuc();
 			}
 	}}
@@ -69,8 +73,7 @@ public class QuanLiSvien {
 	   System.out.println("Danh sach sinh vien");
 	   System.out.println("      STT      |      Ten SV      |      Diem LP1       |      Diem LP2     |      Diem TB       ");
 	   for (int  i=0 ; i < arrSinhVien.length ; i++) { 
-		   System.out.println("                  "+ arrSinhVien[i] +"               "+ diemLP1[i] +"               "+ diemLP2[i] +"                 "+ diemTB[i] +"     ");
-		   Arrays.sort(arrSinhVien);
+		   System.out.println("%-6s%-6s%-6s%-6s%-5s\n"+ arrSinhVien[i] +" "+ diemLP1[i] +""+ diemLP2[i] +" "+ diemTB[i] +"");
 		   myScanner.nextLine();  
 	   }
 	   
@@ -91,6 +94,35 @@ public class QuanLiSvien {
     	}
     	System.out.println("Sinh vien yeu nhat là :   "+ arrSinhVien[vtri] +" "+ diemTB[vtri] + " " + min);
     }
+    public static void sapxeptheodiemtb() {
+    	Double temp;
+    	String stemp;
+    	for (int i=0; i<diemTB.length; i++) {
+    		for (int j= i+1; j < diemTB.length; j++) {
+    			if ( diemTB[i] < diemTB[j]) {
+    				temp = diemTB[i];
+    				diemTB[i] = diemTB[j];
+    				diemTB[j] = temp;
+    				
+    				stemp = arrSinhVien[i];
+    				arrSinhVien[j] = arrSinhVien[i];
+    				arrSinhVien[j] = stemp;
+    				
+    				temp = diemLP1[i];
+    				diemLP1[j] = diemLP1[j];
+    				diemLP1[j] = temp;
+    				
+    				temp = diemLP2[i];
+    				diemLP2[j] = diemLP2[j];
+    				diemLP2[j] = temp;
+    			}
+    		}	
+    	}
+    	System.out.println("Danh sach sinh vien");
+ 	   System.out.println("      STT      |      Ten SV      |      Diem LP1       |      Diem LP2     |      Diem TB       ");
+ 	   for (int  i=0 ; i < arrSinhVien.length ; i++) { 
+ 		   System.out.println("                  "+ arrSinhVien[i] +"               "+ diemLP1[i] +"               "+ diemLP2[i] +"                 "+ diemTB[i] +"     ");
+    }}
    
     public static void ketThuc() {
 		System.out.println("Kết thúc chương trình");

@@ -13,10 +13,10 @@ public class DanhSachSV {
 	}
 
 	// nhập số sinh viên
-	public static void nhapsv() {
+	public static void NhapSV() {
 		System.out.println("THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("============================");
-		System.out.println("Bạn muốn nhập bao nhiêu sinh viên ?");
+		System.out.println("Bạn muốn nhập bao nhiêu sinh viên:");
 		int a = input.nextInt();
 		tongsosv = a + tongsosv;
 		for (int z = 0; z < tongsosv; z++) {
@@ -46,20 +46,20 @@ public class DanhSachSV {
 	}
 
 	// hiển thị sinh viên
-	public static void show(QLSinhViên sv) {
+	public static void Show(QLSinhViên sv) {
 		System.out.print(sv.getNamesv() + "\t" + sv.getNgaysinhsv() + "\t" + "\t" + sv.getLP1() + "\t" + "\t"
 				+ sv.getLP2() + "\t" + "\t" + sv.getLP3() + "\t" + "\t" + sv.getDiemTB() + "\t" + sv.getXepLoai() + "\n");
 
 	}
 
-	public static void xuatsv() {
+	public static void XuatSV() {
 		System.out.println("-----------DANH SÁCH TẤT CẢ SINH VIÊN-------------");
 		System.out.println("==================================================");
 		System.out.println("STT\tTên\tNgày Sinh\tĐiểm LP#1\tĐiểm LP#2\tĐiểm LP#3\tĐiểm TB\tXếp Loại");
 		System.out.println("--------------------------------------------------");
 		for (int i = 0; i < tongsosv; i++) {
 			System.out.print((i + 1) + "\t");
-			show(sv[i]);
+			Show(sv[i]);
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
@@ -67,7 +67,7 @@ public class DanhSachSV {
 	}
 
 	// sinh viên có điểm cao nhất
-	public static void svcaonhat() {
+	public static void SVCaoNhat() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM CAO NHẤT-------------");
 		System.out.println("==================================================");
 		float max = 0;
@@ -90,10 +90,10 @@ public class DanhSachSV {
 	}
 
 	// sinh viên có điểm thấp nhất
-	public static void svthapnhat() {
+	public static void SVThapNhat() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM THẤP NHẤT-------------");
 		System.out.println("==================================================");
-		float min = 10;
+		float min = 0;
 		int stt;
 		for (int i = 0; i < tongsosv; i++) {
 			if (min > sv[i].getDiemTB()) {
@@ -113,7 +113,7 @@ public class DanhSachSV {
 	}
 
 	// sắp Xếp Điểm Trung Bình
-	public static void sapxepĐTB() {
+	public static void SapXepĐTB() {
 		QLSinhViên[] temp = new QLSinhViên[tongsosv];
 		float tempt;
 		for (int i = 0; i < tongsosv - 1; i++) {
@@ -128,14 +128,39 @@ public class DanhSachSV {
 		}
 		for (int i = 0; i < tongsosv; i++) {
 			System.out.print((i + 1) + "\t");
-			show(sv[i]);
+			Show(sv[i]);
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
 		System.out.println("-------Nhập ENTER để tiếp tục------");
 	}
-
-	public static void ketthuc() {
+	// sắp xếp theo tên sinh viên
+	public static void SapXepTen() {
+		QLSinhViên[] temp = new QLSinhViên[tongsosv];
+		
+		for (int i = 0; i < tongsosv - 1; i++) {
+			for (int j = i + 1; j < tongsosv; j++) {
+				if (sv[i].getNamesv().compareTo(sv[j].getNamesv()) > 0) {
+					temp[i] = sv[j];
+					sv[j] = sv[i];
+					sv[i] = temp[i];
+				}
+			}
+		}
+			System.out.println("Danh sách sinh viên đã được sắp xếp theo Tên ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("--------------------------------------------------------------------");
+			for (int i = 0; i < tongsosv; i++) {
+				System.out.print((i + 1) + "\t");
+				Show(sv[i]);
+			}
+		action = input.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		action = input.nextLine();
+	}
+	//kết thúc
+	public static void KetThuc() {
 		System.out.println("=======Tkank you!======");
 		System.exit(0);
 	}
@@ -149,22 +174,25 @@ public class DanhSachSV {
 			System.out.println("| 3. Sắp Xếp Điểm Cao -> Thấp   |");
 			System.out.println("| 4. Sắp Xếp Điểm Thấp -> Cao   |");
 			System.out.println("| 5. Sắp Xếp Theo Điểm TB       |");
+			System.out.println("| 6. Sắp Xếp Theo Tên Sinh Viên |");
 			System.out.println("|=============!!!!==============|");
-			System.out.println("| 6. Kết Thúc                   |");
+			System.out.println("| 7. Kết Thúc                   |");
 			System.out.println("|<============????=============>|");
 			int aye = input.nextInt();
 			if (aye == 1) {
-				nhapsv();
+				NhapSV();
 			} else if (aye == 2) {
-				xuatsv();
+				XuatSV();
 			} else if (aye == 3) {
-				svcaonhat();
+				SVCaoNhat();
 			} else if (aye == 4) {
-				svthapnhat();
+				SVThapNhat();
 			} else if (aye == 5) {
-				sapxepĐTB();
-			} else {
-				ketthuc();
+				SapXepĐTB();
+			} else if (aye == 6) {
+				SapXepTen();
+			} else if (aye == 7){
+				KetThuc();
 			}
 		}
 	}
