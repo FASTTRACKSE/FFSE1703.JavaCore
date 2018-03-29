@@ -22,3 +22,9 @@
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/QuanLySinhVien.java)
  <h1></h1>.[Sinh viên]
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/SinhVien.java)
+<h1>Assigment 5</h1> [Khách hàng]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLyDienLuc/src/fasttrackse/edu/vn/model/KhachHang.java)
+ <h1></h1>.[Biên Lai]
+ (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLyDienLuc/src/fasttrackse/edu/vn/model/BienLai.java)
+ <h1></h1>.[Quản Lý Tiền Điện]
+ (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLyDienLuc/src/fasttrackse/edu/vn/main/QuanLyTienDien.java)
