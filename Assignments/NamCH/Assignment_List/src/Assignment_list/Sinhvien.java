@@ -48,7 +48,8 @@ public class Sinhvien {
     	else if(getDiemTB()>=5.0 && getDiemTB()<=6.9) {
     		return "Trung Bình";}
     	else if(getDiemTB()>=7 && getDiemTB()<=8.4) {
-    		return "Khá";}
+    		return "Khá";    	
+    	}
     	else {
     		return "Giỏi";
     	}
