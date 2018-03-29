@@ -7,7 +7,15 @@ public class myStudent {
 	private Double lp1;
 	private Double lp2;
 	private Double Dtb;
-
+	public myStudent() {
+		
+	}
+	public myStudent(String name,String birthday,Double lp1,Double lp2) {
+		this.nameSv= name;
+		this.Birthday = birthday;
+		this.lp1 = lp1;
+		this.lp2 = lp2;
+	}
 	public void setName(String name) {
 		this.nameSv = name;
 	}
@@ -51,8 +59,10 @@ public class myStudent {
 			return xepLoai = "khá";
 		} else if (Dtb < 6.5 && Dtb >= 5) {
 			return xepLoai = "Trung BÌnh";
-		} else {
+		} else if(Dtb < 5&&Dtb > 0){
 			return xepLoai = "Yếu";
+		}else {
+			return xepLoai = "Quá xuất xắc";
 		}
 	}
 }

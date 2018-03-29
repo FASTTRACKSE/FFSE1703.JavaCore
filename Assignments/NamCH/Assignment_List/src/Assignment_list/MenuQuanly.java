@@ -160,9 +160,11 @@ public class MenuQuanly {
 			System.out.println("         |-2.In danh sách sinh viên-|");
 			System.out.println("         |-----3.Top sinh viên------|");
 			System.out.println("         |-----4.Bad sinh viên------|");
-			System.out.println("         |---5.Sắp xếp theo Điểm----|");
+			System.out.println("         |-5.Sắp xếp theo tăng dần--|");
+			System.out.println("         |-6.Sắp xếp theo giảm dần--|");
+			System.out.println("         |----7.Sắp xếp theo Tên----|");
 			System.out.println("         |==========================|");
-			System.out.println("         |--6.Kết thúc chương trình-|");
+			System.out.println("         |--8.Kết thúc chương trình-|");
 			System.out.println("         |__________________________|");
 			System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
 			int act = input.nextInt();
@@ -175,6 +177,10 @@ public class MenuQuanly {
 			}else if(act==4) {
 				badSv();
 			}else if(act==5) {
+				sorfDiemSv();
+			}else if(act==6) {
+				sorfDiemSv();
+			}else if(act==6) {
 				sorfDiemSv();
 			}else {
 				endSv();
