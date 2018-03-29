@@ -2,8 +2,7 @@ package ffse1703.javacore.qltiendien.model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-public class QuanLyKhachHang {
+ class QuanLyKhachHang {
 	public static void main(String[] args) {
 		int n;
 		BienLai bienLai;
@@ -25,6 +24,7 @@ public class QuanLyKhachHang {
 		for (int i = 0; i < arrBienLai.size(); i++) {
 			System.out.println("Thông tin biên lai hộ gia đình thứ " + (i + 1) + ": ");
 			arrBienLai.get(i).hienThiBienLai();
+			System.out.println("<<====================================>>");
 		}
 	}
 }

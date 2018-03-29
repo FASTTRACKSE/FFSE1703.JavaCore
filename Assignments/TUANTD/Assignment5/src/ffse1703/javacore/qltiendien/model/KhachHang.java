@@ -2,7 +2,7 @@ package ffse1703.javacore.qltiendien.model;
 
 import java.util.Scanner;
 
-public class KhachHang {
+class KhachHang {
 	private String hoTenChuNha;
 	private String maKhachHang;
 	private String soNha;
