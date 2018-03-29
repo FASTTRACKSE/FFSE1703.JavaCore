@@ -1,11 +1,12 @@
 package asm3;
 import java.util.Scanner;
 public class asm3 {
-	public static String[]ten;
+	public static String[]ten = {"a, b, c"};
 	public static String[]ntnsinh;
-	public static Double[]lp1;
-	public static Double[]lp2;
+	public static Double[]lp1 = {8.0, 9.0, 6.7};
+	public static Double[]lp2 = {5.8, 7.0, 10.0 };
 	public static Double[]tb;
+	
 	public static int b=0;
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
@@ -55,7 +56,7 @@ public class asm3 {
 				stt=i;
 			}
 		}
-		System.out.println("Sinh viên có điểm cao nhất là: ");
+		System.out.print("Sinh viên có điểm cao nhất là: ");
 		System.out.println(ten[stt] + tb[stt]);
 	}
 	public static void thap() {
@@ -67,9 +68,44 @@ public class asm3 {
 				stt1=i;
 			}
 		}
-		System.out.println("Sinh viên có điểm thấp nhất là:");
+		System.out.print("Sinh viên có điểm thấp nhất là:");
 		System.out.println(ten[stt1] + tb[stt1]);
 }
+	public static void sapxeptb() {
+	        Double temp = tb[0];
+	        String stemp; 
+	        for (int i = 0 ; i < tb.length - 1; i++) {
+	            for (int j = i + 1; j < tb.length; j++) {
+	                if (tb[i] > tb[j]) {
+	                    temp = tb[i];
+	                    tb[j] = tb[i];
+	                    tb[i] = temp;
+	                    
+	                    stemp = ten[i];
+	                    ten[i] = ten[j];
+	                    ten[j] = stemp;
+	                    
+	                    temp = lp1[i];
+	                    lp1[j] = lp1[i];
+	                    lp1[i] = temp;
+	                    
+	                    temp = lp2[i];
+	                    lp2[j] = lp2[i];
+	                    lp2[i] = temp;
+	                    
+	                    stemp = ntnsinh[i];
+	                    ntnsinh[j] = ntnsinh[i];
+	                    ntnsinh[i] = stemp;
+	                    
+	          
+	                }
+	            }
+	        }
+	        System.out.println("Họ tên   Ngày tháng năm sinh   Lp1    Lp2  Đtb");
+	        for (int i = 0; i < tb.length; i++) {
+	            System.out.print(tb[i]+" " + lp1[i] +" "+ lp2[i]);
+	        }
+	}
 	public static void kthuc() {
 		System.out.println("Chào tạm biệt");
 		System.exit(0);
@@ -81,8 +117,10 @@ public class asm3 {
 		System.out.println(" 2.______IN DANH SÁCH SINH VIÊN______");
 		System.out.println(" 3.___________TOP SINH VIÊN__________");
 		System.out.println(" 4.____SINH VIÊN CÓ ĐIỂM THẤP NHẤT____");
-		System.out.println(" 5._______KẾT THÚC CHƯƠNG TRÌNH_______");
-		System.out.println("________NHẬP CHỨC NĂNG BẠN MUỐN________");
+		System.out.println(" 5. _____SẮP XẾP SINH VIÊN THEO ĐTB____");
+		System.out.println(" 6._____SẮP XẾP SINH VIÊN THEO TÊN_____");
+		System.out.println(" 7._______KẾT THÚC CHƯƠNG TRÌNH_______");
+		System.out.println("______NHẬP CHỨC NĂNG BẠN MUỐN________");
 			int a = sc.nextInt();
 			if(a==1) {
 				nhap();
@@ -97,6 +135,12 @@ public class asm3 {
 				thap();
 			}
 			else if(a==5) {
+				sapxeptb();
+			}
+			else if(a==6) {
+				sapxeptb();
+			}
+			else if(a==7) {
 				kthuc();
 			}
 	}
