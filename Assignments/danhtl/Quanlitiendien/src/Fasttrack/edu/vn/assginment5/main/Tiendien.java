@@ -69,7 +69,9 @@ public class Tiendien {
 			arrKhachHang.add(x);
 
 		}
-
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 	
 public static void nhapbienlai() {
