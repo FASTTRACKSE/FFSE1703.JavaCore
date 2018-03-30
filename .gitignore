@@ -1,0 +1,41 @@
+*target*
+*.jar
+*.war
+*.ear
+*.class
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.recommenders/
+
+# MacOS
+.DS_Store
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+<<<<<<< HEAD
+<<<<<<< HEAD
+Assignments/NamCH/Assignment_List/src/Assignment_list/MenuQuanly.java
+=======
+Assignments/VietPQ/unknown/src/unknown/unknown.java
+>>>>>>> 55458c363852a9ed1cac538c0d73d5feea317404
+=======
+Assignments/VietPQ/unknown/src/unknown/unknown.java
+Assignments/VietPQ/quanlinhanvien/src/ffse1703/javacore/oop2/model/sinhvien.java
+>>>>>>> d720bf87b16b912241c8c49b6ef948f713c68106
