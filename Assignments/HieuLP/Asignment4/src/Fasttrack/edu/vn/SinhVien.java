@@ -1,6 +1,10 @@
 package Fasttrack.edu.vn;
 
+import java.util.Scanner;
+
 public class SinhVien {
+
+	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
 	private String Date;
 	private double Lp1;
@@ -11,6 +15,26 @@ public class SinhVien {
 		this.Date = day;
 		this.Lp1 = Lp1;
 		this.Lp2 = Lp2;
+	}
+
+	public SinhVien() {
+
+	}
+
+	public void Input() {
+		myScanner.nextLine();
+		System.out.print("Nhập tên Sinh Viên :");
+		this.Name = myScanner.nextLine();
+
+		System.out.print("Nhập ngày sinh của Sinh Viên :");
+		this.Date = myScanner.nextLine();
+
+		System.out.print("Nhập điểm môn Lp1 :");
+		this.Lp1 = myScanner.nextDouble();
+
+		System.out.print("Nhập điểm môn Lp2 :");
+		this.Lp2 = myScanner.nextDouble();
+
 	}
 
 	public void setName(String name) {
