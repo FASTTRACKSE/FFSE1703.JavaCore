@@ -5,7 +5,7 @@ public class Student {
 	public  String stuDate;
 	public double DLP1;
 	public  double DLP2;
-	public int i;
+	
 	
 	
 	
@@ -34,18 +34,18 @@ public class Student {
 	public double getDLP2() {
 		return this.DLP2;
 	}
-	public double DTB() {
+	public double getDTB() {
 		return ((this.DLP1)+(this.DLP2))/2;
 	}
 	
 		
 	
-	public String Xeploai() {
-		if (this.DTB()>=8.5 && this.DTB()<=10) {
+	public String getXeploai() {
+		if (this.getDTB()>=8.5 && this.getDTB()<=10) {
 			return "gioi";
-		}else if(this.DTB()>=7 && this.DTB()<=8.4) {
+		}else if(this.getDTB()>=7 && this.getDTB()<=8.4) {
 			return"Kha";
-		}else if(this.DTB()>=5 && this.DTB()<=6.9) {
+		}else if(this.getDTB()>=5 && this.getDTB()<=6.9) {
 			return "Trung Binh";
 		}else {
 			return "Kem";
