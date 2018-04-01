@@ -43,6 +43,10 @@ public class TienDien {
 			arrKhachHang.add(new KhachHang(masoKH,tenKH,Address,masoCT));
 
 		}
+		
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 
 	public static void nhapthongtinTT() {
@@ -68,6 +72,10 @@ public class TienDien {
 					arrKhachHang.get(i).getAddress(),arrKhachHang.get(i).getMasoCT(),
 					chisotruoc,chisosau));			
 		}	
+		
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 
 	public static void inbienlai() {
@@ -76,10 +84,42 @@ public class TienDien {
 		System.out.println("-------------------------------------------------------------------------------------------------------------------");
 		System.out.println("STT  MasoKH    TênKH           Địa chỉ     MasoCT  Chỉ số trước  Chỉ số sau     Tiền điện     ");
 		System.out.println("-------------------------------------------------------------------------------------------------------------------");
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < arrBienlai.size(); i++) {
 
-			System.out.printf("%-5s%-10s%-16s%-12s%-12s%-14s%-12s%-14s\n", (i + 1),arrBienlai.get(i).getMasoKH(),arrBienlai.get(i).getTenKH(),arrBienlai.get(i).getAddress(),arrBienlai.get(i).getMasoCT(),arrBienlai.get(i).getChisotruoc(),arrBienlai.get(i).getChisosau(),arrBienlai.get(i).tienDien());
+			System.out.printf("%-5s%-10s%-16s%-12s%-12s%-14s%-12s%-14s\n",
+					(i + 1),
+					arrKhachHang.get(i).getMasoKH(),
+					arrKhachHang.get(i).getTenKH(),
+					arrKhachHang.get(i).getAddress(),
+					arrKhachHang.get(i).getMasoCT(),
+					arrBienlai.get(i).getChisotruoc(),
+					arrBienlai.get(i).getChisosau(),
+					arrBienlai.get(i).tienDien());
 		}
+		
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
+	}
+	
+public static void inkhachhang() {
+		
+		System.out.println("Danh sách tính tiền điện của khách hàng ");
+		System.out.println("------------------------------------------------------");
+		System.out.println("STT  MasoKH    TênKH           Địa chỉ     MasoCT  ");
+		System.out.println("------------------------------------------------------");
+		for (int i = 0; i < arrKhachHang.size(); i++) {
+
+			System.out.printf("%-5s%-10s%-16s%-12s%-12s\n",
+					(i + 1),
+					arrKhachHang.get(i).getMasoKH(),
+					arrKhachHang.get(i).getTenKH(),
+					arrKhachHang.get(i).getAddress(),
+					arrKhachHang.get(i).getMasoCT());}
+		
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 
 	public static void ketThuc() {
@@ -94,7 +134,8 @@ public class TienDien {
 			System.out.println("|1. Nhập thông tin khách hàng            |");
 			System.out.println("|2. Nhập thông tin chỉ số tiêu thụ       |");
 			System.out.println("|3. In biên lai tiền điện của các hộ     |");
-			System.out.println("|4. Kết thúc chương trình                |");
+			System.out.println("|4. In danh sách khách hàng              |");
+			System.out.println("|5. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
 			int myOption = Scanner.nextInt();
@@ -105,6 +146,8 @@ public class TienDien {
 			} else if (myOption == 3) {
 				inbienlai();
 			} else if (myOption == 4) {
+				inkhachhang();
+			} else if (myOption == 5) {
 				ketThuc();
 			}
 
