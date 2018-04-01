@@ -5,12 +5,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class QuanLyKhachHang {
-	private static final String MaCongTo = null;
-	private static final String SoNha = null;
-	private static final String MaKhachHang = null;
-	private static final String TenKhachHang = null;
 	public static Scanner myScanner = new Scanner(System.in);
-	public static int size;
+	public static int n;
 	static ArrayList<KhachHang> arrayKhachHang = new ArrayList<KhachHang>();
 	static ArrayList<BienLai> arrayBienLai = new ArrayList<BienLai>();
 
@@ -18,14 +14,14 @@ public class QuanLyKhachHang {
 		// TODO Auto-generated method stub
 		myMenu();
 	}
-
-	public static void themKH() {
-		System.out.print("Nhập Số Lượng Khách Hành? : ");
-		size = myScanner.nextInt();
+//Nhập Khách Hàng
+	public static void nhapKH() {
+		System.out.print("Nhập Số Lượng Khách Hàng? : ");
+		n = myScanner.nextInt();
 		String maSoKH;
 		String tenKH, diaChi;
 		String maCT;
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < n; i++) {
 
 			myScanner.nextLine();
 			System.out.println("Nhập Mã Số Khách Hàng Thứ " + (i + 1) + " :");
@@ -36,11 +32,11 @@ public class QuanLyKhachHang {
 			diaChi = myScanner.nextLine();
 			System.out.println("Nhập Mã Công Tơ Khách Hàng Thứ" + (i + 1) + " :");
 			maCT = myScanner.nextLine();
-			arrayKhachHang.add(new KhachHang(MaKhachHang, TenKhachHang, SoNha, MaCongTo));
+			arrayKhachHang.add(new KhachHang(maSoKH, tenKH, diaChi, maCT));
 		}
 	}
-
-	public static void themBL() {
+//nhập Biên Lai
+	public static void nhapBL() {
 		Double chiSoMoi, chiSoCu;
 		int thang, nam;
 		System.out.println("Nhập Biên Lai Tháng :");
@@ -59,7 +55,7 @@ public class QuanLyKhachHang {
 					arrayKhachHang.get(i).getMaCongTo(), chiSoCu, chiSoMoi, thang, nam));
 		}
 	}
-
+//In Biên Lai
 	public static void bienLai() {
 		System.out.println(
 				"+---------------------------------DANH SÁCH BIÊN LAI CỦA KHÁCH HÀNG------------------------------ --------+");
@@ -72,7 +68,7 @@ public class QuanLyKhachHang {
 		}
 		System.out.println("================================");
 	}
-
+//In Biên Lai Theo Tháng
 	public static void inBienLaiThang() {
 		int thang, nam;
 		System.out.println("Biên Lai Của Tháng :");
@@ -93,7 +89,7 @@ public class QuanLyKhachHang {
 			System.out.println("================================");
 		}
 	}
-
+//IN Biên Lai Theo Năm
 	public static void inBienLaiNam() {
 		int nam;
 
@@ -113,7 +109,7 @@ public class QuanLyKhachHang {
 			System.out.println("================================");
 		}
 	}
-
+//In Biên Lai Theo Mã Khách Hàng
 	public static void inBienLaiMaKH() {
 		String maKH;
 		int thang, nam;
@@ -142,7 +138,7 @@ public class QuanLyKhachHang {
 			System.out.println("<==============???=============>");
 		}
 	}
-
+//In Danh Sách Khách Hàng
 	public static void danhSachKH() {
 		System.out.println("+---------------DANH SÁCH KHÁCH HÀNG-------------------+");
 		System.out.println("| Mã KH |    Tên KH    |   Địa Chỉ    |   Mã CT      |");
@@ -152,17 +148,17 @@ public class QuanLyKhachHang {
 		}
 		System.out.println("================================");
 	}
-
+//In Danh Sách Biên Lai
 	public static void danhSachBienLai() {
 		while (true) {
-			System.out.println("+------LỰA CHỌN In Biên Lai-------+");
-			System.out.println("| 1. In theo tháng,năm            |");
-			System.out.println("| 2. In theo năm                  |");
-			System.out.println("| 3. In theo mã khách hàng        |");
-			System.out.println("| 4. In toàn bộ biên lai          |");
-			System.out.println("==================================");
-			System.out.println("| 6. Kết thúc                     |");
-			System.out.println("+---------------------------------+");
+			System.out.println("+------LỰA CHỌN KIỂU IN BIÊN LAI-------+");
+			System.out.println("| 1. IN Theo Ngày/Tháng/Năm            |");
+			System.out.println("| 2. IN Theo Năm                       |");
+			System.out.println("| 3. IN Theo Mã Của Khách Hàng         |");
+			System.out.println("| 4. IN Toàn Bộ Biên Lai               |");
+			System.out.println("<======================================>");
+			System.out.println("| 6. Kết Thúc                          |");
+			System.out.println("<================######================>");
 			int option = myScanner.nextInt();
 			if (option == 1) {
 				inBienLaiThang();
@@ -182,26 +178,26 @@ public class QuanLyKhachHang {
 	}
 
 	public static void ketThuc() {
-		System.out.println("++++++ Chương trình kết thúc+++++++");
+		System.out.println("**********THANK YOU!*********");
 		System.exit(0);
 	}
-
+//Menu 
 	public static void myMenu() {
 		while (true) {
 			System.out.println("+------LỰA CHỌN CHỨC NĂNG-------+");
-			System.out.println("| 1. Thêm khách hàng            |");
-			System.out.println("| 2. Thêm chỉ số                |");
-			System.out.println("| 3. Biên lai                   |");
-			System.out.println("| 4. Danh sach khách hàng       |");
-			System.out.println("| 5. Danh sach biên lai         |");
+			System.out.println("| 1. Nhập Số Lượng Khách Hàng   |");
+			System.out.println("| 2. Nhập Chỉ Số Điện Hằng Tháng|");
+			System.out.println("| 3. IN Biên Lai Cho Khách Hàng |");
+			System.out.println("| 4. IN Danh Sách Khách Hàng    |");
+			System.out.println("| 5. IN Tổng Số Biên Lai        |");
 			System.out.println("=================================");
-			System.out.println("| 6. Kết thúc                   |");
+			System.out.println("| 6. Kết Thúc                   |");
 			System.out.println("+-------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
-				themKH();
+			    nhapKH();
 			} else if (option == 2) {
-				themBL();
+				nhapBL();
 			} else if (option == 3) {
 				bienLai();
 			} else if (option == 4) {
