@@ -68,7 +68,6 @@ public class ImportCustomer {
 					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
 					x.getNam());
 		}
-		System.out.println("================================");
 	}
 	public static void inBienLaiThang() {
 		int thang, nam;
@@ -87,7 +86,6 @@ public class ImportCustomer {
 					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
 					x.getNam());
 		}
-		System.out.println("================================");
 	}
 	}
 	public static void inBienLaiNam() {
@@ -106,43 +104,43 @@ public class ImportCustomer {
 					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
 					x.getNam());
 		}
-		System.out.println("================================");
+		
 	}
 	}
 	public static void inBienLaiMaKH() {
 		String maKH;
 		int thang, nam;
+		myScanner.nextLine();
 		System.out.println("Biên lai Mã Khách Hàng :");
 		maKH = myScanner.nextLine();
 		System.out.println("Biên lai tháng :");
 		thang = myScanner.nextInt();
 		System.out.println("Biên lai năm :");
-		nam = myScanner.nextInt();
-		
-		System.out.println(
-				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
-		System.out.println(
-				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
+		nam = myScanner.nextInt();		
 		for (BienLai x : arrayBienLai) {
 			if(thang == x.getThang() && nam == x.getNam()&& maKH.compareTo(x.getMaKH())==0) {
 			System.out.println("     +--------BIÊN LAI TIỀN ĐIỆN----------+");
 			System.out.println("     |____________________________________|");
-			System.out.println("     |-Mã khách hàng:"+"  "+ x.getMaKH()+"|");
-			System.out.println("     |-Tên Khách Hàng:"+""+ x.getTenKH()+"|");
-			System.out.println("     |-Địa chỉ:"+"      "+ x.getDiaChi()+"|");
-			System.out.println("     |-Mã Công Tơ:"+"     "+ x.getMaCT()+"|");
-			System.out.println("     |====================================|");
-			System.out.println("     |-Mã chỉ Số mới:"+"  "+ x.getMaKH()+"|");
+			System.out.printf("     |-Mã khách hàng: "+"%20s \n", x.getMaKH()+"|");
+			System.out.printf("     |-Tên Khách Hàng:"+"%20s \n", x.getTenKH()+"|");
+			System.out.printf("     |-Địa chỉ:"+"%20S", x.getDiaChi()+"|");
+			System.out.printf("     |-Mã Công Tơ:    "+"%20s \n",x.getMaCT()+"|");
+			System.out.printf("     |====================================|");
+			System.out.printf("     |-Mã chỉ Số mới  "+"%20s \n",x.getChiSoMoi()+"|");
+			System.out.printf("     |-Mã chỉ Số cũ:  "+"%20s \n",x.getChiSoCu()+"|");
+			System.out.printf("     |====================================|");
+			System.out.printf("     |-Tiền điện :    "+"%20s \n",x.getTienDien()+"|");
 		}
-		System.out.println("================================");
+		
 	}
+			System.out.println("===============================================");
 	}
 
 	public static void danhSachKH() {
 		System.out.println("+---------------Danh sách Khách hàng-------------------+");
 		System.out.println("|  mã số  |    tên KH    |   Địa chỉ    |   Mã CT      |");
 		for (KhachHang x : arrayKhachHang) {
-			System.out.printf("%-10s%-15s%-15s%-15s", x.getMaKH(), x.getTenKH(), x.getDiaChi(), x.getMaCT());
+			System.out.printf("%-10s%-15s%-15s%-15s \n", x.getMaKH(), x.getTenKH(), x.getDiaChi(), x.getMaCT());
 		}
 		System.out.println("================================");
 	}
@@ -155,7 +153,7 @@ public class ImportCustomer {
 			System.out.println("| 3. In theo mã khách hàng        |");
 			System.out.println("| 4. In toàn bộ biên lai          |");
 			System.out.println("==================================");
-			System.out.println("| 6. Kết thúc                     |");
+			System.out.println("| 5. Trở về Menu chính            |");
 			System.out.println("+---------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
@@ -166,8 +164,8 @@ public class ImportCustomer {
 				inBienLaiMaKH();
 			} else if (option == 4) {
 				bienLai();
-			} else if (option == 6) {
-				ketThuc();
+			} else if (option == 5) {
+				break;
 			}
 			System.out.println("Nhấn Enter để tiếp tục");
 			System.out.println("______________________________");
@@ -190,7 +188,7 @@ public class ImportCustomer {
 			System.out.println("| 3. Biên lai                   |");
 			System.out.println("| 4. Danh sach khách hàng       |");
 			System.out.println("=================================");
-			System.out.println("| 6. Kết thúc                   |");
+			System.out.println("| 5. Kết thúc                   |");
 			System.out.println("+-------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
@@ -198,10 +196,10 @@ public class ImportCustomer {
 			} else if (option == 2) {
 				themBL();
 			} else if (option == 3) {
-				bienLai();
+				danhSachBienLai();
 			} else if (option == 4) {
 				danhSachKH();
-			} else if (option == 6) {
+			} else if (option == 5) {
 				ketThuc();
 			}
 			System.out.println("Nhấn Enter để tiếp tục");
