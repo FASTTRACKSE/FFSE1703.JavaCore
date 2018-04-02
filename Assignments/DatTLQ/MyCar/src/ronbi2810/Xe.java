@@ -6,7 +6,7 @@ public class Xe {
 	public static int a;
 	public static int i;
 
-	static Car[] mycar;
+	public static Car[] mycar=new Car[100];
 	public static void main(String[] arg) {
 		
 		mymenu();
@@ -15,11 +15,13 @@ public class Xe {
 	public static void dientendiem() {
 		System.out.print("Nhap so xe");
 		a = scanner.nextInt();
-		mycar=new Car[a];
+		
 		for(i=0;i<mycar.length;i++) {
+			mycar[i]=new Car();
 			scanner.nextLine();
 			System.out.println("Nhap ten xe" + (i + 1) + ":");
-			mycar[i].setCarMaker(scanner.nextLine());
+			String tenxe=scanner.nextLine();
+			mycar[i].setCarMaker(tenxe);
 			System.out.println("Nhap ma xe" + (i + 1) + ":");
 			mycar[i].setCarModel(scanner.nextLine());
 		}

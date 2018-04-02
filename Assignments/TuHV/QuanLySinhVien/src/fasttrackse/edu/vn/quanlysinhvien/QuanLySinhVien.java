@@ -21,36 +21,20 @@ public class QuanLySinhVien {
 		}
 
 		public static void nhapDSSV() {
-			System.out.println("Nhập danh sách sinh viên : ");
-			System.out.println("---------------------------");
-			System.out.print("Số lượng sinh viên :");
-			n = myScanner.nextInt();
-			String[] ten_SV = new String[n];
-			String[] ngay_Sinh = new String[n];
-			int[] diem_lp1 = new int[n];
-			int[] diem_lp2 = new int[n];
-			SinhVien[] SV = new SinhVien[n];
 
 			for (i = 0; i < n; i++) {
-				myScanner.nextLine();
-
-				System.out.print("Nhập tên Sinh Viên thứ " + (i + 1) + " :");
-				ten_SV[i] = myScanner.nextLine();
-				SV[i].setSVten(ten_SV[i]);
-
-				System.out.print("Nhập ngày sinh của Sinh Viên thứ " + (i + 1) + " :");
-				ngay_Sinh[i] = myScanner.nextLine();
-				SV[i].setSVngaysinh(ngay_Sinh[i]);
-
-				System.out.print("Nhập điểm môn LP1 " + " :");
-				diem_lp1[i] = myScanner.nextInt();
-				SV[i].setSVLP1(diem_lp1[i]);
-
-				System.out.print("Nhập điểm môn LP2 " + " :");
-				diem_lp2[i] = myScanner.nextInt();
-				SV[i].setSVLP2(diem_lp2[i]);
+				System.out.println("Nhập danh sách sinh viên : ");
+				System.out.println("---------------------------");
+				System.out.print("Số lượng sinh viên :");
+				n = myScanner.nextInt();
+				SV = new SinhVien[n];
+				for (i = 0; i < n; i++) {
+					SV[i] = new SinhVien();
+					SV[i].Input();
+				}
 
 			}
+
 			myScanner.nextLine();
 			System.out.println("Ấn Enter để về menu chính");
 			myScanner.nextLine();
@@ -124,6 +108,32 @@ public class QuanLySinhVien {
 			System.out.println("Ấn Enter để về menu chính");
 			myScanner.nextLine();
 		}
+		public static void sapxepten() {
+			SinhVien[] temp = new SinhVien[n];
+			for (i = 0; i < n - 1; i++) {
+				for (int j = i + 1; j < n; j++) {
+					if (SV[i].getSVten().compareTo(SV[j].getSVten()) >0 ) {
+						temp[i] = SV[j];
+						SV[j] = SV[i];
+						SV[i] = temp[i];
+					}
+				}
+			}
+
+			for (i = 0; i < n; i++) {
+				System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
+				System.out.println("--------------------------------------------------------------------");
+				System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+				System.out.println("--------------------------------------------------------------------");
+				for (i = 0; i < n; i++) {
+					System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getSVten(),SV[i].getSVngaysinh(),SV[i].getSVLP1(),SV[i].getSVLP2(),SV[i].getSVDTB(),SV[i].getSVxeploai());
+				}
+			}
+
+			myScanner.nextLine();
+			System.out.println("Ấn Enter để về menu chính");
+			myScanner.nextLine();
+		}
 
 		public static void ketThuc() {
 			System.out.println("Kết thúc chương trình!!!!!");
@@ -138,6 +148,7 @@ public class QuanLySinhVien {
 				System.out.println("|2. In danh sách sinh viên               |");
 				System.out.println("|3. Top sinh viên                        |");
 				System.out.println("|4. Sắp xếp theo điểm TBM                |");
+				System.out.println("|6. Sắp xếp theo điểm theo tên                |");
 				System.out.println("|5. Kết thúc chương trình                |");
 				System.out.println("+----------------------------------------+");
 				System.out.println(">>            Lựa chọn của bạn?         <<");
@@ -151,6 +162,8 @@ public class QuanLySinhVien {
 					topSV();
 				} else if (myOption == 4) {
 					sapxepTBM();
+				} else if (myOption == 6) {
+					sapxepten();
 				} else if (myOption == 5) {
 					ketThuc();
 				}

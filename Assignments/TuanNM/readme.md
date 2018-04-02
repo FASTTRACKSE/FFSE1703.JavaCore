@@ -11,8 +11,10 @@
 6. Assignment 5: [Menu toán đại số](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/my_Menu/src/assignment3/dsSinhVien.java)
 7. Assignment 6: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/my_Menu/src/assignment3/dsSinhVien.java)
 #### Lập trình hướng đối tượng
-1. Assignment 1: [ Class Student asm1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student/src/Student_OOP/myStudent.java)
-[Danh sách Student asm1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student/src/Student_OOP/nhapStudent.java)
-2. Assignment 1.1: [Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/myStudent.java)
+
+1. Assignment 1: [Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/myStudent.java)
 [Danh sách Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/importStudent.java)
+2. Assignment 2: [Class khách hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/KhachHang.java)
+[Class biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/BienLai.java)
+[Main biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/ImportCustomer.java)
 

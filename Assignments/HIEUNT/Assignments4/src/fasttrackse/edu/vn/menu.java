@@ -20,7 +20,8 @@ public class menu {
 			System.out.println("|2. in danh sach sinh vien               |");
 			System.out.println("|3. top hoc sinh                         |");
 			System.out.println("|4. sap xep                              |");
-			System.out.println("|5. ket thuc chuong trinh                |");
+			System.out.println("|5. sap xep abc                          |");
+			System.out.println("|6. ket thuc chuong trinh                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            BAN CHON SO MAY?          <<");
 			int a;
@@ -40,7 +41,10 @@ public class menu {
 			} else if (a == 4) {
 				sapxep();
 			} else if (a == 5) {
+				sapxepabc();
 			}
+			 else if (a == 6) {
+				}
 		}
 	}
 
@@ -83,4 +87,18 @@ public class menu {
 		}
 
 	}
+	public static void sapxepabc() {
+		qlysv[] temp = new qlysv[n];
+		for (i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (danhsachsv[i].getHoten().compareTo(danhsachsv[j].getHoten())>0) {
+					temp[i] = danhsachsv[j];
+					danhsachsv[j] = danhsachsv[i];
+					danhsachsv[i] = temp[i];
+				}
+			}
+		}
+
+	}
+
 }
