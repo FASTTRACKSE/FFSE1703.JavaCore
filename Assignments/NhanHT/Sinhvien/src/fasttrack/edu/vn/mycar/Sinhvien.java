@@ -1,5 +1,4 @@
 package fasttrack.edu.vn.mycar;
-import java.util.Scanner;
 public class Sinhvien {
 	public String SvName;
 	public String SvDate;

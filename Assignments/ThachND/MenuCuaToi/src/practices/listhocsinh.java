@@ -1,4 +1,4 @@
-package practices;
+package ;
 import java.util.Scanner;
 public class listhocsinh {
 		// TODO Auto-generated method stub
