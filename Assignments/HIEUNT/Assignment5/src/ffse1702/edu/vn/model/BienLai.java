@@ -3,6 +3,24 @@ package ffse1702.edu.vn.model;
 public class BienLai extends KhachHang {
 	public Double chisocu;
 	public Double chisomoi;
+	public int thang;
+	public int nam;
+
+	public int getThang() {
+		return thang;
+	}
+
+	public void setThang(int thang) {
+		this.thang = thang;
+	}
+
+	public int getNam() {
+		return nam;
+	}
+
+	public void setNam(int nam) {
+		this.nam = nam;
+	}
 
 	public double getchisocu() {
 		return chisocu;
