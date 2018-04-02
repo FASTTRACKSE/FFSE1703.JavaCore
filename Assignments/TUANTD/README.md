@@ -6,5 +6,9 @@
 1. Assignment 1: [pt bac 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/ex1/src/Assignment1/giaiptbac2.java)
 2. Assignment 2: [EX1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Ex2/src/Assignment2/baitap1.java)
                  [EX2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Ex2/src/Assignment2/baitap2.java)
-3. Assignment 3: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/EX3/src/fasttrack/edu/vn/practices/Assignment3.java)               
-                
+3. Assignment 3: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/EX3/src/fasttrack/edu/vn/practices/Assignment3.java)  
+4. Assignment 4: [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/DanhSachSV.java)
+                 [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/QLSinhVi%C3%AAn.java)
+5. Assignment 5:[Khách Hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/model/KhachHang.java)
+                [Biên Lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/model/BienLai.java)
+                [Quản Lý Khách Hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/main/QuanLyKhachHang.java)
