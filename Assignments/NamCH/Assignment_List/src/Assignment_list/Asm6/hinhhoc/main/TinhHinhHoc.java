@@ -13,7 +13,7 @@ public class TinhHinhHoc {
 	public static void tinhHinhTron() {
 		System.out.println("TÍNH CHU VI & DIỆN TÍCH HÌNH TRÒN");
 		System.out.println("=================================");
-		System.out.println("Nhập Bán Kính Hình Tròn ?");
+		System.out.print("Nhập Bán Kính Hình Tròn : ");
 		int banKinh=Integer.parseInt(input.nextLine());
 		tinh1 =new HinhTron(banKinh);
 		tinh1.getChuVi();
@@ -23,20 +23,20 @@ public class TinhHinhHoc {
 	public static void tinhHinhTamGiac() {
 		System.out.println("TÍNH CHU VI HÌNH TAM GIÁC");
 		System.out.println("=========================");
-		System.out.println("Nhập Cạnh thứ nhất của hình tam giác ?");
+		System.out.print("Nhập Cạnh thứ nhất của hình tam giác : ");
 		int canhA=Integer.parseInt(input.nextLine());
-		System.out.println("Nhập Cạnh thứ hai của hình tam giác ?");
+		System.out.print("Nhập Cạnh thứ hai của hình tam giác : ");
 		int canhB=Integer.parseInt(input.nextLine());
-		System.out.println("Nhập Cạnh thứ ba của hình tam giác ?");
+		System.out.print("Nhập Cạnh thứ ba của hình tam giác : ");
 		int canhC=Integer.parseInt(input.nextLine());
 		tinh2=new HinhTamGiac(canhA,canhB,canhC);
 		tinh2.getChuVi();
 		
 		System.out.println("TÍNH DIỆN TÍCH HÌNH TAM GIÁC");
 		System.out.println("============================");
-		System.out.println("Nhập Chiều Cao của hình tam giác ?");
+		System.out.print("Nhập Chiều Cao của hình tam giác : ");
 		int chieuCao=Integer.parseInt(input.nextLine());
-		System.out.println("Nhập Cạnh Đáy của hình tam giác ?");
+		System.out.print("Nhập Cạnh Đáy của hình tam giác : ");
 		int canhDay=Integer.parseInt(input.nextLine());
 		tinh2=new HinhTamGiac(chieuCao,canhDay);
 		tinh2.getDienTich();
@@ -45,9 +45,9 @@ public class TinhHinhHoc {
 	public static void tinhHinhChuNhat() {
 		System.out.println("TÍNH CHU VI & DIỆN TÍCH HÌNH CHỮ NHẬT");
 		System.out.println("=====================================");
-		System.out.println("Nhập Chiều Dài Hình Chữ Nhật ?");
+		System.out.print("Nhập Chiều Dài Hình Chữ Nhật : ");
 		int chieuDai=Integer.parseInt(input.nextLine());
-		System.out.println("Nhập Chiều Rộng Hình Chữ Nhật ?");
+		System.out.print("Nhập Chiều Rộng Hình Chữ Nhật : ");
 		int chieuRong=Integer.parseInt(input.nextLine());
 		tinh3 =new HinhChuNhat(chieuDai,chieuRong);
 		tinh3.getChuVi();
