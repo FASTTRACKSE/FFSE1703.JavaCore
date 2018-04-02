@@ -3,13 +3,22 @@ package Assignment_list.Assignment5.Model;
 public class BienLai extends KhachHang{
 	private int chiSoCu;
 	private int chiSoMoi;
-	public BienLai(String maKhachHang,String tenKhachHang,
-			   String diaChi,String maCongTo) {
-		super(maKhachHang,tenKhachHang,diaChi,maCongTo);
+	private String ntNam;
+	public BienLai() {
+		super();
 	}
-	public BienLai(int chiSoCu,int chiSoMoi) {		
+	public BienLai(String maKhachHang,String tenKhachHang,
+			   String diaChi,String maCongTo,int chiSoCu,int chiSoMoi,String ntNam) {
+		super(maKhachHang,tenKhachHang,diaChi,maCongTo);
 		this.chiSoCu=chiSoCu;
 		this.chiSoMoi=chiSoMoi;
+		this.ntNam=ntNam;
+	}
+	public String getNtNam() {
+		return ntNam;
+	}
+	public void setNtNam(String ntNam) {
+		this.ntNam = ntNam;
 	}
 	public int getChiSoCu() {
 		return chiSoCu;
@@ -24,11 +33,11 @@ public class BienLai extends KhachHang{
 		this.chiSoMoi = chiSoMoi;
 	}
 	public int getTienDien() {
-		return (getChiSoMoi()-getChiSoCu())*3000;
+		return (chiSoMoi-chiSoCu)*3000;
 	}
 	public String toString() {
 		return ("|| "+super.getMaKhachHang() +"\t   " +super.getTenKhachHang() +"\t     " 
 				+super.getDiaChi() +"\t\t" +super.getMaCongTo()
-				+"\t    "+getChiSoCu()+"\t        " + getChiSoMoi()+"\t       "+getTienDien());
+				+"\t  "+chiSoCu+"\t   " + chiSoMoi+"\t\t"+getTienDien())+"    "+ntNam;
 	}
 }

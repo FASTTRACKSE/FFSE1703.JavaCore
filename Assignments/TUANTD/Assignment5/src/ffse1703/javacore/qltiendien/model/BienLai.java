@@ -1,44 +1,58 @@
 package ffse1703.javacore.qltiendien.model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BienLai {
-	private int chiSoCu;
-	private int chiSoMoi;
-	private double soTienPhaiTra;
-	private KhachHang khachHang;
+public class BienLai extends KhachHang {
+
+	private Double chiSoCu;
+	private Double chiSoMoi;
+	private int thang,nam;
 
 	public BienLai() {
-		super();
+
 	}
 
-	public BienLai(int chiSoCu, int chiSoMoi, double soTienPhaiTra, KhachHang khachHang) {
-		super();
+	public BienLai(String maKhachHang,String  tenKhachHang,String soNha,String maCongTo,Double chiSoCu, Double chiSoMoi,int thang,int nam) {
+		super(maKhachHang, tenKhachHang,soNha,maCongTo);
 		this.chiSoCu = chiSoCu;
+		this.chiSoMoi=chiSoMoi;
+		this.thang = thang;
+		this.nam = nam;
+	}
+
+	public int getThang() {
+		return thang;
+	}
+
+	public void setThang(int thang) {
+		this.thang = thang;
+	}
+
+	public int getNam() {
+		return nam;
+	}
+
+	public void setNam(int nam) {
+		this.nam = nam;
+	}
+
+	public Double getChiSoCu() {
+		return chiSoCu;
+	}
+
+	public void setChiSoCu(Double chiSoCu) {
+		this.chiSoCu = chiSoCu;
+	}
+
+	public Double getChiSoMoi() {
+		return chiSoMoi;
+	}
+
+	public void setChiSoMoi(Double chiSoMoi) {
 		this.chiSoMoi = chiSoMoi;
-		this.soTienPhaiTra = soTienPhaiTra;
-		this.khachHang = khachHang;
 	}
-
-	public void nhapBienLai() {
-		khachHang = new KhachHang();
-		khachHang.nhapThongTinKhachHang();
-
-		Scanner scanner = new Scanner(System.in);
-		do {
-			System.out.print("Nhập chỉ số cũ: ");
-			chiSoCu = scanner.nextInt();
-			System.out.print("Nhập chỉ số mới: ");
-			chiSoMoi = scanner.nextInt();
-		} while (chiSoCu > chiSoMoi);
-
-		soTienPhaiTra = (double) (chiSoMoi - chiSoCu) * 1600;
-	}
-
-	public void hienThiBienLai() {
-		khachHang.hienThiThongTinKhachHang();
-		System.out.println("Chỉ số cũ: " + chiSoCu);
-		System.out.println("Chỉ số mới: " + chiSoMoi);
-		System.out.println("Số tiền phải trả: " + soTienPhaiTra);
+	public Double getTienDien() {
+		return (chiSoMoi - chiSoCu)*3000;
 	}
 }

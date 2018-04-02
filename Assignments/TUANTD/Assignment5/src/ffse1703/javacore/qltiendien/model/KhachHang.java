@@ -3,48 +3,19 @@ package ffse1703.javacore.qltiendien.model;
 import java.util.Scanner;
 
 public class KhachHang {
-	private String hoTenChuNha;
 	private String maKhachHang;
+	private String tenKhachHang;
 	private String soNha;
-	private int maSoCongTo;
+	private String maCongTo;
 
 	public KhachHang() {
-		super();
 	}
 
-	public KhachHang(String hoTenChuNha, String maKhachHang, String soNha, int maSoCongTo) {
-		super();
-		this.hoTenChuNha = hoTenChuNha;
+	public KhachHang(String maKhachHang, String tenKhachHang, String soNha, String maCongTo) {
 		this.maKhachHang = maKhachHang;
+		this.tenKhachHang = tenKhachHang;
 		this.soNha = soNha;
-		this.maSoCongTo = maSoCongTo;
-	}
-
-	public void nhapThongTinKhachHang() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Nhập tên chủ hộ: ");
-		hoTenChuNha = scanner.nextLine();
-		System.out.print("Nhập tên Mã Khách Hàng: ");
-		maKhachHang = scanner.nextLine();
-		System.out.print("Nhập số nhà: ");
-		soNha = scanner.nextLine();
-		System.out.print("Mã số công tơ: ");
-		maSoCongTo = scanner.nextInt();
-	}
-
-	public void hienThiThongTinKhachHang() {
-		System.out.println("Tên chủ hộ: " + hoTenChuNha);
-		System.out.println("Mã Khách Hàng: " + maKhachHang);
-		System.out.println("Số nhà: " + soNha);
-		System.out.println("Mã số công tơ: " + maSoCongTo);
-	}
-
-	public String getHoTenChuNha() {
-		return hoTenChuNha;
-	}
-
-	public void setHoTenChuNha(String hoTenChuNha) {
-		this.hoTenChuNha = hoTenChuNha;
+		this.maCongTo = maCongTo;
 	}
 
 	public String getMaKhachHang() {
@@ -55,6 +26,14 @@ public class KhachHang {
 		this.maKhachHang = maKhachHang;
 	}
 
+	public String getTenKhachHang() {
+		return tenKhachHang;
+	}
+
+	public void setTenKhachHang(String tenKhachHang) {
+		this.tenKhachHang = tenKhachHang;
+	}
+
 	public String getSoNha() {
 		return soNha;
 	}
@@ -63,12 +42,12 @@ public class KhachHang {
 		this.soNha = soNha;
 	}
 
-	public int getMaSoCongTo() {
-		return maSoCongTo;
+	public String getMaCongTo() {
+		return maCongTo;
 	}
 
-	public void setMaSoCongTo(int maSoCongTo) {
-		this.maSoCongTo = maSoCongTo;
+	public void setMaCongTo(String maCongTo) {
+		this.maCongTo = maCongTo;
 	}
 
 }

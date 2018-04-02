@@ -26,13 +26,14 @@ public class QuanLyTienDien {
 			System.out.println("Nhập Mã Công Tơ của khách hàng thứ "+(i+1)+" : ");
 			String maCongTo=input.nextLine();
 			arrKhachHang.add(new KhachHang(maKhachHang,tenKhachHang,diaChi,maCongTo));
-			arrBienLai.add(new BienLai(maKhachHang,tenKhachHang,diaChi,maCongTo));
+			
 		}
 	}
 	public static void addBienLai() {
 		System.out.println("NHẬP CHỈ SỐ TIỀN ĐIỆN CỦA KHÁCH HÀNG");
 		System.out.println("====================================");
 		for(;stt<arrKhachHang.size();stt++) {
+			
 			System.out.println("Tên Khách hàng : " +arrKhachHang.get(stt).getTenKhachHang());
 			System.out.println("Mã Khách hàng : " +arrKhachHang.get(stt).getMaKhachHang());
 			System.out.println("Mã Công Tơ :" + arrKhachHang.get(stt).getMaCongTo());
@@ -40,11 +41,14 @@ public class QuanLyTienDien {
 			int chiSoCu=input.nextInt();
 			System.out.println("Nhập Chỉ Số Điện Mới :");
 			int chiSoMoi=input.nextInt();
-			arrBienLai.get(stt).setChiSoCu(chiSoCu);
-			arrBienLai.get(stt).setChiSoMoi(chiSoMoi);
-		}
-		stt = size +stt;
-		size=0;
+			input.nextLine();
+			System.out.println("Nhập Ngày Tháng Năm:");
+			String ntNam =input.nextLine();
+			arrBienLai.add(new BienLai(arrKhachHang.get(stt).getMaKhachHang(),
+					arrKhachHang.get(stt).getTenKhachHang(),
+					arrKhachHang.get(stt).getDiaChi(),arrKhachHang.get(stt).getMaCongTo(),
+					chiSoCu,chiSoMoi,ntNam));			
+		}	
 	}	
 	public static void printKhachHang() {
 		System.out.println("-------DANH SÁCH TẤT CẢ KHÁCH HÀNG--------");
@@ -52,7 +56,7 @@ public class QuanLyTienDien {
 		System.out.println("|| Stt || Mã || Tên        ||Địa Chỉ||Mã Công Tơ");
 		int sothutu=1;
 		for(KhachHang KhachHang: arrKhachHang) {
-			System.out.print("|| " + sothutu);
+			System.out.print("|| " + sothutu+"    ");
 			System.out.println(KhachHang.toString());
 			sothutu++;
 		}
@@ -60,11 +64,11 @@ public class QuanLyTienDien {
 	public static void printBienLai() {
 		System.out.println("---------------------DANH SÁCH TẤT CẢ KHÁCH HÀNG--------------------");
 		System.out.println("====================================================================");
-		System.out.println("|| Stt || Mã || Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện");
+		System.out.println("|| Stt || Mã || Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng");
 		int sothutu=1;
-		for(BienLai BienLai: arrBienLai) {
-			System.out.print("|| " + sothutu);
-			System.out.println(BienLai.toString());	
+		for(BienLai bienLai: arrBienLai) {
+			System.out.print("|| " + sothutu+"    ");
+			System.out.println(bienLai);	
 			sothutu++;
 		}
 	}
