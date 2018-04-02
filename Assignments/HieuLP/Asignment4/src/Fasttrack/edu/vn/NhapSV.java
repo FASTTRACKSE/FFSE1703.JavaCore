@@ -32,7 +32,7 @@ public class NhapSV {
 			System.out.println("|6. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
-			
+
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();
@@ -146,7 +146,7 @@ public class NhapSV {
 	public static void sapxepTen() {
 		SinhVien[] temp = new SinhVien[n];
 		for (i = 0; i < n - 1; i++) {
-			for (int j = i + 1; j < n; j++) {// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			for (int j = i + 1; j < n; j++) {// compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
 				if (SV[i].getName().compareTo(SV[j].getName()) > 0) {
 					temp[i] = SV[j];
 					SV[j] = SV[i];
