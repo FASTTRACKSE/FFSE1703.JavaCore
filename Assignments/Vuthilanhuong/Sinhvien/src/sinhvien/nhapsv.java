@@ -38,6 +38,9 @@ public class nhapsv {
 				System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
 						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb());
 			}
+			sc.nextLine();
+			System.out.println("Nhập enter để tiếp tục");
+			sc.nextLine();
 		}
 	public static void caothap() {
 		int stt=0, stt1=0; 
@@ -54,10 +57,12 @@ public class nhapsv {
 		}
 		System.out.println("Điểm trung bình cao nhất là: "+arr[stt].getHoten()+" "+"với số điểm là "+max);
 		System.out.println("Điểm trung bình thấp nhất là: "+arr[stt1].getHoten()+" "+"với số điểm là "+min);
+		sc.nextLine();
+		System.out.println("Nhập enter để tiếp tục");
+		sc.nextLine();
 	}
 	public static void sxeptb() {
 		 SV[] temp =new SV[arr.length];
-	        String stemp; 
 	        for (int i = 0 ; i <arr.length - 1; i++) {
 	            for (int j = i + 1; j < arr.length; j++) {
 	            	if(arr[i].getTb()<arr[j].getTb()){
@@ -72,27 +77,20 @@ public class nhapsv {
 	        	System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
 						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb());
 	        }
+	        sc.nextLine();
+			System.out.println("Nhập enter để tiếp tục");
+			sc.nextLine();
 	}
 	 public static void xeploai() {
 		 System.out.println("Tên   Ngày sinh   Lp1    LP2  Điểm tb  Xếp loại");
 		 for(int i=0; i<arr.length; i++) {
-		 if (arr[0].getTb()>=8.5 && arr[0].getTb()<=10) {
 			 System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
-						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+"Giỏi");
-		 }  else if (arr[0].getTb()>=7) {
-			 System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
-						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+"Khá");
-		 }  else if (arr[0].getTb()<=5.5) {
-			 System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
-						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+"TB");
-		 }  else if (arr[0].getTb()>=4) {
-			 System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
-						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+"Yếu");
-		 }  else if (arr[0].getTb()>=0) {
-			 System.out.println(arr[i].getHoten()+"\t"+ arr[i].getNtnsinh()+"\t" +arr[i].getLp1()
-						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+"Kém");
-			 } 
+						+"\t"+arr[i].getLp2()+"\t"+arr[i].getTb()+"\t"+arr[i].getXepLoai());
+		  
 		 }
+		 sc.nextLine();
+			System.out.println("Nhập enter để tiếp tục");
+			sc.nextLine();
 	  }
 	public static void kthuc() {
 		System.out.println("Chào tạm biệt");

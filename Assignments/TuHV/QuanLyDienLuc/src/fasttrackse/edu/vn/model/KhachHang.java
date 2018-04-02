@@ -6,12 +6,17 @@ public class KhachHang {
 	public String DiaChi;
 	public int MsCongTo;
 	
-	public KhachHang(String MsKhachHang, String TenKhachHang, String DiaChi, int MsCongto) {
+	
+	
+	public KhachHang(String MsKhachHang, String TenKhachHang, String DiaChi, int MsCongTo) {
 	this.MsKhachHang =  MsKhachHang;
 	this.TenKhachHang = TenKhachHang;
 	this.DiaChi = DiaChi;
 	this.MsCongTo = MsCongTo;
+
 	}
+	
+
 
 	public String getMsKhachHang() {
 		return MsKhachHang;
