@@ -9,7 +9,7 @@ import FFSE1702.model.*;
 public class TienDien {
 
 	public static Scanner Scanner = new Scanner(System.in);
-	public static int n = 0, thang, nam;
+	public static int n = 0, thang, nam, tongtien = 0;
 	public static ArrayList<Bienlai> arrBienlai = new ArrayList<Bienlai>();
 	public static ArrayList<KhachHang> arrKhachHang = new ArrayList<KhachHang>();
 
@@ -94,23 +94,32 @@ public class TienDien {
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------");
 		int n = 1;
+		tongtien = 0;
 		for (int k = 0; k < arrBienlai.size(); k++) {
 			if (nam == arrBienlai.get(k).getNam()) {
 
 				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n",
 						n,
-						arrKhachHang.get(k).getMasoKH(),
-						arrKhachHang.get(k).getTenKH(),
-						arrKhachHang.get(k).getAddress(),
-						arrKhachHang.get(k).getMasoCT(),
+						arrBienlai.get(k).getMasoKH(),
+						arrBienlai.get(k).getTenKH(),
+						arrBienlai.get(k).getAddress(),
+						arrBienlai.get(k).getMasoCT(),
 						arrBienlai.get(k).getThang(),
 						arrBienlai.get(k).getNam(),
 						arrBienlai.get(k).getChisoDauKy(),
-						arrBienlai.get(k).getChisoCuoiKy(), 
+						arrBienlai.get(k).getChisoCuoiKy(),
 						arrBienlai.get(k).tienDien());
 				n += 1;
+				tongtien += arrBienlai.get(k).tienDien();
 			}
 		}
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.printf(
+				"                                                                                                 Tổng tiền:|%,10d\n",
+				tongtien);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
 
 		Scanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -131,36 +140,40 @@ public class TienDien {
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------");
 		int i = 0;
+		tongtien = 0;
 		for (int k = 0; k < arrBienlai.size(); k++) {
 			if (thang == arrBienlai.get(k).getThang() && nam == arrBienlai.get(k).getNam()) {
 
-				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n",
-						(i + 1),
-						arrKhachHang.get(k).getMasoKH(),
-						arrKhachHang.get(k).getTenKH(),
-						arrKhachHang.get(k).getAddress(),
-						arrKhachHang.get(k).getMasoCT(),
+				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n", (i + 1),
+						arrBienlai.get(k).getMasoKH(),
+						arrBienlai.get(k).getTenKH(),
+						arrBienlai.get(k).getAddress(),
+						arrBienlai.get(k).getMasoCT(),
 						arrBienlai.get(k).getThang(),
 						arrBienlai.get(k).getNam(),
 						arrBienlai.get(k).getChisoDauKy(),
 						arrBienlai.get(k).getChisoCuoiKy(),
 						arrBienlai.get(k).tienDien());
 				i = i + 1;
+				tongtien += arrBienlai.get(k).tienDien();
 			}
 		}
-
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.printf(
+				"                                                                                                 Tổng tiền:|%,10d\n",
+				tongtien);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 
 	public static void inbienlaitheomaKH() {
 		Scanner.nextLine();
 		System.out.println("nhập mã khách hàng cần in biên lai : ");
 		String maKH = Scanner.nextLine();
-
-		System.out.println("Nhập tháng cần in biên lai khách hàng : ");
-		thang = Scanner.nextInt();
-
-		System.out.println("Nhập năm cần in biên lai khách hàng : ");
-		nam = Scanner.nextInt();
 
 		System.out.println("Biên lai của khách hàng có mã khách hàng là : " + maKH);
 		System.out.println(
@@ -170,25 +183,35 @@ public class TienDien {
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------");
 		int i = 0;
+		tongtien = 0;
 		for (int k = 0; k < arrBienlai.size(); k++) {
-			if (maKH.equals(arrBienlai.get(k).getMasoKH()) && thang == arrBienlai.get(k).getThang()
-					&& nam == arrBienlai.get(k).getNam()) {
-				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n", 
+			if (maKH.equals(arrBienlai.get(k).getMasoKH())) {
+				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n",
 						(i + 1),
-						arrKhachHang.get(k).getMasoKH(), 
-						arrKhachHang.get(k).getTenKH(),
-						arrKhachHang.get(k).getAddress(), 
-						arrKhachHang.get(k).getMasoCT(), 
+						arrBienlai.get(k).getMasoKH(),
+						arrBienlai.get(k).getTenKH(),
+						arrBienlai.get(k).getAddress(),
+						arrBienlai.get(k).getMasoCT(),
 						arrBienlai.get(k).getThang(),
-						arrBienlai.get(k).getNam(), 
+						arrBienlai.get(k).getNam(),
 						arrBienlai.get(k).getChisoDauKy(),
 						arrBienlai.get(k).getChisoCuoiKy(),
 						arrBienlai.get(k).tienDien());
 				i = i + 1;
+				tongtien += arrBienlai.get(k).tienDien();
 			}
-
 		}
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.printf(
+				"                                                                                                 Tổng tiền:|%,10d\n",
+				tongtien);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
 
+		Scanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		Scanner.nextLine();
 	}
 
 	public static void inkhachhang() {

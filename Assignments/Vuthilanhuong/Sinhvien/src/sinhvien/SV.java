@@ -1,15 +1,14 @@
 package sinhvien;
 
 public class SV {
-	 public String hoten;
-	 public String ntnsinh;
-	 public Double  lp1;
-	 public Double  lp2;
+	 private String hoten;
+	 private String ntnsinh;
+	 private Double  lp1;
+	 private Double  lp2;
 	public SV() {
 		
 	}
 	public SV(String hoten,String ntnsinh,Double lp1,Double lp2) {
-		super();
 		this.hoten= hoten;
 		this.ntnsinh = ntnsinh;
 		this.lp1 = lp1;
@@ -41,6 +40,24 @@ public class SV {
 	}
 	public Double getTb() {
 		return (getLp1()+getLp2())/2;
+	}
+	public String getXepLoai() {
+		if(getTb()>=8.5 && getTb()<=10) {
+			return "Giỏi";
+		}
+		else if(getTb()>=7) {
+			return "Khá";
+		}
+		else if(getTb()>=5 ) {
+			return "Trung bình";
+		}
+		
+		else if(getTb()>=4) {
+			return "Yếu";
+		}
+		else{
+			return "Kém";
+		}
 	}
 
  

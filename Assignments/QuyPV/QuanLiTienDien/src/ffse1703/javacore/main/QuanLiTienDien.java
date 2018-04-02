@@ -318,5 +318,7 @@ public class QuanLiTienDien {
 
 		System.out.printf("%-50s \n", "Tổng tiền: " + tongTien);
 	}
+	
+	
 
 }
