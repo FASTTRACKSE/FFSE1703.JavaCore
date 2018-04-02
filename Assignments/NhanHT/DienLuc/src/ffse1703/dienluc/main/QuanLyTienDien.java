@@ -19,43 +19,50 @@ public static int stt = 0;
 		System.out.println("Nhap so luong");
 		soluong = myInput.nextInt();
 		for (int i = 0; i < soluong; i++) {
-			KhachHang KhachHang = new KhachHang();
+			//KhachHang KhachHang = new KhachHang();
 			myInput.nextLine();
 			System.out.println("Nhap Ma So Khach Hang"+"["+(+i+1)+"]: ");
-			KhachHang.setMasoKH(myInput.nextLine());
+			String MasoKH = myInput.nextLine();
 			System.out.println("Nhap Ten Khach Hang"+"["+(+i+1)+"]: ");
-			KhachHang.setTenKH(myInput.nextLine());
+			String TenKH = myInput.nextLine();
 			System.out.println("Nhap Dia Chi Khach Hang"+"["+(+i+1)+"]: ");
-			KhachHang.setDiaChiKH(myInput.nextLine());
+			String DiaChiKH = myInput.nextLine();
 			System.out.println("Nhap Ma Cong To"+"["+(+i+1)+"]: ");
-			KhachHang.setMaCongTo(myInput.nextDouble());
-			arrKhachHang.add(KhachHang);
+			double MaCongTo = myInput.nextDouble();
+			arrKhachHang.add(new KhachHang(MasoKH,TenKH,DiaChiKH,MaCongTo));
 		}
 	}
 	public static void nhapchisotieuthudien() {
-		for (;stt < arrKhachHang.size() ;stt++) {
-			System.out.println("Ma Khach Hang: "+ arrKhachHang.get(stt).getMasoKH());
-			System.out.println("Ho Va Ten Khach Hang: "+ arrKhachHang.get(stt).getTenKH());
-			System.out.println("Dia Chi Khach Hang: "+ arrKhachHang.get(stt).getDiaChiKH());
-			System.out.println("Ma Cong To Khach Hang: "+ arrKhachHang.get(stt).getMaCongTo());
-			BienLai BienLai = new BienLai();
 			myInput.nextLine();
-			System.out.println("Nhap Ma Cong To Moi: ");
-			BienLai.setChiSoMoi(Integer.parseInt(myInput.nextLine()));
-			System.out.println("Nhap Ma Cong To Cu: ");
-			BienLai.setChiSoCu(Integer.parseInt(myInput.nextLine()));
+			System.out.println("Nhap Thang Chu Ky: ");
+			int ThangChuKy = Integer.parseInt(myInput.nextLine());
+			System.out.println("Nhap Nam Chu Ky: ");
+			int NamChuKy = Integer.parseInt(myInput.nextLine());
+		for (KhachHang x: arrKhachHang) {
+			
+			System.out.println("Ma Khach Hang: "+ x.getMasoKH());
+			System.out.println("Ho Va Ten Khach Hang: "+ x.getTenKH());
+			System.out.println("Dia Chi Khach Hang: "+ x.getDiaChiKH());
+			System.out.println("Ma Cong To Khach Hang: "+ x.getMaCongTo());
+			//BienLai BienLai = new BienLai();
+//			myInput.nextLine();
+			System.out.println("Nhap Chi So Moi: ");
+			int ChiSoMoi=Integer.parseInt(myInput.nextLine());
+			System.out.println("Nhap Chi So Cu: ");
+			int ChiSoCu = Integer.parseInt(myInput.nextLine());
 			System.out.println("Nhap Ngay Thang: ");
-			BienLai.setNgayThang(myInput.nextLine());
-			arrBienLai.add(BienLai);
+			String NgayThang = myInput.nextLine();
+			
+			arrBienLai.add(new BienLai(x.getMasoKH(),x.getTenKH(),x.getDiaChiKH(),x.getMaCongTo(),ChiSoMoi,ChiSoCu,NgayThang,ThangChuKy,NamChuKy));
 		}
 		
-		
+
 	}
 	public static void indanhsachkhachhang() {
 		System.out.println("<=====IN DANH SACH KHACH HANG=====>");
 		System.out.println("Ma So KH" + "\t" + "Ten KH" + "\t" + "\t" + "Dia Chi" + "\t" + "\t" + "Ma Cong To"+ "\t" + "\t" + "Ma Cong To Moi"+ "\t" + "\t" + "Ma Cong To Cu"+ "\t" + "\t" + "Ngay Thang"+ "\t" + "\t" + "Tong Tien");
-		for(int i = 0;i<arrKhachHang.size();i++) {
-			System.out.println(arrKhachHang.get(i).getMasoKH()+"\t"+"\t"+arrKhachHang.get(i).getTenKH()+"\t"+"\t"+arrKhachHang.get(i).getDiaChiKH()+"\t"+"\t"+arrKhachHang.get(i).getMaCongTo()+"\t"+"\t"+arrBienLai.get(i).getChiSoMoi()+"\t"+"\t"+arrBienLai.get(i).getChiSoCu()+"\t"+"\t"+arrBienLai.get(i).getNgayThang()+"\t"+"\t"+arrBienLai.get(i).getTongTien());
+		for(BienLai x : arrBienLai) {
+			System.out.println(x.getMasoKH()+"\t"+"\t"+x.getTenKH()+"\t"+"\t"+x.getDiaChiKH()+"\t"+"\t"+x.getMaCongTo()+"\t"+"\t"+x.getChiSoMoi()+"\t"+"\t"+x.getChiSoCu()+"\t"+"\t"+x.getNgayThang()+"\t"+"\t"+x.getTongTien());
 		}
 	}
 	public static void ketthucchuongtrinh() {

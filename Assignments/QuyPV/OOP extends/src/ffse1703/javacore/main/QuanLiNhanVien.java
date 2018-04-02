@@ -27,15 +27,15 @@ public class QuanLiNhanVien {
 		
 		
 		for(NhanVien k: arrNhanVien) {
-			if(!(k instanceof QuanLi)) {
+			if(k instanceof QuanLi) {
 				System.out.println("Nhân Viên: " + k.gettenNhanVien());
 			}
 			
 		}
 		
-		for(int i = 0; i < arrNhanVien.size(); i++) {
-			System.out.println(arrNhanVien.get(i).gettenNhanVien()); 
-		}
+//		for(int i = 0; i < arrNhanVien.size(); i++) {
+//			System.out.println(arrNhanVien.get(i).gettenNhanVien()); 
+//		}
 		
 		
 		
