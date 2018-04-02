@@ -6,8 +6,6 @@ public class KhachHang {
 	public String TenKH;
 	public String Address;
 	public String MasoCT;
-	public int soluongKH;
-	
 	
 	public KhachHang() {
 		
@@ -19,15 +17,6 @@ public class KhachHang {
 		this.Address = address;
 		this.MasoCT = ct;
 	}
-	
-	public int getSoluongKH() {
-		return soluongKH;
-	}
-	
-	public void setSoluongKH(int soluongKH) {
-		this.soluongKH = soluongKH;
-	}
-	
 	
 	public String getMasoKH() {
 		return MasoKH;

@@ -7,16 +7,17 @@ public class BienLai extends KhachHang {
 
 	private Double chiSoCu;
 	private Double chiSoMoi;
-	private int thang,nam;
+	private int thang, nam, tieuThu;
 
 	public BienLai() {
 
 	}
 
-	public BienLai(String maKhachHang,String  tenKhachHang,String soNha,String maCongTo,Double chiSoCu, Double chiSoMoi,int thang,int nam) {
-		super(maKhachHang, tenKhachHang,soNha,maCongTo);
+	public BienLai(String maKhachHang, String tenKhachHang, String soNha, String maCongTo, Double chiSoCu,
+			Double chiSoMoi, int thang, int nam) {
+		super(maKhachHang, tenKhachHang, soNha, maCongTo);
 		this.chiSoCu = chiSoCu;
-		this.chiSoMoi=chiSoMoi;
+		this.chiSoMoi = chiSoMoi;
 		this.thang = thang;
 		this.nam = nam;
 	}
@@ -52,7 +53,39 @@ public class BienLai extends KhachHang {
 	public void setChiSoMoi(Double chiSoMoi) {
 		this.chiSoMoi = chiSoMoi;
 	}
+
 	public Double getTienDien() {
-		return (chiSoMoi - chiSoCu)*3000;
+		if (tieuThu <= 100)
+
+			return (chiSoMoi - chiSoCu) * 1000;
+
+		else
+
+		{
+
+			if (tieuThu <= 150)
+
+				return (chiSoMoi - chiSoCu) * 1200;
+
+			else
+
+			{
+
+				if (tieuThu <= 200)
+
+					return (chiSoMoi - chiSoCu) * 2000;
+
+				else
+
+				{
+
+					if (tieuThu >= 201)
+
+						return (chiSoMoi - chiSoCu) * 2500;
+
+				}
+			}
+		}
+		return (chiSoMoi - chiSoCu) * 3000;
 	}
 }
