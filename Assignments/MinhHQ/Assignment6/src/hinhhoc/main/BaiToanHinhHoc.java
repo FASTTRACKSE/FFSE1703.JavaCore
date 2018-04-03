@@ -57,9 +57,9 @@ public class BaiToanHinhHoc {
 	}
 
 	public static void inbangTinh() {
-		System.out.println("------------------------------------------------------------------------------------");
+		System.out.println("====================================================================================");
 		System.out.println("|STT  |       Hình      |  Thuộc tính      |      Chu vi      |      Diện tích     |");
-		System.out.println("------------------------------------------------------------------------------------");
+		System.out.println("====================================================================================");
 		int n = 1;
 		for (HinhHoc x : arrHinhHoc) {
 			if ((x instanceof HinhTron)) {
