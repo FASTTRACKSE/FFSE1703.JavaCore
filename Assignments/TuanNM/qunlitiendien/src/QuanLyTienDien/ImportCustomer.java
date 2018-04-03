@@ -59,6 +59,7 @@ public class ImportCustomer {
 	}
 
 	public static void bienLai() {
+		Double total = 0.0;
 		System.out.println(
 				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
 		System.out.println(
@@ -67,73 +68,175 @@ public class ImportCustomer {
 			System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
 					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
 					x.getNam());
+			total += x.getTienDien();
 		}
+		System.out.printf("Tổng tiền điện" + ":%98s \n", total + " VNđ");
 	}
+
 	public static void inBienLaiThang() {
 		int thang, nam;
+		Double total = 0.0;
 		System.out.println("Biên lai tháng :");
 		thang = myScanner.nextInt();
 		System.out.println("Biên lai năm :");
 		nam = myScanner.nextInt();
-		
+
 		System.out.println(
 				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
 		System.out.println(
 				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
 		for (BienLai x : arrayBienLai) {
-			if(thang == x.getThang() && nam == x.getNam()) {
-			System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
-					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
-					x.getNam());
+			if (thang == x.getThang() && nam == x.getNam()) {
+				System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
+						x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
+						x.getNam());
+				total += x.getTienDien();
+			}
 		}
+		System.out.printf("Tổng tiền điện tháng " + thang + " năm " + nam + ":%98s \n", total + "VNĐ");
 	}
-	}
+
 	public static void inBienLaiNam() {
 		int nam;
-		
+
 		System.out.println("Biên lai năm :");
 		nam = myScanner.nextInt();
-		
+		Double total = 0.0;
 		System.out.println(
 				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
 		System.out.println(
 				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
 		for (BienLai x : arrayBienLai) {
-			if(nam == x.getNam()) {
-			System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
-					x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
-					x.getNam());
+
+			if (nam == x.getNam()) {
+				System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
+						x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
+						x.getNam());
+				total += x.getTienDien();
+			}
+
 		}
-		
+		System.out.printf("Tổng tiền điện năm " + nam + "%80s \n", total + "VNđ");
 	}
-	}
-	public static void inBienLaiMaKH() {
+
+	public static void inToanBo() {
 		String maKH;
 		int thang, nam;
+		Double total = 0.0;
+		myScanner.nextLine();
+		System.out.println("Biên lai Mã Khách Hàng :");
+		maKH = myScanner.nextLine();
+		System.out.println(
+				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
+		System.out.println(
+				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
+		for (BienLai x : arrayBienLai) {
+
+			if (maKH.equals(x.getMaKH())) {
+				System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(), x.getTenKH(),
+						x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(), x.getThang(),
+						x.getNam());
+				total += x.getTienDien();
+			}
+
+		}
+		System.out.printf("Tổng tiền điện " + "%80s \n", total + "VNđ");
+	}
+
+	public static void inChiTiet() {
+		String maKH;
+		int thang, nam;
+		Double total = 0.0;
 		myScanner.nextLine();
 		System.out.println("Biên lai Mã Khách Hàng :");
 		maKH = myScanner.nextLine();
 		System.out.println("Biên lai tháng :");
 		thang = myScanner.nextInt();
 		System.out.println("Biên lai năm :");
-		nam = myScanner.nextInt();		
+		nam = myScanner.nextInt();
 		for (BienLai x : arrayBienLai) {
-			if(thang == x.getThang() && nam == x.getNam()&& maKH.compareTo(x.getMaKH())==0) {
-			System.out.println("     +--------BIÊN LAI TIỀN ĐIỆN----------+");
-			System.out.println("     |____________________________________|");
-			System.out.printf("     |-Mã khách hàng: "+"%20s \n", x.getMaKH()+"|");
-			System.out.printf("     |-Tên Khách Hàng:"+"%20s \n", x.getTenKH()+"|");
-			System.out.printf("     |-Địa chỉ:"+"%20S", x.getDiaChi()+"|");
-			System.out.printf("     |-Mã Công Tơ:    "+"%20s \n",x.getMaCT()+"|");
-			System.out.printf("     |====================================|");
-			System.out.printf("     |-Mã chỉ Số mới  "+"%20s \n",x.getChiSoMoi()+"|");
-			System.out.printf("     |-Mã chỉ Số cũ:  "+"%20s \n",x.getChiSoCu()+"|");
-			System.out.printf("     |====================================|");
-			System.out.printf("     |-Tiền điện :    "+"%20s \n",x.getTienDien()+"|");
+			if (thang == x.getThang() && nam == x.getNam() && maKH.equals(x.getMaKH())) {
+				System.out.println("    +--------BIÊN LAI TIỀN ĐIỆN----------+");
+				System.out.println("    |____________________________________|");
+				System.out.printf("     |-Mã khách hàng :" + "%20s \n", x.getMaKH() + "|");
+				System.out.printf("     |-Tên Khách Hàng:" + "%20s \n", x.getTenKH() + "|");
+				System.out.printf("     |-Địa chỉ       :" + "%20S \n", x.getDiaChi() + "|");
+				System.out.printf("     |-Mã Công Tơ    :" + "%20s \n", x.getMaCT() + "|");
+				System.out.println("    |====================================|");
+				System.out.printf("     |-Tháng         :" + "%20s \n", x.getThang() + "|");
+				System.out.printf("     |-Năm           :" + "%20s \n", x.getNam() + "|");
+				System.out.printf("     |-Mã chỉ Số mới :" + "%20s \n", x.getChiSoMoi() + "|");
+				System.out.printf("     |-Mã chỉ Số mới :" + "%20s \n", x.getChiSoMoi() + "|");
+				System.out.printf("     |-Mã chỉ Số cũ: :" + "%20s \n", x.getChiSoCu() + "|");
+				System.out.println("    |====================================|");
+				System.out.printf("     |-Tiền điện :    " + "%20s \n", x.getTienDien() + "|");
+			}
+
 		}
-		
 	}
-			System.out.println("===============================================");
+
+	public static void thongKeToanBo() {
+		Double total = 0.0;
+		int thang1, nam1, thang2, nam2;
+		myScanner.nextLine();
+		System.out.println("Biên lai từ tháng :");
+		thang1 = myScanner.nextInt();
+		System.out.println("Biên lai từ năm :");
+		nam1 = myScanner.nextInt();
+		System.out.println("Biên lai đến tháng :");
+		thang2 = myScanner.nextInt();
+		System.out.println("Biên lai đến năm :");
+		nam2 = myScanner.nextInt();
+		System.out.println(
+				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
+		System.out.println(
+				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
+		for (BienLai x : arrayBienLai) {
+			if (thang1 <= x.getThang() && nam1 <= x.getNam()) {
+				if (thang2 >= x.getThang() && nam2 >= x.getNam()) {
+					System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(),
+							x.getTenKH(), x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(),
+							x.getThang(), x.getNam());
+					total += x.getTienDien();
+				}
+			}
+
+		}
+		System.out.printf("Tổng tiền điện " + "%80s \n", total + "VNđ");
+	}
+
+	public static void thongKeMaKH() {
+		Double total = 0.0;
+		int thang1, nam1, thang2, nam2;
+		String maKH;
+		myScanner.nextLine();
+		System.out.println("Biên lai Mã Khách Hàng :");
+		maKH = myScanner.nextLine();
+		System.out.println("Biên lai từ tháng :");
+		thang1 = myScanner.nextInt();
+		System.out.println("Biên lai từ năm :");
+		nam1 = myScanner.nextInt();
+		System.out.println("Biên lai đến tháng :");
+		thang2 = myScanner.nextInt();
+		System.out.println("Biên lai đến năm :");
+		nam2 = myScanner.nextInt();
+		System.out.println(
+				"+---------------------------------Danh sách biên lai Khách hàng------------------------------ --------+");
+		System.out.println(
+				"|  mã số  |   tên KH     |     Địa chỉ  | Mã Ct   | Chỉ số mới |Chỉ Số Cũ | tiền Diện  | tháng | năm  |");
+		for (BienLai x : arrayBienLai) {
+			if (thang1 <= x.getThang() && nam1 <= x.getNam() && maKH.equals(x.getMaKH())) {
+				if (thang2 >= x.getThang() && nam2 >= x.getNam()) {
+					System.out.printf("%-10s %-15s %-15s %-10s %-10s %-10s %-11s %-7s %-7s \n", x.getMaKH(),
+							x.getTenKH(), x.getDiaChi(), x.getMaCT(), x.getChiSoMoi(), x.getChiSoCu(), x.getTienDien(),
+							x.getThang(), x.getNam());
+					total += x.getTienDien();
+				}
+			}
+
+		}
+		System.out.printf("Tổng tiền điện " + "%80s \n", total + "VNđ");
+
 	}
 
 	public static void danhSachKH() {
@@ -145,16 +248,63 @@ public class ImportCustomer {
 		System.out.println("================================");
 	}
 
+	public static void inBienLaiMaKH() {
+		while (true) {
+			System.out.println("+--------LỰA CHỌN In Biên Lai-------+");
+			System.out.println("| 1. In toàn bộ                     |");
+			System.out.println("| 2. In chi tiết                    |");
+			System.out.println("====================================");
+			System.out.println("| 0. Quay lại                       |");
+			System.out.println("+-----------------------------------+");
+			int option = myScanner.nextInt();
+			if (option == 1) {
+				inToanBo();
+			} else if (option == 2) {
+				inChiTiet();
+			} else if (option == 0) {
+				break;
+			}
+			myScanner.nextLine();
+			System.out.println("Nhấn Enter để tiếp tục");
+			System.out.println("______________________________");
+		
+		}
+	}
+
+	public static void inBienLaiThongKe() {
+		while (true) {
+			System.out.println("+--------LỰA CHỌN In Biên Lai-------+");
+			System.out.println("| 1. Thống kê tất cả khách hàng     |");
+			System.out.println("| 2. Thống kê theo mã KH            |");
+			System.out.println("====================================");
+			System.out.println("| 0. Quay lại                       |");
+			System.out.println("+-----------------------------------+");
+			int option = myScanner.nextInt();
+			if (option == 1) {
+				thongKeToanBo();
+			} else if (option == 2) {
+				thongKeMaKH();
+			} else if (option == 0) {
+				break;
+			}
+			myScanner.nextLine();
+			System.out.println("Nhấn Enter để tiếp tục");
+			System.out.println("______________________________");
+			
+		}
+	}
+
 	public static void danhSachBienLai() {
 		while (true) {
-			System.out.println("+------LỰA CHỌN In Biên Lai-------+");
-			System.out.println("| 1. In theo tháng,năm            |");
-			System.out.println("| 2. In theo năm                  |");
-			System.out.println("| 3. In theo mã khách hàng        |");
-			System.out.println("| 4. In toàn bộ biên lai          |");
-			System.out.println("==================================");
-			System.out.println("| 5. Trở về Menu chính            |");
-			System.out.println("+---------------------------------+");
+			System.out.println("+--------LỰA CHỌN In Biên Lai-------+");
+			System.out.println("| 1. In theo tháng,năm              |");
+			System.out.println("| 2. In theo năm                    |");
+			System.out.println("| 3. In theo mã khách hàng          |");
+			System.out.println("| 4. Thống kê trong khoảng thời gian|");
+			System.out.println("| 5. In toàn bộ biên lai            |");
+			System.out.println("====================================");
+			System.out.println("| 0. Trở về Menu chính              |");
+			System.out.println("+-----------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
 				inBienLaiThang();
@@ -163,17 +313,18 @@ public class ImportCustomer {
 			} else if (option == 3) {
 				inBienLaiMaKH();
 			} else if (option == 4) {
-				bienLai();
+				inBienLaiThongKe();
 			} else if (option == 5) {
+				bienLai();
+			} else if (option == 0) {
 				break;
 			}
+			myScanner.nextLine();
 			System.out.println("Nhấn Enter để tiếp tục");
 			System.out.println("______________________________");
-			myScanner.nextLine();
+		
 		}
 	}
-	
-	
 
 	public static void ketThuc() {
 		System.out.println("++++++ Chương trình kết thúc+++++++");
@@ -202,9 +353,10 @@ public class ImportCustomer {
 			} else if (option == 5) {
 				ketThuc();
 			}
+			myScanner.nextLine();
 			System.out.println("Nhấn Enter để tiếp tục");
 			System.out.println("______________________________");
-			myScanner.nextLine();
+		
 		}
 	}
 
