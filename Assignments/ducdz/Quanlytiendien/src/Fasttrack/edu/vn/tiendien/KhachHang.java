@@ -4,7 +4,7 @@ public class KhachHang {
 	public String tenKh;
 	public String diachiKh;
 	public int macongtoKh;
-	public 	KhachHang(){
+	public KhachHang(){
 		
 	}
 	public KhachHang(int maKh, String tenKh, String diachiKh,int macongtoKh) {

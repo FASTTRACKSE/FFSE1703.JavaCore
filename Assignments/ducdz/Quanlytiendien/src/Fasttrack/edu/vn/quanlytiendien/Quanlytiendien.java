@@ -10,6 +10,7 @@ public class Quanlytiendien {
 	public static BienLai newBl = new BienLai();
 	public static int tongKh;
 	public static int soNammuonin;
+	public static int maKhmuonin;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -90,7 +91,7 @@ public class Quanlytiendien {
 		soNammuonin=myScanner.nextInt();
 		for(int i=0;i<arrBl.size();i++) {
 			if(soNammuonin==arrBl.get(i).getNam()) {
-				System.out.println("---------------------------");
+				System.out.println("--------------------------");
 				System.out.println("Khach hang thu "+(i+1)+" !");
 				System.out.println("Ma khach hang : "+arrBl.get(i).getMaKh());
 				System.out.println("Ten khach hang : "+arrBl.get(i).getTenKh());
@@ -104,6 +105,10 @@ public class Quanlytiendien {
 				System.out.println("Khong co khach hang trong nam "+soNammuonin+" !");
 			}
 		}
+	}
+	public static void inKhtheoma() {
+		System.out.println("Nhap ma khach hang : ");
+		
 	}
 	public static void backToMenu() {
 		myScanner.nextLine();
