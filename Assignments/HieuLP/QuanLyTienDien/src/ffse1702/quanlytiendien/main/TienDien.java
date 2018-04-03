@@ -24,8 +24,9 @@ public class TienDien {
 			System.out.println("         |  1.Nhập Danh Sách Khách Hàng  |");
 			System.out.println("         |  2.Nhập Danh Sách Tiền Điện   |");
 			System.out.println("         |  3.In Biên Lai Khách Hàng     |");
+			System.out.println("         |                               |");
 			System.out.println("         |=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=|");
-			System.out.println("         |--5.Kết thúc chương trình------|");
+			System.out.println("         |--4.Kết thúc chương trình------|");
 			System.out.println("         |_______________________________|");
 			System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
 			int act = input.nextInt();
@@ -67,37 +68,166 @@ public class TienDien {
 	}
 
 	public static void nhapThongtintiendien() {
-		System.out.println("NHẬP CHỈ SỐ TIỀN ĐIỆN CỦA KHÁCH HÀNG");
-		System.out.println("====================================");
-		for (; STT < arrKhachHang.size(); STT++) {
-			System.out.println("Tên Khách hàng : " + arrKhachHang.get(STT).getTenKhachhang());
-			System.out.println("Địa chỉ : " + arrKhachHang.get(STT).getDiaChi());
-			System.out.println("Mã Khách hàng : " + arrKhachHang.get(STT).getMasoKhachhang());
-			System.out.println("Mã Công Tơ :" + arrKhachHang.get(STT).getMaCongto());
-			System.out.println("Nhập Chỉ Số Điện Cũ :");
-			int chiSoCu = input.nextInt();
-			System.out.println("Nhập Chỉ Số Điện Mới :");
-			int chiSoMoi = input.nextInt();
+		System.out.print("Nhập chỉ số điện tiêu thụ của Tháng : ");
+		int ngayThang = input.nextInt();
+
+		System.out.print("Trong năm : ");
+		int nam = input.nextInt();
+
+		for (int i = 0; i < arrKhachHang.size(); i++) {
+
 			input.nextLine();
-			arrBienLai
-					.add(new BienLai(arrKhachHang.get(STT).getMasoKhachhang(), arrKhachHang.get(STT).getTenKhachhang(),
-							arrKhachHang.get(STT).getDiaChi(), arrKhachHang.get(STT).getMaCongto(), chiSoCu, chiSoMoi));
-		}
+
+			System.out.println("Tên Khách hàng : " + arrKhachHang.get(i).getTenKhachhang());
+			System.out.println("Mã Khách hàng : " + arrKhachHang.get(i).getMasoKhachhang());
+			System.out.println("Mã Công Tơ :" + arrKhachHang.get(i).getMaCongto());
+
+			System.out.println("Nhập Chỉ Số Điện Đầu Kỳ :");
+			int chisoCu = input.nextInt();
+
+			System.out.println("Nhập Chỉ Số Điện Cuối Kỳ :");
+			int chisoMoi = input.nextInt();
+
+			arrBienLai.add(new BienLai(arrKhachHang.get(i).getMasoKhachhang(), 
+					arrKhachHang.get(i).getTenKhachhang(),
+					arrKhachHang.get(i).getDiaChi(),
+					arrKhachHang.get(i).getMaCongto(), 
+					chisoCu,
+					chisoMoi,
+					ngayThang,
+					nam));
+	}
 	}
 
 	public static void inBienlai() {
-		System.out.println("                           DANH SÁCH TẤT CẢ KHÁCH HÀNG                                ");
-		System.out.println("________________________________________________________________________________________");
-		System.out.println(" STT | Mã    | Tên      |    Địa Chỉ   |   Mã Công Tơ |  Chỉ số cũ  |Chỉ số mới | Tiền");
-		int STT = 1;
-		for (int i = 0; i < arrBienLai.size(); i++) {
+		while (true) {
 
-			System.out.printf("%-5s%-10s%-16s%-12s%-12s%-14s%-12s%-14s\n", (i + 1),
-					arrKhachHang.get(i).getMasoKhachhang(), arrKhachHang.get(i).getTenKhachhang(),
-					arrKhachHang.get(i).getDiaChi(), arrKhachHang.get(i).getMaCongto(), arrBienLai.get(i).getChisoCu(),
-					arrBienLai.get(i).getChisoMoi(), arrBienLai.get(i).getTienDien());
+			System.out.println("        ___________________________________");
+			System.out.println("         |--CHỌN CHỨC NĂNG IN BIÊN LAI---|");
+			System.out.println("         |===============================|");
+			System.out.println("         |  5.In biên lai theo chu kì    |");
+			System.out.println("         |  6.In biên lai theo mã        |");
+			System.out.println("         |  7.In theo năm                |");
+			System.out.println("         |  8. Quay lại                  |");
+			System.out.println("         |===============================|");
+			System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
+			int act = input.nextInt();
+			if (act == 5) {
+				inTheochuki();
+			} else if (act == 6) {
+				inTheoma();
+			} else if (act == 7) {
+				inTheonam();
+			} else if (act == 8) {
+				myMenu();
+			}
+			input.nextLine();
+			System.out.println("     =====================================");
+			System.out.println("        -----Nhập ENTER để tiếp tục-----");
+			input.nextLine();
 		}
 
+	}
+
+	public static void inTheochuki() {
+		System.out.println("Nhập tháng cần in biên lai khách hàng : ");
+		int ngayThang = input.nextInt();
+		System.out.println("Nhập năm cần in biên lai khách hàng : ");
+		int nam = input.nextInt();
+		System.out.println("Danh sách tính tiền điện của khách hàng trong tháng : " + ngayThang + " năm :" + nam);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"|STT  |MasoKH    |TênKH           |Địa chỉ     |MasoCT      |Thời gian   |Chỉ số Đầu Kỳ  |Chỉ số Cuối Kỳ  |Tiền điện     ");
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		int i = 0;
+		for (int k = 0; k < arrBienLai.size(); k++) {
+			if (ngayThang == arrBienLai.get(k).getngayThang() && nam == arrBienLai.get(k).getnam()) {
+
+				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n", (i + 1),
+						arrBienLai.get(k).getMasoKhachhang(), 
+						arrBienLai.get(k).getTenKhachhang(),
+						arrBienLai.get(k).getDiaChi(), 
+						arrBienLai.get(k).getMaCongto(),
+						arrBienLai.get(k).getngayThang(),
+						arrBienLai.get(k).getnam(),
+						arrBienLai.get(k).getChisoCu(),
+						arrBienLai.get(k).getChisoMoi(), 
+						arrBienLai.get(k).getTienDien());
+				i = i + 1;
+			}
+		}
+	}
+
+	public static void inTheoma() {
+		input.nextLine();
+		System.out.println("nhập mã khách hàng cần in biên lai : ");
+		String masoKhachhang = input.nextLine();
+
+		System.out.println("Nhập tháng cần in biên lai khách hàng : ");
+		int ngayThang = input.nextInt();
+
+		System.out.println("Nhập năm cần in biên lai khách hàng : ");
+		int nam = input.nextInt();
+
+		System.out.println("Biên lai của khách hàng có mã khách hàng là : " + masoKhachhang);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"|STT  |MasoKH    |TênKH           |Địa chỉ     |MasoCT      |Thời gian   |Chỉ số Đầu Kỳ  |Chỉ số Cuối Kỳ  |Tiền điện     ");
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		int i = 0;
+		for (int k = 0; k < arrBienLai.size(); k++) {
+			if (masoKhachhang.equals(arrBienLai.get(k).getMasoKhachhang())
+					&& ngayThang == arrBienLai.get(k).getngayThang() && nam == arrBienLai.get(k).getnam()) {
+				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n", (i + 1),
+						arrBienLai.get(k).getMasoKhachhang(),
+						arrBienLai.get(k).getTenKhachhang(),
+						arrBienLai.get(k).getDiaChi(), 
+						arrBienLai.get(k).getMaCongto(),
+						arrBienLai.get(k).getngayThang(), 
+						arrBienLai.get(k).getnam(),
+						arrBienLai.get(k).getChisoCu(),
+						arrBienLai.get(k).getChisoMoi(),
+						arrBienLai.get(k).getTienDien());
+				i = i + 1;
+			}
+
+		}
+	}
+
+	public static void inTheonam() {
+
+		System.out.print("Nhập năm cần in biên lai khách hàng : ");
+		int nam = input.nextInt();
+
+		System.out.println("Danh sách tính tiền điện của khách hàng trong năm : " + nam);
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"|STT  |MasoKH    |TênKH           |Địa chỉ     |MasoCT      |Thời gian   |Chỉ số Đầu Kỳ  |Chỉ số Cuối Kỳ  |Tiền điện     ");
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		int n = 1;
+		for (int k = 0; k < arrBienLai.size(); k++) {
+			if (nam == arrBienLai.get(k).getnam()) {
+
+				System.out.printf("|%-5s|%-10s|%-16s|%-12s|%-12s|%-1s/%-11s|%-15s|%-16s|%,10d\n", n,
+						arrBienLai.get(k).getMasoKhachhang(),
+						arrBienLai.get(k).getTenKhachhang(),
+						arrBienLai.get(k).getDiaChi(),
+						arrBienLai.get(k).getMaCongto(),
+						arrBienLai.get(k).getngayThang(),
+						arrBienLai.get(k).getnam(),
+						arrBienLai.get(k).getChisoCu(),
+						arrBienLai.get(k).getChisoMoi(),
+						arrBienLai.get(k).getTienDien());
+				n += 1;
+			}
+
+		}
 	}
 
 	public static void ketThuc() {
