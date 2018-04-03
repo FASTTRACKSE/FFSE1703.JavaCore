@@ -14,3 +14,9 @@ vidu 1: [Ex1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assig
 Assigment day4: [demo](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiSinhVien/src/fasttrackse/edu/vn/QuanLiSvien.java)
 5. Learning day5.
 Assigment day5:[QLSV](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiSinhVien/src/fasttrackse/edu/vn/QuanLiSvien.java)
+6. Learning day6-7.
+Assigment:
+[QuanLitienDien]
+-[Quanli](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/main/QuanLi.java)
+-[BienLai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/model/BienLai.java)
+-[KhachHang](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/model/KhachHang.java)
