@@ -150,39 +150,37 @@ public class QuanLyTienDien {
 	public static void inTheoNam() {
 		int nam;
 		System.out.println("Nhap so nam can in bien lai");
-		nam=input.nextInt();
+		nam = input.nextInt();
 		System.out.println(
 				"+---------------------------------DANH SACH BIEN LAI THEO NAM------------------------------ --------+");
 		System.out.println("stt		masokhachhang		tenkhacnhhang		diachi		macongto	nam");
-		for(int i=0;i<n;i++) {
-			if(nam==arrBienLai.get(i).getNam()) {
+		for (int i = 0; i < n; i++) {
+			if (nam == arrBienLai.get(i).getNam()) {
 				System.out.println((i + 1) + "		" + arrKhachHang.get(i).getMakhachhang() + "			"
-						+ arrKhachHang.get(i).getTenkhachhang() + "			" + arrKhachHang.get(i).getDiachi() + "		"
-						+ arrKhachHang.get(i).getMacongto()+"		"+arrBienLai.get(i).getNam());
+						+ arrKhachHang.get(i).getTenkhachhang() + "			" + arrKhachHang.get(i).getDiachi()
+						+ "		" + arrKhachHang.get(i).getMacongto() + "		" + arrBienLai.get(i).getNam());
 
-				
 			}
-			
+
 		}
 
-		
 	}
+
 	public static void inTheoThang() {
 		int thang;
 		System.out.println("Nhap so nam can in bien lai");
-		thang=input.nextInt();
+		thang = input.nextInt();
 		System.out.println(
 				"+---------------------------------DANH SACH BIEN LAI THEO NAM------------------------------ --------+");
 		System.out.println("stt		masokhachhang		tenkhacnhhang		diachi		macongto	nam");
-		for(int i=0;i<n;i++) {
-			if(thang==arrBienLai.get(i).getNam()) {
+		for (int i = 0; i < n; i++) {
+			if (thang == arrBienLai.get(i).getNam()) {
 				System.out.println((i + 1) + "		" + arrKhachHang.get(i).getMakhachhang() + "			"
-						+ arrKhachHang.get(i).getTenkhachhang() + "			" + arrKhachHang.get(i).getDiachi() + "		"
-						+ arrKhachHang.get(i).getMacongto()+"		"+arrBienLai.get(i).getThang());
+						+ arrKhachHang.get(i).getTenkhachhang() + "			" + arrKhachHang.get(i).getDiachi()
+						+ "		" + arrKhachHang.get(i).getMacongto() + "		" + arrBienLai.get(i).getThang());
 
-				
 			}
-			
+
 		}
 
 	}
