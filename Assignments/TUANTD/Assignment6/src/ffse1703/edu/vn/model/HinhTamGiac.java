@@ -4,14 +4,8 @@ public class HinhTamGiac extends HinhHoc {
 	private int canhA;
 	private int canhB;
 	private int canhC;
-	private int chieuCao;
-	private int canhDay;
 	public HinhTamGiac() {
 		
-	}
-	public HinhTamGiac(int chieuCao,int canhDay) {
-		this.chieuCao=chieuCao;
-		this.canhDay=canhDay;
 	}
 	public HinhTamGiac(int canhA,int canhB,int canhC) {
 		this.canhA=canhA;

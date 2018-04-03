@@ -7,9 +7,6 @@ import java.util.Scanner;
 
 public class QuanLyHinhHoc {
 	public Scanner input = new Scanner(System.in);
-	// public static HinhHoc tinh1=new HinhTron();
-	// public static HinhHoc tinh2=new HinhTamGiac();
-	// public static HinhHoc tinh3=new HinhChuNhat();
 	static ArrayList<HinhHoc> arrHinhHoc = new ArrayList<>();
 
 	public static void main(String[] args) {
