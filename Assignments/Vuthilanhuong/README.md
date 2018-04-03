@@ -8,3 +8,7 @@
 5. assignment:[Quản lý tiền điện](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm5/src/asm5/main/QuanLyTienDien.java)
 [Khách hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm5/src/asm5/model/KhachHang.java)
 [Biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm5/src/asm5/model/BienLai.java)
+assignment6: [Tinh toán](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/main/QuanLy.java)
+[Hình học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhHoc.java)[Hình chữ nhật](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhChuNhat.java)
+[Hình tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhTron.java)
+[Hình tam giác](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhTamGiac.java)
