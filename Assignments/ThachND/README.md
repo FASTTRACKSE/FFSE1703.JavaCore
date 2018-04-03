@@ -8,3 +8,6 @@
 4. Assignment 3: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/MenuCuaToi/src/practices/listhocsinh.java)
 5. Assignment 4: [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/sinhvien/src/fastrack/edu/vn/practices/sinhvien.java) 
 [Quản Lí Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/sinhvien/src/fastrack/edu/vn/practices/QLsinhvien.java)
+6. Assignment 5:[QuanLiTienDien]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/main/QuanLiTienDien.java
+[Bienlai]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/model/BienLai.java
+[Khachhang]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/model/KhachHang.java
