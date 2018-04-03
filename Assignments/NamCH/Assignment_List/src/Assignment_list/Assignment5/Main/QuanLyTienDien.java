@@ -129,8 +129,7 @@ public class QuanLyTienDien {
 		System.out.println("Nhập tháng cần in biên Lai:");
 		int inThang=input.nextInt();
 		System.out.println("Nhập năm cần in biên Lai:");
-		int inNam=input.nextInt();
-		input.nextLine();
+		int inNam=input.nextInt();		
 		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
 		for(BienLai bienLai: arrBienLai) {	
 			int sosanhthang=bienLai.getBlThang();
