@@ -12,3 +12,8 @@
 5. Assignment 5:[Khách Hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/model/KhachHang.java)
                 [Biên Lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/model/BienLai.java)
                 [Quản Lý Khách Hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment5/src/ffse1703/javacore/qltiendien/main/QuanLyKhachHang.java)
+5. Assignment 6:[Hình Học]()
+                [Hình Chữ Nhật]()
+                [Hình Tam Giác]()
+                [Hình Tròn]()
+                [Tính Toán Hình Học]()
