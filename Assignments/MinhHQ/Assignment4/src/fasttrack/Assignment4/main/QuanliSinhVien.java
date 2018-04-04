@@ -30,6 +30,7 @@ public class QuanliSinhVien {
 			for (int j = 0; j < n; j++) {
 				SV[j] = new SinhVien();
 				SV[j].Input();
+				SinhVien.tinhTongSV();
 			}
 
 
@@ -40,7 +41,7 @@ public class QuanliSinhVien {
 
 	public static void inDSSV() {
 
-		System.out.println("Danh sách sinh viên ");
+		System.out.println("Danh sách sinh viên có tổng số là :" +SinhVien.tongSV);
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2   ĐTB  ");
 		System.out.println("--------------------------------------------------------------------");

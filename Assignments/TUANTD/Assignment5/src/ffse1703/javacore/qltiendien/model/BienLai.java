@@ -10,7 +10,7 @@ public class BienLai extends KhachHang {
 	private int thang, nam, tieuThu;
 
 	public BienLai() {
-
+		super();
 	}
 
 	public BienLai(String maKhachHang, String tenKhachHang, String soNha, String maCongTo, Double chiSoCu,
