@@ -48,7 +48,7 @@ public class XuliHinhHoc {
 		System.out.println("| bán kính |   Chu vi    |   Diện tích      |");
 		for (HinhHoc x : arrHinhHoc) {
 			if (x instanceof HinhTron) {
-			System.out.printf("%-20s%-20s%-20s \n", ((HinhTron) x).getR(), x.getChuVi(), x.getDienTich());
+			System.out.printf("%-15s%-15s%-20s \n", ((HinhTron) x).getR(), x.getChuVi(), x.getDienTich());
 			}
 		}
 		myInput.nextLine();
@@ -75,13 +75,12 @@ public class XuliHinhHoc {
 	public static void hinhVuong() {
 		System.out.println("Nhap canh hinh vuong: ");
 		double canh=myInput.nextDouble();
-		HinhVuong hv = new HinhVuong();
 		arrHinhHoc.add(new HinhVuong(canh));
-		System.out.println("+---------------DANH SÁCH KHÁCH HÀNG-------------------+");
+		System.out.println("+---------------DANH SÁCH -------------------+");
 		System.out.println("| Cạnh |   Chu Vi    |   Diện tích   |");
 		for(HinhHoc x : arrHinhHoc) {
 			if(x instanceof HinhVuong) {
-				System.out.printf("%-20s%-20s%-20s%-20s \n", ((HinhVuong) x).getCanh(), x.getChuVi(), x.getDienTich());
+				System.out.printf("%-10s%-20s%-10s \n", ((HinhVuong) x).getCanh(), x.getChuVi(), x.getDienTich());
 			}
 		}
 		myInput.nextLine();
@@ -94,13 +93,13 @@ public class XuliHinhHoc {
 		System.out.println("| kiểu Hình |   Thuộc tính   |   Chu Vi    |   Diện tích   |");
 		for(HinhHoc x : arrHinhHoc) {
 			if (x instanceof HinhTron) {
-				System.out.printf("%-20s%-20s%-20s%-20s \n", ((HinhTron) x).getR(), x.getChuVi(), x.getDienTich());
+				System.out.printf("%-15s%-15s%-20s \n", ((HinhTron) x).getR(), x.getChuVi(), x.getDienTich());
 				}
-			if(x instanceof HinhChuNhat) {
-				System.out.printf("%-20s%-20s%-20s%-20s%-20s \n",((HinhChuNhat) x).getChieudai(),((HinhChuNhat) x).getChieurong(), x.getChuVi(), x.getDienTich());
+			else if (x instanceof HinhChuNhat) {
+				System.out.printf("%-20s%-20s%-20s%-20s \n", ((HinhChuNhat) x).getChieudai(),((HinhChuNhat) x).getChieurong(), x.getChuVi(), x.getDienTich());
 			}
-			if(x instanceof HinhVuong) {
-			System.out.printf("%-20s%-20s%-20s%-20s%-20s \n", ((HinhVuong) x).getCanh(), x.getChuVi(), x.getDienTich());
+			else if (x instanceof HinhVuong) {
+			System.out.printf("%-10s%-20s%-10s \n", ((HinhVuong) x).getCanh(), x.getChuVi(), x.getDienTich());
 		}
 	}}
 	
