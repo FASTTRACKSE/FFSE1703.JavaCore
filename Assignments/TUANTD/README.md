@@ -17,3 +17,5 @@
                 [Hình Tam Giác](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment6/src/ffse1703/edu/vn/model/HinhTamGiac.java)
                 [Hình Tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment6/src/ffse1703/edu/vn/model/HinhTron.java)
                 [Tính Toán Hình Học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment6/src/ffse1703/edu/vn/main/QuanLyHinhHoc.java)
+6. Assignment 7: [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/DanhSachSV.java)
+                 [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/QLSinhVi%C3%AAn.java)
