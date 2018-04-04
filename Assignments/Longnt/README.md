@@ -20,3 +20,8 @@ Assigment:
 -[Quanli](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/main/QuanLi.java)
 -[BienLai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/model/BienLai.java)
 -[KhachHang](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLiTienDien/src/ffse1703/Javacore/oop2/model/KhachHang.java)
+7. Assignment 6:[Tính Toán](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/main/XuliHinhHoc.java)
+[Hinh Học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhHoc.java)
+[Hình Tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhTron.java)
+[Hình Chữ Nhật](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhChuNhat.java)
+[Hình Vuông](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhVuong.java)
