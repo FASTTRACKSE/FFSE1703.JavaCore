@@ -5,7 +5,6 @@ public class BienLai extends KhachHang{
 	private int namCk;
 	private int soMoi;
 	private int soCu;
-	private int soTienTra;
 	
 	public BienLai() {
 		super();
