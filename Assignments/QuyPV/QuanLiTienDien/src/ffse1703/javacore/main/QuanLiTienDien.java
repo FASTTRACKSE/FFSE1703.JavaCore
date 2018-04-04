@@ -71,7 +71,7 @@ public class QuanLiTienDien {
 
 	public void nhapBienLai() {
 		// for (; stt < arrKhachHang.size(); stt++) {};
-		
+
 		System.out.println("Nhập tháng: ");
 		String thang = myInput.nextLine();
 
@@ -93,7 +93,7 @@ public class QuanLiTienDien {
 
 			System.out.println("Nhập chỉ số cũ: ");
 			// bienLai.setChiSoCu(Integer.parseInt(myInput.nextLine()));
-			
+
 			int chiSoCu = Integer.parseInt(myInput.nextLine());
 
 			System.out.println("Nhập chỉ số mới: ");
@@ -138,6 +138,7 @@ public class QuanLiTienDien {
 			System.out.println("4. In theo năm cá nhân.");
 			System.out.println("5. Thống kê theo năm.");
 			System.out.println("6. Thống kê theo tháng năm.");
+			System.out.println("7. Thống kê theo chu kì.");
 			System.out.println("0. Trở về menu chính.");
 			System.out.println("____________________________" + "\n");
 
@@ -156,6 +157,8 @@ public class QuanLiTienDien {
 				thongKeTheoNam();
 			} else if (choseIn == 6) {
 				thongKeTheoThangNam();
+			} else if (choseIn == 7) {
+				thongKeTheoChuKi();
 			} else if (choseIn == 0) {
 				break;
 			}
@@ -268,7 +271,7 @@ public class QuanLiTienDien {
 
 		System.out.printf("%-50s \n", "Tổng tiền: " + tongTien);
 	}
-	
+
 	public void thongKeTheoNam() {
 		double tongTien = 0;
 		String nam;
@@ -292,7 +295,7 @@ public class QuanLiTienDien {
 
 		System.out.printf("%-50s \n", "Tổng tiền: " + tongTien);
 	}
-	
+
 	public void thongKeTheoThangNam() {
 		double tongTien = 0;
 		String nam, thang;
@@ -305,7 +308,7 @@ public class QuanLiTienDien {
 				"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Chỉ số cũ", "Chỉ số mới", "tháng", "Năm",
 				"Thành tiền");
 		for (BienLai x : arrBienLai) {
-			if (nam.equals(x.getNam()) && thang.equals(x.getNgayThang()) ) {
+			if (nam.equals(x.getNam()) && thang.equals(x.getNgayThang())) {
 				System.out.printf(
 						"| %-3s | | %-15s | | %-20s | | %-20s | | %-15s | | %-15s | | %-15s | | %-15s | | %-10s | \n",
 						i, x.getMaKhachHang(), x.getTenKhachHang(), x.getDiaChi(), x.getChiSoCu(), x.getChiSoMoi(),
@@ -318,7 +321,89 @@ public class QuanLiTienDien {
 
 		System.out.printf("%-50s \n", "Tổng tiền: " + tongTien);
 	}
+
+	public void thongKeTheoChuKi() {
+		int namStart, namEnd, thangStart, thangEnd;
+		System.out.println("Nhập năm thứ nhất: ");
+		namStart = Integer.parseInt(myInput.nextLine());
+		System.out.println("Nhập năm thứ hai: ");
+		namEnd = Integer.parseInt(myInput.nextLine());
+		System.out.println("Nhập tháng thứ nhất: ");
+		thangStart = Integer.parseInt(myInput.nextLine());
+		System.out.println("Nhập tháng thứ hai: ");
+		thangEnd = Integer.parseInt(myInput.nextLine());
+		/*
+		 * từ tháng 2 - 2017 -> tháng 5 - 2018 namStart = 2017 < namEnd = 2018
+		 * thangStart = 2 -> ++ -> 12
+		 * 
+		 */
+		int i = 1;
+		double tongTien = 0;
+
+		System.out.printf("| %-3s | | %-15s | | %-20s | | %-20s | | %-15s | | %-15s | | %-15s | | %-15s | | %-10s | \n",
+				"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Chỉ số cũ", "Chỉ số mới", "tháng", "Năm",
+				"Thành tiền");
 	
-	
+		if (namStart < namEnd) {
+
+			for (; thangStart <= 12; thangStart++) {
+				for (BienLai x : arrBienLai) {
+					if (Integer.parseInt(x.getNgayThang()) == thangStart && Integer.parseInt(x.getNam()) == namStart) {
+						System.out.printf(
+								"| %-3s | | %-15s | | %-20s | | %-20s | | %-15s | | %-15s | | %-15s | | %-15s | | %-10s | \n",
+								i, x.getMaKhachHang(), x.getTenKhachHang(), x.getDiaChi(), x.getChiSoCu(),
+								x.getChiSoMoi(), x.getNgayThang(), x.getNam(), x.soTienTra());
+						i++;
+						tongTien += x.soTienTra();
+					}
+				}
+
+				if (thangStart == 12) {
+					namStart += 1;
+					
+				
+					for (thangStart = 1; thangStart <= thangEnd; thangStart++) {
+						for (BienLai x : arrBienLai) {
+							if (Integer.parseInt(x.getNgayThang()) == thangStart
+									&& Integer.parseInt(x.getNam()) == namStart) {
+								System.out.printf(
+										"| %-3s | | %-15s | | %-20s | | %-20s | | %-15s | | %-15s | | %-15s | | %-15s | | %-10s | \n",
+										i, x.getMaKhachHang(), x.getTenKhachHang(), x.getDiaChi(), x.getChiSoCu(),
+										x.getChiSoMoi(), x.getNgayThang(), x.getNam(), x.soTienTra());
+								i++;
+								tongTien += x.soTienTra();
+							}
+						}
+						
+					}
+				
+				}
+				
+			}
+
+		}
+
+		if (namStart == namEnd) {
+			
+			for (; thangStart <= thangEnd; thangStart++) {
+				
+				for (BienLai x : arrBienLai) {
+					
+					if (Integer.parseInt(x.getNgayThang()) == thangStart && Integer.parseInt(x.getNam()) == namStart) {
+						System.out.printf(
+								"| %-3s | | %-15s | | %-20s | | %-20s | | %-15s | | %-15s | | %-15s | | %-15s | | %-10s | \n",
+								i, x.getMaKhachHang(), x.getTenKhachHang(), x.getDiaChi(), x.getChiSoCu(),
+								x.getChiSoMoi(), x.getNgayThang(), x.getNam(), x.soTienTra());
+						i++;
+						tongTien += x.soTienTra();
+					}
+				}
+
+			}
+
+		}
+
+		System.out.println("Tổng tiền: " + tongTien);
+	}
 
 }

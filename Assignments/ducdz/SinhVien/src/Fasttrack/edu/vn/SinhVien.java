@@ -11,6 +11,7 @@ public class SinhVien {
 	public static double diemTB[];
 	public static int tongSinhvien=0;
 	public static int i=0;
+	public static int j=0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		myMenu();
@@ -24,6 +25,7 @@ public class SinhVien {
 			System.out.println("2. In danh sach sinh vien");
 			System.out.println("3. Thong ke top sinh vien");
 			System.out.println("4. Thoat chuong trinh");
+			System.out.println("5. So sanh diem TB");
 			System.out.println("Lua chon cua ban :");
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
@@ -37,6 +39,9 @@ public class SinhVien {
 			}
 			if (myOption == 4) {
 				ketthuc();
+			}
+			if (myOption == 5) {
+				so_sanh_diemTB();
 			}
 		}
 	}
@@ -93,5 +98,37 @@ public class SinhVien {
 	public static void ketthuc() {
 		System.out.print("Chuong trinh da ket thuc. Cam on ban !");
 		System.exit(0);
+	}
+	public static void so_sanh_diemTB() {
+		double temp;
+		String tempten;
+		for(i=0;i<tongSinhvien;i++) {
+			for (j=i+1;j<tongSinhvien;j++) {
+				if(diemTB[i]<diemTB[j]) {
+					temp = diemTB[i];
+					diemTB[i] = diemTB[j];
+					diemTB[j] = temp;
+					
+					tempten = tenSinhvien[i];
+					tenSinhvien[i]=tenSinhvien[j];
+					tenSinhvien[j]=tempten;
+					
+					tempten = ngaysinh[i];
+					ngaysinh[i]=ngaysinh[j];
+					ngaysinh[j]=tempten;
+					
+					temp = diemLP1[i];
+					diemLP1[i]=diemLP1[j];
+					diemLP1[j]=temp;
+					
+					temp=diemLP2[i];
+					diemLP2[i]=diemLP2[j];
+					diemLP2[j]=temp;
+				}
+			}
+		}
+		myScanner.nextLine();
+		System.out.println("An Enter de quay lai!");
+		myScanner.nextLine();
 	}
 }
