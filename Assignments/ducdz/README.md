@@ -8,5 +8,11 @@ Phuong trinh bac 2: https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master
 Mang min max: https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/Mang_min_max/src/Mang_min_max.java<hr>
 Menu : https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/menu/src/fasttrack/edu/vn/menu.java <hr>
 Quan li sinh vien : https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/SinhVien/src/Fasttrack/edu/vn/SinhVien.java <hr>
+Hinh hoc : 
+<a src="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/HinhHoc/src/HinhHoc_main/hinhhoc.java">Main</a>
+<a src="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/ducdz/HinhHoc/src/HinhHoc_model>Model</a>
+Quan li tien dien :
+<a src="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/Quanlytiendien/src/Fasttrack/edu/vn/quanlytiendien/Quanlytiendien.java">Main</a>
+<a src="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/ducdz/Quanlytiendien/src/Fasttrack/edu/vn/tiendien>Model</a>
 
 
