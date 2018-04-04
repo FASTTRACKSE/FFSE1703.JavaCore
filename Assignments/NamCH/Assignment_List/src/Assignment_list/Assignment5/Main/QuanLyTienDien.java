@@ -6,7 +6,7 @@ public class QuanLyTienDien {
 	public static Scanner input= new Scanner(System.in);
 	public static ArrayList<KhachHang> arrKhachHang=new ArrayList<KhachHang>();
 	public static ArrayList<BienLai> arrBienLai=new ArrayList<BienLai>();
-	public static int stt=0,size=0;
+	public static int stt=0,stt1=0,size=0,j=2,a=0;
 	public static void main(String[] args) {
 		myMenu();
 	}
@@ -32,24 +32,28 @@ public class QuanLyTienDien {
 	public static void addBienLai() {
 		System.out.println("NHẬP CHỈ SỐ TIỀN ĐIỆN CỦA KHÁCH HÀNG");
 		System.out.println("====================================");
-		for(;stt<arrKhachHang.size();stt++) {
+		System.out.print("Nhập biên lai của tháng :");
+		int blThang=input.nextInt();
+		System.out.print("Nhập biên lai của năm :");
+		int blNam=input.nextInt();
+		for(int i=0;i<arrKhachHang.size();i++) {
 			
-			System.out.println("Tên Khách hàng : " +arrKhachHang.get(stt).getTenKhachHang());
-			System.out.println("Mã Khách hàng : " +arrKhachHang.get(stt).getMaKhachHang());
-			System.out.println("Mã Công Tơ :" + arrKhachHang.get(stt).getMaCongTo());
-			System.out.println("Nhập Chỉ Số Điện Cũ :");
+			System.out.println("Tên Khách hàng : " +arrKhachHang.get(i).getTenKhachHang());
+			System.out.println("Mã Khách hàng : " +arrKhachHang.get(i).getMaKhachHang());
+			System.out.println("Mã Công Tơ :" + arrKhachHang.get(i).getMaCongTo());
+			
+			System.out.print("Nhập Chỉ Số Điện Cũ :");
 			int chiSoCu=input.nextInt();
-			System.out.println("Nhập Chỉ Số Điện Mới :");
+			System.out.print("Nhập Chỉ Số Điện Mới :");
 			int chiSoMoi=input.nextInt();
-			input.nextLine();
-			System.out.println("Nhập Ngày Tháng Năm:");
-			String ntNam =input.nextLine();
-			arrBienLai.add(new BienLai(arrKhachHang.get(stt).getMaKhachHang(),
-					arrKhachHang.get(stt).getTenKhachHang(),
-					arrKhachHang.get(stt).getDiaChi(),arrKhachHang.get(stt).getMaCongTo(),
-					chiSoCu,chiSoMoi,ntNam));			
+				
+			arrBienLai.add(new BienLai(arrKhachHang.get(i).getMaKhachHang(),
+					arrKhachHang.get(i).getTenKhachHang(),
+					arrKhachHang.get(i).getDiaChi(),arrKhachHang.get(i).getMaCongTo(),
+					chiSoCu,chiSoMoi,blThang,blNam));			
 		}	
-	}	
+	}
+	
 	public static void printKhachHang() {
 		System.out.println("-------DANH SÁCH TẤT CẢ KHÁCH HÀNG--------");
 		System.out.println("==========================================");
@@ -62,15 +66,95 @@ public class QuanLyTienDien {
 		}
 	}
 	public static void printBienLai() {
-		System.out.println("---------------------DANH SÁCH TẤT CẢ KHÁCH HÀNG--------------------");
+		System.out.println("----------------DANH SÁCH BIÊN LAI TẤT CẢ KHÁCH HÀNG----------------");
 		System.out.println("====================================================================");
-		System.out.println("|| Stt || Mã || Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng");
+		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
 		int sothutu=1;
+		int sum=0;
 		for(BienLai bienLai: arrBienLai) {
-			System.out.print("|| " + sothutu+"    ");
+			System.out.print("|| " + sothutu+"  ");
 			System.out.println(bienLai);	
 			sothutu++;
+			sum=bienLai.getTienDien()+sum;
 		}
+		System.out.println("Tiền điện tiêu thụ trong 1 năm là : "+sum);
+	}
+	public static void printByThang() {
+		System.out.println("------------------------DANH SÁCH KHÁCH HÀNG------------------------");
+		System.out.println("====================================================================");
+		System.out.println("Nhập Tháng cần in biên Lai:");
+		int inThang=input.nextInt();
+		System.out.println("Nhập Năm cần in biên Lai:");
+		int inNam=input.nextInt();
+		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
+		for(BienLai bienLai: arrBienLai) {			
+			int sosanhthang=bienLai.getBlThang();
+			int sosanhnam=bienLai.getBlNam();
+			if(inThang == sosanhthang && inNam==sosanhnam) {
+				System.out.println(bienLai);
+				  }
+		}
+		
+	}
+	public static void printThongKe() {
+		System.out.println("------------------------DANH SÁCH KHÁCH HÀNG------------------------");
+		System.out.println("====================================================================");
+		System.out.println("Thông Kê Từ :");
+		System.out.println("Nhập Tháng:");
+		int inThang=input.nextInt();
+		System.out.println("Nhập Năm :");
+		int inNam=input.nextInt();
+		System.out.println("Thống Kê Đến");
+		System.out.println("Nhập Tháng:");
+		int inThangden=input.nextInt();
+		System.out.println("Nhập Năm :");
+		int inNamden=input.nextInt();
+		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
+		for(BienLai bienLai: arrBienLai) {			
+			int sosanhthang=bienLai.getBlThang();
+			int sosanhnam=bienLai.getBlNam();
+			if((sosanhthang >= inThang && inNam<=sosanhnam &&sosanhnam<=inNamden)||
+					(sosanhthang<=inThangden && sosanhnam<=inNamden && sosanhnam>inNam)) {
+				System.out.println(bienLai);
+				  }
+		}
+		
+	}
+	public static void printByNameThang() {
+		System.out.println("------------------------DANH SÁCH KHÁCH HÀNG------------------------");
+		System.out.println("====================================================================");
+		System.out.print("Nhập Tên khách hàng cần in biên Lai:");
+		input.nextLine();
+		String tenKh = input.nextLine();		
+		System.out.println("Nhập tháng cần in biên Lai:");
+		int inThang=input.nextInt();
+		System.out.println("Nhập năm cần in biên Lai:");
+		int inNam=input.nextInt();		
+		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
+		for(BienLai bienLai: arrBienLai) {	
+			int sosanhthang=bienLai.getBlThang();
+			int sosanhnam=bienLai.getBlNam();
+			String sosanhten = bienLai.getTenKhachHang();			
+			if(tenKh.equals(sosanhten)&&sosanhthang==inThang&&sosanhnam==inNam) {
+				System.out.println(bienLai);
+			}
+		}
+		
+	}
+	public static void printByName() {
+		System.out.println("------------------------DANH SÁCH KHÁCH HÀNG------------------------");
+		System.out.println("====================================================================");
+		System.out.print("Nhập Tên khách hàng cần in biên Lai:");
+		input.nextLine();
+		String tenKh = input.nextLine();				
+		System.out.println("||Stt||Mã|| Tên  ||Địa Chỉ||Mã Công Tơ||Chỉ Số Cũ||Chỉ Số Mới||Tiền Điện||Tháng||Năm");
+		for(BienLai bienLai: arrBienLai) {			
+			String sosanhten = bienLai.getTenKhachHang();			
+			if(tenKh.equals(sosanhten)) {
+				System.out.println(bienLai);
+			}
+		}
+		
 	}
 	public static void endQl() {
 		System.out.println("Kết thúc chương trình");
@@ -80,17 +164,21 @@ public class QuanLyTienDien {
 	}
 	public static void myMenu() {
 		while(true) {
-			System.out.println("         ________________________________");
-			System.out.println("         |===============================|");
-			System.out.println("         |-------CHỌN LỰA CHỨC NĂNG------|");
-			System.out.println("         |-------------------------------|");
-			System.out.println("         |--1.Nhập Danh Sách Khách Hàng--|");
-			System.out.println("         |--2.Nhập Danh Sách Tiền Điện---|");
-			System.out.println("         |--3.In Danh Sách Khách Hàng----|");
-			System.out.println("         |--4.In Biên Lai Khách Hàng-----|");
-			System.out.println("         |===============================|");
-			System.out.println("         |--5.Kết thúc chương trình------|");
-			System.out.println("         |_______________________________|");
+			System.out.println("         __________________________________");
+			System.out.println("         |=================================|");
+			System.out.println("         |-------CHỌN LỰA CHỨC NĂNG--------|");
+			System.out.println("         |---------------------------------|");
+			System.out.println("         |--1.Nhập Danh Sách Khách Hàng----|");
+			System.out.println("         |--2.Nhập Danh Sách Tiền Điện-----|");
+			System.out.println("         |--3.In Danh Sách Khách Hàng------|");
+			System.out.println("         |--4.In Tất cả Biên Lai Khách Hàng|");
+			System.out.println("         |--5.In Biên Lai Theo Tháng-------|");
+			System.out.println("         |--6.In Biên Lai Theo Thông Kê----|");
+			System.out.println("         |--7.In Biên Lai Theo Tên --------|");
+			System.out.println("         |--8.In Biên Lai Theo Tên và tháng|");
+			System.out.println("         |=================================|");
+			System.out.println("         |--9.Kết thúc chương trình--------|");
+			System.out.println("         |_________________________________|");
 			System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
 			int act = input.nextInt();
 			if(act ==1) {
@@ -101,6 +189,14 @@ public class QuanLyTienDien {
 				printKhachHang();
 			}else if(act==4) {
 				printBienLai();
+			}else if(act==5) {
+				printByThang();
+			}else if(act==6) {
+				printThongKe();
+			}else if(act==7) {
+				printByName();
+			}else if(act==8) {
+				printByNameThang();
 			}else {
 				endQl();
 			}

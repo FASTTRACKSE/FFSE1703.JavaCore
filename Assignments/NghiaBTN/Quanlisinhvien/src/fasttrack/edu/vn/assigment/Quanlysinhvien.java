@@ -122,9 +122,37 @@ public class Quanlysinhvien {
 		}
 
 		myScanner.nextLine();
+		System.out.println("Nhấn Enter để về menu chính");
+		myScanner.nextLine();
+	}
+	public static void sapxepTen() {
+		SinhVien[] temp = new SinhVien[n];
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (SV[i].getName().compareTo(SV[j].getName()) > 0) {
+					temp[i] = SV[j];
+					SV[j] = SV[i];
+					SV[i] = temp[i];
+				}
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+			System.out.println("--------------------------------------------------------------------");
+			for (i = 0; i < n; i++) {
+				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), SV[i].getName(), SV[i].getDate(),
+						SV[i].getLp1(), SV[i].getLp2(), SV[i].getTBM(), SV[i].XepLoai());
+			}
+		}
+
+		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
+
 
 	public static void ketThuc() {
 		System.out.println("Kết thúc chương trình!!!!!");
@@ -134,25 +162,26 @@ public class Quanlysinhvien {
 	public static void showMyMenu() {
 		while (true) {
 			System.out.println("         MENU QUẢN LÝ SINH VIÊN       ");
-			System.out.println("----------------------------------------");
 			System.out.println("1. Nhập danh sách sinh viên             ");
 			System.out.println("2. In danh sách sinh viên               ");
 			System.out.println("3. Top sinh viên                        ");
 			System.out.println("4. Sắp xếp theo điểm TBM                ");
-			System.out.println("5. Kết thúc chương trình                ");
-			System.out.println("----------------------------------------");
+			System.out.println("5. Sắp xếp theo Tên                     ");
+			System.out.println("6. Kết thúc chương trình                ");
 			System.out.println("            Lựa chọn của bạn?         ");
 			// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();
-			} else if (myOption == 2) {
+			}  else if (myOption == 2) {
 				inDSSV();
 			} else if (myOption == 3) {
 				topSV();
 			} else if (myOption == 4) {
 				sapxepTBM();
 			} else if (myOption == 5) {
+				sapxepTen();
+			} else if (myOption == 6) {
 				ketThuc();
 			}
 
