@@ -1,4 +1,4 @@
-package fasstrack.edu.vn;
+package assignment7.model;
 
 public class SinhVien {
 	public static int tongSV = 0;
@@ -9,7 +9,7 @@ public class SinhVien {
 		SinhVien.tongSV = tongSV;
 	}
 	private String Hoten;
-	private String Ngaysinh;
+	private int tuoiSV;
 	private float DiemLP1;
 	private float DiemLP2;
 	public float DiemTB;
@@ -21,10 +21,10 @@ public class SinhVien {
 		// TODO Auto-generated constructor stub
 		themSV();
 	}
-	public SinhVien(String Hoten,String Ngaysinh,float DiemLP1,float DiemLP2,float DiemTB,String Xeploai) {
+	public SinhVien(String Hoten,int tuoiSV,float DiemLP1,float DiemLP2,float DiemTB,String Xeploai) {
 		themSV();
 		this.Hoten= Hoten;
-		this.Ngaysinh= Ngaysinh;
+		this.tuoiSV= tuoiSV;
 		this.DiemLP1 = DiemLP1;
 		this.DiemLP2 = DiemLP2;
 		this.DiemTB = DiemTB;
@@ -36,11 +36,11 @@ public class SinhVien {
 	public String getHoten() {
 		return Hoten;
 	}
-	public void setNgaysinh(String Ngaysinh) {
-		this.Ngaysinh = Ngaysinh;
+	public void setTuoiSV(int tuoiSV) {
+		this.tuoiSV = tuoiSV;
 	}
-	public String getNgaysinh() {
-		return Ngaysinh;
+	public int getTuoiSV() {
+		return tuoiSV;
 	}
 	public void setDiemLP1(float DiemLP1) {
 		this.DiemLP1 = DiemLP1;
