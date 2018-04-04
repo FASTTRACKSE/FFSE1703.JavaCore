@@ -1,7 +1,7 @@
 package Fasttrack.edu.vn.quanlytiendien;
-import java.util.*;
 import Fasttrack.edu.vn.tiendien.*;
 import java.util.ArrayList;
+import java.util.*;
 public class Quanlytiendien {
 	public static Scanner myScanner = new Scanner(System.in);
 	public static ArrayList<KhachHang> arrKh = new ArrayList<KhachHang>();
@@ -23,7 +23,8 @@ public class Quanlytiendien {
 			System.out.println("2.Nhap thong tin chi so tieu thu dien");
 			System.out.println("3.In danh sach thu tien cua khach hang");	
 			System.out.println("4.In khach hang theo nam");
-			System.out.println("5.Ket thuc chuong trinh!");
+			System.out.println("5.In khach hang theo ma");
+			System.out.println("6.Ket thuc chuong trinh!");
 			System.out.print("Lua chon cua ban la : ");
 			int myOption = myScanner.nextInt();
 			if(myOption==1) {
@@ -39,6 +40,9 @@ public class Quanlytiendien {
 				inKhtheonam();
 			}
 			if(myOption==5) {
+				inKhtheoma();
+			}
+			if(myOption==6) {
 				endProgram();
 			}
 		}
@@ -108,7 +112,20 @@ public class Quanlytiendien {
 	}
 	public static void inKhtheoma() {
 		System.out.println("Nhap ma khach hang : ");
-		
+		maKhmuonin = myScanner.nextInt();
+		for(int i=0;i<arrBl.size();i++) {
+			if(maKhmuonin==arrBl.get(i).getMaKh()) {
+				System.out.println("---------------------");
+				System.out.println("Ma khach hang la : "+arrBl.get(i).getMaKh());
+				System.out.println("Ten khach hang : "+arrBl.get(i).getMaKh());
+				System.out.println("Dia chi khach hang la : "+arrBl.get(i).getDiachiKh());
+				System.out.println("Ma cong to khach hang : "+arrBl.get(i).getMacongtoKh());
+				System.out.println("Thang khach hang : "+arrBl.get(i).getThang());
+				System.out.println("Nam khach hang : "+arrBl.get(i).getNam());
+				System.out.println("Chi so moi : "+arrBl.get(i).getChisomoi());
+				System.out.println("Chi so cu : "+arrBl.get(i).getChisocu());;
+			}
+		}
 	}
 	public static void backToMenu() {
 		myScanner.nextLine();
