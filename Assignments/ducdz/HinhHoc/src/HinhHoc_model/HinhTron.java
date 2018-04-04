@@ -1,7 +1,7 @@
 package HinhHoc_model;
 
 public class HinhTron extends HinhHoc {
-	public static double bankinh;
+	public double bankinh;
 
 	public HinhTron() {
 		super();
