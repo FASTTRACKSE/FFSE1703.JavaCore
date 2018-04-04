@@ -187,34 +187,32 @@ public class QuanLySinhVien {
 				System.out.println("         |==========================|");
 				System.out.println("         |--9.Kết thúc chương trình-|");
 				System.out.println("         |__________________________|");
-				System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");
-				try {
-					int act = Integer.parseInt(input.nextLine());					
-					if(act ==1) {
-						addSv();
-					}else if(act ==2) {
-						printSv();
-					}else if(act==3) {
-						topSv();
-					}else if(act==4) {
-						sorfDiemSV();
-					}else if(act==5) {
-						sorfNameSV();
-					}else if(act==6) {
-						printByNameSV();
-					}else if(act==7) {
-						changeNameSV();
-					}else if(act==8) {
-						removeSv();
-					} else {
-						throw new Exception();
-			        }
-				}catch(Exception e){
+				System.out.print("     Nhập chức năng mà bạn muốn thực hiện :");				
+				int act = Integer.parseInt(input.nextLine());					
+				if(act ==1) {
+					addSv();
+				}else if(act ==2) {
+					printSv();
+				}else if(act==3) {
+					topSv();
+				}else if(act==4) {
+					sorfDiemSV();
+				}else if(act==5) {
+					sorfNameSV();
+				}else if(act==6) {
+					printByNameSV();
+				}else if(act==7) {
+					changeNameSV();
+				}else if(act==8) {
+					removeSv();
+				} else {
+					throw new Exception();
+		        }
+			}catch(NumberFormatException e){
 					System.out.println("Vui Lòng nhập số");
-				}
 			}catch (Exception e) {		
-	         System.out.println("Chỉ Được Nhập từ 1 đến 8 bạn nhé!!!");				         
-			}			
+		         System.out.println("Chỉ Được Nhập từ 1 đến 8 bạn nhé!!!");				         
+			}						
 			System.out.println("=====================================");
 			System.out.println("-------Nhập ENTER để tiếp tục------");
 			input.nextLine();
