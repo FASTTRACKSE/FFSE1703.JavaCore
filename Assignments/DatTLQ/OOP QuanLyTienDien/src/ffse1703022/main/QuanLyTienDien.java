@@ -13,6 +13,7 @@ public class QuanLyTienDien {
 	public static void main(String[] args) {
 		QuanLyTienDien main = new QuanLyTienDien();
 		main.myMenu();
+		
 	}
 
 	public void nhapKH() {
@@ -169,6 +170,26 @@ public class QuanLyTienDien {
 		}		System.out.printf("%70s: %s \n", "Tổng tiền", sum);
 
 	}
+	public static void inTime() {
+		scanner.nextLine();
+		System.out.println("Từ khoảng thời gian này:");
+		System.out.println("Tháng ");
+		String thang = scanner.nextLine();
+		System.out.println("Năm ");
+		String nam = scanner.nextLine();
+		System.out.println(thang+nam);
+		System.out.println("Đến khoảng thời gian");
+		System.out.println("Tháng ");
+		String thangx = scanner.nextLine();
+		System.out.println("Năm ");
+		String namx = scanner.nextLine();
+		System.out.println();
+		System.out.printf("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-10s |%-10s |\n", "Tên",
+				"Đia chỉ Khách Hàng", "Mã Khách Hàng", "Mã Công Tơ", "Chỉ Số Cũ", "Chỉ Số Mới", "Tháng", "Năm",
+				"Tiền Điện");
+		
+		
+	}
 
 	public void myMenu() {
 		while (true) {
@@ -203,7 +224,8 @@ public class QuanLyTienDien {
 			System.out.println("2: In biên lai theo năm của tất cả ");
 			System.out.println("3: In biên lai theo mã khách hàng");
 			System.out.println("4: In biên lai 1 khách hàng trong năm");
-			System.out.println("5: Trở về menu chính ");
+			System.out.println("5: In biên lai trong khoảng thời gian");
+			System.out.println("6: Trở về menu chính ");
 
 			System.out.println("_______________________________________" + "\n");
 			int input = scanner.nextInt();
@@ -214,10 +236,12 @@ public class QuanLyTienDien {
 				inBLNam();
 			} else if (input == 3) {
 				inBLMa();
-			} else if (input == 5) {
+			} else if (input == 6) {
 				break;
 			} else if (input == 4) {
 				inMotKH();
+			}else if (input == 5) {
+				inTime();
 			}
 		}
 		myMenu();
