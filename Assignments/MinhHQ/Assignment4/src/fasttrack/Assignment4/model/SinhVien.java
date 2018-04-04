@@ -9,6 +9,7 @@ public class SinhVien {
 	private String Date;
 	private double Lp1;
 	private double Lp2;
+	static public  int tongSV = 0;
 
 	public SinhVien(String name, String day, double Lp1, double Lp2) {
 		this.Name = name;
@@ -16,7 +17,9 @@ public class SinhVien {
 		this.Lp1 = Lp1;
 		this.Lp2 = Lp2;
 	}
-
+	static public void tinhTongSV() {
+	 tongSV++;
+	}
 	public SinhVien() {
 
 	}
