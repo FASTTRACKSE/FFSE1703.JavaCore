@@ -1,44 +1,43 @@
 package fasttrack.edu.vn.practices;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class DanhSachSV {
 	public static Scanner input = new Scanner(System.in);
 	public static QLSinhViên[] sv = new QLSinhViên[200];
-	public static int tongsosv = 0, z = 0;
+	public static int tongsosv = 0, n = 0;
 	public static String action;
-
+	static ArrayList<QLSinhViên> arraySinhVien = new ArrayList<QLSinhViên>();
 	public static void main(String[] args) {
 		myMenu();
 	}
 
 	// nhập số sinh viên
 	public static void NhapSV() {
+		 String namesv;
+		 String ngaysinhsv;
+		 float LP1;
+		 float LP2;
+		 float LP3;
 		System.out.println("THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("============================");
 		System.out.println("Bạn muốn nhập bao nhiêu sinh viên:");
-		int a = input.nextInt();
-		tongsosv = a + tongsosv;
-		for (int z = 0; z < tongsosv; z++) {
-			sv[z] = new QLSinhViên();
-		}
-		for (int z = 0; z < tongsosv; z++) {
+		n = input.nextInt();
+		for (int z = 0; z < n; z++) {
 			input.nextLine();
 			System.out.println("Nhập Tên Sinh Viên Thứ  " + (z + 1) + " : ");
-			String namesv = input.nextLine();
-			sv[z].setNamesv(namesv);
+			namesv = input.nextLine();
 			System.out.println("Nhập Ngày Sinh Cho Sinh Viên Thứ " + (z + 1) + " : ");
-			String ngaysinhsv = input.nextLine();
-			sv[z].setNgaysinhsv(ngaysinhsv);
+			ngaysinhsv = input.nextLine();
 			System.out.println("Nhập Điểm LP#1 Cho Sinh Viên Thứ " + (z + 1) + " : ");
-			float LP1 = input.nextFloat();
-			sv[z].setLP1(LP1);
+			LP1 = input.nextFloat();
+		
 			System.out.println("Nhập Điểm LP#2 Cho Sinh Viên Thứ " + (z + 1) + " : ");
-			float LP2 = input.nextFloat();
-			sv[z].setLP2(LP2);
+			LP2 = input.nextFloat();
 			System.out.println("Nhập Điểm LP#3 Cho Sinh Viên Thứ " + (z + 1) + " : ");
-			float LP3 = input.nextFloat();
-			sv[z].setLP3(LP3);
+			LP3 = input.nextFloat();
+			arraySinhVien.add(new QLSinhViên( namesv, ngaysinhsv, LP1, LP2 , LP3 ));
+			QLSinhViên.setTongsv();
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
@@ -46,26 +45,46 @@ public class DanhSachSV {
 	}
 
 	// hiển thị sinh viên
-	public static void Show(QLSinhViên sv) {
-		System.out.print(sv.getNamesv() + "\t" + sv.getNgaysinhsv() + "\t" + "\t" + sv.getLP1() + "\t" + "\t"
-				+ sv.getLP2() + "\t" + "\t" + sv.getLP3() + "\t" + "\t" + sv.getDiemTB() + "\t" + sv.getXepLoai() + "\n");
-
-	}
-
 	public static void XuatSV() {
+		int i = 0;
 		System.out.println("-----------DANH SÁCH TẤT CẢ SINH VIÊN-------------");
 		System.out.println("==================================================");
 		System.out.println("STT\tTên\tNgày Sinh\tĐiểm LP#1\tĐiểm LP#2\tĐiểm LP#3\tĐiểm TB\tXếp Loại");
 		System.out.println("--------------------------------------------------");
-		for (int i = 0; i < tongsosv; i++) {
+		for (QLSinhViên x : arraySinhVien) {
 			System.out.print((i + 1) + "\t");
-			Show(sv[i]);
+			System.out.printf("%-10s %-15s %-15s %-10s %10s %15s %-15s \n", x.getNamesv(), x.getNgaysinhsv(), x.getLP1(), x.getLP2(),
+					x.getLP3(), x.getDiemTB(), x.getXepLoai());
 		}
+		System.out.println("số lượng sinh viên " + QLSinhViên.tongsv);
 		action = input.nextLine();
 		System.out.println("=====================================");
 		System.out.println("-------Nhập ENTER để tiếp tục------");
 	}
-
+	//sửa
+	public static void edit() {
+		System.out.println("Tên Khách Hàng Cần Sửa :");
+		String namesv = input.next();
+		System.out.println("Tên Khách Hàng Mới :");
+		String newnamesv = input.next();
+		for (QLSinhViên x : arraySinhVien) {
+			if ((x.getNamesv()).equals(namesv)) {
+				x.setNamesv(newnamesv);
+			}
+		}
+	}
+	//xóa
+	public static void delete() {
+		System.out.println("Tên Khách Hàng Cần Xóa :");
+		String namesv = input.next();
+		
+		for (QLSinhViên x : arraySinhVien) {
+			if ((x.getNamesv()).equals(namesv)) {
+				arraySinhVien.remove(x);
+			break;
+			}
+		}
+	}
 	// sinh viên có điểm cao nhất
 	public static void SVCaoNhat() {
 		System.out.println("-----------SINH VIÊN CÓ ĐIỂM CAO NHẤT-------------");
@@ -128,7 +147,7 @@ public class DanhSachSV {
 		}
 		for (int i = 0; i < tongsosv; i++) {
 			System.out.print((i + 1) + "\t");
-			Show(sv[i]);
+			XuatSV();
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
@@ -153,7 +172,7 @@ public class DanhSachSV {
 			System.out.println("--------------------------------------------------------------------");
 			for (int i = 0; i < tongsosv; i++) {
 				System.out.print((i + 1) + "\t");
-				Show(sv[i]);
+				XuatSV();
 			}
 		action = input.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
@@ -168,6 +187,7 @@ public class DanhSachSV {
 	// phần Menu
 	public static void myMenu() {
 		while (true) {
+			try {
 			System.out.println("|<-----LỰA CHỌN CHỨC NĂNG------>|");
 			System.out.println("| 1. Nhập Danh Sách Sinh Viên   |");
 			System.out.println("| 2. Hiển Thị Thông Tin SV      |");
@@ -175,8 +195,10 @@ public class DanhSachSV {
 			System.out.println("| 4. Sắp Xếp Điểm Thấp -> Cao   |");
 			System.out.println("| 5. Sắp Xếp Theo Điểm TB       |");
 			System.out.println("| 6. Sắp Xếp Theo Tên Sinh Viên |");
+			System.out.println("| 7. Sửa Tên Sinh Viên          |");
+			System.out.println("| 8. Xóa Tên Sinh Viên          |");
 			System.out.println("|=============!!!!==============|");
-			System.out.println("| 7. Kết Thúc                   |");
+			System.out.println("| 9. Kết Thúc                   |");
 			System.out.println("|<============????=============>|");
 			int aye = input.nextInt();
 			if (aye == 1) {
@@ -192,8 +214,21 @@ public class DanhSachSV {
 			} else if (aye == 6) {
 				SapXepTen();
 			} else if (aye == 7){
+				edit();
+			}else if (aye == 8){
+				delete();
+			}else if (aye == 9){
 				KetThuc();
-			}
+			}else {
+                throw new Exception();
+         }
+		} catch (Exception e) {
+            System.out.println(" Chỉ Được Nhập Từ 1 Tới 9,Hãy Nhập Lại Nha Bạn!" );
+            System.out.println(" Thank You!" );
+            input.nextLine();
+            
+        }
+ 
 		}
 	}
 }
