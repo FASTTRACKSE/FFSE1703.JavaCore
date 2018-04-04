@@ -13,6 +13,7 @@
   5.Assignment 4:[chưa làm]
 
 6. Assignment 5 :[khách hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Quanlitiendien/src/Fasttrack/edu/vn/assignment5/bienlai.java) , [Biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Quanlitiendien/src/Fasttrack/edu/vn/assignment5/bienlai.java) , [Quản lí tiền điện](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Quanlitiendien/src/Fasttrack/edu/vn/assginment5/main/Tiendien.java)
+7. Assignment 6 :[Hình học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Hinhhoc/src/fasttrack/edu/vn/main/Hinhhoc.java) , [bảng tính toán](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Hinhhoc/src/fasttrack/edu/vn/main/Tinhtoanhinhhoc.java) , [Hình tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Hinhhoc/src/fasttrack/edu/vn/model/hinhtron.java), [Hình tam giác](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Hinhhoc/src/fasttrack/edu/vn/model/Hinhtamgiac.java), [Hình chữ nhật](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/danhtl/Hinhhoc/src/fasttrack/edu/vn/model/hinhchunhat.java)
 ### Pratise List
 
 
