@@ -181,7 +181,7 @@ public class QuanLySinhVien {
 				System.out.println("         |--3.Top sinh viên---------|");
 				System.out.println("         |--4.Sắp xếp theo tăng dần-|");
 				System.out.println("         |--5.Sắp xếp theo Tên------|");
-				System.out.println("         |--6.In danh sách theo tên-|");
+				System.out.println("         |--6.Tìm kiếm sinh viên----|");
 				System.out.println("         |--7.Đổi tên sinh viên-----|");
 				System.out.println("         |--8.Xóa sinh viên theo tên|");
 				System.out.println("         |==========================|");
