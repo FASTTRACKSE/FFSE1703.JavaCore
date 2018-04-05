@@ -42,6 +42,10 @@
 
    <h1></h1>.[Tính Toán  Hình học]
    (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/main/TinhToanHinhHoc.java)
+   <h1>Assigment 7</h1>[Quản lý sinh viên]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/QuanLySinhVien.java)
+ <h1></h1>.[Sinh viên]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/SinhVien.java)
 
 
   
