@@ -1,7 +1,11 @@
 package ffse1703.javacore.model;
 
-abstract public class HinhTron extends HinhHoc {
-	private double r;
+ public class HinhTron extends HinhHoc {
+	private static double r;
+	public HinhTron() {
+		//
+	}
+	
 	public HinhTron(double r) {
 		super();
 		this.r = r;
