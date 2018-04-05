@@ -165,7 +165,7 @@ public class QuanLiSinhVien {
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
 		for(SinhVien x: arr) {
-			if(ten.equals(x.getHoTen())) {
+			if(x.getHoTen().indexOf(ten) > -1) {
 				System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
 				+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
 		i++;
