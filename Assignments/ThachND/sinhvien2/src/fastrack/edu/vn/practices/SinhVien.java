@@ -1,6 +1,6 @@
 package fastrack.edu.vn.practices;
 
-public class sinhvien {
+public class SinhVien {
 	public String SvName;
 	public String SvDate;
 	public Double SvDiemlp1;
@@ -43,6 +43,7 @@ public class sinhvien {
 			return "Khá";}
 		else if (getSvDiemtb()>=8.8) {
 			return "Giỏi";}
+		return SvDate;
 		
 	}
 }
