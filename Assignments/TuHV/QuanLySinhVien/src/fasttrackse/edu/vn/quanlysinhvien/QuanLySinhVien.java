@@ -20,7 +20,7 @@ public class QuanLySinhVien {
 	}
 
 	public static void nhapDSSV() {
-
+		try {
 		for (i = 0; i < n; i++) {
 			System.out.println("Nhập danh sách sinh viên : ");
 			System.out.println("---------------------------");
@@ -28,7 +28,7 @@ public class QuanLySinhVien {
 			n = myScanner.nextInt();
 			SV = new SinhVien[n];
 			for (i = 0; i < n; i++) {
-				try {
+				
 
 					myScanner.nextLine();
 
@@ -46,23 +46,23 @@ public class QuanLySinhVien {
 
 					arrSV.add(new SinhVien(SVten, SVngaysinh, SVLP1, SVLP2));
 					SinhVien.tinhTongSV();
-					
-				}
+
 				
-
-				catch (Exception e) {
-
-					System.out.println("Bạn chỉ được nhập giá trị kiểu số thôi bạn nhé!!!");
-
-					myScanner.nextLine();
-				}
+			}
+		}
 				myScanner.nextLine();
 				System.out.println("Ấn Enter để về menu chính");
 				myScanner.nextLine();
 
-			}
+		} catch (Exception e) {
 
-		}
+				System.out.println("Bạn chỉ được nhập giá trị kiểu số thôi bạn nhé!!!");
+
+				myScanner.nextLine();
+
+			}
+		nhapDSSV();
+
 	}
 
 	public static void inDSSV() {
