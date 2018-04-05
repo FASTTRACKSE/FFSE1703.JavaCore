@@ -8,6 +8,7 @@ public class bangsv {
 	private String Date;
 	private double Lp1;
 	private double Lp2;
+	static public int tongsv=0; 
 
 	public bangsv(String name, String day, double Lp1, double Lp2) {
 		this.Name = name;
@@ -15,26 +16,16 @@ public class bangsv {
 		this.Lp1 = Lp1;
 		this.Lp2 = Lp2;
 	}
+	static public void tongsv() {
+		
+		
+	}
 
 	public bangsv() {
 
 	}
 
-	public void Input() {
-		myScanner.nextLine();
-		System.out.print("Tên Sinh Viên :");
-		this.Name = myScanner.nextLine();
-
-		System.out.print("Ngày sinh  :");
-		this.Date = myScanner.nextLine();
-
-		System.out.print("Điểm môn LP1 :");
-		this.Lp1 = myScanner.nextDouble();
-
-		System.out.print("Điểm môn LP2 :");
-		this.Lp2 = myScanner.nextDouble();
-
-	}
+	
 
 	public void setName(String name) {
 		this.Name = name;

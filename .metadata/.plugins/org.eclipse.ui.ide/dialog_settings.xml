@@ -4,6 +4,17 @@
 		<item value="E:\FFSE1703.JavaCore\Assignments\TuanVP\MySample"/>
 		<item value="E:\FFSE1703.JavaCore\Assignments\TuanVP\Assignment"/>
 	</list>
+	<section name="ExternalProjectImportWizard">
+		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="E:\FFSE1703.JavaCore\Assignments\TuanVP"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
 	<section name="WORKBENCH_SETTINGS">
 		<list key="ENABLED_TRANSFERS">
 		</list>
