@@ -133,6 +133,30 @@ public class QuanLyKhachHang {
 		}
 		System.out.println("<==============???=============>");
 	}
+	//sửa
+	public static void edit() {
+		System.out.println("Tên Khách Hàng Cần Sửa :");
+		String TenKhachHang = myScanner.next();
+		System.out.println("Tên Khách Hàng Mới :");
+		String newTenKhachHang = myScanner.next();
+		for (KhachHang x : arrayKhachHang) {
+			if ((x.getTenKhachHang()).equals(TenKhachHang)) {
+				x.setTenKhachHang(newTenKhachHang);
+			}
+		}
+	}
+	//xóa
+	public static void delete() {
+		System.out.println("Tên Khách Hàng Cần Xóa :");
+		String TenKhachHang = myScanner.next();
+		
+		for (KhachHang x : arrayKhachHang) {
+			if ((x.getTenKhachHang()).equals(TenKhachHang)) {
+			arrayKhachHang.remove(x);
+			break;
+			}
+		}
+	}
 //In Danh Sách Khách Hàng
 	public static void danhSachKH() {
 		System.out.println("+---------------DANH SÁCH KHÁCH HÀNG-------------------+");
@@ -165,7 +189,7 @@ public class QuanLyKhachHang {
 				inBienLai();
 			} else if (option == 6) {
 				ketThuc();
-			}
+			} 
 			System.out.println("Nhấn Enter để tiếp tục");
 			System.out.println("______________________________");
 			myScanner.nextLine();
@@ -186,7 +210,10 @@ public class QuanLyKhachHang {
 			System.out.println("| 4. IN Danh Sách Khách Hàng    |");
 			System.out.println("| 5. IN Danh Sách Biên Lai      |");
 			System.out.println("=================================");
-			System.out.println("| 6. Kết Thúc                   |");
+			System.out.println("| 6.  sửa                 |");
+			System.out.println("| 7.   xóa                |");
+			System.out.println("| 8.   Kết Thúc                 |");
+			
 			System.out.println("+-------------------------------+");
 			int option = myScanner.nextInt();
 			if (option == 1) {
@@ -200,6 +227,11 @@ public class QuanLyKhachHang {
 			} else if (option == 5) {
 				danhSachBienLai();
 			} else if (option == 6) {
+				edit();
+			}else if (option == 7) {
+				delete();
+			}else if (option == 8) {
+				
 				ketThuc();
 			}
 			System.out.println("Nhấn Enter để tiếp tục");

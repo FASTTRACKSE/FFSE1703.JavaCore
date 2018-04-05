@@ -8,87 +8,80 @@ import java.util.ArrayList;
 public class BaiToanHinhHoc {
 	public static Scanner scanner = new Scanner(System.in);
 	public static ArrayList<HinhHoc> arrHinhHoc = new ArrayList<HinhHoc>();
-	public static HinhTron Tron = new HinhTron();
+	public static double r, a, cd, cr, b, c, n;
+
 	public static void main(String[] args) {
 		showMyMenu();
 
 	}
 
 	public static void nhapHinhTron() {
-		HinhTron Tron = new HinhTron();
+
 		System.out.print("Nhập bán kính hình tròn :");
-		double r = scanner.nextDouble();
-		Tron.setBankinh(r);
-		System.out.println("Chu vi hình tròn là : " + Tron.getChuVi());
-		System.out.println("Diện tích hình tròn là : " + Tron.getDienTich());
+		r = scanner.nextDouble();
+
 		arrHinhHoc.add(new HinhTron(r));
 	}
-	
+
 	public static void nhapHinhVuong() {
-		HinhVuong Vuong = new HinhVuong();
+
 		System.out.print("Nhập cạnh hình vuông :");
-		double a = scanner.nextDouble();
-		Vuong.setCanhHV(a);
-		System.out.println("Chu vi hình tròn là : " + Vuong.getChuVi());
-		System.out.println("Diện tích hình tròn là : " + Vuong.getDienTich());
-		arrHinhHoc.add(new HinhVuong(a));
+		n = scanner.nextDouble();
+
+		arrHinhHoc.add(new HinhVuong(n));
 	}
 
 	public static void nhapHinhChuNhat() {
-		HinhChuNhat CNhat = new HinhChuNhat();
 		System.out.print("Nhập chiều dài hình chữ nhật :");
-		double cd = scanner.nextDouble();
-		CNhat.setChieudai(cd);
+		cd = scanner.nextDouble();
 
 		System.out.print("Nhập chiều rộng hình chữ nhật :");
-		double cr = scanner.nextDouble();
-		CNhat.setChieurong(cr);
+		cr = scanner.nextDouble();
 
-		System.out.println("Chu vi hình chữ nhật là : " + CNhat.getChuVi());
-		System.out.println("Diện tích hình chữ nhật là : " + CNhat.getDienTich());
-		arrHinhHoc.add(new HinhChuNhat(cd,cr));
+		arrHinhHoc.add(new HinhChuNhat(cd, cr));
 	}
 
 	public static void nhapHinhTamGiac() {
-		HinhTamGiac TamGiac = new HinhTamGiac();
 		System.out.println("Nhập độ dài 3 cạnh của hình tam giác :");
 		System.out.print("Nhập độ dài cạnh a :");
-		double a = scanner.nextDouble();
-		TamGiac.setCanhA(a);
+		a = scanner.nextDouble();
 
 		System.out.print("Nhập độ dài cạnh b :");
-		double b = scanner.nextDouble();
-		TamGiac.setCanhB(b);
+		b = scanner.nextDouble();
 
 		System.out.print("Nhập độ dài cạnh c :");
-		double c = scanner.nextDouble();
-		TamGiac.setCanhC(c);
+		c = scanner.nextDouble();
 
-		System.out.println("Chu vi hình chữ nhật là : " + TamGiac.getChuVi());
-		System.out.println("Diện tích hình chữ nhật là : " + TamGiac.getDienTich());
-		arrHinhHoc.add(new HinhTamGiac(a,b,c));
+		arrHinhHoc.add(new HinhTamGiac(a, b, c));
 
 	}
-	
+
 	public static void inbangTinh() {
-		System.out.println("--------------------------------------------------------------------------");
-		System.out.println("|STT  |    Hình   |  Thuộc tính  |      Chu vi      |      Diện tích     |");
-		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("====================================================================================");
+		System.out.println("|STT  |       Hình      |  Thuộc tính      |      Chu vi      |      Diện tích     |");
+		System.out.println("====================================================================================");
+		int n = 1;
 		for (HinhHoc x : arrHinhHoc) {
-			if (!(x instanceof HinhTron)) {
-				System.out.println(x.getChuVi() +" " + x.getDienTich());
+			if ((x instanceof HinhTron)) {
+
+				System.out.printf("|%-5s|%-17s|Bán kính :%-8s|%-18s|%.2f\n", n, "Tròn", ((HinhTron) x).getBankinh(),
+						x.getChuVi(), x.getDienTich());
+			} else if ((x instanceof HinhVuong)) {
+				System.out.printf("|%-5s|%-17s|a :%-15s|%-18s|%.2f\n", n, "Hình Vuông", ((HinhVuong) x).getCanhHV(),
+						x.getChuVi(), x.getDienTich());
+			} else if ((x instanceof HinhChuNhat)) {
+				System.out.printf("|%-5s|%-17s|cd:%-4s cr:%-7s|%-18s|%.2f\n", n, "Chữ Nhật",
+						((HinhChuNhat) x).getChieudai(), ((HinhChuNhat) x).getChieurong(), x.getChuVi(),
+						x.getDienTich());
+			} else if ((x instanceof HinhTamGiac)) {
+				System.out.printf("|%-5s|%-17s|a :%-3s b:%-3s c:%-3s|%-18s|%.2f\n", n, "Tam Giác",
+						((HinhTamGiac) x).getCanhA(), ((HinhTamGiac) x).getCanhB(), ((HinhTamGiac) x).getCanhC(),
+						x.getChuVi(), x.getDienTich());
 			}
-			else if (!(x instanceof HinhVuong)) {
-				System.out.println(x.getChuVi() +" " + x.getDienTich());
-			}
-			else if (!(x instanceof HinhChuNhat)) {
-				System.out.println(x.getChuVi() +" " + x.getDienTich());
-			}
-			else if (!(x instanceof HinhTamGiac)) {
-				System.out.println(x.getChuVi() +" " + x.getDienTich());
-			}
+			System.out.println("------------------------------------------------------------------------------------");
+			n += 1;
 		}
-		
+
 	}
 
 	public static void ketThuc() {

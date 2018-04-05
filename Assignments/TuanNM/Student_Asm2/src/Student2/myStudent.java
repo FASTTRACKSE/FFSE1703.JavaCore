@@ -7,15 +7,19 @@ public class myStudent {
 	private Double lp1;
 	private Double lp2;
 	private Double Dtb;
+	static int toTal = 0;
+
 	public myStudent() {
-		
+
 	}
-	public myStudent(String name,String birthday,Double lp1,Double lp2) {
-		this.nameSv= name;
+
+	public myStudent(String name, String birthday, Double lp1, Double lp2) {
+		this.nameSv = name;
 		this.Birthday = birthday;
 		this.lp1 = lp1;
 		this.lp2 = lp2;
 	}
+
 	public void setName(String name) {
 		this.nameSv = name;
 	}
@@ -52,16 +56,20 @@ public class myStudent {
 		return Dtb = (this.lp1 + this.lp2) / 2;
 	}
 
+	public static void tongSo() {
+		toTal++;
+	}
+
 	public String getXepLoai() {
-		if (Dtb >= 8.5&&Dtb<=10) {
+		if (Dtb >= 8.5 && Dtb <= 10) {
 			return xepLoai = "Giỏi";
 		} else if (Dtb >= 6.5 && Dtb < 8.5) {
 			return xepLoai = "khá";
 		} else if (Dtb < 6.5 && Dtb >= 5) {
 			return xepLoai = "Trung BÌnh";
-		} else if(Dtb < 5&&Dtb > 0){
+		} else if (Dtb < 5 && Dtb > 0) {
 			return xepLoai = "Yếu";
-		}else {
+		} else {
 			return xepLoai = "Quá xuất xắc";
 		}
 	}
