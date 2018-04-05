@@ -9,6 +9,7 @@ public class SinhVien {
 	private String Date;
 	private double Lp1;
 	private double Lp2;
+	static public  int tongSV = 0;
 
 	public SinhVien(String name, String day, double Lp1, double Lp2) {
 		this.Name = name;
@@ -16,26 +17,14 @@ public class SinhVien {
 		this.Lp1 = Lp1;
 		this.Lp2 = Lp2;
 	}
+	static public void tinhTongSV() {
+	 tongSV++;
+	}
 
 	public SinhVien() {
-
+		
 	}
 
-	public void Input() {
-		myScanner.nextLine();
-		System.out.print("Nhập tên Sinh Viên :");
-		this.Name = myScanner.nextLine();
-
-		System.out.print("Nhập ngày sinh của Sinh Viên :");
-		this.Date = myScanner.nextLine();
-
-		System.out.print("Nhập điểm môn LP1 :");
-		this.Lp1 = myScanner.nextDouble();
-
-		System.out.print("Nhập điểm môn LP2 :");
-		this.Lp2 = myScanner.nextDouble();
-
-	}
 
 	public void setName(String name) {
 		this.Name = name;

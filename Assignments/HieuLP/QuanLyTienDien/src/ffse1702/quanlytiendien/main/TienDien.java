@@ -89,13 +89,13 @@ public class TienDien {
 			int chisoMoi = input.nextInt();
 
 			arrBienLai.add(new BienLai(arrKhachHang.get(i).getMasoKhachhang(), 
-					arrKhachHang.get(i).getTenKhachhang(),
-					arrKhachHang.get(i).getDiaChi(),
-					arrKhachHang.get(i).getMaCongto(), 
-					chisoCu,
-					chisoMoi,
-					ngayThang,
-					nam));
+									   arrKhachHang.get(i).getTenKhachhang(),
+									   arrKhachHang.get(i).getDiaChi(),
+									   arrKhachHang.get(i).getMaCongto(), 
+									   chisoCu,
+									   chisoMoi,
+									   ngayThang,
+									   nam));
 	}
 	}
 
@@ -138,7 +138,7 @@ public class TienDien {
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------");
 		System.out.println(
-				"|STT  |MasoKH    |TênKH           |Địa chỉ     |MasoCT      |Thời gian   |Chỉ số Đầu Kỳ  |Chỉ số Cuối Kỳ  |Tiền điện     ");
+				"|STT  |MasoKH    |TênKH           |Địa chỉ     |MasoCT      |Thời gian   |Chỉ số Đầu Kỳ  |Chỉ số Cuối Kỳ  |Tiền điện ");
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------");
 		int i = 0;

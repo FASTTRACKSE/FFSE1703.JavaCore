@@ -111,6 +111,7 @@ public class hinhhoc {
 				System.out.println("Dien tich hinh tam giac : "+((HinhTamGiac) x).getDientichHTG());
 			}
 		}
+		backMenu();
 	}
 
 	public static void endProgram() {

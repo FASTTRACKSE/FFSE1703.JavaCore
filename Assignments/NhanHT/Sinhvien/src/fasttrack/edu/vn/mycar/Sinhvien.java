@@ -2,9 +2,24 @@ package fasttrack.edu.vn.mycar;
 public class Sinhvien {
 	public String SvName;
 	public String SvDate;
-	public Double SvDiemlp1;
-	public Double SvDiemlp2;
-	public Double SvDiemtb;
+	public double SvDiemlp1;
+	public double SvDiemlp2;
+	public double SvDiemtb;
+	 static int tongSo= 0;
+	//
+	public Sinhvien() {
+		
+	}
+	public Sinhvien( String SvName,String SvDate,Double SvDiemlp1,double SvDiemlp2) {
+		this.SvName = SvName;
+		this.SvDate = SvDate;
+		this.SvDiemlp1 = SvDiemlp1;
+		this.SvDiemlp2 = SvDiemlp2;
+	}
+	//
+	public static int TongSo() {
+		 return tongSo++;
+	}
 	//
 	public void setSvName(String name) {
 		this.SvName = name;
