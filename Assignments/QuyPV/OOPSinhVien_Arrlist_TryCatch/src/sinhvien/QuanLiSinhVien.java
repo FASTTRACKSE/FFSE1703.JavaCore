@@ -138,6 +138,7 @@ public class QuanLiSinhVien {
 			for(SinhVien x : arr) {
 				if(ten.equals(x.getHoTen())) {
 					arr.remove(x);
+					z--;
 					break;
 				}
 			}
