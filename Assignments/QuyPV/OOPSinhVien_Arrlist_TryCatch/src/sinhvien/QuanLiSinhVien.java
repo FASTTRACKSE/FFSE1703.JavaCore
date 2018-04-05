@@ -47,39 +47,40 @@ public class QuanLiSinhVien {
 				System.out.println("Không được nhập chữ!!");
 				myInput.nextLine();
 			}
-			catch(Exception e) {
-				System.out.println("Chỉ được nhập từ 1-4!!");
-				myInput.nextLine();
-			}
+			
 		}
 	}
 
 	public void nhap() {
-
-		System.out.println("Nhập số lượng sinh viên: ");
-		soLuong = Integer.parseInt(myInput.nextLine());
-
+		try {
+			System.out.println("Nhập số lượng sinh viên: ");
+			soLuong = Integer.parseInt(myInput.nextLine());
+		 
 		for (int i = 0; i < soLuong; i++) {
-		
-			SinhVien.setTongSo();
-
-			System.out.println("Nhập tên sinh viên: ");
-			String ten = myInput.nextLine();
-
-			System.out.println("Nhập ngày sinh: ");
-			String ngSinh = myInput.nextLine();
-
-			System.out.println("Nhập điểm Lp1: ");
-			double diemLP1 = Double.parseDouble(myInput.nextLine());
-
-			System.out.println("Nhập điểm Lp2: ");
-			double diemLP2 = Double.parseDouble(myInput.nextLine());
-
-			arr.add(new SinhVien(ten, ngSinh, diemLP1, diemLP2));
 			
+				SinhVien.setTongSo();
+	
+				System.out.println("Nhập tên sinh viên: ");
+				String ten = myInput.nextLine();
+	
+				System.out.println("Nhập ngày sinh: ");
+				String ngSinh = myInput.nextLine();
+	
+				System.out.println("Nhập điểm Lp1: ");
+				double diemLP1 = Double.parseDouble(myInput.nextLine());
+	
+				System.out.println("Nhập điểm Lp2: ");
+				double diemLP2 = Double.parseDouble(myInput.nextLine());
+	
+				arr.add(new SinhVien(ten, ngSinh, diemLP1, diemLP2));
+		}
+			} catch (Exception e) {
+				System.out.println("Nhập sai định dạng!!!");
+				myInput.nextLine();
+			}
 		}
 
-	}
+	
 
 	public void in() {
 		int i = 0;
@@ -127,11 +128,12 @@ public class QuanLiSinhVien {
 		System.out.println("Nhập tên cần xóa: ");
 		ten = myInput.nextLine();
 		System.out.println("---------------------------");
-		
-		for(SinhVien x : arr) {
-			if(ten.equals(x.getHoTen())) {
-				arr.remove(x);
-				break;
+		for(int z = 0; z < arr.size(); z++) {
+			for(SinhVien x : arr) {
+				if(ten.equals(x.getHoTen())) {
+					arr.remove(x);
+					break;
+				}
 			}
 		}
 		System.out.println(
