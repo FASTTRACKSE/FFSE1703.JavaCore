@@ -59,9 +59,9 @@ public class QuanLySinhVien {
 				System.out.println("Bạn chỉ được nhập giá trị kiểu số thôi bạn nhé!!!");
 
 				myScanner.nextLine();
-
+				nhapDSSV();
 			}
-		nhapDSSV();
+		
 
 	}
 
