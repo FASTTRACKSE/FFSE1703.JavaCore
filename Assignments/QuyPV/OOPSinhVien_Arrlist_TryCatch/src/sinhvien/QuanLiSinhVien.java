@@ -130,7 +130,7 @@ public class QuanLiSinhVien {
 	public void xoaTen() {
 		int i = 0;
 		String ten;
-		System.out.println("<<<< XÓA TÊN SINH VIÊN >>>> ");
+		System.out.println("<<<< XÓA TÊN SINH VIÊN >>>>");
 		System.out.println("Nhập tên cần xóa: ");
 		ten = myInput.nextLine();
 		System.out.println("---------------------------");
@@ -138,6 +138,7 @@ public class QuanLiSinhVien {
 			for(SinhVien x : arr) {
 				if(ten.equals(x.getHoTen())) {
 					arr.remove(x);
+					z--;
 					break;
 				}
 			}
