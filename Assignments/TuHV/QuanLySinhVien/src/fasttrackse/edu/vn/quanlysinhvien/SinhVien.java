@@ -1,4 +1,5 @@
 package fasttrackse.edu.vn.quanlysinhvien;
+
 import java.util.Scanner;
 
 public class SinhVien {
@@ -9,8 +10,7 @@ public class SinhVien {
 	private double SVLP1;
 	private double SVLP2;
 	private double SVDTB;
-	static public  int tongSV = 0;
-
+	static public int tongSV = 0;
 
 	public SinhVien(String SVten, String SVngaysinh, double SVLP1, double SVLP2) {
 		this.SVten = SVten;
@@ -19,8 +19,9 @@ public class SinhVien {
 		this.SVLP2 = (int) SVLP2;
 
 	}
+
 	static public void tinhTongSV() {
-		
+
 		tongSV++;
 	}
 

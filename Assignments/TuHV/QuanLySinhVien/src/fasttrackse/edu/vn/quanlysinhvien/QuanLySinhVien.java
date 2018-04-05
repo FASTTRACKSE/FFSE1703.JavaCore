@@ -20,7 +20,7 @@ public class QuanLySinhVien {
 	}
 
 	public static void nhapDSSV() {
-
+		try {
 		for (i = 0; i < n; i++) {
 			System.out.println("Nhập danh sách sinh viên : ");
 			System.out.println("---------------------------");
@@ -28,7 +28,7 @@ public class QuanLySinhVien {
 			n = myScanner.nextInt();
 			SV = new SinhVien[n];
 			for (i = 0; i < n; i++) {
-				try {
+				
 
 					myScanner.nextLine();
 
@@ -46,23 +46,23 @@ public class QuanLySinhVien {
 
 					arrSV.add(new SinhVien(SVten, SVngaysinh, SVLP1, SVLP2));
 					SinhVien.tinhTongSV();
-					
-				}
+
 				
-
-				catch (Exception e) {
-
-					System.out.println("Bạn chỉ được nhập giá trị kiểu số thôi bạn nhé!!!");
-
-					myScanner.nextLine();
-				}
+			}
+		}
 				myScanner.nextLine();
 				System.out.println("Ấn Enter để về menu chính");
 				myScanner.nextLine();
 
-			}
+		} catch (Exception e) {
 
-		}
+				System.out.println("Bạn chỉ được nhập giá trị kiểu số thôi bạn nhé!!!");
+
+				myScanner.nextLine();
+				nhapDSSV();
+			}
+		
+
 	}
 
 	public static void inDSSV() {
@@ -202,6 +202,22 @@ public class QuanLySinhVien {
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
+	public static void deleteSV2() {
+		myScanner.nextLine();
+		System.out.println("Nhập tên sinh viên muốn xóa :");
+		String ten = myScanner.nextLine();
+		for (int i = arrSV.size() -1; i>-1; i--) {
+			if ((arrSV.get(i).getSVten().equals(ten))) {
+				SinhVien.tongSV -= 1;
+				arrSV.remove(i);
+				
+			}
+		}
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
+	}
+	
 
 	public static void ketThuc() {
 		System.out.println("Kết thúc chương trình!!!!!");
@@ -219,11 +235,12 @@ public class QuanLySinhVien {
 				System.out.println("|4. Sắp xếp theo điểm TBM                |");
 				System.out.println("|5. Sắp xếp theo điểm theo tên           |");
 				System.out.println("|6. Đổi tên cho sinh viên                |");
-				System.out.println("|7. Xóa sinh viên                        |");
-				System.out.println("|8. Kết thúc chương trình                |");
+				System.out.println("|7. Xóa  từng sinh viên                  |");
+				System.out.println("|8. Xóa tất cả sinh viên                 |");
+				System.out.println("|9. Kết thúc chương trình                |");
 				System.out.println("+----------------------------------------+");
 				System.out.println(">>            Lựa chọn của bạn?         <<");
-				// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			
 				int myOption = myScanner.nextInt();
 				if (myOption == 1) {
 					nhapDSSV();
@@ -240,13 +257,20 @@ public class QuanLySinhVien {
 				} else if (myOption == 7) {
 					deleteSV();
 				} else if (myOption == 8) {
+					deleteSV2();
+				} else if (myOption == 9) {
 					ketThuc();
 				}
+				 else {
+
+                     throw new Exception();
+
+              }
 			}
 
 			catch (Exception e) {
 
-				System.out.println("Chi duoc nhap tu 1 den 8, hay nhap lai nhe ban!!!");
+				System.out.println("Chi duoc nhap tu 1 den 9, hay nhap lai nhe ban!!!");
 
 				myScanner.nextLine();
 			}
