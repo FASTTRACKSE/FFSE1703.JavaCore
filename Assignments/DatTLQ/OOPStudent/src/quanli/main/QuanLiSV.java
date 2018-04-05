@@ -20,23 +20,28 @@ public class QuanLiSV {
 	}
 
 	public static void nhapsinhvien() {
-		System.out.println("Nhap so sinh vien"+" ");
+		try {
+		System.out.println("Nhap so sinh vien" + " ");
 		soLuong = scanner.nextInt();
+		
+			for (int i = 0; i < soLuong; i++) {
 
-		for (int i = 0; i <soLuong; i++) {
+				scanner.nextLine();
+				System.out.println("Nhap ten sinh vien" + " " + (i + 1) + ":");
 
+				String stuName = scanner.nextLine();
+				System.out.println("Nhap ngay sinh" + " " + (i + 1) + ":");
+				String stuDate = scanner.nextLine();
+				System.out.println("Nhap diem LP1" + " " + ":");
+				double DLP1 = scanner.nextInt();
+				System.out.println("Nhap diem LP2" + " " + ":");
+				double DLP2 = scanner.nextInt();
+
+				arrSinhVien.add(new SinhVien(stuName, stuDate, DLP1, DLP2));
+			}
+		} catch (Exception e) {
+			System.out.println("Hay nhap dung dinh dang");
 			scanner.nextLine();
-			System.out.println("Nhap ten sinh vien" +" " +(i + 1) + ":");
-
-			String stuName = scanner.nextLine();
-			System.out.println("Nhap ngay sinh"+" " + (i + 1) + ":");
-			String stuDate = scanner.nextLine();
-			System.out.println("Nhap diem LP1"+" " + ":");
-			double DLP1 = scanner.nextInt();
-			System.out.println("Nhap diem LP2"+" " + ":");
-			double DLP2 = scanner.nextInt();
-
-			arrSinhVien.add(new SinhVien(stuName, stuDate, DLP1, DLP2));
 		}
 	}
 
@@ -200,40 +205,48 @@ public class QuanLiSV {
 
 	public static void mymenu() {
 		while (true) {
-			System.out.println("---LUA CHON CHUC NANG---");
-			System.out.println("_______________________________________" + "\n");
-			System.out.println("1: Nhap ten sinh vien ");
-			System.out.println("2: In danh sach");
-			System.out.println("3: In sinh vien cao diem va tha");
-			System.out.println("4: In sinh vien DTB tu cao den thap");
-			System.out.println("5: In sinh vien DTB theo ABC");
-			System.out.println("6: In sinh vien theo ten");
-			System.out.println("7: Doi ten sinh vien");
-			System.out.println("8: Xoa sinh vien");
-			System.out.println("Ket Thuc Chuong Trinh");
+			try {
+				System.out.println("---LUA CHON CHUC NANG---");
+				System.out.println("_______________________________________" + "\n");
+				System.out.println("1: Nhap ten sinh vien ");
+				System.out.println("2: In danh sach");
+				System.out.println("3: In sinh vien cao diem va tha");
+				System.out.println("4: In sinh vien DTB tu cao den thap");
+				System.out.println("5: In sinh vien DTB theo ABC");
+				System.out.println("6: In sinh vien theo ten");
+				System.out.println("7: Doi ten sinh vien");
+				System.out.println("8: Xoa sinh vien");
+				System.out.println("Ket Thuc Chuong Trinh");
 
-			System.out.println("_______________________________________" + "\n");
+				System.out.println("_______________________________________" + "\n");
 
-			int input = scanner.nextInt();
-			if (input == 1) {
-				nhapsinhvien();
-			} else if (input == 2) {
-				indanhsach();
-			} else if (input == 3) {
-				topmin();
-			} else if (input == 4) {
-				maxmin();
-			} else if (input == 5) {
-				abc();
-			} else if (input == 6) {
-				inName();
-			} else if (input == 7) {
-				reName();
-			} else if (input == 8) {
-				delName();
-			} else if (input == 9) {
-				end();
+				int input = scanner.nextInt();
+				if (input == 1) {
+					nhapsinhvien();
+				} else if (input == 2) {
+					indanhsach();
+				} else if (input == 3) {
+					topmin();
+				} else if (input == 4) {
+					maxmin();
+				} else if (input == 5) {
+					abc();
+				} else if (input == 6) {
+					inName();
+				} else if (input == 7) {
+					reName();
+				} else if (input == 8) {
+					delName();
+				} else if (input == 9) {
+					end();
+				} else {
+					throw new Exception();
+				}
+			} catch (Exception e) {
+				System.out.println("Chi nhap lai tu 1 den 9,hay nhap lai nhe");
+				scanner.nextLine();
 			}
+
 		}
 	}
 
