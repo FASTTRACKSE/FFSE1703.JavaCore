@@ -223,7 +223,7 @@ public class QuanLySinhVien {
 				System.out.println("|8. Kết thúc chương trình                |");
 				System.out.println("+----------------------------------------+");
 				System.out.println(">>            Lựa chọn của bạn?         <<");
-				// .compareTo để so sánh chuỗi trong trường hợp sắp xếp theo tên
+			
 				int myOption = myScanner.nextInt();
 				if (myOption == 1) {
 					nhapDSSV();
@@ -242,6 +242,11 @@ public class QuanLySinhVien {
 				} else if (myOption == 8) {
 					ketThuc();
 				}
+				 else {
+
+                     throw new Exception();
+
+              }
 			}
 
 			catch (Exception e) {
