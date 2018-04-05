@@ -42,9 +42,15 @@ public class QuanLiSinhVien {
 				} else if (myChose == 0) {
 					ketThuc();
 				}
+				else {
+					throw new Exception();
+				}
 			} 
 			catch(NumberFormatException e) {
 				System.out.println("Không được nhập chữ!!");
+				myInput.nextLine();
+			} catch (Exception e) {
+				System.out.println("Chỉ được nhập từ 0 - 5");
 				myInput.nextLine();
 			}
 			
