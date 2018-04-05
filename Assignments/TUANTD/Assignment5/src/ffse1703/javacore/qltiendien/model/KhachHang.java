@@ -7,7 +7,7 @@ public class KhachHang {
 	private String tenKhachHang;
 	private String soNha;
 	private String maCongTo;
-
+    
 	public KhachHang() {
 	}
 

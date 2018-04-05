@@ -6,6 +6,13 @@ public class QLSinhViên {
 	private float LP1;
 	private float LP2;
 	private float LP3;
+	static int tongsv = 0;
+	public int getTongsv() {
+		return tongsv;
+	}
+	 static void setTongsv() {
+		tongsv++;
+	}
 	public QLSinhViên() {
 		
 	}
