@@ -1,31 +1,32 @@
-package fasttrack.edu.vn.Quanlysv;
+package Fasttrack.edu.vn;
 
 import java.util.Scanner;
 
-public class bangsv {
+import Fasttrack.edu.vn.main.NhapSV;
+
+public class SinhVien {
+
 	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
 	private String Date;
 	private double Lp1;
 	private double Lp2;
-	static public int tongsv=0; 
+	static public  int tongSV = 0;
 
-	public bangsv(String name, String day, double Lp1, double Lp2) {
+	public SinhVien(String name, String day, double Lp1, double Lp2) {
 		this.Name = name;
 		this.Date = day;
 		this.Lp1 = Lp1;
 		this.Lp2 = Lp2;
 	}
-	static public void tongsv() {
-		
-		
+	static public void tinhTongSV() {
+		 tongSV++;
+		}
+
+	public SinhVien() {
+
 	}
 
-	public bangsv() {
-
-	}
-
-	
 
 	public void setName(String name) {
 		this.Name = name;
@@ -65,13 +66,13 @@ public class bangsv {
 
 	public String XepLoai() {
 		if (getTBM() <= 4.9) {
-			return "kém";
-		} else if (getTBM() <= 6.9) {
-			return "Trung Bình";
-		} else if (getTBM() <= 8.4) {
-			return "Khá";
+			return "Yáº¿u";
+		} else if (getTBM() >= 5.0 && getTBM() <= 6.9) {
+			return "Trung BÃ¬nh";
+		} else if (getTBM() >= 7 && getTBM() <= 8.4) {
+			return "KhÃ¡";
 		} else {
-			return "Giỏi";
+			return "Giá»�i";
 		}
 	}
 

@@ -145,7 +145,7 @@ public class QuanLiSV {
 				"Diem LP2", "Diem TB", "Xep Loai");
 
 		for (SinhVien x : arrSinhVien) {
-			if (x.getStuName().equalsIgnoreCase(stuName)) {
+			if (x.getStuName().indexOf(stuName)>-1) {
 				System.out.println(x);
 
 			}
@@ -164,7 +164,7 @@ public class QuanLiSV {
 				"Diem LP2", "Diem TB", "Xep Loai");
 
 		for (SinhVien x : arrSinhVien) {
-			if (x.getStuName().equalsIgnoreCase(stuName)) {
+			if (x.getStuName().indexOf(stuName)>-1) {
 				x.setStuName(reName);
 				System.out.println(x);
 
@@ -185,7 +185,7 @@ public class QuanLiSV {
 		System.out.println("Nhap ten sinh vien ban muon xoa");
 		String stuName = scanner.nextLine();
 		for (int i = 0; i < arrSinhVien.size(); i++) {
-			if (arrSinhVien.get(i).getStuName().equalsIgnoreCase(stuName)) {
+			if (arrSinhVien.get(i).getStuName().indexOf(stuName)>-1) {
 				arrSinhVien.remove(i);
 				i--;
 			}
@@ -208,15 +208,15 @@ public class QuanLiSV {
 			try {
 				System.out.println("---LUA CHON CHUC NANG---");
 				System.out.println("_______________________________________" + "\n");
-				System.out.println("1: Nhap ten sinh vien ");
-				System.out.println("2: In danh sach");
-				System.out.println("3: In sinh vien cao diem va tha");
-				System.out.println("4: In sinh vien DTB tu cao den thap");
-				System.out.println("5: In sinh vien DTB theo ABC");
-				System.out.println("6: In sinh vien theo ten");
-				System.out.println("7: Doi ten sinh vien");
-				System.out.println("8: Xoa sinh vien");
-				System.out.println("Ket Thuc Chuong Trinh");
+				System.out.println("||1: Nhap ten sinh vien 	     \t||");
+				System.out.println("||2: In danh sach                    \t||");
+				System.out.println("||3: In sinh vien cao diem va tha    \t||");
+				System.out.println("||4: In sinh vien DTB tu cao den thap\t||");
+				System.out.println("||5: In sinh vien DTB theo ABC       \t||");
+				System.out.println("||6: In sinh vien theo ten           \t||");
+				System.out.println("||7: Doi ten sinh vien               \t||");
+				System.out.println("||8: Xoa sinh vien                   \t||");
+				System.out.println("||Ket Thuc Chuong Trinh              \t||");
 
 				System.out.println("_______________________________________" + "\n");
 
