@@ -65,6 +65,16 @@ public class QuanLiSinhVien {
 		}
 	
 	}
+	public static void timTen() {
+		System.out.println("TIM KIEM TEN SINH VIEN");
+		System.out.println("Nhap Ten SInh Vien Can Tim: ");
+		String seachName = myInput.nextLine();
+		for(SinhVien x: arrSinhVien) {
+			if(x.getSvName().equals(seachName)) {
+				System.out.println("Ten Sinh Vien Can Tim: "+x.getSvName());
+			}
+		}
+	}
 	public static void ketThuc() {
 		System.exit(0);
 	}
@@ -76,7 +86,8 @@ public class QuanLiSinhVien {
 			System.out.println("|| 2.DANH SACH SINH VIEN       ||");
 			System.out.println("|| 3.DOI TEN 1 SINH VIEN       ||");
 			System.out.println("|| 4.XOA SINH VIEN THEO TEN    ||");
-			System.out.println("|| 5.KET THUC CHUONG TRINH     ||");
+			System.out.println("|| 5.TIM KIEM TEN SINH VIEN    ||");
+			System.out.println("|| 6.KET THUC CHUONG TRINH     ||");
 			System.out.println("<===============================>");
 			System.out.println("      LUA CHON CUA BAN        ");
 			int option = Integer.parseInt(myInput.nextLine());
@@ -89,6 +100,8 @@ public class QuanLiSinhVien {
 			} else if (option == 4) {
 				xoaTen();
 			} else if (option == 5) {
+				timTen();
+			}else if (option == 6) {
 				ketThuc();
 			}
 		}catch(Exception e) {
