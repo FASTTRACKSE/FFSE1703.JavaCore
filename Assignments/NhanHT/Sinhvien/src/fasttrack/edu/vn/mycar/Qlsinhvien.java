@@ -1,10 +1,12 @@
 package fasttrack.edu.vn.mycar;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Qlsinhvien {
+	public static ArrayList<Sinhvien> arrSinhVien = new ArrayList<>();
 	public static Sinhvien arrSv[] = new Sinhvien[100];
 	public static Scanner myInput = new Scanner(System.in);
+
 	public static int a;
 	public static int i;
 	public static int sortDTB[];
@@ -29,10 +31,12 @@ public class Qlsinhvien {
 			arrSv[i].setSvDiemlp1(myInput.nextDouble());
 			System.out.println("Nhap Diem LP2");
 			arrSv[i].setSvDiemlp2(myInput.nextDouble());
+			Sinhvien.TongSo();
 		}
 
+		System.out.println("So Luong SV: "+ Sinhvien.tongSo);
 	}
-
+	
 	public static void indanhsach() {
 		System.out.println("   Name         " + "\t" + "Date" + "\t" + "\t" + "DiemLP1" + "\t" + "\t" + "DiemLP2" + "\t"
 				+ "\t" + "DiemTB");

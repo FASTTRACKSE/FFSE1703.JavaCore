@@ -25,3 +25,5 @@ Assigment:
 [Hình Tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhTron.java)
 [Hình Chữ Nhật](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhChuNhat.java)
 [Hình Vuông](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/TinhDienTich/src/ffse1703/Javacore/oop/model/HinhVuong.java)
+8. Assigment 7:[Quản lí sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLi/src/fasttrack/edu/vn/QuanLi.java)
+[Sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/QuanLi/src/fasttrack/edu/vn/SinhVien.java)
