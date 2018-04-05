@@ -1,14 +1,18 @@
 package sinhvien;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class QuanLiSinhVien {
-
+	
+	public static ArrayList<SinhVien> arr = new ArrayList<>();
 	public static SinhVien arrSinhVien[];
 	public static int soLuong;
 	public static Scanner myInput = new Scanner(System.in);
 	public static int sortByDTB[];
 	public static int sortByABC[];
+	public static SinhVien a = new SinhVien();
+	
 
 	public static void main(String[] args) {
 
@@ -30,7 +34,8 @@ public class QuanLiSinhVien {
 		System.out.println("3. Top sinh viên.");
 		System.out.println("4. Sắp xếp theo điểmTB.");
 		System.out.println("5. Sắp xếp theo họ tên.");
-		System.out.println("6. Kết thúc.");
+		System.out.println("6. Sửa họ tên.");
+		System.out.println("0. Kết thúc.");
 		System.out.println("____________________________" + "\n");
 		while (true) {
 			System.out.print("Nhập lựa chọn của bạn: ");
@@ -45,7 +50,7 @@ public class QuanLiSinhVien {
 				sapXepDTB();
 			} else if (myChose == 5) {
 				sapXepHoTen();
-			} else if (myChose == 6) {
+			} else if (myChose == 0) {
 				ketThuc();
 			}
 		}
@@ -56,37 +61,50 @@ public class QuanLiSinhVien {
 		System.out.println("Nhập số lượng sinh viên: ");
 		soLuong = myInput.nextInt();
 		arrSinhVien = new SinhVien[soLuong];
-
 		for (int i = 0; i < soLuong; i++) {
 			arrSinhVien[i] = new SinhVien();
-
 			myInput.nextLine();
+			SinhVien.setTongSo();
+			
+			
 			System.out.println("Nhập tên sinh viên: ");
-			arrSinhVien[i].setHoTen(myInput.nextLine());
-
+			String ten = myInput.nextLine();
+			arrSinhVien[i].setHoTen(ten);
+			
 			System.out.println("Nhập ngày sinh: ");
-			arrSinhVien[i].setNgaySinh(myInput.nextLine());
-
+			String ngSinh = myInput.nextLine();
+			arrSinhVien[i].setNgaySinh(ngSinh);
+			
 			System.out.println("Nhập điểm Lp1: ");
-			arrSinhVien[i].setDiemLp1(myInput.nextDouble());
-
+			double diemLP1 = Double.parseDouble(myInput.nextLine());
+			arrSinhVien[i].setDiemLp1(diemLP1);
+			
 			System.out.println("Nhập điểm Lp2: ");
-			arrSinhVien[i].setDiemLp2(myInput.nextDouble());
-
+			double diemLP2 = Double.parseDouble(myInput.nextLine());
+			arrSinhVien[i].setDiemLp2(diemLP2);
+			
+			arr.add(new SinhVien(ten, ngSinh, diemLP1, diemLP2));
 		}
-
+		
+		
+		
 	}
 
 	public static void in() {
+		
+		int i = 0;
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
-		for (int i = 0; i < soLuong; i++) {
+		for (SinhVien x : arr) {
 
-			System.out.println((i + 1) + " \t" + arrSinhVien[i].getHoTen() + " \t \t" + arrSinhVien[i].getNgaySinh()
-					+ "\t" + arrSinhVien[i].getDiemLp1() + " \t \t" + arrSinhVien[i].getDiemLp2() + " \t \t"
-					+ arrSinhVien[i].getDiemTB() + "\t" + arrSinhVien[i].getXepLoai());
-
+			System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh()
+					+ "\t" + x.getDiemLp1() + " \t \t" + x.getDiemLp2() + " \t \t"
+					+ x.getDiemTB() + "\t" + x.getXepLoai());
+			i++;
 		}
+		
+		System.out.println("Tổng số sinh viên: " + SinhVien.tongSo);
+	
 	}
 
 	public static void top() {
@@ -190,5 +208,7 @@ public class QuanLiSinhVien {
 		System.out.println("Cảm ơn bạn đã sử dụng chương trình của chúng tôi!!!");
 		System.exit(0);
 	}
+	
+	
 
 }

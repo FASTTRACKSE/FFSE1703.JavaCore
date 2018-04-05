@@ -1,16 +1,16 @@
-package fasttrack.edu.vn.mycar;
-public class Sinhvien {
+package sinhvien.model;
+
+public class SinhVien {
 	public String SvName;
 	public String SvDate;
 	public double SvDiemlp1;
 	public double SvDiemlp2;
-	public double SvDiemtb;
-	 static int tongSo= 0;
+	public static int tongso= 0;
 	//
-	public Sinhvien() {
+	public SinhVien() {
 		
 	}
-	public Sinhvien( String SvName,String SvDate,Double SvDiemlp1,double SvDiemlp2) {
+	public SinhVien( String SvName,String SvDate,double SvDiemlp1,double SvDiemlp2) {
 		this.SvName = SvName;
 		this.SvDate = SvDate;
 		this.SvDiemlp1 = SvDiemlp1;
@@ -18,7 +18,7 @@ public class Sinhvien {
 	}
 	//
 	public static int TongSo() {
-		 return tongSo++;
+		 return tongso++;
 	}
 	//
 	public void setSvName(String name) {
@@ -48,9 +48,4 @@ public class Sinhvien {
 	public Double getSvDiemlp2() {
 		return this.SvDiemlp2;
 	}
-	//
-	public Double getSvDiemtb() {
-		return ((this.SvDiemlp1) + (this.SvDiemlp2))/2;
-	}
-	
 }
