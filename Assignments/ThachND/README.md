@@ -11,5 +11,10 @@
 6. Assignment 5:[QuanLiTienDien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/main/QuanLiTienDien.java)
 [Bienlai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/model/BienLai.java)
 [Khachhang](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLiTienDien/src/ffse1703/javacore/model/KhachHang.java)
-
+7. Assignment 6:[HinhHoc](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhHoc.java)
+[HinhTron](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhTron.java)
+[HinhChuNhat](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhChuNhat.java)
+[HinhTamGiac](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhTamGiac.java)
+[HinhVuong](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhVuong.java)
+[Main](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/main/Main.java)
 ### Assignment List
