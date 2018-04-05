@@ -13,7 +13,6 @@ public class Quanlytiendien {
 	public static int maKhmuonin;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
 		menu();
 	}
 	public static void menu() {

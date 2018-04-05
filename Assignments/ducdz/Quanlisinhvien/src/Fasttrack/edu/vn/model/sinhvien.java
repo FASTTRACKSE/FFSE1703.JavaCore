@@ -1,4 +1,4 @@
-package Fasttrack.edu.vn;
+package Fasttrack.edu.vn.model;
 
 public class sinhvien {
 	public String xeploai;
