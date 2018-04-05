@@ -68,7 +68,7 @@ public class QuanLyHinhHoc {
 		}
 	}
 
-	public static void ketThuc() {
+	public void ketThuc() {
 		System.out.println("Kết thúc chương trình");
 		System.out.println("======================");
 		System.out.println("=======Tkank you======");

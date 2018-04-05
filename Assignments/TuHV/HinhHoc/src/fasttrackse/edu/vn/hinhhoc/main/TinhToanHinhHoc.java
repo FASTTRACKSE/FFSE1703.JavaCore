@@ -17,7 +17,7 @@ public class TinhToanHinhHoc {
 	}
 
 	public static void nhapHinhTron() {
-		Scanner.nextLine();
+		
 		HinhTron Tron = new HinhTron();
 		System.out.print("Nhập bán kính hình tròn :");
 		int r = input.nextInt();
@@ -33,7 +33,7 @@ public class TinhToanHinhHoc {
 	
 	
 	public static void nhapHinhVuong() {
-		Scanner.nextLine();
+		
 		HinhVuong Vuong = new HinhVuong();
 		System.out.print("Nhập cạnh hình vuông :");
 		int a = input.nextInt();
@@ -47,7 +47,7 @@ public class TinhToanHinhHoc {
 	}
 
 	public static void nhapHinhChuNhat() {
-		Scanner.nextLine();
+		
 		HinhChuNhat CNhat = new HinhChuNhat();
 		System.out.print("Nhập chiều dài hình chữ nhật :");
 		int Cdai = input.nextInt();
@@ -66,7 +66,7 @@ public class TinhToanHinhHoc {
 	}
 
 	public static void nhapHinhTamGiac() {
-		Scanner.nextLine();
+		
 		HinhTamGiac TamGiac = new HinhTamGiac();
 		System.out.println("Nhập độ dài 3 cạnh của hình tam giác :");
 		System.out.print("Nhập độ dài cạnh a :");
@@ -91,25 +91,30 @@ public class TinhToanHinhHoc {
 	}
 	
 	public static void inbangTinh() {
-		Scanner.nextLine();
+		
 		System.out.println("------------------------------------------------------------------------------------");
+		System.out.println("      |                 |                  |                  |                    |");
 		System.out.println("|STT  |       Hình      |  Thuộc tính      |      Chu vi      |      Diện tích     |");
+		System.out.println("      |                 |                  |                  |                    |");
 		System.out.println("------------------------------------------------------------------------------------");
 		int n = 1;
 		for (HinhHoc x : arrHinhHoc) {
 			if ((x instanceof HinhTron)) {
 
-				System.out.printf("%-5s%-17sBán kính :%-8s%-18s%-20s\n", n, "Tròn", ((HinhTron) x).getBanKinh(),
+				System.out.printf("%-9s%-22sBán kính :%-8s%-18s%-20s\n", n, "Tròn", ((HinhTron) x).getBanKinh(),
 						x.getChuVi(), x.getDienTich());
+				
 			} else if ((x instanceof HinhVuong)) {
-				System.out.printf("%-5s%-17sa :%-15s%-18s%-20s\n", n, "Hình Vuông", ((HinhVuong) x).getCanhA(),
+				System.out.printf("%-9s%-22sa :%-15s%-18s%-20s\n", n, "Hình Vuông", ((HinhVuong) x).getCanhA(),
 						x.getChuVi(), x.getDienTich());
+				
 			} else if ((x instanceof HinhChuNhat)) {
-				System.out.printf("%-5s%-17scd:%-4s cr:%-7s%-18s%-20s\n", n, "Chữ Nhật",
+				System.out.printf("%-9s%-22scd:%-4s cr:%-7s%-18s%-20s\n", n, "Chữ Nhật",
 						((HinhChuNhat) x).getChieuDai(), ((HinhChuNhat) x).getChieuRong(), x.getChuVi(),
 						x.getDienTich());
+				
 			} else if ((x instanceof HinhTamGiac)) {
-				System.out.printf("%-5s%-17sa :%-3s b:%-3s c:%-3s%-18s%-20s\n", n, "Tam Giác",
+				System.out.printf("%-9s%-22sa :%-3s b:%-3s c:%-3s%-18s%-20s\n", n, "Tam Giác",
 						((HinhTamGiac) x).getCanhA(), ((HinhTamGiac) x).getCanhB(), ((HinhTamGiac) x).getCanhC(),
 						x.getChuVi(), x.getDienTich());
 			}

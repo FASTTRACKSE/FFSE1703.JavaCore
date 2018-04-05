@@ -64,17 +64,17 @@ public class BaiToanHinhHoc {
 		for (HinhHoc x : arrHinhHoc) {
 			if ((x instanceof HinhTron)) {
 
-				System.out.printf("|%-5s|%-17s|Bán kính :%-8s|%-18s|%-20s|\n", n, "Tròn", ((HinhTron) x).getBankinh(),
+				System.out.printf("|%-5s|%-17s|Bán kính :%-8s|%-18s|%.2f\n", n, "Tròn", ((HinhTron) x).getBankinh(),
 						x.getChuVi(), x.getDienTich());
 			} else if ((x instanceof HinhVuong)) {
-				System.out.printf("|%-5s|%-17s|a :%-15s|%-18s|%-20s|\n", n, "Hình Vuông", ((HinhVuong) x).getCanhHV(),
+				System.out.printf("|%-5s|%-17s|a :%-15s|%-18s|%.2f\n", n, "Hình Vuông", ((HinhVuong) x).getCanhHV(),
 						x.getChuVi(), x.getDienTich());
 			} else if ((x instanceof HinhChuNhat)) {
-				System.out.printf("|%-5s|%-17s|cd:%-4s cr:%-7s|%-18s|%-20s|\n", n, "Chữ Nhật",
+				System.out.printf("|%-5s|%-17s|cd:%-4s cr:%-7s|%-18s|%.2f\n", n, "Chữ Nhật",
 						((HinhChuNhat) x).getChieudai(), ((HinhChuNhat) x).getChieurong(), x.getChuVi(),
 						x.getDienTich());
 			} else if ((x instanceof HinhTamGiac)) {
-				System.out.printf("|%-5s|%-17s|a :%-3s b:%-3s c:%-3s|%-18s|%-20s|\n", n, "Tam Giác",
+				System.out.printf("|%-5s|%-17s|a :%-3s b:%-3s c:%-3s|%-18s|%.2f\n", n, "Tam Giác",
 						((HinhTamGiac) x).getCanhA(), ((HinhTamGiac) x).getCanhB(), ((HinhTamGiac) x).getCanhC(),
 						x.getChuVi(), x.getDienTich());
 			}

@@ -10,6 +10,7 @@ public class Assignment3 {
 	public static double[] arrLP3;
 	public static double[] arrĐTB;
 	public static void main(String[] args) {
+
 		myMenu();
 	}
 //nhập số sinh viên
@@ -17,7 +18,7 @@ public class Assignment3 {
 		System.out.println("Thêm sinh viên");
 		int size;
 		System.out.print("Nhập Số Sinh Viên Muốn Thêm : ");
-		size = myScanner.nextInt();//n
+		size = myScanner.nextInt();
 		arrsv  = new String[size];
 		arrLP1 = new double[size];
 		arrLP2 = new double[size];
@@ -39,6 +40,11 @@ public class Assignment3 {
 			myScanner.nextLine();
 		}
 	}
+	//
+	public static class Count{
+	    
+	    }
+
 //xuất số sinh viên
 	public static void InDSSV() {
 		System.out.println("<============Danh sách sinh viên==============>");
