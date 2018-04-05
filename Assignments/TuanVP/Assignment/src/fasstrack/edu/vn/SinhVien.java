@@ -1,16 +1,28 @@
 package fasstrack.edu.vn;
 
 public class SinhVien {
+	public static int tongSV = 0;
+	public static int getTongSV() {
+		return tongSV;
+	}
+	public static void setTongSV(int tongSV) {
+		SinhVien.tongSV = tongSV;
+	}
 	private String Hoten;
 	private String Ngaysinh;
 	private float DiemLP1;
 	private float DiemLP2;
 	public float DiemTB;
 	public String Xeploai;
+	static private void themSV() {
+		tongSV++;
+	}
 	public SinhVien() {
 		// TODO Auto-generated constructor stub
+		themSV();
 	}
 	public SinhVien(String Hoten,String Ngaysinh,float DiemLP1,float DiemLP2,float DiemTB,String Xeploai) {
+		themSV();
 		this.Hoten= Hoten;
 		this.Ngaysinh= Ngaysinh;
 		this.DiemLP1 = DiemLP1;

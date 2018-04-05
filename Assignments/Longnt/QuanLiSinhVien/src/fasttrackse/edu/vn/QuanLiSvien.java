@@ -73,7 +73,7 @@ public class QuanLiSvien {
 	   System.out.println("Danh sach sinh vien");
 	   System.out.println("      STT      |      Ten SV      |      Diem LP1       |      Diem LP2     |      Diem TB       ");
 	   for (int  i=0 ; i < arrSinhVien.length ; i++) { 
-		   System.out.println("%-6s%-6s%-6s%-6s%-5s\n"+ arrSinhVien[i] +" "+ diemLP1[i] +""+ diemLP2[i] +" "+ diemTB[i] +"");
+		   System.out.println("%-20s%-20s%-20s%-20s \n" + arrSinhVien[i] +" "+ diemLP1[i] +""+ diemLP2[i] +" "+ diemTB[i] +"");
 		   myScanner.nextLine();  
 	   }
 	   
