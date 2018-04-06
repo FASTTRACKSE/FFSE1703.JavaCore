@@ -184,13 +184,12 @@ public class QuanliSinhVien {
 		System.out.println("Nhập tên sinh viên cần xóa :");
 		String XoaTen = myScanner.nextLine();
 		
-		for(SinhVien x : arrSV) {
-			
-			if((x.getName().equals(XoaTen))) {	
-				arrSV.remove(x);
+		
+			for (int j = arrSV.size()-1; j >-1; j--) {
+			if((arrSV.get(j).getName().equals(XoaTen))) {	
+				arrSV.remove(j);
 				SinhVien.tongSV -= 1;
-				break;
-			}
+				}
 		}
 		
 		myScanner.nextLine();
