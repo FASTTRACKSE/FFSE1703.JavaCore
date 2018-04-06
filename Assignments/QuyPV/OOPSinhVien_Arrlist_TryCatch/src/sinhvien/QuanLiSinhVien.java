@@ -145,6 +145,7 @@ public class QuanLiSinhVien {
 				if(ten.equals(x.getHoTen())) {
 					arr.remove(x);
 					z--;
+					SinhVien.updateTongSo();
 					break;
 				}
 			}

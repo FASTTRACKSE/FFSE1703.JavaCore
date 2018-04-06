@@ -79,4 +79,8 @@ public class SinhVien {
 	public static void setTongSo() {
 		tongSo++;
 	}
+	
+	public static void updateTongSo() {
+		tongSo--;
+	}
 }
