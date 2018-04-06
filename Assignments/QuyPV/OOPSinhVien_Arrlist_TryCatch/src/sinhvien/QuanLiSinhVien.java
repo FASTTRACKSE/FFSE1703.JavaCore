@@ -105,7 +105,7 @@ public class QuanLiSinhVien {
 	public void doiTen() {
 		int i = 0;
 		String ten1, ten2;
-
+		try {
 		System.out.println("<<<< ĐỔI TÊN SINH VIÊN >>>> ");
 		System.out.println("---------------------------");
 		System.out.println("Nhập tên sinh viên cần đổi: ");
@@ -118,13 +118,19 @@ public class QuanLiSinhVien {
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
 		for (SinhVien x : arr) {
 			if (ten1.equals(x.getHoTen())) {
-				x.setHoTen(ten2);			
+				x.setHoTen(ten2);
+			}
+			else {
+				throw new Exception();
 			}
 			System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
 			+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
 			i++;
 		}
-
+		} catch(Exception e) {
+			System.out.println("Tên sinh viên ko tồn tại!!!");
+			myInput.nextLine();
+		}
 	}
 
 	public void xoaTen() {
