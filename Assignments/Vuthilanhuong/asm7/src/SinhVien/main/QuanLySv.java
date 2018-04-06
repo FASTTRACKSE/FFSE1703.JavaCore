@@ -12,10 +12,10 @@ public class QuanLySv {
 
 	public static void main(String[] args) {
 
-		menu();
+		menuC();
 	}
 
-	public static void nhapSv() {
+	public static void nhapSV() {
 		System.out.println("Bạn muốn nhập bao nhiêu sinh viên");
 		int nhapSV = Integer.parseInt(sc.nextLine());
 		for (int i = 0; i < nhapSV; i++) {
@@ -40,7 +40,7 @@ public class QuanLySv {
 		}
 	}
 
-	public static void cao() {
+	public static void diemCao() {
 		Double max = arrsv.get(0).getDiemTb();
 		int stt = 0;
 		for (int i = 0; i < arrsv.size(); i++) {
@@ -52,7 +52,7 @@ public class QuanLySv {
 		System.out.println("Sinh viên có điểm cao nhất là: " + arrsv.get(stt).getHoTen() + arrsv.get(stt).getDiemTb());
 	}
 
-	public static void thap() {
+	public static void diemThap() {
 		Double max = arrsv.get(0).getDiemTb();
 		int stt = 0;
 		for (int i = 0; i < arrsv.size(); i++) {
@@ -65,7 +65,7 @@ public class QuanLySv {
 		System.out.println("Sinh viên có điểm thấp nhất là: " + arrsv.get(stt).getHoTen() + arrsv.get(stt).getDiemTb());
 	}
 
-	public static void sxtb() {
+	public static void sxTB() {
 		Collections.sort(arrsv, SinhVien.comparediem);
 		System.out.printf("%-15s | %-20s | %-20s | %-20s |%-20s |  \n", "Tên Sv", "Ngày sinh", " Điểm lp1", " Điểm lp2",
 				"Điểm tb");
@@ -75,7 +75,7 @@ public class QuanLySv {
 		}
 	}
 
-	public static void sxten() {
+	public static void sxTen() {
 		Collections.sort(arrsv, SinhVien.compareten);
 		System.out.printf("%-15s | %-20s | %-20s | %-20s |%-20s |  \n", "Tên Sv", "Ngày sinh", " Điểm lp1", " Điểm lp2",
 				"Điểm tb");
@@ -140,7 +140,7 @@ public class QuanLySv {
 		}
 	}
 
-	public static void menu() {
+	public static void menuC() {
 		while (true) {
 			try {
 				System.out.println("1.Nhập thông tin sinh viên");
@@ -153,33 +153,33 @@ public class QuanLySv {
 				System.out.println("8.Đổi tên một sinh viên");
 				System.out.println("9.Xóa tên một sinh viên");
 
-				int menu = Integer.parseInt(sc.nextLine());
+				int menuC = Integer.parseInt(sc.nextLine());
 
-				if (menu == 1) {
-					nhapSv();
+				if (menuC == 1) {
+					nhapSV();
 				}
-				else if (menu == 2) {
+				else if (menuC == 2) {
 					inDs();
 				}
-				else if (menu == 3) {
-					cao();
+				else if (menuC == 3) {
+					diemCao();
 				}
-				else if (menu == 4) {
-					thap();
+				else if (menuC == 4) {
+					diemThap();
 				}
-				else if (menu == 5) {
-					sxtb();
+				else if (menuC == 5) {
+					sxTB();
 				}
-				else if (menu == 6) {
-					sxten();
+				else if (menuC == 6) {
+					sxTen();
 				}
-				else if (menu == 7) {
+				else if (menuC == 7) {
 					inTheoTen();
 				}
-				else if (menu == 8) {
+				else if (menuC == 8) {
 					doiTen();
 				}
-				else if (menu == 9) {
+				else if (menuC == 9) {
 					xoaTen();
 				}else {
 					throw new Exception();
