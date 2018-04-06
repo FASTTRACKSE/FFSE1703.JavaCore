@@ -7,16 +7,22 @@ public class SinhVien {
 
 	private String SVten;
 	private String SVngaysinh;
-	private int SVLP1;
-	private int SVLP2;
+	private double SVLP1;
+	private double SVLP2;
 	private double SVDTB;
+	static public int tongSV = 0;
 
-	public SinhVien(String SVten, String SVngaysinh, int SVLP1, int SVLP2) {
+	public SinhVien(String SVten, String SVngaysinh, double SVLP1, double SVLP2) {
 		this.SVten = SVten;
 		this.SVngaysinh = SVngaysinh;
-		this.SVLP1 = SVLP1;
-		this.SVLP2 = SVLP2;
+		this.SVLP1 = (int) SVLP1;
+		this.SVLP2 = (int) SVLP2;
 
+	}
+
+	static public void tinhTongSV() {
+
+		tongSV++;
 	}
 
 	public SinhVien() {
@@ -58,7 +64,7 @@ public class SinhVien {
 		this.SVLP1 = LP1;
 	}
 
-	public int getSVLP1() {
+	public double getSVLP1() {
 		return this.SVLP1;
 	}
 
@@ -66,7 +72,7 @@ public class SinhVien {
 		this.SVLP2 = LP2;
 	}
 
-	public int getSVLP2() {
+	public double getSVLP2() {
 		return this.SVLP2;
 	}
 

@@ -89,7 +89,7 @@ public class Tiendien {
 						arrbienlai.get(i).getChisocu(), arrbienlai.get(i).tiendien());
 			}
 		}
-
+		Scanner.nextLine();
 		System.out.println("Ấn Enter để về menu con");
 		Scanner.nextLine();
 
@@ -115,7 +115,7 @@ public class Tiendien {
 						arrbienlai.get(i).getThang());
 			}
 		}
-
+		Scanner.nextLine();
 		System.out.println("Ấn Enter để về menu con");
 		Scanner.nextLine();
 
@@ -140,7 +140,7 @@ public class Tiendien {
 						arrbienlai.get(i).getNam());
 			}
 		}
-
+		Scanner.nextLine();
 		System.out.println("Ấn Enter để về menu con");
 		Scanner.nextLine();
 
