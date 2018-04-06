@@ -54,7 +54,7 @@ public class Sinhvien {
     	}
     }
 	public String toString() {
-		return "  "+hoTen +"\t   "+ngaySinh+"\t \t"+diemLp1+"\t \t"+diemLp2+"\t \t"+getDiemTB()+"\t \t"+getXepLoai();
+		return "  "+hoTen +"\t     "+ngaySinh+"\t \t    "+diemLp1+"\t \t    "+diemLp2+"\t   \t   "+getDiemTB()+"\t   \t    "+getXepLoai();
 		
 	}
 	public static Comparator<Sinhvien> compare = new Comparator<Sinhvien>() {

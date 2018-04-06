@@ -1,6 +1,8 @@
 package Student2;
 
-public class myStudent {
+import java.util.Comparator;
+
+public class MyStudent {
 	private String nameSv;
 	private String Birthday;
 	private String xepLoai;
@@ -9,11 +11,11 @@ public class myStudent {
 	private Double Dtb;
 	static int toTal = 0;
 
-	public myStudent() {
+	public MyStudent() {
 
 	}
 
-	public myStudent(String name, String birthday, Double lp1, Double lp2) {
+	public MyStudent(String name, String birthday, Double lp1, Double lp2) {
 		this.nameSv = name;
 		this.Birthday = birthday;
 		this.lp1 = lp1;
@@ -73,4 +75,33 @@ public class myStudent {
 			return xepLoai = "Quá xuất xắc";
 		}
 	}
+
+	public static Comparator<MyStudent> SVNameComparator = new Comparator<MyStudent>() {
+
+		public int compare(MyStudent s1, MyStudent s2) {
+			String StudentName1 = s1.getName().toUpperCase();
+			String StudentName2 = s2.getName().toUpperCase();
+
+			return StudentName1.compareTo(StudentName2);
+
+		}
+
+	};
+
+	public static Comparator<MyStudent> SVDTBComparator = new Comparator<MyStudent>() {
+
+		public int compare(MyStudent s1, MyStudent s2) {
+
+			Double fDTB1 = s1.getDtb();
+			Double fDTB2 = s2.getDtb();
+
+			if ((fDTB2 - fDTB1) > 0)
+				return 1;
+			else if ((fDTB2 - fDTB1) < 0)
+				return -1;
+			else
+				return 0;
+
+		}
+	};
 }

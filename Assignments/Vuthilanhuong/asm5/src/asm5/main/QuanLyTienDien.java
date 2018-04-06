@@ -19,9 +19,9 @@ public class QuanLyTienDien {
 
 	public static void ThongTinKhach() {
 		System.out.println("Bạn muốn nhập bao nhiêu khách  hàng");
-		int a = sc.nextInt();
+		int nhapBnKH = sc.nextInt();
 
-		for (int i = 0; i < a; i++) {
+		for (int i = 0; i < nhapBnKH; i++) {
 			sc.nextLine();
 			System.out.println("Mã người sử dụng");
 			String maK = sc.nextLine();
@@ -86,19 +86,19 @@ public class QuanLyTienDien {
 			System.out.println("2.Nhập thông tin tiên tiêu thụ");
 			System.out.println("3.In thông tin tiên thu điện ");
 			System.out.println("4.In thông tin khách hàng");
-			int a = sc.nextInt();
-			if (a == 1) {
+			int menuC = sc.nextInt();
+			if (menuC == 1) {
 				ThongTinKhach();
 
 			}
-			if (a == 2) {
+			if (menuC == 2) {
 				TienThu();
 
 			}
-			if (a == 3) {
+			if (menuC == 3) {
 				menuinbienlai();
 			}
-			if (a == 4) {
+			if (menuC == 4) {
 				Intt();
 			}
 
@@ -115,20 +115,20 @@ public class QuanLyTienDien {
 			System.out.println("2.In theo tháng");
 			System.out.println("3.In thông tin theo năm");
 			System.out.println("4.In thông tin theo mã");
-			int a = sc.nextInt();
-			if (a == 0) {
+			int menuBL = sc.nextInt();
+			if (menuBL == 0) {
 				menu();
 			}
-			if (a == 1) {
+			if (menuBL == 1) {
 				inTatCa();
 			}
-			if (a == 2) {
+			if (menuBL == 2) {
 				thongKeTheoThangNam();
 			}
-			if (a == 3) {
+			if (menuBL == 3) {
 				thogKeTheoNam();
 			}
-			if (a == 4) {
+			if (menuBL == 4) {
 				inTheoMa();
 			}
 		}

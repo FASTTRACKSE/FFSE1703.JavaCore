@@ -22,4 +22,6 @@
 [class Hinh tron](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhTron.java)
 [class hinh tam giac](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhTamGiac.java)
 [Main hinh Hoc](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/main/MainHinhHoc.java)
+4. Assignment7: [class Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/MyStudent.java)
+[Main Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/ImportStudent.java)
 
