@@ -12,4 +12,4 @@
  ,[Hình học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhHoc.java),  [Hình chữ nhật](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhChuNhat.java), 
 [Hình tròn](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhTron.java), 
 [Hình tam giác](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm6/src/HinhHoc/model/HinhTamGiac.java).
-[Quản lý sv](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm7/src/SinhVien/main/QuanLySv.java)[Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm7/src/SinhVien/model/SinhVien.java)
+7. assignment7 [Quản lý sv](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm7/src/SinhVien/main/QuanLySv.java)[Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Vuthilanhuong/asm7/src/SinhVien/model/SinhVien.java)
