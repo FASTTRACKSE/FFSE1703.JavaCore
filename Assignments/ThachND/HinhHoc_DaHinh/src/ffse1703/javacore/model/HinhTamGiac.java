@@ -1,7 +1,7 @@
 package ffse1703.javacore.model;
 
-abstract public class HinhTamGiac extends HinhHoc {
-	protected int canhA, canhB, canhC;
+ public class HinhTamGiac extends HinhHoc {
+	private static int canhA, canhB, canhC;
 	 
     public HinhTamGiac(int canhA, int canhB, int canhC) {
         super();
@@ -40,9 +40,12 @@ abstract public class HinhTamGiac extends HinhHoc {
 	public double getChuVi() {
 		return canhA + canhB + canhC;
 	}
-	public double getDientich() {
-		return ;
+	public double getDienTich() {
+		return Math.sqrt(getNuaChuVi() * (getNuaChuVi() - canhA) * (getNuaChuVi() - canhB) * (getNuaChuVi() - canhC));
 		
 	}
+
+
+	
 }
 

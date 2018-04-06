@@ -103,13 +103,16 @@ public class TinhToanHinhHoc {
 
 				System.out.printf("%-9s%-22sBán kính :%-8s%-18s%-20s\n", n, "Tròn", ((HinhTron) x).getBanKinh(),
 						x.getChuVi(), x.getDienTich());
+				
 			} else if ((x instanceof HinhVuong)) {
 				System.out.printf("%-9s%-22sa :%-15s%-18s%-20s\n", n, "Hình Vuông", ((HinhVuong) x).getCanhA(),
 						x.getChuVi(), x.getDienTich());
+				
 			} else if ((x instanceof HinhChuNhat)) {
 				System.out.printf("%-9s%-22scd:%-4s cr:%-7s%-18s%-20s\n", n, "Chữ Nhật",
 						((HinhChuNhat) x).getChieuDai(), ((HinhChuNhat) x).getChieuRong(), x.getChuVi(),
 						x.getDienTich());
+				
 			} else if ((x instanceof HinhTamGiac)) {
 				System.out.printf("%-9s%-22sa :%-3s b:%-3s c:%-3s%-18s%-20s\n", n, "Tam Giác",
 						((HinhTamGiac) x).getCanhA(), ((HinhTamGiac) x).getCanhB(), ((HinhTamGiac) x).getCanhC(),

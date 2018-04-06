@@ -1,21 +1,27 @@
 package Student2;
 
-public class myStudent {
+import java.util.Comparator;
+
+public class MyStudent {
 	private String nameSv;
 	private String Birthday;
 	private String xepLoai;
 	private Double lp1;
 	private Double lp2;
 	private Double Dtb;
-	public myStudent() {
-		
+	static int toTal = 0;
+
+	public MyStudent() {
+
 	}
-	public myStudent(String name,String birthday,Double lp1,Double lp2) {
-		this.nameSv= name;
+
+	public MyStudent(String name, String birthday, Double lp1, Double lp2) {
+		this.nameSv = name;
 		this.Birthday = birthday;
 		this.lp1 = lp1;
 		this.lp2 = lp2;
 	}
+
 	public void setName(String name) {
 		this.nameSv = name;
 	}
@@ -52,17 +58,50 @@ public class myStudent {
 		return Dtb = (this.lp1 + this.lp2) / 2;
 	}
 
+	public static void tongSo() {
+		toTal++;
+	}
+
 	public String getXepLoai() {
-		if (Dtb >= 8.5&&Dtb<=10) {
+		if (Dtb >= 8.5 && Dtb <= 10) {
 			return xepLoai = "Giỏi";
 		} else if (Dtb >= 6.5 && Dtb < 8.5) {
 			return xepLoai = "khá";
 		} else if (Dtb < 6.5 && Dtb >= 5) {
 			return xepLoai = "Trung BÌnh";
-		} else if(Dtb < 5&&Dtb > 0){
+		} else if (Dtb < 5 && Dtb > 0) {
 			return xepLoai = "Yếu";
-		}else {
+		} else {
 			return xepLoai = "Quá xuất xắc";
 		}
 	}
+
+	public static Comparator<MyStudent> SVNameComparator = new Comparator<MyStudent>() {
+
+		public int compare(MyStudent s1, MyStudent s2) {
+			String StudentName1 = s1.getName().toUpperCase();
+			String StudentName2 = s2.getName().toUpperCase();
+
+			return StudentName1.compareTo(StudentName2);
+
+		}
+
+	};
+
+	public static Comparator<MyStudent> SVDTBComparator = new Comparator<MyStudent>() {
+
+		public int compare(MyStudent s1, MyStudent s2) {
+
+			Double fDTB1 = s1.getDtb();
+			Double fDTB2 = s2.getDtb();
+
+			if ((fDTB2 - fDTB1) > 0)
+				return 1;
+			else if ((fDTB2 - fDTB1) < 0)
+				return -1;
+			else
+				return 0;
+
+		}
+	};
 }
