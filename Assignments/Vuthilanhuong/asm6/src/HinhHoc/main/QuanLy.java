@@ -19,7 +19,7 @@ public class QuanLy {
 			 System.out.println("Chọn chức năng");
 			 int a = sc.nextInt();
 			 if(a==1) {
-				 menuCn(); 
+				 menuCN(); 
 			 }
 			 if(a==2) {
 				 menuTron(); 
@@ -29,14 +29,14 @@ public class QuanLy {
 			 }
 		 }
 	 }
- 	public static void menuCn() {
+ 	public static void menuCN() {
 		 while(true) {
 			 System.out.println("1.Diện tích hình chữ nhật ");
 			 System.out.println("2.Chu vi hình chữ nhật");
 			 System.out.println("3.Nhấn 3 để về menu");
 			 System.out.println("Chọn chức năng");
-			 int a = sc.nextInt();
-			 if(a==1) {
+			 int menuCN = sc.nextInt();
+			 if(menuCN==1) {
 				System.out.println("Nhập chiều dài :");
 				double dai = sc.nextDouble();
 				System.out.println("Nhập chiều rộng: ");
@@ -44,7 +44,7 @@ public class QuanLy {
 				tinh1 = new HinhChuNhat(dai,rong);
 				System.out.println("DIện tích hình chữ nhật là: " +tinh1.getDienTich() );
 			 }
-			 else if(a==2) {
+			 else if(menuCN==2) {
 				 System.out.println("Nhập chiều dài :");
 					double dai = sc.nextDouble();
 					System.out.println("Nhập chiều rộng: ");
@@ -63,14 +63,14 @@ public class QuanLy {
 			 System.out.println("2.Chu vi hình tròn");
 			 System.out.println("3.Nhấn 3 để về menu");
 			 System.out.println("Chọn chức năng");
-			 int a = sc.nextInt();
-			 if(a==1) {
+			 int menuTron = sc.nextInt();
+			 if(menuTron==1) {
 				 System.out.println("Nhập bán kinh :");
 					double bankinh = sc.nextDouble();
 					tinh2 = new HinhTron(bankinh);
 					System.out.println("DIện tích hình tròn là: " +tinh2.getDienTich() );
 			 }
-			 else if(a==2) {
+			 else if(menuTron==2) {
 				 System.out.println("Nhập bán kinh :");
 					double bankinh = sc.nextDouble();
 					tinh2 = new HinhTron(bankinh);
@@ -87,8 +87,8 @@ public class QuanLy {
 			 System.out.println("2.Chu vi hình tam giác");
 			 System.out.println("3.Nhấn 3 để về menu");
 			 System.out.println("Chọn chức năng");
-			 int a = sc.nextInt();
-			 if(a==1) {
+			 int menuTG = sc.nextInt();
+			 if(menuTG==1) {
 				 System.out.println("Nhập cạnh A :");
 					double canhA = sc.nextDouble();
 					System.out.println("Nhập cạnh B: ");
@@ -98,7 +98,7 @@ public class QuanLy {
 					tinh3 = new HinhTamGiac(canhA,canhB,canhC);
 					System.out.println("DIện tích hình tam giác là: " +tinh3.getDienTich() );
 			 }
-			 else if(a==2) {
+			 else if(menuTG==2) {
 				 System.out.println("Nhập cạnh A :");
 					double canhA = sc.nextDouble();
 					System.out.println("Nhập cạnh B: ");

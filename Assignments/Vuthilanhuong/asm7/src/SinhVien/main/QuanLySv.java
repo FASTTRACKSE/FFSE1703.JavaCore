@@ -17,17 +17,17 @@ public class QuanLySv {
 
 	public static void nhapSv() {
 		System.out.println("Bạn muốn nhập bao nhiêu sinh viên");
-		int a = Integer.parseInt(sc.nextLine());
-		for (int i = 0; i < a; i++) {
+		int nhapSV = Integer.parseInt(sc.nextLine());
+		for (int i = 0; i < nhapSV; i++) {
 			System.out.println("Tên sinh viên");
 			String tenSv = sc.nextLine();
 			System.out.println("Ngày sinh sinh viên");
 			String nSinh = sc.nextLine();
 			System.out.println("Điểm lp1");
-			Double b = Double.parseDouble(sc.nextLine());
+			Double diemLP1 = Double.parseDouble(sc.nextLine());
 			System.out.println("Điểm lp2");
-			Double c = Double.parseDouble(sc.nextLine());
-			arrsv.add(new SinhVien(tenSv, nSinh, b, c));
+			Double diemLP2 = Double.parseDouble(sc.nextLine());
+			arrsv.add(new SinhVien(tenSv, nSinh, diemLP1, diemLP2));
 		}
 	}
 
