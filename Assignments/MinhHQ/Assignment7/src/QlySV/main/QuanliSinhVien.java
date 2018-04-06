@@ -1,14 +1,14 @@
-package fasttrack.Assignment4.main;
+package QlySV.main;
 
 import java.util.Scanner;
-import fasttrack.Assignment4.model.*;
+
+import QlySV.model.*;
+
 import java.util.ArrayList;
 
 public class QuanliSinhVien {
 	public static Scanner myScanner = new Scanner(System.in);
 	public static ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
-	public static int n = 4;
-	public static SinhVien[] SV = new SinhVien[4];
 
 	public static void main(String[] args) {
 		arrSV.add(new SinhVien("Hồ Quang Minh", "30/10/99", 8.0, 6.0));
@@ -21,11 +21,13 @@ public class QuanliSinhVien {
 	}
 
 	public static void nhapDSSV() {
+		try {
 			System.out.println("Nhập danh sách sinh viên : ");
 			System.out.println("---------------------------");
 			System.out.print("Số lượng sinh viên :");
-			n = myScanner.nextInt();
-			SV = new SinhVien[n];
+			int n = myScanner.nextInt();
+		
+			
 			for (int j = 0; j < n; j++) {
 				
 				myScanner.nextLine();
@@ -50,6 +52,12 @@ public class QuanliSinhVien {
 		myScanner.nextLine();
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
+			}catch(Exception e) {
+				System.out.println("Bạn đã nhập sai vui lòng nhập lại!");
+				myScanner.nextLine();
+				nhapDSSV();
+		}
+		
 	}
 
 	public static void inDSSV() {
@@ -108,15 +116,13 @@ public class QuanliSinhVien {
 			}
 		}
 
-		for (int i = 0; i < arrSV.size(); i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo điểm trung bình ");
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("STT  Hồ và tên              Ngày sinh     lp1  lp2   ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
-			for (i = 0; i < n; i++) {
+			for (int i = 0; i < SinhVien.tongSV; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), arrSV.get(i).getName(), arrSV.get(i).getDate(),
 						arrSV.get(i).getLp1(), arrSV.get(i).getLp2(), arrSV.get(i).getTBM(), arrSV.get(i).XepLoai());
-			}
 		}
 
 		myScanner.nextLine();
@@ -136,15 +142,13 @@ public class QuanliSinhVien {
 			}
 		}
 
-		for (int i = 0; i < arrSV.size(); i++) {
 			System.out.println("Danh sách sinh viên đã được sắp xếp theo tên học sinh ");
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2   ĐTB  Xếp Loại  ");
 			System.out.println("--------------------------------------------------------------------");
-			for (i = 0; i < n; i++) {
+			for (int i = 0; i < SinhVien.tongSV; i++) {
 				System.out.printf("%-5s%-23s%-14s%-5s%-5s%-5s%-10s\n", (i + 1), arrSV.get(i).getName(), arrSV.get(i).getDate(),
 						arrSV.get(i).getLp1(), arrSV.get(i).getLp2(), arrSV.get(i).getTBM(), arrSV.get(i).XepLoai());
-			}
 		}
 
 		myScanner.nextLine();
@@ -172,6 +176,26 @@ public class QuanliSinhVien {
 		System.out.println("Ấn Enter để về menu chính");
 		myScanner.nextLine();
 	}
+	
+	public static void xoatenSV() {
+		
+		myScanner.nextLine();
+		
+		System.out.println("Nhập tên sinh viên cần xóa :");
+		String XoaTen = myScanner.nextLine();
+		
+		
+			for (int j = arrSV.size()-1; j >-1; j--) {
+			if((arrSV.get(j).getName().equals(XoaTen))) {	
+				arrSV.remove(j);
+				SinhVien.tongSV -= 1;
+				}
+		}
+		
+		myScanner.nextLine();
+		System.out.println("Ấn Enter để về menu chính");
+		myScanner.nextLine();
+	}
 
 	public static void ketThuc() {
 		System.out.println("Kết thúc chương trình!!!!!");
@@ -189,10 +213,11 @@ public class QuanliSinhVien {
 			System.out.println("|4. Sắp xếp theo điểm TBM                |");
 			System.out.println("|5. Sắp xếp theo Tên                     |");
 			System.out.println("|6. Đổi tên cho học sinh                 |");
-			System.out.println("|7. Kết thúc chương trình                |");
+			System.out.println("|7. Xóa học sinh                         |");
+			System.out.println("|8. Kết thúc chương trình                |");
 			System.out.println("+----------------------------------------+");
 			System.out.println(">>            Lựa chọn của bạn?         <<");
-			// .compareTo để so sánh chuỗi trong trư�?ng hợp sắp xếp theo tên
+			
 			int myOption = myScanner.nextInt();
 			if (myOption == 1) {
 				nhapDSSV();
@@ -207,6 +232,8 @@ public class QuanliSinhVien {
 			} else if (myOption == 6) {
 				doitenSV();
 			} else if (myOption == 7) {
+				xoatenSV();
+			} else if (myOption == 8) {
 				ketThuc();
 			} else {
                 throw new Exception();
@@ -214,10 +241,10 @@ public class QuanliSinhVien {
 			
 			
 			} catch (Exception e) {
-				System.out.println("Bạn đã nhập sai vui lòng nhập lại!!!Nhập lựa chọn từ 1 đến 7!!!");
+				System.out.println("Bạn đã nhập sai vui lòng nhập lại!!!Nhập lựa chọn từ 1 đến 8!!!");
 				myScanner.nextLine();
 			}
-
 		}
 	}
 }
+
