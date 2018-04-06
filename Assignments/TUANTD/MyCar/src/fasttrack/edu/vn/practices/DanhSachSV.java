@@ -64,7 +64,7 @@ public class DanhSachSV {
 	}
 
 	// sửa
-	public static void edit() {
+	public static void Edit() {
 		System.out.println("Tên Khách Hàng Cần Sửa :");
 		String namesv = input.next();
 		System.out.println("Tên Khách Hàng Mới :");
@@ -77,7 +77,7 @@ public class DanhSachSV {
 	}
 
 	// xóa
-	public static void delete() {
+	public static void Delete() {
 		System.out.println("Tên Khách Hàng Cần Xóa :");
 		String namesv = input.next();
 		for(int z = 0; z < arraySinhVien.size(); z++) {
@@ -92,7 +92,7 @@ public class DanhSachSV {
 	}
 
 	// tìm kiếm
-	public static void view() {
+	public static void View() {
 		try {
 			System.out.println("Tên Sinh Viên Cần Tìm :");
 			String namesv = input.next();
@@ -242,11 +242,11 @@ public class DanhSachSV {
 				} else if (aye == 6) {
 					SapXepTen();
 				} else if (aye == 7) {
-					edit();
+					Edit();
 				} else if (aye == 8) {
-					delete();
+					Delete();
 				} else if (aye == 9) {
-					view();
+					View();
 				} else if (aye == 10) {
 					KetThuc();
 				} else {
