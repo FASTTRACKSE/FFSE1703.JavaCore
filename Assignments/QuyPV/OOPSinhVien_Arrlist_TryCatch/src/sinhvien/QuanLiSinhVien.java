@@ -42,44 +42,51 @@ public class QuanLiSinhVien {
 				} else if (myChose == 0) {
 					ketThuc();
 				}
+				else {
+					throw new Exception();
+				}
 			} 
 			catch(NumberFormatException e) {
 				System.out.println("Không được nhập chữ!!");
 				myInput.nextLine();
-			}
-			catch(Exception e) {
-				System.out.println("Chỉ được nhập từ 1-4!!");
+			} catch (Exception e) {
+				System.out.println("Chỉ được nhập từ 0 - 5");
 				myInput.nextLine();
 			}
+			
 		}
 	}
 
 	public void nhap() {
-
-		System.out.println("Nhập số lượng sinh viên: ");
-		soLuong = Integer.parseInt(myInput.nextLine());
-
+		try {
+			System.out.println("Nhập số lượng sinh viên: ");
+			soLuong = Integer.parseInt(myInput.nextLine());
+		 
 		for (int i = 0; i < soLuong; i++) {
-		
-			SinhVien.setTongSo();
-
-			System.out.println("Nhập tên sinh viên: ");
-			String ten = myInput.nextLine();
-
-			System.out.println("Nhập ngày sinh: ");
-			String ngSinh = myInput.nextLine();
-
-			System.out.println("Nhập điểm Lp1: ");
-			double diemLP1 = Double.parseDouble(myInput.nextLine());
-
-			System.out.println("Nhập điểm Lp2: ");
-			double diemLP2 = Double.parseDouble(myInput.nextLine());
-
-			arr.add(new SinhVien(ten, ngSinh, diemLP1, diemLP2));
 			
+				SinhVien.setTongSo();
+	
+				System.out.println("Nhập tên sinh viên: ");
+				String ten = myInput.nextLine();
+	
+				System.out.println("Nhập ngày sinh: ");
+				String ngSinh = myInput.nextLine();
+	
+				System.out.println("Nhập điểm Lp1: ");
+				double diemLP1 = Double.parseDouble(myInput.nextLine());
+	
+				System.out.println("Nhập điểm Lp2: ");
+				double diemLP2 = Double.parseDouble(myInput.nextLine());
+	
+				arr.add(new SinhVien(ten, ngSinh, diemLP1, diemLP2));
+		}
+			} catch (Exception e) {
+				System.out.println("Nhập sai định dạng!!!");
+				myInput.nextLine();
+			}
 		}
 
-	}
+	
 
 	public void in() {
 		int i = 0;
@@ -98,7 +105,7 @@ public class QuanLiSinhVien {
 	public void doiTen() {
 		int i = 0;
 		String ten1, ten2;
-
+		try {
 		System.out.println("<<<< ĐỔI TÊN SINH VIÊN >>>> ");
 		System.out.println("---------------------------");
 		System.out.println("Nhập tên sinh viên cần đổi: ");
@@ -111,27 +118,35 @@ public class QuanLiSinhVien {
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
 		for (SinhVien x : arr) {
 			if (ten1.equals(x.getHoTen())) {
-				x.setHoTen(ten2);			
+				x.setHoTen(ten2);
+			}
+			else {
+				throw new Exception();
 			}
 			System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
 			+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
 			i++;
 		}
-
+		} catch(Exception e) {
+			System.out.println("Tên sinh viên ko tồn tại!!!");
+			myInput.nextLine();
+		}
 	}
 
 	public void xoaTen() {
 		int i = 0;
 		String ten;
-		System.out.println("<<<< XÓA TÊN SINH VIÊN >>>> ");
+		System.out.println("<<<< XÓA TÊN SINH VIÊN >>>>");
 		System.out.println("Nhập tên cần xóa: ");
 		ten = myInput.nextLine();
 		System.out.println("---------------------------");
-		
-		for(SinhVien x : arr) {
-			if(ten.equals(x.getHoTen())) {
-				arr.remove(x);
-				break;
+		for(int z = 0; z < arr.size(); z++) {
+			for(SinhVien x : arr) {
+				if(ten.equals(x.getHoTen())) {
+					arr.remove(x);
+					z--;
+					break;
+				}
 			}
 		}
 		System.out.println(
@@ -156,7 +171,7 @@ public class QuanLiSinhVien {
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
 		for(SinhVien x: arr) {
-			if(ten.equals(x.getHoTen())) {
+			if(x.getHoTen().indexOf(ten) > -1) {
 				System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
 				+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
 		i++;

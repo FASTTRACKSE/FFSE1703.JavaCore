@@ -1,7 +1,7 @@
 package ffse1703.javacore.model;
 
-abstract public class HinhChuNhat extends HinhHoc {
-	protected double chieuDai, chieuRong;
+ public class HinhChuNhat extends HinhHoc {
+	private static double chieuDai, chieuRong;
 	 
     public HinhChuNhat(double chieuDai, double chieuRong) {
         super();
@@ -9,11 +9,27 @@ abstract public class HinhChuNhat extends HinhHoc {
         this.chieuRong = chieuRong;
     }
  
-    public double tinhChuVi() {
+    public double getChieuDai() {
+		return chieuDai;
+	}
+
+	public void setChieuDai(double chieuDai) {
+		this.chieuDai = chieuDai;
+	}
+
+	public double getChieuRong() {
+		return chieuRong;
+	}
+
+	public void setChieuRong(double chieuRong) {
+		this.chieuRong = chieuRong;
+	}
+
+	public double getChuVi() {
         return (chieuDai + chieuRong) * 2;
     }
      
-    public double tinhDienTich() {
+    public double getDienTich() {
         return chieuDai * chieuRong;
     }
 }

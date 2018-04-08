@@ -1,6 +1,7 @@
 package assignment4;
 import java.util.Scanner;
 public class dssv {
+	public static Scanner sc = new Scanner(System.in);
 	public String hoten;
 	public int ntnsinh;
 	public int lp1;
@@ -11,7 +12,7 @@ public dssv(String ht, int ns) {
 		ntnsinh = ns;
 }
 public void nhaptt() {
-	Scanner sc = new Scanner(System.in);
+	
 	System.out.println("Họ tên:");
 	hoten = sc.nextLine();
 	System.out.println("Năm sinh:");
