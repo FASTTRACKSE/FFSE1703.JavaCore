@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="fasstrack.edu.vn.QuanLySinhVien"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.Package"/>
 <fullyQualifiedTypeName name="hinhhoc.model.HinhHoc"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
@@ -10,4 +9,5 @@
 <fullyQualifiedTypeName name="hinhhoc.model.HinhTron"/>
 <fullyQualifiedTypeName name="hinhhoc.model.HinhTamGiac"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>
