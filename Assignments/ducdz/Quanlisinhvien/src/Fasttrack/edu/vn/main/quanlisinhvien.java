@@ -1,6 +1,7 @@
-package Fasttrack.edu.vn;
+package Fasttrack.edu.vn.main;
 
 import java.util.Scanner;
+import Fasttrack.edu.vn.model.*;
 public class quanlisinhvien {
 	public static int tongsosinhvien=0;
 	public static sinhvien[] sv = new sinhvien[100];
@@ -37,7 +38,6 @@ public class quanlisinhvien {
 		tongsosinhvien = myScanner.nextInt();
 		for(int i=0;i<tongsosinhvien;i++) {
 			sinhvien newSV = new sinhvien();
-			
 			myScanner.nextLine();
 			System.out.print("Ten cua sinh vien thu "+(i+1) + ": ");
 			String name = myScanner.nextLine();
@@ -51,9 +51,7 @@ public class quanlisinhvien {
 			System.out.println("Diem LP2 : ");
 			int point2 = myScanner.nextInt();
 			newSV.set_diemLP2(point2);
-			
 			sv[i] = newSV;
-			
 			System.out.println("Diem trung binh : "+sv[i].tinh_diemTB());
 			System.out.println("Xep loai : "+sv[i].xeploai());
 			back_menu();
@@ -64,11 +62,9 @@ public class quanlisinhvien {
 		System.out.println("An Enter de tro ve !");
 		myScanner.nextLine();
 	}
-	public static void in_danh_sach(sinhvien sv) {
+	public static void in_danh_sach() {
 		System.out.print("Danh sach sinh vien");
-		for(int i=0;i<tongsosinhvien;i++) {
-		System.out.print(sv.get_tensinhvien());
-		}
+
 	}
 	public static void in_sinhvien_maxmin() {
 		

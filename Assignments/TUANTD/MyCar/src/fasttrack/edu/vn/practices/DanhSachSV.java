@@ -33,7 +33,6 @@ public class DanhSachSV {
 			ngaysinhsv = input.nextLine();
 			System.out.println("Nhập Điểm LP#1 Cho Sinh Viên Thứ " + (z + 1) + " : ");
 			LP1 = input.nextFloat();
-
 			System.out.println("Nhập Điểm LP#2 Cho Sinh Viên Thứ " + (z + 1) + " : ");
 			LP2 = input.nextFloat();
 			System.out.println("Nhập Điểm LP#3 Cho Sinh Viên Thứ " + (z + 1) + " : ");
@@ -65,7 +64,7 @@ public class DanhSachSV {
 	}
 
 	// sửa
-	public static void edit() {
+	public static void Edit() {
 		System.out.println("Tên Khách Hàng Cần Sửa :");
 		String namesv = input.next();
 		System.out.println("Tên Khách Hàng Mới :");
@@ -78,27 +77,36 @@ public class DanhSachSV {
 	}
 
 	// xóa
-	public static void delete() {
+	public static void Delete() {
 		System.out.println("Tên Khách Hàng Cần Xóa :");
 		String namesv = input.next();
-		for (QLSinhViên x : arraySinhVien) {
-			if ((x.getNamesv()).equals(namesv)) {
-				arraySinhVien.remove(x);
-				break;
+		for(int z = 0; z < arraySinhVien.size(); z++) {
+			for (QLSinhViên x : arraySinhVien) {
+				if ((x.getNamesv()).indexOf(namesv) > -1) {
+					arraySinhVien.remove(x);
+					z--;
+					break;
+				}
 			}
 		}
 	}
 
 	// tìm kiếm
-	public static void view() {
-		System.out.println("Nhập Tên Khách Hàng Cần Tìm :");
-		String namesv = input.next();
-		for (QLSinhViên x : arraySinhVien) {
-			if ((x.getNamesv()).equals(namesv)) {
-				arraySinhVien.contains(namesv);
-				System.out.println("Tên Khách Hàng Cần Tìm  Là :" + namesv);
+	public static void View() {
+		try {
+			System.out.println("Tên Sinh Viên Cần Tìm :");
+			String namesv = input.next();
+			for (QLSinhViên x : arraySinhVien) {
+				if ((x.getNamesv()).equals(namesv)) {
+					arraySinhVien.contains(namesv);
+					System.out.println("Tên Sinh viên Đó Là :" + namesv);
+					System.out.println("<---------------------------------->");
+				} else {
+					throw new Exception();
+				}
 			}
-
+		} catch (Exception e2) {
+			System.out.println("Tên Sinh Viên Nhập Vào Không Có!  ");
 		}
 	}
 
@@ -234,11 +242,11 @@ public class DanhSachSV {
 				} else if (aye == 6) {
 					SapXepTen();
 				} else if (aye == 7) {
-					edit();
+					Edit();
 				} else if (aye == 8) {
-					delete();
+					Delete();
 				} else if (aye == 9) {
-					view();
+					View();
 				} else if (aye == 10) {
 					KetThuc();
 				} else {

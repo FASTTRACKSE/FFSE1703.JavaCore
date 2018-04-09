@@ -63,7 +63,7 @@ public class QLsinhvien {
 	public static void xoaten() {
 		System.out.println("Nhập tên cần xóa: ");
 		String ten = myInput.nextLine();
-		
+		for(int i = 0; i < arr.size(); i++);
 		for(SinhVien x : arr) {
 			if ((x.getSvName()).equals(ten)) {
 				arr.remove(x);
@@ -113,7 +113,13 @@ public class QLsinhvien {
 				timkiem();
 			} else if (option == 0) {
 				ketthuc();
+			} else {
+                try {
+					throw new Exception();
+				} catch (Exception e) {
+					System.out.println("Chỉ nhập từ 1->5");
+				}
 			}
-		}
+		} 
 	}
 }

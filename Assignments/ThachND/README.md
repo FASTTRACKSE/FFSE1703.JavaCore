@@ -17,4 +17,8 @@
 [HinhTamGiac](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhTamGiac.java)
 [HinhVuong](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/model/HinhVuong.java)
 [Main](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/HinhHoc_DaHinh/src/ffse1703/javacore/main/Main.java)
+8. Assignment 7: [QLSinhVien2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/sinhvien/src/fastrack/edu/vn/practices/QLsinhvien.java)
+[SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/sinhvien/src/fastrack/edu/vn/practices/SinhVien.java)
+
+
 ### Assignment List
