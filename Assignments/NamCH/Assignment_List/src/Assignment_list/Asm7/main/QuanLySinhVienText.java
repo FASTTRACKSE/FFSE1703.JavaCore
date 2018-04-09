@@ -1,11 +1,11 @@
 package Assignment_list.Asm7.main;
-import Assignment_list.Asm7.io.SerializeFileFactory;
+import Assignment_list.Asm7.io.*;
 import Assignment_list.Asm7.model.SinhVien;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.File;
-public class QuanLySinhVien {
+public class QuanLySinhVienText {
 	public static Scanner input=new Scanner(System.in);	
 	public static ArrayList<SinhVien> arrSv=new ArrayList<SinhVien>();
 	public static int stt=0;
@@ -17,9 +17,9 @@ public class QuanLySinhVien {
 		System.out.println("         THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("         ============================");
 		System.out.print("         Bạn muốn nhập bao nhiêu Sinh Viên :");
-		File file = new File("D:/FFSE1703.JavaCore/Assignments/NamCH/Assignment_List/dulieusinhvien.txt");	    
+		File file = new File("D:/FFSE1703.JavaCore/Assignments/NamCH/Assignment_List/dulieusinhvientext.txt");	    
 	    if(file.exists()) {
-	    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
+	    	ArrayList<SinhVien> arrSvFile = TextFileFactory.readFile("dulieusinhvientext.txt");
 	  		arrSv=arrSvFile;
 	    }		
 		try {
@@ -34,7 +34,7 @@ public class QuanLySinhVien {
 			System.out.print("         Nhap Điểm LP2 cho sinh vien thu " + (stt+1)  + " : ");
 			float diemLp2 = Float.parseFloat(input.nextLine())	;
 			arrSv.add(new SinhVien(hoTen,ngaySinh,diemLp1,diemLp2));			
-			boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
+			boolean checked= TextFileFactory.saveFile(arrSv, "dulieusinhvientext.txt");
 			if (checked == true) {
 				System.out.println("Đã lưu thông tin của "+size +" sinh viên");
 			} else {
@@ -52,7 +52,6 @@ public class QuanLySinhVien {
 		System.out.println("         ==========================");
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
 		int i=0;
-		ArrayList<SinhVien> arrSv = SerializeFileFactory.readFile("dulieusinhvien.txt");
 		for(SinhVien x :arrSv) {			
 			System.out.print("          "+(i+1)+"\t");
 			System.out.println(x);
