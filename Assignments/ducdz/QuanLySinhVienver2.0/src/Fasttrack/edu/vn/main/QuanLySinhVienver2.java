@@ -108,19 +108,19 @@ public class QuanLySinhVienver2 {
 		System.out.println("Danh sach diem TB");
 		int max = arrSv.size();
 		int min = arrSv.size();
-		int vitrimax = 1;
-		int vitrimin = 1;
+		int vitrimax=0;
+		int vitrimin=1;
 		for (int i = 0; i < arrSv.size(); i++) {
 			if (max < arrSv.get(i).getDiemTB()) {
-				max = arrSv.get(i).getDiemTB();
 				vitrimax = i + 1;
+				max = arrSv.get(i).getDiemTB();
 			}
 		}
 		System.out.println("Sinh vien thu " + vitrimax + " co diem TB cao nhat: " + max);
 		for (int i = 0; i < arrSv.size(); i++) {
 			if (min > arrSv.get(i).getDiemTB()) {
-				min = arrSv.get(i).getDiemTB();
 				vitrimin = i + 1;
+				min = arrSv.get(i).getDiemTB();
 			}
 		}
 		System.out.println("Sinh vien thu " + vitrimin + " co diem TB thap nhat: " + min);
@@ -155,7 +155,7 @@ public class QuanLySinhVienver2 {
 				System.out.println("Ten sinh vien moi: ");
 				String tenMoi = myScanner.next();
 				arrSv.get(i).setTenSv(tenMoi);
-				System.out.println("Da doi thanh cong ten cua sinh vien "+tenMoi);
+				System.out.println("Da doi thanh cong ten cua sinh vien: "+tenMoi);
 				System.out.println("Ten sinh vien: "+arrSv.get(i).getTenSv());
 				System.out.println("Ngay sinh sinh vien: "+arrSv.get(i).getNgaysinhSv());
 				System.out.println("Diem LP1: "+arrSv.get(i).getDiemLP1());
