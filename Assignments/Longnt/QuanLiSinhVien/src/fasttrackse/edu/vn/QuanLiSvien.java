@@ -27,7 +27,6 @@ public class QuanLiSvien {
 			System.out.println("Lựa chọn của bạn");
 			
 			int myOption = myScanner.nextInt();
-			
 			if (myOption == 1) {
 				nhapThongTinSinhVien();
 			} else if (myOption == 2) {
@@ -123,6 +122,7 @@ public class QuanLiSvien {
  	   for (int  i=0 ; i < arrSinhVien.length ; i++) { 
  		   System.out.println("                  "+ arrSinhVien[i] +"               "+ diemLP1[i] +"               "+ diemLP2[i] +"                 "+ diemTB[i] +"     ");
     }}
+    
    
     public static void ketThuc() {
 		System.out.println("Kết thúc chương trình");

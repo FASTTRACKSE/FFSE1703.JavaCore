@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import sinhvien.model.*;
-
+import quanlisinhvien.io.*;
 public class QuanLiSV {
 
 	public static Scanner scanner = new Scanner(System.in);
@@ -43,9 +43,16 @@ public class QuanLiSV {
 			System.out.println("Hay nhap dung dinh dang");
 			scanner.nextLine();
 		}
+		boolean kt = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
+		if (kt == true) {
+			System.out.println("Đã lưu file thành công");
+		} else {
+			System.out.println("Lưu file thất bại");
+		}
 	}
 
 	public static void indanhsach() {
+		ArrayList<SinhVien> sv = SerializeFileFactory.docFile("dulieu2.txt");
 		System.out.println("Danh Sach Sinh Vien");
 		// tự chỉnh lại cái ni cho đều nữa
 		System.out.printf("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s |\n", "Ten", "Ngay Sinh", "Diem LP1",
@@ -145,7 +152,7 @@ public class QuanLiSV {
 				"Diem LP2", "Diem TB", "Xep Loai");
 
 		for (SinhVien x : arrSinhVien) {
-			if (x.getStuName().equalsIgnoreCase(stuName)) {
+			if (x.getStuName().indexOf(stuName)>-1) {
 				System.out.println(x);
 
 			}
@@ -164,7 +171,7 @@ public class QuanLiSV {
 				"Diem LP2", "Diem TB", "Xep Loai");
 
 		for (SinhVien x : arrSinhVien) {
-			if (x.getStuName().equalsIgnoreCase(stuName)) {
+			if (x.getStuName().indexOf(stuName)>-1) {
 				x.setStuName(reName);
 				System.out.println(x);
 
@@ -185,10 +192,10 @@ public class QuanLiSV {
 		System.out.println("Nhap ten sinh vien ban muon xoa");
 		String stuName = scanner.nextLine();
 		for (int i = 0; i < arrSinhVien.size(); i++) {
-			if (arrSinhVien.get(i).getStuName().equalsIgnoreCase(stuName)) {
+			if (arrSinhVien.get(i).getStuName().indexOf(stuName)>-1) {
 				arrSinhVien.remove(i);
 				i--;
-			}
+			}	
 		}
 		System.out.println("Danh sach sinh vien moi nhat");
 		System.out.printf("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s |\n", "Ten", "Ngay Sinh", "Diem LP1",
@@ -208,15 +215,15 @@ public class QuanLiSV {
 			try {
 				System.out.println("---LUA CHON CHUC NANG---");
 				System.out.println("_______________________________________" + "\n");
-				System.out.println("1: Nhap ten sinh vien ");
-				System.out.println("2: In danh sach");
-				System.out.println("3: In sinh vien cao diem va tha");
-				System.out.println("4: In sinh vien DTB tu cao den thap");
-				System.out.println("5: In sinh vien DTB theo ABC");
-				System.out.println("6: In sinh vien theo ten");
-				System.out.println("7: Doi ten sinh vien");
-				System.out.println("8: Xoa sinh vien");
-				System.out.println("Ket Thuc Chuong Trinh");
+				System.out.println("||1: Nhap ten sinh vien 	     \t||");
+				System.out.println("||2: In danh sach                    \t||");
+				System.out.println("||3: In sinh vien cao diem va tha    \t||");
+				System.out.println("||4: In sinh vien DTB tu cao den thap\t||");
+				System.out.println("||5: In sinh vien DTB theo ABC       \t||");
+				System.out.println("||6: In sinh vien theo ten           \t||");
+				System.out.println("||7: Doi ten sinh vien               \t||");
+				System.out.println("||8: Xoa sinh vien                   \t||");
+				System.out.println("||Ket Thuc Chuong Trinh              \t||");
 
 				System.out.println("_______________________________________" + "\n");
 

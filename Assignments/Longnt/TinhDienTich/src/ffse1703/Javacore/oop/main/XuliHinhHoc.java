@@ -101,6 +101,7 @@ public class XuliHinhHoc {
 			else if (x instanceof HinhVuong) {
 			System.out.printf("%-10s%-20s%-10s \n", ((HinhVuong) x).getCanh(), x.getChuVi(), x.getDienTich());
 		}
+		
 	}}
 	
 	public static void ketThuc() {
