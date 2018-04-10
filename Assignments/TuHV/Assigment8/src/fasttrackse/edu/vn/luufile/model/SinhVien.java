@@ -1,8 +1,9 @@
-package fasttrackse.edu.vn.quanlysinhvien;
+package fasttrackse.edu.vn.luufile.model;
 
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class SinhVien {
+public class SinhVien implements Serializable {
 	public static Scanner myScanner = new Scanner(System.in);
 
 	private String SVten;
@@ -28,8 +29,6 @@ public class SinhVien {
 	public SinhVien() {
 
 	}
-
-	
 
 	public void setSVten(String name) {
 		this.SVten = name;
