@@ -21,6 +21,6 @@
                  [Quản Lý Sinh Viên Nâng Cao](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/QLSinhVi%C3%AAn.java)
 7. Assignment 8: [Lưu thông tin luồng byte](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/main/QuanLySinhVien.java   )
                  [Lưu thông tin luồng character](                                                                https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/main/QuanLySinhVienText.java     )
-                 [io byte]()
-                 [io character]()
+                 [io byte](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/SerializeFileFactory.java)
+                 [io character](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/TextFileFactory.java)
                  [class SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/model/SinhVien.java)
