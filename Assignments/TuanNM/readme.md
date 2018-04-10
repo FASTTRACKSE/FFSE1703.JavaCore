@@ -12,9 +12,16 @@
 7. Assignment 6: [Danh sách sinh viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/my_Menu/src/assignment3/dsSinhVien.java)
 #### Lập trình hướng đối tượng
 
-1. Assignment 1: [Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/myStudent.java)
+1. Assignment 4: [Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/myStudent.java)
 [Danh sách Student](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/importStudent.java)
-2. Assignment 2: [Class khách hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/KhachHang.java)
+2. Assignment 5: [Class khách hàng](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/KhachHang.java)
 [Class biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/BienLai.java)
 [Main biên lai](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/qunlitiendien/src/QuanLyTienDien/ImportCustomer.java)
+3. Assignment 6: [Abstract Hinh Hoc](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhHoc.java)
+[class Hinh chu nhat](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhChuNhat.java)
+[class Hinh tron](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhTron.java)
+[class hinh tam giac](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/modle/HinhTamGiac.java)
+[Main hinh Hoc](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/tinhtruutuong/src/ffse1703013/hinhhoc/main/MainHinhHoc.java)
+4. Assignment7: [class Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/MyStudent.java)
+[Main Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/ImportStudent.java)
 

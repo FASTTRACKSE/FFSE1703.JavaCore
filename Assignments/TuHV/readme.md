@@ -28,3 +28,27 @@
  (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLyDienLuc/src/fasttrackse/edu/vn/model/BienLai.java)
  <h1></h1>.[Quản Lý Tiền Điện]
  (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLyDienLuc/src/fasttrackse/edu/vn/main/QuanLyTienDien.java)
+ <h1>Assigment 6</h1>
+ <h1></h1>.[Hình tròn]
+ (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/model/HinhTron.java)
+ <h1></h1>.[Hình vuông]
+ (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/model/HinhVuong.java)
+ <h1></h1>.[Hình tam giác]
+ (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/model/HinhTamGiac.java)
+  <h1></h1>.[Hình chủ nhật]
+  (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/model/HinhChuNhat.java)
+   <h1></h1>.[Hình học]
+   (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/main/HinhHoc.java)
+
+   <h1></h1>.[Tính Toán  Hình học]
+   (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/HinhHoc/src/fasttrackse/edu/vn/hinhhoc/main/TinhToanHinhHoc.java)
+   <h1>Assigment 7</h1>[Quản lý sinh viên]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/QuanLySinhVien.java)
+ <h1></h1>.[Sinh viên]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/QuanLySinhVien/src/fasttrackse/edu/vn/quanlysinhvien/SinhVien.java)
+
+
+  
+ 
+ 
+ 
