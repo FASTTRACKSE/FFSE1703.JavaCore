@@ -1,15 +1,15 @@
 package ffse1703.dienluc.model;
 
-public class KhachHang {
+public class SinhVien {
 	public String MasoKH ;
 	public String TenKH;
 	public String DiaChiKH;
 	public double MaCongTo;
 	//
-	public KhachHang() {
+	public SinhVien() {
 		
 	}
-	public KhachHang(String MasoKH,String TenKH,String DiaChiKH,double MaCongTo) {
+	public SinhVien(String MasoKH,String TenKH,String DiaChiKH,double MaCongTo) {
 		this.MasoKH = MasoKH;
 		this.TenKH = TenKH;
 		this.DiaChiKH = DiaChiKH;

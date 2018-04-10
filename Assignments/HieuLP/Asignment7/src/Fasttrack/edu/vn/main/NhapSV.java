@@ -3,7 +3,7 @@ package Fasttrack.edu.vn.main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Fasttrack.edu.vn.SinhVien;
+import Fasttrack.edu.vn.model.SinhVien;
 
 public class NhapSV {
 	public static Scanner myScanner = new Scanner(System.in);

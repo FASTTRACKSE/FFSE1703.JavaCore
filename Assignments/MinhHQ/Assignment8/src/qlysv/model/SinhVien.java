@@ -1,10 +1,11 @@
-package Fasttrack.edu.vn;
+package qlysv.model;
 
 import java.util.Scanner;
 
-import Fasttrack.edu.vn.main.NhapSV;
+import java.io.Serializable;
 
-public class SinhVien {
+public class SinhVien implements Serializable {
+
 
 	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
@@ -20,11 +21,11 @@ public class SinhVien {
 		this.Lp2 = Lp2;
 	}
 	static public void tinhTongSV() {
-		 tongSV++;
-		}
+	 tongSV++;
+	}
 
 	public SinhVien() {
-
+		
 	}
 
 
@@ -66,13 +67,13 @@ public class SinhVien {
 
 	public String XepLoai() {
 		if (getTBM() <= 4.9) {
-			return "Yáº¿u";
-		} else if (getTBM() >= 5.0 && getTBM() <= 6.9) {
-			return "Trung BÃ¬nh";
-		} else if (getTBM() >= 7 && getTBM() <= 8.4) {
-			return "KhÃ¡";
+			return "Yếu";
+		} else if (getTBM() <= 6.9) {
+			return "Trung Bình";
+		} else if (getTBM() <= 8.4) {
+			return "Khá";
 		} else {
-			return "Giá»�i";
+			return "Giỏi";
 		}
 	}
 

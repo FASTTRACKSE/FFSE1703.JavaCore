@@ -6,15 +6,15 @@ public class SinhVien implements Serializable {
 	private float Lp1;
 	private float Lp2;
 	private float Lp3;
-	static int tongsv = 0;
+	static int tongSV = 0;
 	public int getTongsv() {
-		return tongsv;
+		return tongSV;
 	}
 	 static void setTongsv() {
-		tongsv++;
+		tongSV++;
 	}
 	 static void Tongsv() {
-			tongsv--;
+			tongSV--;
 		}
 	public SinhVien() {
 		
@@ -61,8 +61,8 @@ public class SinhVien implements Serializable {
 	public void setLp3(float lp3) {
 		Lp3 = lp3;
 	}
-	public static void setTongsv(int tongsv) {
-		SinhVien.tongsv = tongsv;
+	public static void setTongsv(int tongSV) {
+		SinhVien.tongSV = tongSV;
 	}
 	public String getXepLoai() {		 
     	if(getDiemTB()<=4.9) {

@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import sinhvien.model.*;
-
+import quanlisinhvien.io.*;
 public class QuanLiSV {
 
 	public static Scanner scanner = new Scanner(System.in);
@@ -43,9 +43,16 @@ public class QuanLiSV {
 			System.out.println("Hay nhap dung dinh dang");
 			scanner.nextLine();
 		}
+		boolean kt = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
+		if (kt == true) {
+			System.out.println("Đã lưu file thành công");
+		} else {
+			System.out.println("Lưu file thất bại");
+		}
 	}
 
 	public static void indanhsach() {
+		ArrayList<SinhVien> sv = SerializeFileFactory.docFile("dulieu2.txt");
 		System.out.println("Danh Sach Sinh Vien");
 		// tự chỉnh lại cái ni cho đều nữa
 		System.out.printf("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s |\n", "Ten", "Ngay Sinh", "Diem LP1",
@@ -188,7 +195,7 @@ public class QuanLiSV {
 			if (arrSinhVien.get(i).getStuName().indexOf(stuName)>-1) {
 				arrSinhVien.remove(i);
 				i--;
-			}
+			}	
 		}
 		System.out.println("Danh sach sinh vien moi nhat");
 		System.out.printf("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s |\n", "Ten", "Ngay Sinh", "Diem LP1",
