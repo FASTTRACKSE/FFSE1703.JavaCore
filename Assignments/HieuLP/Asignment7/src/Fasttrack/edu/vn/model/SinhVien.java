@@ -1,4 +1,4 @@
-package Fasttrack.edu.vn;
+package Fasttrack.edu.vn.model;
 
 import java.util.Scanner;
 

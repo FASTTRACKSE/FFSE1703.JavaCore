@@ -6,7 +6,7 @@ import java.util.Collections;
 
 import SinhVien.model.*;
 import SinhVien.io.*;
-public class QuanLySv {
+public class QuanLySvtext {
 	public static ArrayList<SinhVien> arrsv = new ArrayList<SinhVien>();
 	public static Scanner sc = new Scanner(System.in);
 
@@ -28,7 +28,7 @@ public class QuanLySv {
 			System.out.println("Điểm lp2");
 			Double diemLP2 = Double.parseDouble(sc.nextLine());
 			arrsv.add(new SinhVien(tenSv, nSinh, diemLP1, diemLP2));
-			boolean kt = SerializeFileFactory.luuFile(arrsv, "dulieu.txt");
+			boolean kt = TextFileFactory.luuFile(arrsv, "dulieu1.txt");
 			if (kt == true) {
 				System.out.println("Đã lưu file thành công");
 			} else {
@@ -38,10 +38,10 @@ public class QuanLySv {
 	}
 
 	public static void inDs() {
-		ArrayList<SinhVien> arrsv = SerializeFileFactory.docFile("dulieu.txt");
+		ArrayList<SinhVien> arrSv = TextFileFactory.docFile("dulieu1.txt");
 		System.out.printf("%-15s | %-20s | %-20s | %-20s |%-20s |  \n", "Tên Sv", "Ngày sinh", " Điểm lp1", " Điểm lp2",
 				"Điểm tb");
-		for (SinhVien x : arrsv) {
+		for (SinhVien x : arrSv) {
 			System.out.printf("%-15s | %-20s | %-20s | %-20s |%-20s | \n", x.getHoTen(), x.getnSinh(), x.getDiemLp1(),
 					x.getDiemLp2(), x.getDiemTb());
 		}
