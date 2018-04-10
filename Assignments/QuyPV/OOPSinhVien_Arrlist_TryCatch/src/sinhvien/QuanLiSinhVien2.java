@@ -4,14 +4,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import io.*;
 
-public class QuanLiSinhVien {
+public class QuanLiSinhVien2 {
 
 	private ArrayList<SinhVien> arr = new ArrayList<>();
 	private int soLuong;
 	private Scanner myInput = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		QuanLiSinhVien main = new QuanLiSinhVien();
+		QuanLiSinhVien2 main = new QuanLiSinhVien2();
 		main.myMenu();
 	}
 
@@ -189,7 +189,7 @@ public class QuanLiSinhVien {
 	}
 
 	public void luuFile() {
-		boolean kt = SerializeFile.luuFile(arr, "sinhvien.txt");
+		boolean kt = TextFile.luuFile(arr, "sinhvien2.txt");
 		if (kt == true) {
 			System.out.println("Lưu file thành công");
 		} else {
@@ -199,7 +199,7 @@ public class QuanLiSinhVien {
 
 	public void docFile() {
 		int i = 1;
-		ArrayList<SinhVien> arrFile = SerializeFile.docFile("sinhvien.txt");
+		ArrayList<SinhVien> arrFile = TextFile.docFile("sinhvien2.txt");
 		arr = arrFile;
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
