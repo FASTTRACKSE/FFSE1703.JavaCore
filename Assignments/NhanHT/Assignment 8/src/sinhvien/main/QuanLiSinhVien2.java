@@ -2,17 +2,26 @@ package sinhvien.main;
 
 import java.util.Scanner;
 import sinhvien.model.*;
+import sinhvien.io.*;
 import java.util.ArrayList;
 
-public class QuanLiSinhVien {
+public class QuanLiSinhVien2 {
 	public static int soluong;
 	public static ArrayList<SinhVien> arrSinhVien = new ArrayList<>();
 	public static Scanner myInput = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		myMenu();
+		//
+		ArrayList<SinhVien> arrSinhVien = Text.docFile("dulieu2.txt");
 
-	}
+		System.out.println("Danh sach khach hang nhap vao may la :");
+		for (SinhVien kh : arrSinhVien) {
+			System.out.println(kh);
+		}
+}
+
+
 
 	public static void nhapTen() {
 		System.out.println("<=====NHAP SINH VIEN=====>");
@@ -34,6 +43,15 @@ public class QuanLiSinhVien {
 			SinhVien.TongSo();
 		}
 		System.out.println("So Luong Sinh Vien Da Nhap Vao: " + SinhVien.tongso);
+		
+		// luu file
+		boolean kt = Text.luuFile(arrSinhVien, "dulieu2.txt");
+		if (kt == true) {
+			System.out.println("Luu file thanh cong !!");
+		} else {
+			System.out.println("Luu file that bai !!");
+		}
+		//
 	}
 
 	public static void inDanhSach() {
