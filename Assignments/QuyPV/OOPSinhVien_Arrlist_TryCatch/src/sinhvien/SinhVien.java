@@ -1,6 +1,7 @@
 package sinhvien;
 import java.util.Scanner;
-public class SinhVien {
+import java.io.Serializable;
+public class SinhVien implements Serializable {
 	public String hoTen;
 	public String ngaySinh;
 	public double diemLp1, diemLp2;
@@ -78,5 +79,9 @@ public class SinhVien {
 	
 	public static void setTongSo() {
 		tongSo++;
+	}
+	
+	public static void updateTongSo() {
+		tongSo--;
 	}
 }

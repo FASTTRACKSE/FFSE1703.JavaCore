@@ -52,42 +52,40 @@ public class QuanLySinhVien {
 		System.out.print("\n");
 		try {
 			System.out.print("Nhap so luong sinh vien: ");
-			int Sv = myInput.nextInt();
+			Sv = myInput.nextInt();
 			Sinhvien = new SinhVien[Sv];
-			for (int i = 0; i < Sv; i++) {
-				Sinhvien[i] = new SinhVien();
-				System.out.print("Nhap ten sinh vien: ");
-				String Hoten = myInput.next();
-				Sinhvien[i].setHoten(Hoten);
-				try {
-					System.out.print("Nhap tuoi sinh vien: ");
-					int tuoiSV = myInput.nextInt();
-					Sinhvien[i].setTuoiSV(tuoiSV);
-				} catch (Exception e) {
-					System.out.println("Xin hay nhap so!");
-					myInput.nextLine();
-				}
-				try {
-					System.out.print("Nhap diem LP1: ");
-					float DiemLP1 = myInput.nextFloat();
-					Sinhvien[i].setDiemLP1(DiemLP1);
-				} catch (Exception e) {
-					System.out.println("Xin hay nhap so!");
-					myInput.nextLine();
-				}
-				try {
-					System.out.print("Nhap diem LP2: ");
-					float DiemLP2 = myInput.nextFloat();
-					Sinhvien[i].setDiemLP2(DiemLP2);
-				} catch (Exception e) {
-					System.out.println("Xin hay nhap so!");
-					myInput.nextLine();
-				}
-				arrSinhVien.add(Sinhvien[i]);
-			}
 		} catch (Exception e) {
 			System.out.println("Xin hay nhap so!");
-			myInput.nextLine();
+			
+		}
+		for (int i = 0; i < Sv; i++) {
+			Sinhvien[i] = new SinhVien();
+			System.out.print("Nhap ten sinh vien: ");
+			String Hoten = myInput.next();
+			Sinhvien[i].setHoten(Hoten);
+			try {
+				System.out.print("Nhap tuoi sinh vien: ");
+				int tuoiSV = myInput.nextInt();
+				Sinhvien[i].setTuoiSV(tuoiSV);
+			} catch (Exception e) {
+				System.out.println("Xin hay nhap so!");
+				myInput.nextLine();
+			}
+			try {
+				System.out.print("Nhap diem LP1: ");
+				float DiemLP1 = myInput.nextFloat();
+				Sinhvien[i].setDiemLP1(DiemLP1);
+			} catch (Exception e) {
+				System.out.println("Xin hay nhap so!");
+			}
+			try {
+				System.out.print("Nhap diem LP2: ");
+				float DiemLP2 = myInput.nextFloat();
+				Sinhvien[i].setDiemLP2(DiemLP2);
+			} catch (Exception e) {
+				System.out.println("Xin hay nhap so!");
+			}
+			arrSinhVien.add(Sinhvien[i]);
 		}
 		myInput.nextLine();
 		System.out.print("\n");

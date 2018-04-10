@@ -38,7 +38,7 @@ public class Main {
 				nhapHTG();
 			} else if (act == 3) {
 				nhapHCN();
-			}else if (act == 4 ) {
+			} else if (act == 4) {
 				inGiaTri();
 			} else {
 				ketThuc();
@@ -61,60 +61,65 @@ public class Main {
 
 	}
 
- public static void nhapHCN() {
- Scanner input=new Scanner(System.in);
- HinhChuNhat a =new HinhChuNhat();
- System.out.println("Nhập Chiều dài hình chữ nhật : ");
- int cd = input.nextInt();
- a.setChieuDai(cd);
- System.out.println("Nhập Chiều rộng hình chữ nhật : ");
- int cr = input.nextInt();
- a.setChieuRong(cr);
+	public static void nhapHCN() {
+		Scanner input = new Scanner(System.in);
+		HinhChuNhat a = new HinhChuNhat();
+		System.out.println("Nhập Chiều dài hình chữ nhật : ");
+		int cd = input.nextInt();
+		a.setChieuDai(cd);
+		System.out.println("Nhập Chiều rộng hình chữ nhật : ");
+		int cr = input.nextInt();
+		a.setChieuRong(cr);
 
- arrHinhChuNhat.add(a);
- }
- public static void nhapHTG() {
- Scanner input=new Scanner(System.in);
- HinhTamGiac a =new HinhTamGiac();
- System.out.println("Nhập Chiều dài cạnh A : ");
- int cA = input.nextInt();
- a.setCanhA(cA);
- System.out.println("Nhập Chiều dài cạnh B : ");
- int cB = input.nextInt();
- a.setCanhB(cB);
- System.out.println("Nhập Chiều dài cạnh C : ");
- int cC = input.nextInt();
- a.setCanhC(cC);
- System.out.println("Nhập Chiều Cao : ");
- int chieuC = input.nextInt();
- a.setChieuCao(chieuC);
- System.out.println("Nhập Chiều Đáy : ");
- int day = input.nextInt();
- a.setCanhDay(day);
- 
- arrHinhTamGiac.add(a);
- }
- 
+		arrHinhChuNhat.add(a);
+	}
+
+	public static void nhapHTG() {
+		Scanner input = new Scanner(System.in);
+		HinhTamGiac a = new HinhTamGiac();
+		System.out.println("Nhập Chiều dài cạnh A : ");
+		int cA = input.nextInt();
+		a.setCanhA(cA);
+		System.out.println("Nhập Chiều dài cạnh B : ");
+		int cB = input.nextInt();
+		a.setCanhB(cB);
+		System.out.println("Nhập Chiều dài cạnh C : ");
+		int cC = input.nextInt();
+		a.setCanhC(cC);
+		System.out.println("Nhập Chiều Cao : ");
+		int chieuC = input.nextInt();
+		a.setChieuCao(chieuC);
+		System.out.println("Nhập Chiều Đáy : ");
+		int day = input.nextInt();
+		a.setCanhDay(day);
+
+		arrHinhTamGiac.add(a);
+	}
+
 	public static void inGiaTri() {
-		
+
 		System.out.println("| ------------------------DANH SÁCH HIỂN THỊ-----------------------------   |");
 		System.out.println("--------------------------------------------------------------------------");
-		for(int i=0;i<arrHinhTron.size();i++) {
-			System.out.println("Hình Tròn: Bán Kính: "+ arrHinhTron.get(i).getBanKinh()+ " || " + "Chu Vi: "+arrHinhTron.get(i).getChuVi()+ " || "+" Diện Tích: " +arrHinhTron.get(i).getDienTich());
+		for (int i = 0; i < arrHinhTron.size(); i++) {
+			System.out.println("Hình Tròn: Bán Kính: " + arrHinhTron.get(i).getBanKinh() + " || " + "Chu Vi: "
+					+ arrHinhTron.get(i).getChuVi() + " || " + " Diện Tích: " + arrHinhTron.get(i).getDienTich());
 		}
 		System.out.println("--------------------------------------------------------------------------");
-		for(int i=0;i<arrHinhChuNhat.size();i++) {
-			System.out.println("Hình Chữ Nhật: Chiều dài: "+ arrHinhChuNhat.get(i).getChieuDai()+ " || " +"Chiều Rộng : "+arrHinhChuNhat.get(i).getChieuRong()+" || "+ "Chu Vi: "+arrHinhChuNhat.get(i).getChuVi()+ " || " +" Diện Tích: " +arrHinhChuNhat.get(i).getDienTich());
+		for (int i = 0; i < arrHinhChuNhat.size(); i++) {
+			System.out.println("Hình Chữ Nhật: Chiều dài: " + arrHinhChuNhat.get(i).getChieuDai() + " || "
+					+ "Chiều Rộng : " + arrHinhChuNhat.get(i).getChieuRong() + " || " + "Chu Vi: "
+					+ arrHinhChuNhat.get(i).getChuVi() + " || " + " Diện Tích: " + arrHinhChuNhat.get(i).getDienTich());
 		}
 		System.out.println("--------------------------------------------------------------------------");
-		for(int i=0;i<arrHinhTamGiac.size();i++) {
-			System.out.println("Hình Tam Giác:  "+  "Chu Vi: "+arrHinhTamGiac.get(i).getChuVi()+ " || " +" Diện Tích: " +arrHinhTamGiac.get(i).getDienTich());
+		for (int i = 0; i < arrHinhTamGiac.size(); i++) {
+			System.out.println("Hình Tam Giác:  " + "Chu Vi: " + arrHinhTamGiac.get(i).getChuVi() + " || "
+					+ " Diện Tích: " + arrHinhTamGiac.get(i).getDienTich());
 		}
-		
-		
+
 	}
+
 	public static void ketThuc() {
 		System.out.println("Kết thúc chương trình!!!!!");
 		System.exit(0);
 	}
- }
+}
