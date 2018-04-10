@@ -1,5 +1,5 @@
 package fasttrack.edu.vn;
-
+import java.util.Comparator;
 public class SinhVien {
 	private String namesv;
 	private String ngaysinhsv;
@@ -68,4 +68,24 @@ public class SinhVien {
     		return "Giỏi";
     	}
     }	
+	public static Comparator<SinhVien> compare = new Comparator<SinhVien>() {
+        public int compare(SinhVien sv1, SinhVien sv2) {
+            if (sv1.getDiemTB() > sv2.getDiemTB()) {
+                return 1;
+            } else {
+                if (sv1.getDiemTB() == sv2.getDiemTB()) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        }
+	};
+	public static Comparator<SinhVien> compareName = new Comparator<SinhVien>() {
+		 
+		  @Override
+		  public int compare(SinhVien sv1, SinhVien sv2) {		  
+		    return sv1.namesv.compareTo(sv2.namesv);		   
+		  }
+		 };
 }

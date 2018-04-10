@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-
 import ffse1703.model.*;
 
 public class TextFileFactory {
@@ -17,7 +16,8 @@ public class TextFileFactory {
 			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 			BufferedWriter bw = new BufferedWriter(osw);
 			for (SinhVien sv : dsSV) {
-				String line = sv.getNameSV() + ";" + sv.getNgaySinh() + ";" + sv.getLp1() + ";" + sv.getLp2() + ";" + sv.getLp3();
+				String line = sv.getNameSV() + ";" + sv.getNgaySinh() + ";" + sv.getLp1() + ";" + sv.getLp2() + ";"
+						+ sv.getLp3();
 				bw.write(line);
 				bw.newLine();
 			}
@@ -47,7 +47,7 @@ public class TextFileFactory {
 					float i = Float.parseFloat(arr[2]);
 					float j = Float.parseFloat(arr[3]);
 					float k = Float.parseFloat(arr[4]);
-					SinhVien sv = new SinhVien(arr[0], arr[1] ,i,j,k);
+					SinhVien sv = new SinhVien(arr[0], arr[1], i, j, k);
 					dsSV.add(sv);
 				}
 				line = br.readLine();

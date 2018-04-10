@@ -1,6 +1,6 @@
 package ffse1703.dienluc.model;
 
-public class BienLai extends KhachHang {
+public class BienLai extends SinhVien {
 	public int ChiSoCu;
 	public int ChiSoMoi;
 	public String NgayThang;

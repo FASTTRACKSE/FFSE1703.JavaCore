@@ -9,9 +9,9 @@ import java.util.List;
 public class ImportStudent {
 
 	public static int size;
-	public static MyStudent[] Student = new MyStudent[100];
+	public static SinhVien[] Student = new SinhVien[100];
 	public static Scanner myScanner = new Scanner(System.in);
-	static ArrayList<MyStudent> arrStudent = new ArrayList<MyStudent>();
+	static ArrayList<SinhVien> arrStudent = new ArrayList<SinhVien>();
 
 	public static void main(String[] args) {
 
@@ -24,7 +24,7 @@ public class ImportStudent {
 		size = myScanner.nextInt();
 
 		for (int i = 0; i < size; i++) {
-			Student[i] = new MyStudent();
+			Student[i] = new SinhVien();
 		}
 		for (int i = 0; i < 15; i++) {
 			try {
@@ -44,8 +44,8 @@ public class ImportStudent {
 				System.out.println("Nhấn Enter để tiếp tục");
 				System.out.println("______________________________");
 				myScanner.nextLine();
-				MyStudent.tongSo();
-				arrStudent.add(new MyStudent(ten, ngaySinh, lP1, lP2));
+				SinhVien.tongSo();
+				arrStudent.add(new SinhVien(ten, ngaySinh, lP1, lP2));
 			} catch (Exception e) {
 				System.out.println("Nhập sai. vui lòng nhập lại");
 				myScanner.nextLine();
@@ -55,10 +55,10 @@ public class ImportStudent {
 	}
 
 	public static void dsSinhVien() {
-		System.out.println("Tong so sinh vien la: " + MyStudent.toTal);
+		System.out.println("Tong so sinh vien la: " + SinhVien.toTal);
 		System.out.println("+-------------------------Danh sách sinh viên-----------------------+");
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (MyStudent x : arrStudent) {
+		for (SinhVien x : arrStudent) {
 			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
 					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
 		}
@@ -97,9 +97,9 @@ public class ImportStudent {
 		System.out.println("+--------------Danh sách ss sinh viên--------------+");
 
 
-		Collections.sort(arrStudent, MyStudent.SVDTBComparator);
+		Collections.sort(arrStudent, SinhVien.SVDTBComparator);
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (MyStudent x : arrStudent) {
+		for (SinhVien x : arrStudent) {
 			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
 					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
 		}
@@ -109,9 +109,9 @@ public class ImportStudent {
 
 		System.out.println("+--------------Danh sách ss sinh viên--------------+");
 	
-		Collections.sort(arrStudent, MyStudent.SVNameComparator);
+		Collections.sort(arrStudent, SinhVien.SVNameComparator);
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (MyStudent x : arrStudent) {
+		for (SinhVien x : arrStudent) {
 			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
 					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
 		}
@@ -123,7 +123,7 @@ public class ImportStudent {
 		String ten = myScanner.nextLine();
 		System.out.println("Nhập tên mới:");
 		String tenNew = myScanner.nextLine();
-		for (MyStudent x : arrStudent) {
+		for (SinhVien x : arrStudent) {
 			if (ten.equals(x.getName())) {
 				x.setName(tenNew);
 			}
@@ -136,7 +136,7 @@ public class ImportStudent {
 		String ten = myScanner.nextLine();
 		System.out.println("+-------------------------Danh sách sinh viên-----------------------+");
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (MyStudent x : arrStudent) {
+		for (SinhVien x : arrStudent) {
 			if (ten.equals(x.getName())) {
 				System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t"
 						+ x.getLp2() + "\t" + x.getDtb() + "\t" + x.getXepLoai());
@@ -149,7 +149,7 @@ public class ImportStudent {
 		System.out.println("Nhập tên cần xóa");
 		String ten = myScanner.nextLine();
 		for (int i = 0; i < arrStudent.size(); i++) {
-			for (MyStudent x : arrStudent) {
+			for (SinhVien x : arrStudent) {
 				if (ten.equals(x.getName())) {
 					arrStudent.remove(x);
 					i--;

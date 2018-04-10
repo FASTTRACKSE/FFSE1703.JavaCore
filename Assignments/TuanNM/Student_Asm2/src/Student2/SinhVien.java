@@ -2,7 +2,7 @@ package Student2;
 
 import java.util.Comparator;
 
-public class MyStudent {
+public class SinhVien {
 	private String nameSv;
 	private String Birthday;
 	private String xepLoai;
@@ -11,11 +11,11 @@ public class MyStudent {
 	private Double Dtb;
 	static int toTal = 0;
 
-	public MyStudent() {
+	public SinhVien() {
 
 	}
 
-	public MyStudent(String name, String birthday, Double lp1, Double lp2) {
+	public SinhVien(String name, String birthday, Double lp1, Double lp2) {
 		this.nameSv = name;
 		this.Birthday = birthday;
 		this.lp1 = lp1;
@@ -76,9 +76,9 @@ public class MyStudent {
 		}
 	}
 
-	public static Comparator<MyStudent> SVNameComparator = new Comparator<MyStudent>() {
+	public static Comparator<SinhVien> SVNameComparator = new Comparator<SinhVien>() {
 
-		public int compare(MyStudent s1, MyStudent s2) {
+		public int compare(SinhVien s1, SinhVien s2) {
 			String StudentName1 = s1.getName().toUpperCase();
 			String StudentName2 = s2.getName().toUpperCase();
 
@@ -88,9 +88,9 @@ public class MyStudent {
 
 	};
 
-	public static Comparator<MyStudent> SVDTBComparator = new Comparator<MyStudent>() {
+	public static Comparator<SinhVien> SVDTBComparator = new Comparator<SinhVien>() {
 
-		public int compare(MyStudent s1, MyStudent s2) {
+		public int compare(SinhVien s1, SinhVien s2) {
 
 			Double fDTB1 = s1.getDtb();
 			Double fDTB2 = s2.getDtb();
