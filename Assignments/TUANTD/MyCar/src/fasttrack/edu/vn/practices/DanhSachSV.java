@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DanhSachSV {
 	public static Scanner input = new Scanner(System.in);
 	public static QLSinhViên[] sv = new QLSinhViên[200];
-	public static int tongsosv = 0, n = 0;
+	public static int n = 0;
 	public static String action;
 	static ArrayList<QLSinhViên> arraySinhVien = new ArrayList<QLSinhViên>();
 
@@ -85,6 +85,7 @@ public class DanhSachSV {
 				if ((x.getNamesv()).indexOf(namesv) > -1) {
 					arraySinhVien.remove(x);
 					z--;
+					QLSinhViên.Tongsv();
 					break;
 				}
 			}
@@ -116,13 +117,13 @@ public class DanhSachSV {
 		System.out.println("==================================================");
 		float max = 0;
 		int stt;
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			if (max < sv[i].getDiemTB()) {
 				max = sv[i].getDiemTB();
 				stt = i;
 			}
 		}
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			if (max <= sv[i].getDiemTB()) {
 				System.out.println("Là sinh viên:" + "==>>> " + sv[i].getNamesv() + " <<<==" + "\n"
 						+ "Có điểm trung bình " + max + "\n" + "Có số thứ tự là " + (i + 1));
@@ -139,13 +140,13 @@ public class DanhSachSV {
 		System.out.println("==================================================");
 		float min = 0;
 		int stt;
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			if (min > sv[i].getDiemTB()) {
 				min = sv[i].getDiemTB();
 				stt = i;
 			}
 		}
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			if (min >= sv[i].getDiemTB()) {
 				System.out.println("Là sinh viên:" + "==>>> " + sv[i].getNamesv() + " <<<==" + "\n"
 						+ "Có điểm trung bình " + min + "\n" + "Có số thứ tự là " + (i + 1));
@@ -158,10 +159,10 @@ public class DanhSachSV {
 
 	// sắp Xếp Điểm Trung Bình
 	public static void SapXepĐTB() {
-		QLSinhViên[] temp = new QLSinhViên[tongsosv];
+		QLSinhViên[] temp = new QLSinhViên[n];
 		float tempt;
-		for (int i = 0; i < tongsosv - 1; i++) {
-			for (int j = i + 1; j < tongsosv; j++) {
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = i + 1; j <n; j++) {
 				if (sv[i].getDiemTB() < sv[j].getDiemTB()) {
 					;
 					temp[i] = sv[i];
@@ -170,7 +171,7 @@ public class DanhSachSV {
 				}
 			}
 		}
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.print((i + 1) + "\t");
 			XuatSV();
 		}
@@ -181,10 +182,10 @@ public class DanhSachSV {
 
 	// sắp xếp theo tên sinh viên
 	public static void SapXepTen() {
-		QLSinhViên[] temp = new QLSinhViên[tongsosv];
+		QLSinhViên[] temp = new QLSinhViên[n];
 
-		for (int i = 0; i < tongsosv - 1; i++) {
-			for (int j = i + 1; j < tongsosv; j++) {
+		for (int i = 0; i <n - 1; i++) {
+			for (int j = i + 1; j < n; j++) {
 				if (sv[i].getNamesv().compareTo(sv[j].getNamesv()) > 0) {
 					temp[i] = sv[j];
 					sv[j] = sv[i];
@@ -196,7 +197,7 @@ public class DanhSachSV {
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
 		System.out.println("--------------------------------------------------------------------");
-		for (int i = 0; i < tongsosv; i++) {
+		for (int i = 0; i < n; i++) {
 			System.out.print((i + 1) + "\t");
 			XuatSV();
 		}
