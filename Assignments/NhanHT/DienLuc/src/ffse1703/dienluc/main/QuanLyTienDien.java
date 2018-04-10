@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class QuanLyTienDien {
 public static Scanner myInput = new Scanner(System.in);
 public static int soluong ;
-public static ArrayList<KhachHang> arrKhachHang = new ArrayList<>(); 
+public static ArrayList<SinhVien> arrKhachHang = new ArrayList<>(); 
 public static ArrayList<BienLai> arrBienLai = new ArrayList<>();
 public static int stt = 0;
 public static double tinhtong = 0;
@@ -30,7 +30,7 @@ public static double tinhtong = 0;
 			String DiaChiKH = myInput.nextLine();
 			System.out.println("Nhap Ma Cong To"+"["+(+i+1)+"]: ");
 			double MaCongTo = myInput.nextDouble();
-			arrKhachHang.add(new KhachHang(MasoKH,TenKH,DiaChiKH,MaCongTo));
+			arrKhachHang.add(new SinhVien(MasoKH,TenKH,DiaChiKH,MaCongTo));
 		}
 	}
 	public static void nhapchisotieuthudien() {
@@ -39,7 +39,7 @@ public static double tinhtong = 0;
 			int ThangChuKy = Integer.parseInt(myInput.nextLine());
 			System.out.println("Nhap Nam Chu Ky: ");
 			int NamChuKy = Integer.parseInt(myInput.nextLine());
-		for (KhachHang x: arrKhachHang) {
+		for (SinhVien x: arrKhachHang) {
 			
 			System.out.println("Ma Khach Hang: "+ x.getMasoKH());
 			System.out.println("Ho Va Ten Khach Hang: "+ x.getTenKH());

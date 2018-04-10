@@ -2,6 +2,7 @@ package sinhvien.main;
 
 import java.util.Scanner;
 import sinhvien.model.*;
+import sinhvien.io.*;
 import java.util.ArrayList;
 
 public class QuanLiSinhVien {
@@ -11,8 +12,16 @@ public class QuanLiSinhVien {
 
 	public static void main(String[] args) {
 		myMenu();
+		//
+		ArrayList<SinhVien> arrSinhVien = Serialize.docFile("dulieu.txt");
 
-	}
+		System.out.println("Danh sach khach hang nhap vao may la :");
+		for (SinhVien kh : arrSinhVien) {
+			System.out.println(kh);
+		}
+}
+
+
 
 	public static void nhapTen() {
 		System.out.println("<=====NHAP SINH VIEN=====>");
@@ -34,6 +43,15 @@ public class QuanLiSinhVien {
 			SinhVien.TongSo();
 		}
 		System.out.println("So Luong Sinh Vien Da Nhap Vao: " + SinhVien.tongso);
+		
+		// luu file
+		boolean kt = Serialize.luuFile(arrSinhVien, "dulieu.txt");
+		if (kt == true) {
+			System.out.println("Luu file thanh cong !!");
+		} else {
+			System.out.println("Luu file that bai !!");
+		}
+		//
 	}
 
 	public static void inDanhSach() {
