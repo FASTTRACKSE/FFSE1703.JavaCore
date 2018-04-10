@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import ffse1703.model.SinhVien;
+import ffse1703.model.*;
 
 public class TextFileFactory {
 	public static boolean luuFile(ArrayList<SinhVien> dsSV, String path) {

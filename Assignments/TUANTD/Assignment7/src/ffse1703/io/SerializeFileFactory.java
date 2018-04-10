@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
-import ffse1703.model.SinhVien;
+import ffse1703.model.*;
 
 public class SerializeFileFactory {
 

@@ -2,10 +2,9 @@ package ffse1703.main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 import ffse1703.io.SerializeFileFactory;
 import ffse1703.model.SinhVien;
+import java.io.File;
 
 public class QuanLySinhVien {
 	public static Scanner input = new Scanner(System.in);
@@ -41,23 +40,27 @@ public static void luuFile() {
 		action = input.nextLine();
 		System.out.println("=====================================");
 		
-		boolean kt = SerializeFileFactory.luuFile(arraySinhVien, "dulieu1.txt");
+		boolean kt = SerializeFileFactory.luuFile(arraySinhVien, "text1.txt");
 		if (kt == true) {
-			System.out.println("Lưu File Thành Công");
+			System.out.println("Đã lưu thông tin của "+ n +" sinh viên");
 		} else {
 			System.out.println("Lưu File Thất Bại!");
 		}
 	}
+//
+
+//
 	public static void main(String[] args) {
 		 luuFile();
  
-		
-		ArrayList<SinhVien> dsSV = SerializeFileFactory.docFile("dulieu1.txt");
-
+		ArrayList<SinhVien> dsSV = SerializeFileFactory.docFile("text1.txt");
+		int i = 0;
 		System.out.println("Danh Sách Sinh Viên Nhập Vào Là:");
-		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  ĐTB  Xếp Loại  ");
+		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  lp3  ĐTB ");
 		for (SinhVien sv : dsSV) {
-			System.out.println(sv);
+			System.out.print((i + 1) + "\t");
+			System.out.printf("%-10s %-15s %-15s %-10s %10s %15s %-15s \n", sv.getNameSV(), sv.getNgaySinh(),
+					sv.getLp1(), sv.getLp2(), sv.getLp3(), sv.getDiemTB());
 		}
 	}
 }
