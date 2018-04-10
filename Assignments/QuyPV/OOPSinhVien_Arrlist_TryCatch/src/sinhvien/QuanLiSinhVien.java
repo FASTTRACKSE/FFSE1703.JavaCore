@@ -198,9 +198,9 @@ public class QuanLiSinhVien {
 	}
 
 	public void docFile() {
-		int i = 0;
-		ArrayList<SinhVien> arr = SerializeFile.docFile("sinhvien.txt");
-		System.out.println("-----------------------------");
+		int i = 1;
+		ArrayList<SinhVien> arrFile = SerializeFile.docFile("sinhvien.txt");
+		arr = arrFile;
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
 		for (SinhVien x : arr) {
