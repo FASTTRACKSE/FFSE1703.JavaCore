@@ -11,9 +11,8 @@ public class QuanLySinhVien {
 	public static int n = 0;
 	public static String action;
 	static ArrayList<SinhVien> arraySinhVien = new ArrayList<SinhVien>();
-	
-public static void luuFile() {
-		
+
+	public static void luuFile() {
 		String namesv;
 		String ngaySinh;
 		float Lp1;
@@ -39,28 +38,25 @@ public static void luuFile() {
 		}
 		action = input.nextLine();
 		System.out.println("=====================================");
-		
+
 		boolean kt = SerializeFileFactory.luuFile(arraySinhVien, "text1.txt");
 		if (kt == true) {
-			System.out.println("Đã lưu thông tin của "+ n +" sinh viên");
+			System.out.println("Đã lưu thông tin của " + n + " sinh viên");
 		} else {
 			System.out.println("Lưu File Thất Bại!");
 		}
 	}
-//
 
-//
 	public static void main(String[] args) {
-		 luuFile();
- 
+		luuFile();
 		ArrayList<SinhVien> dsSV = SerializeFileFactory.docFile("text1.txt");
 		int i = 0;
 		System.out.println("Danh Sách Sinh Viên Nhập Vào Là:");
-		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2  lp3  ĐTB ");
+		System.out.println("STT\tTên\tNgày Sinh\tĐiểm LP#1\tĐiểm LP#2\tĐiểm LP#3\tĐiểm TB");
 		for (SinhVien sv : dsSV) {
 			System.out.print((i + 1) + "\t");
-			System.out.printf("%-10s %-15s %-15s %-10s %10s %15s %-15s \n", sv.getNameSV(), sv.getNgaySinh(),
-					sv.getLp1(), sv.getLp2(), sv.getLp3(), sv.getDiemTB());
+			System.out.printf("%-10s %-15s %-15s %-10s %10s %15s \n", sv.getNameSV(), sv.getNgaySinh(), sv.getLp1(),
+					sv.getLp2(), sv.getLp3(), sv.getDiemTB());
 		}
 	}
 }
