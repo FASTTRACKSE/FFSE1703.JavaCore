@@ -1,14 +1,15 @@
 package Assignment_list.Asm7.model;
 import java.util.Comparator;
-public class Sinhvien {
+import java.io.Serializable;
+public class SinhVien implements Serializable {
 	private String hoTen;
 	private String ngaySinh;
 	private float diemLp1;
 	private float diemLp2;
-	public Sinhvien() {
+	public SinhVien() {
 		
 	}
-	public Sinhvien(String hoten,String ngaySinh,float diemLp1,float diemLp2) {		
+	public SinhVien(String hoten,String ngaySinh,float diemLp1,float diemLp2) {		
 		this.hoTen=hoten;
 		this.ngaySinh=ngaySinh;
 		this.diemLp1=diemLp1;
@@ -57,8 +58,8 @@ public class Sinhvien {
 		return "  "+hoTen +"\t     "+ngaySinh+"\t \t    "+diemLp1+"\t \t    "+diemLp2+"\t   \t   "+getDiemTB()+"\t   \t    "+getXepLoai();
 		
 	}
-	public static Comparator<Sinhvien> compare = new Comparator<Sinhvien>() {
-        public int compare(Sinhvien sv1, Sinhvien sv2) {
+	public static Comparator<SinhVien> compare = new Comparator<SinhVien>() {
+        public int compare(SinhVien sv1, SinhVien sv2) {
             if (sv1.getDiemTB() > sv2.getDiemTB()) {
                 return 1;
             } else {
@@ -70,13 +71,12 @@ public class Sinhvien {
             }
         }
 	};
-	public static Comparator<Sinhvien> compareName = new Comparator<Sinhvien>() {
+	public static Comparator<SinhVien> compareName = new Comparator<SinhVien>() {
 		 
 		  @Override
-		  public int compare(Sinhvien sv1, Sinhvien sv2) {		  
+		  public int compare(SinhVien sv1, SinhVien sv2) {		  
 		    return sv1.hoTen.compareTo(sv2.hoTen);		   
 		  }
 		 };
   
 }
-

@@ -2,6 +2,7 @@ package sinhvien;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import io.*;
 
 public class QuanLiSinhVien {
 
@@ -24,6 +25,8 @@ public class QuanLiSinhVien {
 				System.out.println("3. Đổi tên sinh viên.");
 				System.out.println("4. Xóa tên sinh viên.");
 				System.out.println("5. Tìm kiếm tên sinh viên.");
+				System.out.println("6. Lưu file.");
+				System.out.println("7. Đọc file.");
 				System.out.println("0. Kết thúc.");
 				System.out.println("____________________________" + "\n");
 	
@@ -39,6 +42,10 @@ public class QuanLiSinhVien {
 					xoaTen();
 				} else if (myChose == 5) {
 					timKiem();
+				} else if (myChose == 6) {
+					luuFile();
+				} else if (myChose == 7) {
+					docFile();
 				} else if (myChose == 0) {
 					ketThuc();
 				}
@@ -105,7 +112,7 @@ public class QuanLiSinhVien {
 	public void doiTen() {
 		int i = 0;
 		String ten1, ten2;
-		try {
+		
 		System.out.println("<<<< ĐỔI TÊN SINH VIÊN >>>> ");
 		System.out.println("---------------------------");
 		System.out.println("Nhập tên sinh viên cần đổi: ");
@@ -116,16 +123,19 @@ public class QuanLiSinhVien {
 		System.out.println("---------------------------");
 		System.out.println(
 				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
+		try {
 		for (SinhVien x : arr) {
 			if (ten1.equals(x.getHoTen())) {
 				x.setHoTen(ten2);
+				System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
+				+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
+				i++;
+				break;
 			}
-			else {
+			if(!ten1.equals(x.getHoTen())) {
 				throw new Exception();
 			}
-			System.out.println((i + 1) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
-			+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
-			i++;
+			
 		}
 		} catch(Exception e) {
 			System.out.println("Tên sinh viên ko tồn tại!!!");
@@ -145,6 +155,7 @@ public class QuanLiSinhVien {
 				if(ten.equals(x.getHoTen())) {
 					arr.remove(x);
 					z--;
+					SinhVien.updateTongSo();
 					break;
 				}
 			}
@@ -178,6 +189,22 @@ public class QuanLiSinhVien {
 			}
 		}
 		
+	}
+	
+	public void luuFile() {
+		boolean kt = SerializeFile.luuFile(arr, "sinhvien.txt");
+		if(kt == true) {
+			System.out.println("Lưu file thành công");
+		} else {
+			System.out.println("Lưu file thất bại");
+		}
+	}
+	
+	public void docFile() {
+		ArrayList<SinhVien> arr = SerializeFile.docFile("sinhvien.txt");
+		for(SinhVien x : arr) {
+			System.out.println(x.getHoTen());
+		}
 	}
 
 

@@ -1,37 +1,45 @@
 package fasttrack.assignment6.model;
 
-public class ChuNhat extends HinhHoc{
-	public double Dai;
-	public double Rong;
-	
-	public double getChieudai() {
-		return Dai;
+public class ChuNhat extends HinhHoc {
+	private double Chieudai;
+	private double Chieurong;
+
+	public ChuNhat(double chieudai, double chieurong) {
+
+		Chieudai = chieudai;
+		Chieurong = chieurong;
 	}
-	public void setChieudai(double chieudai) {
-		Dai = chieudai;
-	}
-	public double getChieurong() {
-		return Rong;
-	}
-	
+
 	public ChuNhat() {
-		
+
 	}
-	
-	public ChuNhat(double dai, double rong) {
-		Dai = dai;
-		Rong = rong;
+
+	public double getChieudai() {
+		return Chieudai;
 	}
-	
-	public void setChieurong(double rong) {
-		Rong = rong;
+
+	public void setChieudai(double chieudai) {
+		Chieudai = chieudai;
 	}
+
+	public double getChieurong() {
+		return Chieurong;
+	}
+
+	public void setChieurong(double chieurong) {
+		Chieurong = chieurong;
+	}
+
+	@Override
 	public double getChuVi() {
-		return (Dai + Rong)*2;
+		// TODO Auto-generated method stub
+		return (Chieudai + Chieurong) * 2;
 	}
+
 	@Override
 	public double getDienTich() {
-		return (Dai * Rong);
+		// TODO Auto-generated method stub
+		return Chieudai * Chieurong;
 	}
 	
 }
