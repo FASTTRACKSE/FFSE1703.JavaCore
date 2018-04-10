@@ -1,17 +1,21 @@
-package Student2;
+package ffse1703013.java.main;
 
 import java.util.Scanner;
+import ffse1703013.java.io.SerializeFileFactory;
+import ffse1703013.java.io.TextFileFactory;
+import ffse1703013.java.modle.*;
 
+import ffse1703013.java.modle.SinhVien;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ImportStudent {
+import java.io.File;
+
+public class QuanLySinhVienOb {
 
 	public static int size;
-	public static SinhVien[] Student = new SinhVien[100];
 	public static Scanner myScanner = new Scanner(System.in);
-	static ArrayList<SinhVien> arrStudent = new ArrayList<SinhVien>();
+	static ArrayList<SinhVien> arrSinhVien = new ArrayList<SinhVien>();
 
 	public static void main(String[] args) {
 
@@ -20,113 +24,94 @@ public class ImportStudent {
 	}
 
 	public static void themSv() {
-		System.out.print("Nhap vao so số sinh viên cần thêm : ");
-		size = myScanner.nextInt();
-
-		for (int i = 0; i < size; i++) {
-			Student[i] = new SinhVien();
-		}
-		for (int i = 0; i < 15; i++) {
-			try {
+//
+			File file = new File("D:/FFSE1703.JavaCore/Assignments/TuanNM/assignment8/dulieu2.txt");	    
+		    if(file.exists()) {
+		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.docFile("dulieu2.txt");
+		  		arrSinhVien=arrSvFile;
+		    }
+		    try {
+			System.out.print("Nhap vao so số sinh viên cần thêm : ");
+			size = myScanner.nextInt();
+			for (int i = 0; i < size; i++) {
 				myScanner.nextLine();
 				System.out.println("Nhập tên sinh viên thứ " + (i + 1) + " :");
-				String ten = myScanner.nextLine();
-				Student[i].setName(ten);
+				String ten = myScanner.nextLine();		
 				System.out.println("Nhập ngày sinh sinh viên thứ " + (i + 1) + " :");
-				String ngaySinh = myScanner.nextLine();
-				Student[i].setBirthday(ngaySinh);
+				String ngaySinh = myScanner.nextLine();				
 				System.out.println("Nhập điểm lp1 sinh viên thứ " + (i + 1) + " :");
-				Double lP1 = myScanner.nextDouble();
-				Student[i].setLp1(lP1);
+				Double lP1 = myScanner.nextDouble();				
 				System.out.println("Nhập điểm lp2 sinh viên thứ " + (i + 1) + " :");
-				Double lP2 = myScanner.nextDouble();
-				Student[i].setLp2(lP2);
+				Double lP2 = myScanner.nextDouble();		
 				System.out.println("Nhấn Enter để tiếp tục");
 				System.out.println("______________________________");
 				myScanner.nextLine();
 				SinhVien.tongSo();
-				arrStudent.add(new SinhVien(ten, ngaySinh, lP1, lP2));
-			} catch (Exception e) {
-				System.out.println("Nhập sai. vui lòng nhập lại");
-				myScanner.nextLine();
-				myScanner.nextLine();
+				arrSinhVien.add(new SinhVien(ten, ngaySinh, lP1, lP2));		
 			}
+			boolean kt = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
+			if (kt == true) {
+				System.out.println("Đã lưu file thành công");
+			} else {
+				System.out.println("Lưu file thất bại");
+			}
+		} catch (Exception e) {
+			System.out.println("Nhập sai. vui lòng nhập lại");
+			myScanner.nextLine();
 		}
 	}
 
 	public static void dsSinhVien() {
 		System.out.println("Tong so sinh vien la: " + SinhVien.toTal);
-		System.out.println("+-------------------------Danh sách sinh viên-----------------------+");
-		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (SinhVien x : arrStudent) {
-			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
-					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
+		System.out.println("+---------------------------------Danh sách sinh viên---------------------------------+");
+		System.out.println("|tên SV      |     ngày sinh  |      lp1     |       lp2  |      ĐTB   |     xếp loại");
+		ArrayList<SinhVien> dsKH = SerializeFileFactory.docFile("dulieu2.txt");
+		for (SinhVien x : dsKH) {
+			System.out.println(x);
 		}
 		System.out.println("============================================================");
 
 	}
 
-	public static void topSinhVien() {
-		System.out.println("Danh sách tốp sinh viên");
-		Double max = Student[0].getDtb(), min = Student[0].getDtb();
-		int vtmax = 0, vtmin = 0;
-		for (int i = 0; i < size; i++) {
-			if (max < Student[i].getDtb()) {
-				max = Student[i].getDtb();
-				vtmax = i;
-			}
-			if (min > Student[i].getDtb()) {
-				min = Student[i].getDtb();
-				vtmin = i;
-			}
-		}
-		System.out.println("+---------Sinh viên có điểm trung bình cao nhất-------+");
-		System.out.println("|Tên sinh viên  |  ngày sinh   |  Điểm trung bình  |");
-		System.out.println("|" + Student[vtmax].getName() + "\t\t" + Student[vtmax].getBirthday() + "\t\t" + max);
-		System.out.println("+---------Sinh viên có điểm trung bình thấp nhất-------+");
-		System.out.println("|Tên sinh viên  |  ngày sinh   |  Điểm trung bình  |");
-		System.out.println("|" + Student[vtmin].getName() + "\t\t" + Student[vtmin].getBirthday() + "\t\t" + min);
-		System.out.println("Nhấn Enter để về menu");
-		myScanner.nextLine();
-		System.out.println("============================================================");
-		myScanner.nextLine();
-	}
 
 	public static void sapXepDtb() {
 
-		System.out.println("+--------------Danh sách ss sinh viên--------------+");
-
-
-		Collections.sort(arrStudent, SinhVien.SVDTBComparator);
-		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (SinhVien x : arrStudent) {
-			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
-					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
+		System.out.println("+---------------------------------Danh sách sinh viên---------------------------------+");
+		System.out.println("|tên SV      |     ngày sinh  |      lp1     |       lp2  |      ĐTB   |     xếp loại");
+		ArrayList<SinhVien> arrSv = TextFileFactory.docFile("dulieusinhvientext.txt");
+		Collections.sort(arrSv, SinhVien.SVDTBComparator);
+		for (SinhVien x : arrSv) {
+			System.out.println(x);
 		}
 	}
 
 	public static void sortName() {
-
-		System.out.println("+--------------Danh sách ss sinh viên--------------+");
-	
-		Collections.sort(arrStudent, SinhVien.SVNameComparator);
-		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (SinhVien x : arrStudent) {
-			System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t" + x.getLp2()
-					+ "\t" + x.getDtb() + "\t" + x.getXepLoai());
+		System.out.println("+---------------------------------Danh sách sinh viên---------------------------------+");
+		System.out.println("|tên SV      |     ngày sinh  |      lp1     |       lp2  |      ĐTB   |     xếp loại");
+		ArrayList<SinhVien> arrSv = TextFileFactory.docFile("dulieusinhvientext.txt");
+		Collections.sort(arrSv, SinhVien.SVNameComparator);
+		for (SinhVien x : arrSv) {
+			System.out.println(x);
 		}
 	}
 
 	public static void chinhSuaTen() {
+
 		myScanner.nextLine();
-		System.out.println("Nhập tên cần chỉnh sửa:");
-		String ten = myScanner.nextLine();
-		System.out.println("Nhập tên mới:");
-		String tenNew = myScanner.nextLine();
-		for (SinhVien x : arrStudent) {
-			if (ten.equals(x.getName())) {
-				x.setName(tenNew);
+		try {
+			System.out.println("Nhập tên cần chỉnh sửa:");
+			String ten = myScanner.nextLine();
+			System.out.println("Nhập tên mới:");
+			String tenNew = myScanner.nextLine();
+			for (SinhVien x : arrSinhVien) {
+				if (ten.equals(x.getName())) {
+					x.setName(tenNew);
+				}
 			}
+
+		} catch (Exception e) {
+			System.out.println("         Nhập sai định dạng !!!");
+			System.out.println("         Vui lòng nhập lại!!!");
 		}
 	}
 
@@ -136,7 +121,7 @@ public class ImportStudent {
 		String ten = myScanner.nextLine();
 		System.out.println("+-------------------------Danh sách sinh viên-----------------------+");
 		System.out.println("|tên SV    |   ngày sinh   |  lp1   |  lp2  |  ĐTB  | xếp loại");
-		for (SinhVien x : arrStudent) {
+		for (SinhVien x : arrSinhVien) {
 			if (ten.equals(x.getName())) {
 				System.out.println("|" + x.getName() + "\t \t" + x.getBirthday() + "\t \t" + x.getLp1() + " \t"
 						+ x.getLp2() + "\t" + x.getDtb() + "\t" + x.getXepLoai());
@@ -148,10 +133,10 @@ public class ImportStudent {
 		myScanner.nextLine();
 		System.out.println("Nhập tên cần xóa");
 		String ten = myScanner.nextLine();
-		for (int i = 0; i < arrStudent.size(); i++) {
-			for (SinhVien x : arrStudent) {
+		for (int i = 0; i < arrSinhVien.size(); i++) {
+			for (SinhVien x : arrSinhVien) {
 				if (ten.equals(x.getName())) {
-					arrStudent.remove(x);
+					arrSinhVien.remove(x);
 					i--;
 					break;
 				}
@@ -168,7 +153,7 @@ public class ImportStudent {
 
 			int option = myScanner.nextInt();
 			if (option == 1) {
-				arrStudent.clear();
+				arrSinhVien.clear();
 			} else if (option == 2) {
 				myMenu();
 			}
@@ -177,7 +162,6 @@ public class ImportStudent {
 			myScanner.nextLine();
 		}
 	}
-	
 
 	public static void ketThuc() {
 		System.out.println("Cám ơn bạn đã sử dụng chương trình");
@@ -206,7 +190,7 @@ public class ImportStudent {
 				} else if (option == 2) {
 					dsSinhVien();
 				} else if (option == 3) {
-					topSinhVien();
+
 				} else if (option == 4) {
 					sapXepDtb();
 				} else if (option == 5) {
