@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
-import ffse1703.model.SinhVien;
+import ffse1703.model.*;
 
 public class SerializeFileFactory {
 
@@ -30,7 +29,8 @@ public class SerializeFileFactory {
 			FileInputStream fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Object data = ois.readObject();
-			dsSV = (ArrayList<SinhVien>) data;
+			ArrayList<SinhVien> arrayList = (ArrayList<SinhVien>) data;
+			dsSV = arrayList;
 			ois.close();
 			fis.close();
 		} catch (Exception ex) {
@@ -38,6 +38,5 @@ public class SerializeFileFactory {
 		}
 		return dsSV;
 	}
-
 
 }
