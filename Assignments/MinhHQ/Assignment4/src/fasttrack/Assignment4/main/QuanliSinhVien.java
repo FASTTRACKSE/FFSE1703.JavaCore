@@ -180,6 +180,7 @@ public class QuanliSinhVien {
 
 	public static void showMyMenu() {
 		while (true) {
+			try {
 			System.out.println(">>         MENU QUẢN LÝ SINH VIÊN       <<");
 			System.out.println("+----------------------------------------+");
 			System.out.println("|1. Nhập danh sách sinh viên             |");
@@ -207,6 +208,14 @@ public class QuanliSinhVien {
 				doitenSV();
 			} else if (myOption == 7) {
 				ketThuc();
+			} else {
+                throw new Exception();
+			}
+			
+			
+			} catch (Exception e) {
+				System.out.println("Bạn đã nhập sai vui lòng nhập lại!!!Nhập lựa chọn từ 1 đến 7!!!");
+				myScanner.nextLine();
 			}
 
 		}
