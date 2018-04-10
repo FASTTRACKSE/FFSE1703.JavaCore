@@ -1,6 +1,7 @@
-package assignment7.main;
+package Assignment_8.main;
 
-import assignment7.model.*;
+import Assignment_8.model.*;
+import Assignment_8.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class QuanLySinhVien {
 	public static int Sv;
 	public static SinhVien []Sinhvien;
 	public static ArrayList<SinhVien> arrSinhVien = new ArrayList<SinhVien>();
+	public static ArrayList<SinhVien> arSinhVien = new ArrayList<SinhVien>();
 	public static void main(String[] args) {	
 		menu();
 	}
@@ -87,14 +89,16 @@ public class QuanLySinhVien {
 			}
 			arrSinhVien.add(Sinhvien[i]);
 		}
+		ghiFile();
 		myInput.nextLine();
 		System.out.print("\n");
 		myInput.nextLine();
 	}
 	public static void Danhsach() {
+		ArrayList<SinhVien> arSinhVien = FileFactory.docFile("dulieu.txt");
 		System.out.print("\n");
 		System.out.printf("%-12s %-12s %-12s %-12s %-12s %-12s \n","Ten","Tuoi","Diem LP1","Diem LP2","Diem TB","Xep Loai");
-		for (SinhVien x: arrSinhVien) {
+		for (SinhVien x: arSinhVien) {
 			System.out.printf("%-12s %-12d %-12.2f %-12.2f %-12.2f %-12s \n",x.getHoten(),x.getTuoiSV(),x.getDiemLP1(),x.getDiemLP2(),x.getDiemTB(),x.getXeploai());
 		}
 		myInput.nextLine();
@@ -102,14 +106,14 @@ public class QuanLySinhVien {
 		myInput.nextLine();
 	}
 	public static void search() {
+		ArrayList<SinhVien> arSinhVien = FileFactory.docFile("dulieu.txt");
 		System.out.println("Nhap ten sinh vien: ");
 		String keyWord = myInput.next();
 		System.out.printf("%-12s %-12s %-12s %-12s %-12s %-12s \n","Ten","Tuoi","Diem LP1","Diem LP2","Diem TB","Xep Loai");
-		for (SinhVien x: arrSinhVien) {
+		for (SinhVien x: arSinhVien) {
 			if (x.getHoten().equals(keyWord)) {
 				System.out.printf("%-12s %-12d %-12.2f %-12.2f %-12.2f %-12s \n",x.getHoten(),x.getTuoiSV(),x.getDiemLP1(),x.getDiemLP2(),x.getDiemTB(),x.getXeploai());
-			}
-			
+			}	
 		}
 		myInput.nextLine();
 		System.out.print("\n");
@@ -117,18 +121,19 @@ public class QuanLySinhVien {
 
 	}
 	public static void renameSV() {
+		ArrayList<SinhVien> arSinhVien = FileFactory.docFile("dulieu.txt");
 		System.out.println("Do ten sinh vien");
 		System.out.print("Ten sinh vien: ");
 		String oldName = myInput.next();
 		System.out.print("Ten moi: ");
 		String newName = myInput.next();
-		for (SinhVien x : arrSinhVien) {
+		for (SinhVien x : arSinhVien) {
 			if ((x.getHoten()).equals(oldName)) {
 				x.setHoten(newName);
 			}
 		}
 		System.out.printf("%-12s %-12s %-12s %-12s %-12s %-12s \n","Ten","Tuoi","Diem LP1","Diem LP2","Diem TB","Xep Loai");
-		for (SinhVien x: arrSinhVien) {
+		for (SinhVien x: arSinhVien) {
 			System.out.printf("%-12s %-12d %-12.2f %-12.2f %-12.2f %-12s \n",x.getHoten(),x.getTuoiSV(),x.getDiemLP1(),x.getDiemLP2(),x.getDiemTB(),x.getXeploai());
 		}
 		myInput.nextLine();
@@ -137,9 +142,10 @@ public class QuanLySinhVien {
 
 	}
 	public static void removeSV() {
+		ArrayList<SinhVien> arSinhVien = FileFactory.docFile("dulieu.txt");
 		System.out.print("Ten sinh vien can xoa thong tin: ");
 		String nameSV = myInput.next();
-		for (SinhVien x : arrSinhVien) {
+		for (SinhVien x : arSinhVien) {
 			if ((x.getHoten()).equals(nameSV)) {
 				arrSinhVien.remove(x);
 				break;
@@ -153,6 +159,14 @@ public class QuanLySinhVien {
 		System.out.print("\n");
 		myInput.nextLine();
 
+	}
+	public static void ghiFile() {
+		boolean kt = FileFactory.luuFile(arrSinhVien, "dulieu.txt");
+		if (kt == true) {
+			System.out.println("Luu file thanh cong!");
+		} else {
+			System.out.println("Luu file that bai!");
+		}
 	}
 	public static void ketthuc() {
 		System.out.println("\n");
