@@ -90,7 +90,7 @@ public class QuanLySinhVien {
 					throw new Exception();
 				}
 			} catch (Exception e) {
-				System.out.println(" Chỉ Được Nhập Từ 1 Tới 10,Hãy Nhập Lại Nha Bạn!");
+				System.out.println(" Chỉ Được Nhập Từ 1 Tới 3,Hãy Nhập Lại Nha Bạn!");
 				System.out.println(" Thank You!");
 				input.nextLine();
 

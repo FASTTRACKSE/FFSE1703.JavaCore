@@ -29,20 +29,7 @@ public class SinhVien {
 
 	}
 
-	public void Input() {
-		myScanner.nextLine();
-		System.out.print("Nhập tên Sinh Viên :");
-		this.SVten = myScanner.nextLine();
-
-		System.out.print("Nhập ngày sinh của Sinh Viên :");
-		this.SVngaysinh = myScanner.nextLine();
-
-		System.out.print("Nhập điểm môn LP1 :");
-		this.SVLP1 = myScanner.nextInt();
-
-		System.out.print("Nhập điểm môn LP2 :");
-		this.SVLP2 = myScanner.nextInt();
-	}
+	
 
 	public void setSVten(String name) {
 		this.SVten = name;

@@ -25,3 +25,10 @@
 4. Assignment7: [class Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/MyStudent.java)
 [Main Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/Student_Asm2/src/Student2/ImportStudent.java)
 
+5. Assignment8: [Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/modle/SinhVien.java)
+[TextFileFactory](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/io/TextFileFactory.java)
+[SerializeFileFactory](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/io/SerializeFileFactory.java)
+[Quan li sinh vien text](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/main/QuanLiSinhVien.java)
+[Quan li sinh vien serialize](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/main/QuanLySinhVienOb.java)
+6. Assignment9: [UI giai phuong trinh](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment9/src/assignment9/java/ui/PhuongTrinh.java)
+[Main giai phuong trinh](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment9/src/assignment9/java/main/GiaiPhuongTrinhBacNhat.java)
