@@ -30,3 +30,5 @@ Assigment 5:
 9. Assignment 8:[Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/FileQuanLy/src/ffasttrackse/edu/model/SinhVien.java)
 [TextFileFactory](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/FileQuanLy/src/fasttrackse/edu/io/TextFileFactory.java)
 [Quản Lý](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/FileQuanLy/src/fasttrackse/edu/main/QuanLi.java)
+10. Assigment 9:[Giải Phương Trình](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JAvaDesTop_Sample/src/fasttrackse/edu/model/GiaiPhuongTrinh.java)
+[Phương Trình Bậc 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JAvaDesTop_Sample/src/fasttrackse/edu/main/PTB1.java)
