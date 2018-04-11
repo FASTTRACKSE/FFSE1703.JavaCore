@@ -14,5 +14,5 @@ Hinh hoc :
 Quan li tien dien :
 <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/Quanlytiendien/src/Fasttrack/edu/vn/quanlytiendien/Quanlytiendien.java">Main</a>
 <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/ducdz/Quanlytiendien/src/Fasttrack/edu/vn/tiendien">Model</a>
-
+Quan ly sinh vien ver2: <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/QuanLySinhVienver2.0/src/Fasttrack/edu/vn/main/QuanLySinhVienver2.java">Quan ly sinh vien </a>; <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ducdz/QuanLySinhVienver2.0/src/Fasttrack/edu/vn/model/SinhVien.java"> SinhVien</a>
 
