@@ -337,10 +337,8 @@ public class MyLayout extends JFrame {
 					String msg = "Chưa nhập đủ các dòng\n Vui Lòng Nhập Lại "+tenSv;
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
 				}			
-			}catch(Exception e) {
-				
-			}
-						
+			}catch(Exception e) {				
+			}						
 		}		
 	};
 	ActionListener eventExit = new ActionListener() {
