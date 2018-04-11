@@ -1,10 +1,7 @@
-package Fasttrack.edu.vn.model;
-
+package ffse1702.fasttrack.edu.model;
+import java.io.Serializable;
 import java.util.Scanner;
-
-import Fasttrack.edu.vn.main.NhapSV;
-
-public class SinhVien {
+public class SinhVien implements Serializable  {
 
 	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
@@ -13,7 +10,7 @@ public class SinhVien {
 	private double Lp2;
 	static public  int tongSV = 0;
 
-	public SinhVien(String name, String day, double Lp1, double Lp2) {
+	public SinhVien (String name, String day, double Lp1, double Lp2) {
 		this.Name = name;
 		this.Date = day;
 		this.Lp1 = Lp1;
@@ -75,5 +72,4 @@ public class SinhVien {
 			return "Giỏi";
 		}
 	}
-
 }
