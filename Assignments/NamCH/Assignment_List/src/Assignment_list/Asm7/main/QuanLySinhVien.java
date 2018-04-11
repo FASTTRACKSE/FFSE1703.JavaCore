@@ -1,12 +1,15 @@
 package Assignment_list.Asm7.main;
-import Assignment_list.Asm7.model.Sinhvien;
+import Assignment_list.Asm7.io.SerializeFileFactory;
+import Assignment_list.Asm7.model.SinhVien;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.File;
 public class QuanLySinhVien {
 	public static Scanner input=new Scanner(System.in);	
-	public static ArrayList<Sinhvien> arrSv=new ArrayList<Sinhvien>();
+	public static ArrayList<SinhVien> arrSv=new ArrayList<SinhVien>();
 	public static int stt=0;
+	
 	public static void main(String[] args) {
 		myMenu();
 	}
@@ -14,8 +17,13 @@ public class QuanLySinhVien {
 		System.out.println("         THÊM SINH VIÊN VÀO DANH SÁCH");
 		System.out.println("         ============================");
 		System.out.print("         Bạn muốn nhập bao nhiêu Sinh Viên :");
+		File file = new File("D:/FFSE1703.JavaCore/Assignments/NamCH/Assignment_List/dulieusinhvien.txt");	    
+	    if(file.exists()) {
+	    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
+	  		arrSv=arrSvFile;
+	    }		
 		try {
-		int size = Integer.parseInt(input.nextLine());
+		int size = Integer.parseInt(input.nextLine());			
 		for(int i=0;i<size;i++) {
 			System.out.print("         Nhap tên cho sinh vien thu " + (stt+1)  + " : ");
 			String hoTen = input.nextLine();			
@@ -25,19 +33,27 @@ public class QuanLySinhVien {
 			float diemLp1 = Float.parseFloat(input.nextLine())	;
 			System.out.print("         Nhap Điểm LP2 cho sinh vien thu " + (stt+1)  + " : ");
 			float diemLp2 = Float.parseFloat(input.nextLine())	;
-			arrSv.add(new Sinhvien(hoTen,ngaySinh,diemLp1,diemLp2));
+			arrSv.add(new SinhVien(hoTen,ngaySinh,diemLp1,diemLp2));			
+			boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
+			if (checked == true) {
+				System.out.println("Đã lưu thông tin của "+size +" sinh viên");
+			} else {
+				System.out.println("Lưu thất bại");
+			}
 		}
 		}catch(Exception e) {
 			System.out.println("         Nhập sai định dạng !!!");
 			System.out.println("         Vui lòng nhập lại");
 		}
+		
 	}
 	public static void printSv() {
 		System.out.println("         DANH SÁCH TẤT CẢ SINH VIÊN");
 		System.out.println("         ==========================");
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
 		int i=0;
-		for(Sinhvien x :arrSv) {			
+		ArrayList<SinhVien> arrSv = SerializeFileFactory.readFile("dulieusinhvien.txt");
+		for(SinhVien x :arrSv) {			
 			System.out.print("          "+(i+1)+"\t");
 			System.out.println(x);
 			i++;
@@ -64,9 +80,9 @@ public class QuanLySinhVien {
 		System.out.println("         -------SẮP XẾP SINH VIÊN TĂNG DẦN THEO ĐIỂM TB------");
 		System.out.println("         ====================================================");
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
-		Collections.sort(arrSv, Sinhvien.compare);
+		Collections.sort(arrSv, SinhVien.compare);
 		int i=0;
-		  for(Sinhvien x: arrSv){			  
+		  for(SinhVien x: arrSv){			  
 			  	System.out.print("          "+(i+1)+"\t");
 				System.out.println(x);
 				i++;
@@ -76,9 +92,9 @@ public class QuanLySinhVien {
 		System.out.println("         -------SẮP XẾP SINH VIÊN THEO TÊN------");
 		System.out.println("         =======================================");
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
-		Collections.sort(arrSv, Sinhvien.compareName);
+		Collections.sort(arrSv, SinhVien.compareName);
 		int i=0;
-		  for(Sinhvien x: arrSv){			  
+		  for(SinhVien x: arrSv){			  
 			  	System.out.print("          "+(i+1)+"\t");
 				System.out.println(x);
 				i++;
@@ -92,7 +108,7 @@ public class QuanLySinhVien {
 		int i=0;
 		try {
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
-		for(Sinhvien x:arrSv) {
+		for(SinhVien x:arrSv) {
 			if(act.equals(x.getHoTen())) {
 				System.out.print("          "+(i+1)+"\t");
 				System.out.println(x);
@@ -109,7 +125,7 @@ public class QuanLySinhVien {
 	public static void changeNameSV() {
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
 		int i=0;
-		for(Sinhvien x :arrSv) {			
+		for(SinhVien x :arrSv) {			
 			System.out.print("          "+(i+1)+"\t");
 			System.out.println(x);
 			i++;
@@ -138,7 +154,7 @@ public class QuanLySinhVien {
 	public static void removeSv() {
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
 		int i=0;
-		for(Sinhvien x :arrSv) {			
+		for(SinhVien x :arrSv) {			
 			System.out.print("          "+(i+1)+"\t");
 			System.out.println(x);
 			i++;
@@ -154,7 +170,7 @@ public class QuanLySinhVien {
 		System.out.println("         XÓA THÀNH CÔNG sinh viên có tên : "+ten);			
 		System.out.println("         Stt\t Tên\t Ngày Sinh\t Điểm LP1\t Điểm lp2\t Điểm TB\t Xếp Loại");
 		int j=0;
-		for(Sinhvien x :arrSv) {		
+		for(SinhVien x :arrSv) {		
 			System.out.print("          "+(j+1)+"\t");
 			System.out.println(x);
 			j++;
@@ -203,13 +219,15 @@ public class QuanLySinhVien {
 					changeNameSV();
 				}else if(act==8) {
 					removeSv();
-				} else {
+				}else if(act==9) {
+					endSv();
+				}else {
 					throw new Exception();
 		        }
 			}catch(NumberFormatException e){
 					System.out.println("         Vui Lòng nhập số");
 			}catch (Exception e) {		
-		         System.out.println("         Chỉ Được Nhập từ 1 đến 8 bạn nhé!!!");				         
+		         System.out.println("         Chỉ Được Nhập từ 1 đến 9 bạn nhé!!!");				         
 			}						
 			System.out.println("         =====================================");
 			System.out.println("         -------Nhập ENTER để tiếp tục------");

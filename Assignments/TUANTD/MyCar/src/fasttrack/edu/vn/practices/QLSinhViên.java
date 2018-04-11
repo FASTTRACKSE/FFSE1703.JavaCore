@@ -1,6 +1,6 @@
 package fasttrack.edu.vn.practices;
 
-public class QLSinhViên {
+public class QLSinhViên  {
 	private String namesv;
 	private String ngaysinhsv;
 	private float LP1;
@@ -13,6 +13,9 @@ public class QLSinhViên {
 	 static void setTongsv() {
 		tongsv++;
 	}
+	 static void Tongsv() {
+			tongsv--;
+		}
 	public QLSinhViên() {
 		
 	}

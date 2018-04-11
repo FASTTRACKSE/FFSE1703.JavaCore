@@ -9,16 +9,16 @@ public class SinhVien {
 	public int diemTB;
 
 	public SinhVien() {
-		
+
 	}
 
-	public SinhVien(int maSv,String tenSv,int ngaysinhSv,int diemLP1,int diemLP2,int diemTB) {
-		this.maSv=maSv;
-		this.tenSv=tenSv;
-		this.ngaysinhSv=ngaysinhSv;
-		this.diemLP1=diemLP1;
-		this.diemLP2=diemLP2;
-		this.diemTB=diemTB;
+	public SinhVien(int maSv, String tenSv, int ngaysinhSv, int diemLP1, int diemLP2, int diemTB) {
+		this.maSv = maSv;
+		this.tenSv = tenSv;
+		this.ngaysinhSv = ngaysinhSv;
+		this.diemLP1 = diemLP1;
+		this.diemLP2 = diemLP2;
+		this.diemTB = diemTB;
 	}
 
 	public int getMaSv() {
@@ -64,9 +64,11 @@ public class SinhVien {
 	public int getDiemTB() {
 		return diemTB;
 	}
-	public void tinhDiemTB(int diemLP1,int diemLP2) {
-		diemTB=(diemLP1+diemLP2)/2;
+
+	public void tinhDiemTB(int diemLP1, int diemLP2) {
+		diemTB = (diemLP1 + diemLP2) / 2;
 	}
+
 	public void setDiemTB(int diemTB) {
 		this.diemTB = diemTB;
 	}

@@ -1,8 +1,16 @@
 package fasttrack.assignment6.model;
 
 public class Tron extends HinhHoc {
-	public double Bankinh;
+	private double Bankinh;
+
+	public Tron(double Bankinh) {
+		this.Bankinh = Bankinh;
+	}
 	
+	public Tron() {
+
+	}
+
 	public double getBankinh() {
 		return Bankinh;
 	}
@@ -11,20 +19,16 @@ public class Tron extends HinhHoc {
 		Bankinh = bankinh;
 	}
 
-	public Tron() {
-		
-	}
-	
-	public Tron(double Bankinh) {
-		this.Bankinh = Bankinh;
-	}
-	
+	@Override
 	public double getChuVi() {
-		return (this.Bankinh*2*3.14);
+		// TODO Auto-generated method stub
+		return Bankinh * 2 * 3.14;
 	}
-	
+
+	@Override
 	public double getDienTich() {
-		return (this.Bankinh*this.Bankinh*3.14);
+		// TODO Auto-generated method stub
+		return Bankinh * Bankinh * 3.14;
 	}
-	
+
 }
