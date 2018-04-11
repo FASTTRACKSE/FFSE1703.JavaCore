@@ -12,7 +12,6 @@ public class QuanLi {
 	public static int tongSoSV = 0, n = 0;
 	public static String action;
 	static ArrayList<SinhVien> arraySinhVien = new ArrayList<SinhVien>();
-	
 	public static void main(String[] args) {
 		myMenu();
 	}

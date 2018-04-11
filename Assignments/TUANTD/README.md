@@ -24,3 +24,8 @@
                  [io byte](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/SerializeFileFactory.java)
                  [io character](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/TextFileFactory.java)
                  [class SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/model/SinhVien.java)
+                 
+### Assignment Java Desktop
+
+1.Assignment 9: [Giải Phương Trình Bậc 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment9/src/ffse1703/main/Main.java)
+                [Layout PT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment9/src/ffse1703/ui/GiaiPhuongTrinhBac1.java)
