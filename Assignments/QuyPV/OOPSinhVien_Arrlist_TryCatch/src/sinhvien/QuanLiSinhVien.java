@@ -102,7 +102,7 @@ public class QuanLiSinhVien {
 			i++;
 		}
 
-		System.out.println("Tổng số sinh viên: " + SinhVien.tongSo);
+		System.out.println("Tổng số sinh viên: " + arr.size());
 	}
 
 	public void doiTen() {

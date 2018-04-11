@@ -13,12 +13,7 @@ public class QuanLiSinhVien2 {
 	public static void main(String[] args) {
 		myMenu();
 		//
-		ArrayList<SinhVien> arrSinhVien = Text.docFile("dulieu2.txt");
-
-		System.out.println("Danh sach khach hang nhap vao may la :");
-		for (SinhVien kh : arrSinhVien) {
-			System.out.println(kh);
-		}
+		
 }
 
 
@@ -45,12 +40,7 @@ public class QuanLiSinhVien2 {
 		System.out.println("So Luong Sinh Vien Da Nhap Vao: " + SinhVien.tongso);
 		
 		// luu file
-		boolean kt = Text.luuFile(arrSinhVien, "dulieu2.txt");
-		if (kt == true) {
-			System.out.println("Luu file thanh cong !!");
-		} else {
-			System.out.println("Luu file that bai !!");
-		}
+		
 		//
 	}
 
@@ -100,7 +90,22 @@ public class QuanLiSinhVien2 {
 			}
 		}
 	}
-
+	public static void docFile() {
+		ArrayList<SinhVien> arrSinhVien1 = Text.docFile("dulieu2.txt");
+		arrSinhVien = arrSinhVien1;
+		System.out.println("Danh sach khach hang nhap vao may la :");
+		for (SinhVien kh : arrSinhVien) {
+			System.out.println(kh.getSvDiemlp1() + " " + kh.getSvDiemlp2());
+		}
+	}
+	public static void luuFile() {
+		boolean kt = Text.luuFile(arrSinhVien, "dulieu2.txt");
+		if (kt == true) {
+			System.out.println("Luu file thanh cong !!");
+		} else {
+			System.out.println("Luu file that bai !!");
+		}
+	}
 	public static void ketThuc() {
 		System.exit(0);
 	}
@@ -115,6 +120,8 @@ public class QuanLiSinhVien2 {
 				System.out.println("|| 4.XOA SINH VIEN THEO TEN    ||");
 				System.out.println("|| 5.TIM KIEM TEN SINH VIEN    ||");
 				System.out.println("|| 6.KET THUC CHUONG TRINH     ||");
+				System.out.println("|| 7.DOC FILE                  ||");
+				System.out.println("|| 8.LUU FILE                  ||");
 				System.out.println("<===============================>");
 				System.out.println("      LUA CHON CUA BAN        ");
 				int option = Integer.parseInt(myInput.nextLine());
@@ -130,6 +137,10 @@ public class QuanLiSinhVien2 {
 					timTen();
 				} else if (option == 6) {
 					ketThuc();
+				}else if (option == 7) {
+					docFile();
+				}else if (option == 8) {
+					luuFile();
 				}else {
 					throw new Exception();
 				}

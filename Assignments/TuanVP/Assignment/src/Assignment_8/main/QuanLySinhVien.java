@@ -96,9 +96,14 @@ public class QuanLySinhVien {
 	}
 	public static void Danhsach() {
 		ArrayList<SinhVien> arSinhVien = FileFactory.docFile("dulieu.txt");
+		ArrayList<SinhVien> arSinhVien2 = FileFactory2.docFile("dulieu2.txt");
 		System.out.print("\n");
 		System.out.printf("%-12s %-12s %-12s %-12s %-12s %-12s \n","Ten","Tuoi","Diem LP1","Diem LP2","Diem TB","Xep Loai");
 		for (SinhVien x: arSinhVien) {
+			System.out.printf("%-12s %-12d %-12.2f %-12.2f %-12.2f %-12s \n",x.getHoten(),x.getTuoiSV(),x.getDiemLP1(),x.getDiemLP2(),x.getDiemTB(),x.getXeploai());
+		}
+		System.out.println("\n");
+		for (SinhVien x: arSinhVien2) {
 			System.out.printf("%-12s %-12d %-12.2f %-12.2f %-12.2f %-12s \n",x.getHoten(),x.getTuoiSV(),x.getDiemLP1(),x.getDiemLP2(),x.getDiemTB(),x.getXeploai());
 		}
 		myInput.nextLine();
@@ -163,9 +168,15 @@ public class QuanLySinhVien {
 	public static void ghiFile() {
 		boolean kt = FileFactory.luuFile(arrSinhVien, "dulieu.txt");
 		if (kt == true) {
-			System.out.println("Luu file thanh cong!");
+			System.out.println("Luu file kieu byte thanh cong!");
 		} else {
-			System.out.println("Luu file that bai!");
+			System.out.println("Luu file kieu byte that bai!");
+		}
+		boolean kt2 = FileFactory2.luuFile(arrSinhVien, "dulieu2.txt");
+		if (kt == true) {
+			System.out.println("Luu file kieu text thanh cong!");
+		} else {
+			System.out.println("Luu file kieu text that bai!");
 		}
 	}
 	public static void ketthuc() {
