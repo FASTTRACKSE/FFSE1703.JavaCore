@@ -210,9 +210,9 @@ public class QuanLyKhachHang {
 			System.out.println("| 4. IN Danh Sách Khách Hàng    |");
 			System.out.println("| 5. IN Danh Sách Biên Lai      |");
 			System.out.println("=================================");
-			System.out.println("| 6.  sửa                 |");
-			System.out.println("| 7.   xóa                |");
-			System.out.println("| 8.   Kết Thúc                 |");
+			System.out.println("| 6.  Sửa Tên Khách Hàng        |");
+			System.out.println("| 7.  Xóa Tên Khách Hàng        |");
+			System.out.println("| 8.  Kết Thúc                  |");
 			
 			System.out.println("+-------------------------------+");
 			int option = myScanner.nextInt();

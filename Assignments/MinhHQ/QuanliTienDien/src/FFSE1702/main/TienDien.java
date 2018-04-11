@@ -17,7 +17,7 @@ public class TienDien {
 		showCTrinh();
 	}
 
-	public static void nhapthongtinKH() {
+	public static void NhapThongTinKH() {
 
 		System.out.println("Nhập danh sách khách hàng : ");
 		System.out.println("---------------------------");
@@ -49,7 +49,7 @@ public class TienDien {
 		Scanner.nextLine();
 	}
 
-	public static void nhapthongtinTT() {
+	public static void NhapThongTinTT() {
 
 		System.out.print("Nhập chỉ số điện tiêu thụ của Tháng : ");
 		thang = Scanner.nextInt();
@@ -81,7 +81,7 @@ public class TienDien {
 		Scanner.nextLine();
 	}
 
-	public static void inbienlaitheonam() {
+	public static void InBienLaiTheoNam() {
 
 		System.out.print("Nhập năm cần in biên lai khách hàng : ");
 		nam = Scanner.nextInt();
@@ -126,7 +126,7 @@ public class TienDien {
 		Scanner.nextLine();
 	}
 
-	public static void inbienlaitheothang() {
+	public static void InBienLaiTheoThang() {
 
 		System.out.println("Nhập tháng cần in biên lai khách hàng : ");
 		thang = Scanner.nextInt();
@@ -170,7 +170,7 @@ public class TienDien {
 		Scanner.nextLine();
 	}
 
-	public static void inbienlaitheomaKH() {
+	public static void InBienLaiTheoMaKH() {
 		Scanner.nextLine();
 		System.out.println("nhập mã khách hàng cần in biên lai : ");
 		String maKH = Scanner.nextLine();
@@ -214,7 +214,7 @@ public class TienDien {
 		Scanner.nextLine();
 	}
 
-	public static void inkhachhang() {
+	public static void InKhachHang() {
 
 		System.out.println("Danh sách tính tiền điện của khách hàng ");
 		System.out.println("------------------------------------------------------");
@@ -242,6 +242,7 @@ public class TienDien {
 
 	public static void showCTrinh() {
 		while (true) {
+			try {
 			System.out.println(">>         MENU QUẢN LÝ TIỀN ĐIỆN       <<");
 			System.out.println("+----------------------------------------+");
 			System.out.println("|1. Nhập thông tin khách hàng            |");
@@ -253,22 +254,30 @@ public class TienDien {
 			System.out.println(">>            Lựa chọn của bạn?         <<");
 			int myOption = Scanner.nextInt();
 			if (myOption == 1) {
-				nhapthongtinKH();
+				NhapThongTinKH();
 			} else if (myOption == 2) {
-				nhapthongtinTT();
+				NhapThongTinTT();
 			} else if (myOption == 3) {
-				inbienlai();
+				inBienLai();
 			} else if (myOption == 4) {
-				inkhachhang();
+				InKhachHang();
 			} else if (myOption == 5) {
 				ketThuc();
+			} else {
+                throw new Exception();
 			}
-
+			
+			
+			} catch (Exception e) {
+				System.out.println("Bạn đã nhập sai vui lòng nhập lại!!!Nhập lựa chọn từ 1 đến 5!!!");
+				Scanner.nextLine();
+			}
 		}
 	}
 
-	public static void inbienlai() {
+	public static void inBienLai() {
 		while (true) {
+			try{
 			System.out.println(">>         IN BIÊN LAI TIỀN ĐIỆN        <<");
 			System.out.println("+----------------------------------------+");
 			System.out.println("|1. In biên lai theo mã khách hàng       |");
@@ -279,13 +288,22 @@ public class TienDien {
 			System.out.println(">>            Lựa chọn của bạn?         <<");
 			int myOption = Scanner.nextInt();
 			if (myOption == 1) {
-				inbienlaitheomaKH();
+				InBienLaiTheoMaKH();
 			} else if (myOption == 2) {
-				inbienlaitheothang();
+				InBienLaiTheoThang();
 			} else if (myOption == 3) {
-				inbienlaitheonam();
+				InBienLaiTheoNam();
 			} else if (myOption == 4) {
 				showCTrinh();
+			} else {
+                throw new Exception();
+			}
+			
+			
+			} catch (Exception e) {
+				System.out.println("Bạn đã nhập sai vui lòng nhập lại!!!Nhập lựa chọn từ 1 đến 4!!!");
+				Scanner.nextLine();
+				inBienLai();
 			}
 
 		}

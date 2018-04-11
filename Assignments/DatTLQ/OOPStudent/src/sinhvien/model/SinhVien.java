@@ -1,8 +1,10 @@
 package sinhvien.model;
 
 import java.util.Scanner;
+import java.io.Serializable;
 
-public class SinhVien {
+
+public class SinhVien implements Serializable{
 	public String stuName;
 	public String stuDate;
 	public double DLP1;
