@@ -1,0 +1,4 @@
+KH01;Nguyễn Thị Bình;0.0;0.0;0.0
+KH02;Trần Trung Thành;0.0;0.0;0.0
+KH03;Lê Bá Khánh Trình;0.0;0.0;0.0
+KH04;Hoàng Ngọc Phách;0.0;0.0;0.0
