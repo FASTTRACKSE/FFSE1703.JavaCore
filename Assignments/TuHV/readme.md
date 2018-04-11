@@ -56,7 +56,10 @@
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Assigment8/src/fasttarckse/edu/vn/luufile/io/SerializeFileFactory.java)
 <h1></h1>[TextFileFactory]
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Assigment8/src/fasttarckse/edu/vn/luufile/io/TextFileFactory.java)
-
+<h1>Assigmrnt 9</h1>[MyBorderLayout]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Layoutjavadesktop/src/fasttrackse/edu/vn/ui/MyBorderLayoutUI.java)
+[ShowMyBorderLayout]
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuHV/Layoutjavadesktop/src/fasttrackse/edu/vn/desktop/ShowMyBorderLayout.java)
   
  
  
