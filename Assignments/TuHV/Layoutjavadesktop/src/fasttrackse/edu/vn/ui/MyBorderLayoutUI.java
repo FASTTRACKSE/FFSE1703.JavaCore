@@ -117,6 +117,8 @@ public class MyBorderLayoutUI extends JFrame {
 	ActionListener eventHelp = new ActionListener() {
 
 		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null, "Nhập Phương Trình ax + b = 0",
+	                  "Title", JOptionPane.WARNING_MESSAGE);
 		}
 
 	};
