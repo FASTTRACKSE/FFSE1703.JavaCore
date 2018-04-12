@@ -1,4 +1,4 @@
-# Chau Ngoc Ky
+﻿# Chau Ngoc Ky
 Assignment 1: Phương trình bậc hai
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%201/src/fasttrack/Assingment1/main/Main.java)
 <br>
@@ -17,3 +17,9 @@ Assingment 6: Hình học
 <br>
 Assingment 7: Quản lý sinh viên
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%207/src/SinhVien/main/Main.java)
+<br>
+Assingment 8: Update File
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%208/src/fasttrackse/fileiosample/main/Main.java)
+<br>
+Assingment 9: Java desktop Ptb1
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%209/src/fasttrack/ffse20/main/PhuongTrinhBac1.java)
