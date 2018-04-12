@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import SinhVien.model.*;
-
+import SinhVien.io.*;
 public class QuanLySv {
 	public static ArrayList<SinhVien> arrsv = new ArrayList<SinhVien>();
 	public static Scanner sc = new Scanner(System.in);
@@ -28,10 +28,17 @@ public class QuanLySv {
 			System.out.println("Điểm lp2");
 			Double diemLP2 = Double.parseDouble(sc.nextLine());
 			arrsv.add(new SinhVien(tenSv, nSinh, diemLP1, diemLP2));
+			boolean kt = SerializeFileFactory.luuFile(arrsv, "dulieu.txt");
+			if (kt == true) {
+				System.out.println("Đã lưu file thành công");
+			} else {
+				System.out.println("Lưu file thất bại");
+			}
 		}
 	}
 
 	public static void inDs() {
+		ArrayList<SinhVien> arrsv = SerializeFileFactory.docFile("dulieu.txt");
 		System.out.printf("%-15s | %-20s | %-20s | %-20s |%-20s |  \n", "Tên Sv", "Ngày sinh", " Điểm lp1", " Điểm lp2",
 				"Điểm tb");
 		for (SinhVien x : arrsv) {

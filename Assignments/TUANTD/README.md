@@ -19,8 +19,13 @@
                 [Tính Toán Hình Học](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment6/src/ffse1703/edu/vn/main/QuanLyHinhHoc.java)
 6. Assignment 7: [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/DanhSachSV.java)
                  [Quản Lý Sinh Viên Nâng Cao](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/MyCar/src/fasttrack/edu/vn/practices/QLSinhVi%C3%AAn.java)
-7. Assignment 8: [Lưu thông tin byte]()
-                 [Lưu thông tin character]()
-                 [io byte]()
-                 [io character]()
-                 [class SinhVien]()
+7. Assignment 8: [Lưu thông tin luồng byte](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/main/QuanLySinhVien.java   )
+                 [Lưu thông tin luồng character](                                                                https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/main/QuanLySinhVienText.java     )
+                 [io byte](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/SerializeFileFactory.java)
+                 [io character](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/io/TextFileFactory.java)
+                 [class SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment7/src/ffse1703/model/SinhVien.java)
+                 
+### Assignment Java Desktop
+
+1.Assignment 9: [Giải Phương Trình Bậc 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment9/src/ffse1703/main/Main.java)
+                [Layout PT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment9/src/ffse1703/ui/GiaiPhuongTrinhBac1.java)

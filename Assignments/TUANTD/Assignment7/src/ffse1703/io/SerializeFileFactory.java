@@ -29,7 +29,8 @@ public class SerializeFileFactory {
 			FileInputStream fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Object data = ois.readObject();
-			dsSV = (ArrayList<SinhVien>) data;
+			ArrayList<SinhVien> arrayList = (ArrayList<SinhVien>) data;
+			dsSV = arrayList;
 			ois.close();
 			fis.close();
 		} catch (Exception ex) {
@@ -37,6 +38,5 @@ public class SerializeFileFactory {
 		}
 		return dsSV;
 	}
-
 
 }

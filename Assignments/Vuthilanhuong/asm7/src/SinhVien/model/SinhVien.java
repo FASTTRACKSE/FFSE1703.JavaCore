@@ -1,15 +1,13 @@
 package SinhVien.model;
 import java.util.Comparator;
-	public class SinhVien {
+import java.io.Serializable;
+	public class SinhVien implements Serializable{
 		
-		String hoTen;
-		String nSinh;
-		Double diemLp1;
-		Double diemLp2;
-		Double DiemTb;
-		int Id;
+		private String hoTen;
+		private String nSinh;
+		private Double diemLp1;
+		private Double diemLp2;
 	public SinhVien() {
-		
 		}
 	public SinhVien(String hoTen, String nSinh, Double diemLp1, Double diemLp2) {
 		this.hoTen = hoTen;
@@ -69,3 +67,4 @@ import java.util.Comparator;
 	};
 	
 	}
+	
