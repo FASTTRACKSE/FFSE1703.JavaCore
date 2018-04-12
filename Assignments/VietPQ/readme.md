@@ -12,21 +12,21 @@
 3. Assignment 3: [My Menu](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/Menu/src/MyMenu/MyMenu.java)
 [DANH SÁCH SINH VIÊN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/Menu/src/MyMenu/DSSV.java)
 
-4. Assignment 4: [QUẢN LÍ SINH VIÊN]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv
-[SINH VIÊN]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien
+4. Assignment 4: [QUẢN LÍ SINH VIÊN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv)
+[SINH VIÊN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien)
 
 5. Assignment 5:
 
-6. Assignment 6: [HÌNH CHỮ NHẬT]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhchunhat.java
-[HÌNH TRÒN]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhtron.java
-[HÌNH VUÔNG]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhtamgiac.java
-[HÌNH HỌC]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhhoc.java
-[TÍNH TOÁN HÌNH HỌC]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/tinhtoanhinhhoc/tinhtoanhinh.java
+6. Assignment 6: [HÌNH CHỮ NHẬT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhchunhat.java)
+[HÌNH TRÒN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhtron.java)
+[HÌNH VUÔNG](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhtamgiac.java)
+[HÌNH HỌC](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhhoc.java)
+[TÍNH TOÁN HÌNH HỌC](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/tinhtoanhinhhoc/tinhtoanhinh.java)
 
-7. Assignment 7: [QUẢN LÍ SINH VIÊN 2]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv
-[SINH VIÊN 2]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien
+7. Assignment 7: [QUẢN LÍ SINH VIÊN 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv)
+[SINH VIÊN 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien)
 
 8. Assignment 8:
 
-9. Assignment 9: [GIẢI PHƯƠNG TRÌNH BẬC 1]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/ui/giaiptbac1.java
-[MAIN PT]https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/main/main.java
+9. Assignment 9: [GIẢI PHƯƠNG TRÌNH BẬC 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/ui/giaiptbac1.java)
+[MAIN PT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/main/main.java)
