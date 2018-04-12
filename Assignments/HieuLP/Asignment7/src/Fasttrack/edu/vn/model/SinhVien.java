@@ -66,13 +66,13 @@ public class SinhVien {
 
 	public String XepLoai() {
 		if (getTBM() <= 4.9) {
-			return "Yáº¿u";
+			return "Yếu";
 		} else if (getTBM() >= 5.0 && getTBM() <= 6.9) {
-			return "Trung BÃ¬nh";
+			return "Trung bình";
 		} else if (getTBM() >= 7 && getTBM() <= 8.4) {
 			return "KhÃ¡";
 		} else {
-			return "Giá»�i";
+			return "Giỏi";
 		}
 	}
 
