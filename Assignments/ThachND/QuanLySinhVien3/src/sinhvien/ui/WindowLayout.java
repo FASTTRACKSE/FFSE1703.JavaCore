@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,6 +25,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.ArrayList;
+
+import sinhvien.io.SerializeFileFactory;
 import sinhvien.model.*;
 public class WindowLayout extends JFrame {
 	JComboBox cbo;
@@ -144,13 +147,21 @@ public class WindowLayout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			File file = new File("D:/FFSE1703.JavaCore/Assignments/ThachND/QuanLySinhVien3/dulieusinhvien.txt");	    
+		    if(file.exists()) {
+		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
+		  		arrSv=arrSvFile;
+		    }
 			dm.setRowCount(0);
 			String choose = cbo.getSelectedItem().toString();
 			for(SinhVien x : arrSv) {
-				if(choose.equalsIgnoreCase(x.getLopSv())) {
+				if(choose.equals(x.getLopSv())) {
 					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
 				}
 			}
+			txtMaSV.setText("");
+			txtTenSV.setText("");
+			txtTuoi.setText("");
 		}
 	};
 	ActionListener eventAdd = new ActionListener() {

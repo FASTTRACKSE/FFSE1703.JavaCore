@@ -22,7 +22,7 @@ public class SerializeFileFactory {
 		return false;
 	}
 	public static ArrayList<SinhVien> readFile(String path){	
-		ArrayList<SinhVien> arrSvFile=new ArrayList<SinhVien>();
+		ArrayList<SinhVien> arrSvFile = new ArrayList<SinhVien>();
 		try {
 			
 			FileInputStream fis = new FileInputStream(path);
