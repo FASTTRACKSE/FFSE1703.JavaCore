@@ -114,12 +114,13 @@ public class QuanLiSinhVien_UI extends JFrame {
 		
 		JPanel pnTable = new JPanel();
 		JPanel box7 = new JPanel();
-		 dm = new DefaultTableModel();
+		dm = new DefaultTableModel();
 		dm.addColumn("Mã");
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
 		dm.addColumn("Lớp");
 		tbl1 = new JTable(dm);
+		
 		//dm.addRow(...);
 		tbl1.addMouseListener(new MouseListener() {
 			
@@ -168,14 +169,14 @@ public class QuanLiSinhVien_UI extends JFrame {
 						if(col == (tbl1.getColumnCount() - 1)) {
 							cbo.setSelectedItem(value);
 						}
+						
 					}
 				}
 				
-				
-				
-				
 			}
 		});
+		
+		
 		
 		JScrollPane sc = new JScrollPane(tbl1);
 		box7.setLayout(new BoxLayout(box7, BoxLayout.Y_AXIS));
@@ -228,6 +229,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 				textMSV.setText("");
 				textTSV.setText("");
 				textT.setText("");
+				JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
 			}
 		}
 	};
@@ -238,27 +240,17 @@ public class QuanLiSinhVien_UI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			textMSV.setEditable(true);
-			for(SinhVien x : arr) {
-			if(textMSV.getText().equals(x.getMaSV())){
-					x.setTen(textTSV.getText());
-					x.setTuoi(textT.getText());
-					x.setLop(cbo.getSelectedItem().toString());
-					
-					//sửa xong lưu
-					luuFile();
-				}
-				
-			}
 			
-		    dm.setRowCount(0);
-			for(int i = 0;i < arr.size(); i++) {
-				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
-				dm.addRow(row);
+			if(textMSV.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+			} 
+			else {
+				sua();
 				textMSV.setText("");
 				textTSV.setText("");
 				textT.setText("");
+				JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
 			}
-			
 		}
 		
 	};
@@ -269,22 +261,16 @@ public class QuanLiSinhVien_UI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			textMSV.setEditable(true);
-			for(SinhVien x : arr) {
-				if(textMSV.getText().equals(x.getMaSV())) {
-					arr.remove(x);
-					luuFile();
-					break;
-				}
-			}
-			dm.setRowCount(0);
-			for(int i = 0;i < arr.size(); i++) {
-				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
-				dm.addRow(row);
+			
+			if(textMSV.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+			} else {
+				xoa();
 				textMSV.setText("");
 				textTSV.setText("");
 				textT.setText("");
+				JOptionPane.showMessageDialog(null, "Xóa tên sinh viên thành công!");
 			}
-			
 		}
 	};
 	
@@ -298,6 +284,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 	};
 	
 	
+	/*---------------------------------------Function----------------------------------------------*/
 	
 	
 	public void nhap() {
@@ -317,6 +304,43 @@ public class QuanLiSinhVien_UI extends JFrame {
 			
 		}
 	
+	}
+	
+	public void sua() {
+		for(SinhVien x : arr) {
+			if(textMSV.getText().equals(x.getMaSV())){
+					x.setTen(textTSV.getText());
+					x.setTuoi(textT.getText());
+					x.setLop(cbo.getSelectedItem().toString());
+					
+					//sửa xong lưu vào file
+					luuFile();
+				}
+				
+			}
+			
+		    dm.setRowCount(0);
+			for(int i = 0;i < arr.size(); i++) {
+				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
+				dm.addRow(row);
+				
+			}
+	}
+	
+	public void xoa() {
+		for(SinhVien x : arr) {
+			if(textMSV.getText().equals(x.getMaSV())) {
+				arr.remove(x);
+				luuFile();
+				break;
+			}
+		}
+		dm.setRowCount(0);
+		for(int i = 0;i < arr.size(); i++) {
+			String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
+			dm.addRow(row);
+			
+		}
 	}
 	
 	public void luuFile() {
