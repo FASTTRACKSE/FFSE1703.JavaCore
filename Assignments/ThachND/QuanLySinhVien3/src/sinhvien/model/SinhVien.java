@@ -1,7 +1,13 @@
 package sinhvien.model;
 
-public class SinhVien {
+import java.io.Serializable;
+import java.util.ArrayList;
+public class SinhVien implements Serializable {
 	private String maSv, tenSv, tuoiSv, lopSv;
+	public SinhVien(){
+		
+	}
+	
 	public SinhVien(String maSv, String tenSv, String tuoiSv, String lopSv) {
 		this.maSv = maSv;
 		this.tenSv = tenSv;
