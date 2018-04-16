@@ -97,6 +97,8 @@ public class QuanLySinhVienUI extends JFrame{
 		center.setLayout(new BorderLayout());
 		Border border=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle=BorderFactory.createTitledBorder(border, "Danh sách");
+		center.setBorder(borderTitle);
+		
 		dm=new DefaultTableModel();
 		
 		dm.addColumn("Mã");
@@ -115,10 +117,11 @@ public class QuanLySinhVienUI extends JFrame{
 		}
 		
 		 table = new JTable(dm);
-			sp=new JScrollPane(table);
 			table.setLayout(new BorderLayout());
-			center.setBorder(borderTitle);
-			center.add(sp,BorderLayout.CENTER);
+			sp=new JScrollPane(table);
+			JScrollPane sc=new JScrollPane(sp,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			sc.setPreferredSize(new Dimension(470, 180));
+			center.add(sc,BorderLayout.CENTER);
 			main.add(center);
 				  
 		con.add(main);
