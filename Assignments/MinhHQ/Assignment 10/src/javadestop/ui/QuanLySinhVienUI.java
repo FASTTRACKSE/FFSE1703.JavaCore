@@ -6,16 +6,23 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.event.*; 
+import java.awt.event.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList; 
+import javadestop.model.*;
+import javadestop.io.TextFileFactory;
 
 
 public class QuanLySinhVienUI extends JFrame{
-	JScrollPane sp;
-	DefaultTableModel dm;
-	JTable table;
-	JComboBox select;
-	JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
-	String[] lop = {"FFSE1701","FFSE1702","FFSE1703","FFSE1704"};
+	static JScrollPane sp;
+	static DefaultTableModel dm;
+	static JTable table;
+	static JComboBox select;
+	static JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
+	static ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
+	static String[] lop = {"FFSE1701","FFSE1702","FFSE1703","FFSE1704","Tất Cả"};
 	
 	JButton them = new JButton("Thêm"), 
 			xoa = new JButton("Xóa"),
@@ -56,7 +63,7 @@ public class QuanLySinhVienUI extends JFrame{
 		
 		JPanel nhapMaSV = new JPanel();
 		nhapMaSV.setLayout(new FlowLayout());
-		JLabel lblNhapMaSV= new JLabel("Mã sinh viên:	");
+		JLabel lblNhapMaSV= new JLabel("Mã sinh viên:");
 		maSV = new JTextField(20);
 		nhapMaSV.add(lblNhapMaSV);
 		nhapMaSV.add(maSV);
@@ -64,7 +71,7 @@ public class QuanLySinhVienUI extends JFrame{
 		
 		JPanel nhapTen = new JPanel();
 		nhapTen.setLayout(new FlowLayout());
-		JLabel lblNhapTen= new JLabel("Tên sinh viên:	");
+		JLabel lblNhapTen= new JLabel("Tên sinh viên:");
 		tenSV = new JTextField(20);
 		nhapTen.add(lblNhapTen);
 		nhapTen.add(tenSV);
@@ -72,7 +79,7 @@ public class QuanLySinhVienUI extends JFrame{
 		
 		JPanel nhapTuoi = new JPanel();
 		nhapTuoi.setLayout(new FlowLayout());
-		JLabel lblNhapTuoi= new JLabel("Tuổi:       ");
+		JLabel lblNhapTuoi= new JLabel("Tuổi sinh viên:");
 		tuoiSV = new JTextField(20);
 		nhapTuoi.add(lblNhapTuoi);
 		nhapTuoi.add(tuoiSV);
@@ -87,6 +94,7 @@ public class QuanLySinhVienUI extends JFrame{
 		main.add(button);
 		
 		JPanel center = new JPanel();
+		center.setLayout(new BorderLayout());
 		Border border=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle=BorderFactory.createTitledBorder(border, "Danh sách");
 		dm=new DefaultTableModel();
@@ -95,9 +103,16 @@ public class QuanLySinhVienUI extends JFrame{
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
 		
-		dm.addRow(new String[] { "Môn học", "Tác giả", "Tổng số"});
-		dm.addRow(new String[] { "Môn học", "Tác giả", "Tổng số"});
-		dm.addRow(new String[] {"Môn học", "Tác giả", "Tổng số"});
+		Path path = Paths.get("dulieu.txt");
+		if(Files.exists(path)) {
+			arrSV = TextFileFactory.docFile("dulieu.txt");
+		}else {
+			arrSV = new ArrayList<SinhVien>();
+			}
+		for(SinhVien x : arrSV) {
+			dm.addRow(new String[] {x.getMaSV(),x.getTenSV(),x.getTuoi()});
+			
+		}
 		
 		 table = new JTable(dm);
 			sp=new JScrollPane(table);
@@ -113,10 +128,23 @@ public class QuanLySinhVienUI extends JFrame{
 	
 	public void addEvent() 
 	{
+		select.addActionListener(eventChooseClass);
 		thoat.addActionListener(eventExit);
 		them.addActionListener(eventAdd);
+		sua.addActionListener(eventEdit);
 		
 	}
+	
+	ActionListener eventChooseClass = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			
+		}
+		
+	};
+	
 		ActionListener eventExit = new ActionListener() {
 
 			@Override
@@ -126,20 +154,57 @@ public class QuanLySinhVienUI extends JFrame{
 			}
 			
 		};
+		
 		ActionListener eventAdd = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String ma = select + maSV.getText();
+				String chonLop =(String) select.getSelectedItem();
+				String ma = chonLop + maSV.getText();
 				String ten = tenSV.getText();
 				String tuoi = tuoiSV.getText();
 				dm.addRow(new String[] {ma,ten,tuoi});
 				table = new JTable(dm);
-				sp=new JScrollPane(table);
+				maSV.setText("");
+				tenSV.setText("");
+				tuoiSV.setText("");
+				Path path = Paths.get("dulieu.txt");
+				if(Files.exists(path)) {
+					arrSV = TextFileFactory.docFile("dulieu.txt");
+				}else {
+					arrSV = new ArrayList<SinhVien>();
+					}
+				
+				try {	arrSV.add(new SinhVien(ma,ten,tuoi,chonLop));
+				boolean checked= TextFileFactory.luuFile(arrSV, "dulieu.txt");
+				if (checked == true) {
+					JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên",
+			                  "Title", JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Lưu thất bại",
+			                  "Title", JOptionPane.WARNING_MESSAGE);
+				}
+			}catch(Exception e) {
+				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!",
+		                  "Title", JOptionPane.WARNING_MESSAGE);
+			}
+				}
+		};
+		
+		ActionListener eventEdit = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String ma = maSV.getText();
+				String ten = tenSV.getText();
+				String tuoi = tuoiSV.getText();
+				
+				
+				
+			
 			}
 			
 		};
-		
 		
 	
 	public void showWindow()
