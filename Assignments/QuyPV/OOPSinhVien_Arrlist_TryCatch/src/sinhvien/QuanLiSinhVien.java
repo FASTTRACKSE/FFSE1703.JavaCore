@@ -1,6 +1,8 @@
 package sinhvien;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import io.*;
 
@@ -102,7 +104,7 @@ public class QuanLiSinhVien {
 			i++;
 		}
 
-		System.out.println("Tổng số sinh viên: " + SinhVien.tongSo);
+		System.out.println("Tổng số sinh viên: " + arr.size());
 	}
 
 	public void doiTen() {
@@ -198,15 +200,27 @@ public class QuanLiSinhVien {
 	}
 
 	public void docFile() {
+		
+		File file = new File("D:/FFSE1703.JavaCore/Assignments/QuyPV/OOPSinhVien_Arrlist_TryCatch/sinhvien.txt");
 		int i = 1;
-		ArrayList<SinhVien> arrFile = SerializeFile.docFile("sinhvien.txt");
-		arr = arrFile;
-		System.out.println(
-				"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
-		for (SinhVien x : arr) {
-			System.out.println((i ++) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
-					+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
-		}
+	
+			if(file.exists()) {
+				ArrayList<SinhVien> arrFile = SerializeFile.docFile("sinhvien.txt");
+				arr = arrFile;
+				System.out.println(
+						"STT \t" + "Họ Và tên \t" + "Ngày sinh \t" + "Điểm LP1 \t" + "Điểm LP2 \t" + "ĐTB \t" + "Xếp loại");
+				for (SinhVien x : arr) {
+					System.out.println((i ++) + " \t" + x.getHoTen() + " \t \t" + x.getNgaySinh() + "\t" + x.getDiemLp1()
+							+ " \t \t" + x.getDiemLp2() + " \t \t" + x.getDiemTB() + "\t" + x.getXepLoai());
+				}
+			}
+			else {
+				System.out.println("File không tồn tại!");
+				myInput.nextLine();
+			}
+		
+		
+		
 	}
 
 	public void ketThuc() {

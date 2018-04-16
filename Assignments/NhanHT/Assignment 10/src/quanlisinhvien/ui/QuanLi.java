@@ -1,0 +1,333 @@
+package quanlisinhvien.ui;
+import quanlisinhvien.model.*;
+import quanlisinhvien.ui.*;
+import quanlisinhvien.model.*;
+import quanlisinhvien.io.*;
+
+import java.util.ArrayList;
+import java.util.Vector;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+
+public class QuanLi extends JFrame {
+	private JComboBox cbo;
+	private JTextField txtMaSv, txtTenSv, txtTuoi;
+	private JButton btnThem,btnXoa,btnSua,btnThoat,btnNhap ;
+	private static ArrayList<SinhVien> arrSinhVien=new ArrayList<>();
+	private DefaultTableModel dm ;
+	private JTable tbl1;
+	public QuanLi() {
+		super();
+	}
+	public QuanLi(String title) {
+		super(title);
+		addControls();
+		addEvent();
+		docFile();
+	}
+	public void showWindow(){
+		this.setSize(600, 400);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+	public void addControls() {
+		Container con=getContentPane();
+		JPanel pnBox=new JPanel();
+		JPanel pnFlow = new JPanel();
+		
+		JPanel Box1 = new JPanel();
+		JPanel Box2 = new JPanel();
+		JPanel Box3 = new JPanel();
+		JPanel Box4 = new JPanel();
+		JPanel Box5 = new JPanel();
+		JPanel Box6 = new JPanel();
+		JPanel Box7 = new JPanel();
+
+	
+		//
+		pnFlow.setLayout(new FlowLayout());
+		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
+		//
+		JLabel lblTen=new JLabel("CHƯƠNG TRÌNH QUẢN LÍ SINH VIÊN"); 
+		Font font =new Font("Arial", Font.BOLD, 25);
+		lblTen.setFont(font);
+		Box1.add(lblTen);
+		//
+		JLabel lblLop = new JLabel("Chọn Lớp");
+		cbo = new JComboBox();
+		cbo.addItem("FFSE 1701");
+		cbo.addItem("FFSE 1702");
+		cbo.addItem("FFSE 1703");
+		cbo.addItem("FFSE 1704");
+		Box2.add(lblLop);
+		Box2.add(cbo);
+		//
+		JLabel lblMaSv = new JLabel("Mã Sinh Viên");
+		lblMaSv.setPreferredSize(new Dimension(100,10));
+		 txtMaSv = new JTextField(15);
+		Box3.add(lblMaSv);
+		Box3.add(txtMaSv);
+		//
+		JLabel lblTenSv = new JLabel("Tên Sinh Viên");
+		lblTenSv.setPreferredSize(new Dimension(100,10));
+		 txtTenSv = new JTextField(15);
+		Box4.add(lblTenSv);
+		Box4.add(txtTenSv);
+		//
+		//
+		JLabel lblTuoi = new JLabel("Tuổi");
+		lblTuoi.setPreferredSize(new Dimension(100,10));
+		txtTuoi = new JTextField(15);
+		Box5.add(lblTuoi);
+		Box5.add(txtTuoi);
+		//
+		 btnThem = new JButton("Thêm"); 
+		 btnSua = new JButton("Sửa"); 
+		 btnXoa = new JButton("Xóa"); 
+		 btnThoat = new JButton("Thoát");
+		 btnNhap = new JButton("Nhập"); 
+		Box6.add(btnThem);
+		Box6.add(btnSua);
+		Box6.add(btnXoa);
+		Box6.add(btnThoat);
+		Box6.add(btnNhap);
+		//
+		JPanel pnTable=new JPanel();
+		Border border = BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(
+		border, "Danh sách");
+		pnTable.setBorder(borderTitle);
+		
+		dm = new DefaultTableModel();
+		dm.addColumn("Mã");
+		dm.addColumn("Tên");
+		dm.addColumn("Tuổi");
+		dm.addColumn("Lớp");
+		 tbl1=new JTable(dm);
+		JScrollPane sc=new JScrollPane(tbl1);
+		pnTable.setLayout(new BorderLayout());
+		pnTable.add(sc);
+		Box7.setLayout(new BorderLayout());
+		Box7.add(pnTable);
+		//
+		pnBox.add(Box1);
+		pnBox.add(Box2);
+		pnBox.add(Box3);
+		pnBox.add(Box4);
+		pnBox.add(Box5);
+		pnBox.add(Box6);
+		pnBox.add(Box7);
+		//
+		con.add(pnBox);	
+		//
+		
+		tbl1.addMouseListener(new MouseListener() {
+			
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				txtMaSv.setEditable(false);
+				for(int i = tbl1.getSelectedRow() ; i <=tbl1.getSelectedRow(); i++) {
+					for(int y = 0; y < tbl1.getColumnCount(); y++) {
+						String value = (String)tbl1.getValueAt(i, y);
+						if(y == 0) {
+							txtMaSv.setText(value);
+						}
+						if(y == 1) {
+							txtTenSv.setText(value);
+						}
+						if(y == 2) {
+							txtTuoi.setText(value);
+						}
+						if(y == (tbl1.getColumnCount() - 1)) {
+							cbo.setSelectedItem(value);
+						}
+						
+					}
+				}
+				
+			}
+		});
+	}
+	public void addEvent() {
+		btnThoat.addActionListener(eventExit);
+		btnThem.addActionListener(eventThem);
+		btnXoa.addActionListener(eventXoa);
+		btnSua.addActionListener(eventSua);
+	}
+	
+	//
+	ActionListener eventExit = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+	};
+	//
+	ActionListener eventThem = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(txtMaSv.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Phải Nhập Mã Sinh Viên !!!");
+			}
+			if(txtTenSv.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Phải Nhập Tên Sinh Viên !!!");
+			}
+			if(txtTuoi.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Phải Nhập Tuổi Sinh Viên !!!");
+			}else {
+				Them();
+				luuFile();	
+				txtMaSv.setText("");
+				txtTenSv.setText("");
+				txtTuoi.setText("");
+				txtMaSv.setEditable(true);
+			}
+			
+		}
+		
+	};
+	public void Them() {
+		String lopSv = cbo.getSelectedItem().toString();
+		String maSv = txtMaSv.getText();
+		String tenSv = txtTenSv.getText();
+		String tuoiSv = txtTuoi.getText();
+		arrSinhVien.add(new SinhVien(maSv,tenSv,tuoiSv,lopSv));
+		dm.setRowCount(0);
+		for(int i = 0;i < arrSinhVien.size(); i++) {
+			String row[] = {arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(), arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop()};
+			dm.addRow(row);
+		}
+	}
+	ActionListener eventXoa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				txtTenSv.setEditable(true);
+				if(txtMaSv.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần Xoa!");
+				} else {
+					xoa();
+					txtMaSv.setText("");
+					txtTenSv.setText("");
+					txtTuoi.setText("");
+					txtMaSv.setEditable(true);
+					JOptionPane.showMessageDialog(null, "Xóa tên sinh viên thành công!");
+				}
+			}		
+	};
+	ActionListener eventSua = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			txtTenSv.setEditable(true);
+			if(txtMaSv.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+			} else {
+				sua();
+				txtMaSv.setEditable(true);
+				JOptionPane.showMessageDialog(null, "Sửa tên sinh viên thành công!");
+			}
+		}
+	};
+	public void xoa() {
+		for(SinhVien x : arrSinhVien) {
+			if(txtMaSv.getText().equals(x.getMaSv())) {
+				arrSinhVien.remove(x);
+				luuFile();
+				break;
+			}
+		}
+		dm.setRowCount(0);
+		for(int i = 0;i < arrSinhVien.size(); i++) {
+			String row[] = {arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(), arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop()};
+			dm.addRow(row);
+		}
+	}
+	public void sua() {
+		for (SinhVien x: arrSinhVien) {
+			if(txtMaSv.getText().equals(x.getMaSv())){
+				x.setTenSv(txtTenSv.getText());
+				x.setTuoiSv(txtTuoi.getText());
+				x.setLop(cbo.getSelectedItem().toString());
+				luuFile();
+			}
+		}
+		dm.setRowCount(0);
+		for(int i = 0;i < arrSinhVien.size(); i++) {
+			String row[] = {arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(), arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop()};
+			dm.addRow(row);
+		}
+	}
+	public void luuFile() {
+		boolean kt = Serialize.luuFile(arrSinhVien, "dulieu.txt");
+	}
+	public void docFile() {
+		ArrayList<SinhVien> arrFile = Serialize.docFile("dulieu.txt");
+		arrSinhVien = arrFile;
+		dm.setRowCount(0);
+		for(int i = 0;i < arrSinhVien.size(); i++) {
+			String row[] = {arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(), arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop()};
+			dm.addRow(row);
+			
+		}
+
+	}
+
+}
+	
