@@ -1,11 +1,8 @@
 package QlySV.model;
 
-import java.util.Scanner;
 
 public class SinhVien {
 
-
-	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
 	private String Date;
 	private double Lp1;
