@@ -263,7 +263,7 @@ public class WindowLayout extends JFrame {
 			}
 			
 			if(kt == "trùng") {
-				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên!");
+				JOptionPane.showMessageDialog(null, "Mã sinh viên đã tồn tại!");
 			}
 			else {
 			arrSv.add(new SinhVien(maSv, tenSv, tuoiSv, lopSv));
