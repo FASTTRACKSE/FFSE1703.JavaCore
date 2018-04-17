@@ -1,7 +1,7 @@
 package fasttrackse.edu.model;
 import fasttrackse.edu.main.*;
 import java.awt.BorderLayout;
-import fasttrackse.edu.io.*;
+import fasttrackse.edu.io.TextFile;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,6 +13,8 @@ import java.awt.Font;
 import fasttrackse.edu.modelsv.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,12 +35,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 public class QuanLy extends JFrame {
 	private JTextField maSinhVien,tenSinhVien,tuoiSinhVien;
-	private JButton Nhap,Them,Sua,Xoa,Thoat;
+	private JButton Nhap,Them,Sua,Xoa,Thoat,Chon;
     String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
     String[] items = {"All","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
     public static ArrayList<SinhVien> arraySinhVien = new ArrayList<SinhVien>();
 	JComboBox<String> Class = new JComboBox<>(items);
-	String cClass = "All choose";
+	String cClass = "All";
     private DefaultTableModel dm = new DefaultTableModel();
 	final JTable tab = new JTable(dm);
 	JScrollPane sc = new JScrollPane(tab);
@@ -131,19 +133,20 @@ public class QuanLy extends JFrame {
 			Thoat.addActionListener(eventThoat);
 			Nhap.addActionListener(eventNhap);
 			Class.addActionListener(eventClass);
+			tab.addMouseListener(ChonHang);
 			
 	}
 		
 		ActionListener eventClass = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/fasstrackse/dulieu2.txt");
+				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/JavaDesktop_Sample2/document.txt");
 				if (file.exists()) {
-					ArrayList<SinhVien> arrSvFile = TextFile.readFile("dulieu2.txt");
+					ArrayList<SinhVien> arrSvFile = TextFile.readFile("document.txt");
 					arraySinhVien = arrSvFile;
 				}
-				cClass = (String) Class.getSelectedItem();
-				dm.setRowCount(0);
-				if ( cClass == "All choose") {
+				cClass =  Class.getSelectedItem().toString();
+				dm.setRowCount(arraySinhVien.size());
+				if ( cClass == "All") {
 					for (SinhVien sv : arraySinhVien) {
 						String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
 						dm.addRow(row);
@@ -169,50 +172,50 @@ public class QuanLy extends JFrame {
 				String maSV=maSinhVien.getText();
 				String tenSV=tenSinhVien.getText();
 				String tuoiSV=tuoiSinhVien.getText();
+			    int ktTonTai = -1;
 				String lop = (String) Class.getSelectedItem();
-				if(maSV.isEmpty()) {
-					String msg = "Chưa nhập mã sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(maSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "mã sinh viên phải là số";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
-				
-			    }
-				if(tenSV.isEmpty()) {
-					String msg = "Chưa nhập tên sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(tenSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "tên sinh viên phải là chữ";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
+				for (int i = 0; i < arraySinhVien.size(); i++) {
+					if (maSinhVien.equals(arraySinhVien.get(i).getMaSinhVien())) {
+						ktTonTai = i;
+					}
 				}
-				if(tuoiSV.isEmpty()) {
-					String msg = "Chưa nhập tuổi sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(tuoiSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "tuổi sinh viên phải là số";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
-			    }
-				
-				String[] row = {maSV,tenSV,tuoiSV,lop };
-				dm.addRow(row);
-				arraySinhVien.add(new SinhVien());
-			     }
-				};
+				try {
+					if (tenSV.isEmpty() || maSV.isEmpty() || tuoiSV.isEmpty()) {
+						throw new Exception();
+						// JOptionPane.showMessageDialog(null, "Bạn phải nhập số !!");
+					} else if (ktTonTai >= 0) {
+						String msg = "Sinh viên " + arraySinhVien.get(ktTonTai).getMaSinhVien() + " đã tồn tạ !!";
+						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
+					}else if(lop=="All"){
+						throw new NullPointerException();
+					} else {
+						
+						arraySinhVien.add(new SinhVien(maSV, tenSV, tuoiSV, lop));
+
+						for (int i = (arraySinhVien.size() - 1); i < arraySinhVien.size(); i++) {
+
+							String[] row = { arraySinhVien.get(i).getMaSinhVien(), arraySinhVien.get(i).getTenSinhVien(), arraySinhVien.get(i).getTuoiSinhVien(),arraySinhVien.get(i).getLop()};
+							dm.addRow(row);
+						}
+						boolean kt = TextFile.saveFile(arraySinhVien, "dulieu.txt");
+						if (kt == true) {
+							System.out.println("Đã lưu file thành công");
+						} else {
+							System.out.println("Lưu file thất bại");
+						}
+						maSinhVien.setText("");
+						tenSinhVien.setText("");
+						tuoiSinhVien.setText("");
+					}
+
+				} catch (Exception ex) {
+					String msg = "Vui lòng nhập đầy đủ thông tin";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
+				}
+
+		}
+
+	};
 				
 //	
 				ActionListener eventThem = new ActionListener() {
@@ -226,87 +229,74 @@ public class QuanLy extends JFrame {
 				};
 		
 		
-		ActionListener eventSua = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-					String maSv = maSinhVien.getText();
-					String tenSv = tenSinhVien.getText();
-					String tuoiSv = tuoiSinhVien.getText();
-					String lopSv = (String) Class.getSelectedItem();
-					
-					
-					try {
-							Integer.parseInt(tuoiSv);				
+				ActionListener eventSua = new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						String maSv = maSinhVien.getText();
+						String tenSv = tenSinhVien.getText();
+						String tuoiSv = tuoiSinhVien.getText();
+						String lop = (String) Class.getSelectedItem();
+
 						try {
-							int tuoi=Integer.parseInt(tuoiSv);
-							int so=-1;
-							for(int i=0;i<arraySinhVien.size();i++) {
-								if(lopSv.equals(arraySinhVien.get(i).getLop())) {
-									so=i;
-								}
-							}
-							if(maSv.isEmpty()&&tenSv.isEmpty()&&tuoiSv.isEmpty()) {		
-								throw new Exception();
-							}else if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()){
-								String msg = "Không được để trống các dòng "+maSv;
-								JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
+							Integer.parseInt(tuoiSv);
+							try {
 								
-								}else if(tuoi>=18 && tuoi<=35){
-									String msg = "Nhập tuổi từ 18 đến 35 "+maSv;
+								
+								if (maSv.isEmpty() && tenSv.isEmpty() && tuoiSv.isEmpty()) {
+									throw new Exception();
+								} else if (maSv.isEmpty() || tenSv.isEmpty() || tuoiSv.isEmpty()) {
+									String msg = "Không được để trống các dòng " + maSv;
 									JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-								}else {
+
+								} else {
 									arraySinhVien.get(stt).setMaSinhVien(maSv);
 									arraySinhVien.get(stt).setTenSinhVien(tenSv);
 									arraySinhVien.get(stt).setTuoiSinhVien(tuoiSv);
-								boolean checked= TextFile.saveFile(arraySinhVien, "dulieusinhvien.txt");
-								if (checked == true) {
-									String msg = "Đã Sửa Thành công Sinh viên "+tenSv;
-									JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-								} else {
-									System.out.println("Lưu thất bại");
-								}
-								int col = tab.getSelectedRow();
-								maSinhVien.setText("");
-								tenSinhVien.setText("");
-								tuoiSinhVien.setText("");
-								maSinhVien.requestFocus();
-								cClass =(String) Class.getSelectedItem();;
-								dm.setRowCount(0);
-									if(cClass=="Tất cả") {
+									boolean checked = TextFile.saveFile(arraySinhVien, "document.txt");
+									if (checked == true) {
+										String msg = "Đã Sửa Thành công Sinh viên " + tenSv;
+										JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+									} else {
+										System.out.println("Lưu thất bại");
+									}
+									int col = tab.getSelectedRow();
+									maSinhVien.setText("");
+									tenSinhVien.setText("");
+									tuoiSinhVien.setText("");
+									maSinhVien.requestFocus();
+									lop = (String) Class.getSelectedItem();
+									dm.setRowCount(0);
+									if (cClass == "All") {
 										for (SinhVien sv : arraySinhVien) {
-											String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
+											String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
 											dm.addRow(row);
 										}
-									}else {
+									} else {
 										for (SinhVien sv : arraySinhVien) {
-											if(Class.equals(sv.getLop())) {
-												String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
+											if (lop.equals(sv.getLop())) {
+												String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
 												dm.addRow(row);
-											}					
+											}
 										}
-									}						
+									}
+								}
+							} catch (Exception e2) {
+								String msg = "Chưa chọn dòng cần thay đổi ";
+								JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
 							}
-						}catch(Exception e2) {
-							String msg = "Chưa chọn dòng cần thay đổi ";
-							JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+						} catch (Exception e2) {
 						}
-					}catch(Exception e2) {
-					String msg = "Phải Nhập số cho Tuổi "+maSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);					
 					}
-					
-				
-				
-						
-					}
-		};
+				};
 		ActionListener eventXoa = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {						
 				String maSv = maSinhVien.getText();
 				String tenSv = tenSinhVien.getText();
 				String tuoiSv = tuoiSinhVien.getText();
 				arraySinhVien.remove(stt);			
-				boolean checked= TextFile.saveFile(arraySinhVien, "dulieu2.txt");
+				boolean checked= TextFile.saveFile(arraySinhVien, "document.txt");
 				if (checked == true) {
 					String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
 					JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
@@ -336,6 +326,23 @@ public class QuanLy extends JFrame {
 		ActionListener eventThoat = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
+			}
+		};
+		MouseAdapter ChonHang = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int col = tab.getSelectedRow();
+				String[] row = new String[3];
+				row[0] = (String) tab.getValueAt(col, 0);
+				row[1] = (String) tab.getValueAt(col, 1);
+				row[2] = (String) tab.getValueAt(col, 2);
+				maSinhVien.setText(row[0]);
+				tenSinhVien.setText(row[1]);
+				tuoiSinhVien.setText(row[2]);
+				for (int i = 0; i < arraySinhVien.size(); i++) {
+					if (row[0].equals(arraySinhVien.get(i).getMaSinhVien())) {
+						stt = i;
+					}
+				}
 			}
 		};
 	public void showWindow(){

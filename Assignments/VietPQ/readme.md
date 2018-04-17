@@ -15,7 +15,9 @@
 4. Assignment 4: [QUẢN LÍ SINH VIÊN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv)
 [SINH VIÊN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien)
 
-5. Assignment 5:
+5. Assignment 5:[BIÊN LAI TIỀN ĐIỆN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/tiendien/src/tiendien/model/bienlai.java)
+[MODEL TIỀN ĐIỆN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/tiendien/src/tiendien/main/tiendienmain.java)
+[KHÁCH HÀNG](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/tiendien/src/tiendien/model/khachhang.java)
 
 6. Assignment 6: [HÌNH CHỮ NHẬT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhchunhat.java)
 [HÌNH TRÒN](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/hinhhoc/src/hinhhoc/hinhtron.java)

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,7 +58,8 @@ public class WindowLayout extends JFrame {
 		JPanel pn2 = new JPanel();
 		JLabel lbl2 = new JLabel("Chọn lớp: ");
 		pn2.add(lbl2);
-		cbo=new JComboBox();
+		cbo = new JComboBox();
+		cbo.addItem("Tất cả");
 		cbo.addItem("ffse1701");
 		cbo.addItem("ffse1702");
 		cbo.addItem("ffse1703");
@@ -146,12 +148,11 @@ public class WindowLayout extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-//			File file = new File("D:/FFSE1703.JavaCore/Assignments/ThachND/QuanLySinhVien3/dulieusinhvien.txt");	    
-//		    if(file.exists()) {
-//		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
-//		  		arrSv=arrSvFile;
-//		    }
+			File file = new File("D:/FFSE1703.JavaCore/Assignments/ThachND/QuanLySinhVien3/dulieusinhvien.txt");	    
+		    if(file.exists()) {
+		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.docFile("dulieusinhvien.txt");
+		  		arrSv=arrSvFile;
+		    }
 			dm.setRowCount(0);
 			String choose = cbo.getSelectedItem().toString();
 			for(SinhVien x : arrSv) {
@@ -159,6 +160,9 @@ public class WindowLayout extends JFrame {
 					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
 				}
 			}
+			txtMaSV.setText("");
+			txtTenSV.setText("");
+			txtTuoi.setText("");
 		}
 	};
 	ActionListener eventAdd = new ActionListener() {
@@ -181,24 +185,23 @@ public class WindowLayout extends JFrame {
 			String maSv = txtMaSV.getText();
 			String tenSv = txtTenSV.getText();
 			String tuoiSv = txtTuoi.getText();
-			for(SinhVien x : arrSv) {
-				if(maSv.equals(x.getMaSv())) {
-					x.setTenSv(tenSv);
-					x.setTuoiSv(tuoiSv);
+				for(SinhVien x : arrSv) {
+					if(maSv.equals(x.getMaSv())) {
+						x.setTenSv(tenSv);
+						x.setTuoiSv(tuoiSv);
+					}
 				}
-			}
-			dm.setRowCount(0);
-			String choose = cbo.getSelectedItem().toString();
-			for(SinhVien x : arrSv) {
-				if(choose.equalsIgnoreCase(x.getLopSv())) {
-					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
+				dm.setRowCount(0);
+				String choose = cbo.getSelectedItem().toString();
+				for(SinhVien x : arrSv) {
+					if(choose.equals(x.getLopSv())) {
+						dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
+					}
 				}
+				txtMaSV.setText("");
+				txtTenSV.setText("");
+				txtTuoi.setText("");
 			}
-			txtMaSV.setText("");
-			txtTenSV.setText("");
-			txtTuoi.setText("");
-			
-		}
 	};
 	ActionListener eventDelete = new ActionListener() {
 		
@@ -206,6 +209,8 @@ public class WindowLayout extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			String maSv = txtMaSV.getText();
+			String tenSv = txtTenSV.getText();
+			
 			int stt=0;
 			for(int i=0;i<arrSv.size();i++) {
 				if(maSv.equals(arrSv.get(i).getMaSv())) {
@@ -213,10 +218,17 @@ public class WindowLayout extends JFrame {
 				}
 			}
 			arrSv.remove(stt);
+			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+			if (checked == true) {
+				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
+				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				System.out.println("Xóa thất bại");
+			}
 			dm.setRowCount(0);
 			String choose = cbo.getSelectedItem().toString();
 			for(SinhVien x : arrSv) {
-				if(choose.equalsIgnoreCase(x.getLopSv())) {
+				if(choose.equals(x.getLopSv())) {
 					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
 				}
 			}
@@ -238,19 +250,39 @@ public class WindowLayout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
 			String maSv = txtMaSV.getText();
 			String tenSv = txtTenSV.getText();
 			String tuoiSv = txtTuoi.getText();
 			String lopSv = cbo.getSelectedItem().toString();
+			String kt = "Không trùng";
+			for(int i = 0; i < arrSv.size(); i++) {
+				if(txtMaSV.getText().equals(arrSv.get(i).getMaSv()) && cbo.getSelectedItem().toString().equals(arrSv.get(i).getLopSv())) {
+					kt = "trùng";
+				}
+			}
+			
+			if(kt == "trùng") {
+				JOptionPane.showMessageDialog(null, "Mã sinh viên đã tồn tại!");
+			}
+			else {
 			arrSv.add(new SinhVien(maSv, tenSv, tuoiSv, lopSv));
+			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+			if (checked == true) {
+				String msg = "Đã lưu thành công Sinh viên "+tenSv;
+				JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				System.out.println("Lưu thất bại");
+			}
 			dm.addRow(new String[]{maSv,tenSv,tuoiSv});
 			txtMaSV.setText("");
 			txtTenSV.setText("");
 			txtTuoi.setText("");
+			}
 		}
 	};
 	public void showWindow() {
-		this.setSize(500,400);
+		this.setSize(800,500);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
