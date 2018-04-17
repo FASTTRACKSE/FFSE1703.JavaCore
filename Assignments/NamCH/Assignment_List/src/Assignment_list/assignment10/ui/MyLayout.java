@@ -1,6 +1,5 @@
 package Assignment_list.assignment10.ui;
 
-import Assignment_list.assignment10.io.*;
 import Assignment_list.assignment10.model.*;
 import java.util.ArrayList;
 import java.io.File;
@@ -16,8 +15,11 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 import java.util.ArrayList;
+
 public class MyLayout extends JFrame {
 	
 	private JTextField txtMaSv,txtTenSv,txtTuoiSv;
@@ -31,6 +33,8 @@ public class MyLayout extends JFrame {
 	final JTable tbl=new JTable(list);		
 	JScrollPane sc=new JScrollPane(tbl);
 	int stt=0;
+	StatementDb connectDb=new StatementDb();
+	
 	public MyLayout(String title)
 	{
 		super(title);
@@ -122,6 +126,7 @@ public class MyLayout extends JFrame {
 
 	private void addEvents() {
 		// TODO Auto-generated method stub
+		
 		tbl.addMouseListener(eventChooseRow);
 		btnAdd.addActionListener(eventAdd);
 		btnSubmit.addActionListener(eventSubmit);
@@ -130,14 +135,20 @@ public class MyLayout extends JFrame {
 		btnExit.addActionListener(eventExit);
 		btnDelete.addActionListener(eventDelete);
 	}
+	
 	ActionListener eventChooseClass = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			File file = new File("D:/FFSE1703.JavaCore/Assignments/NamCH/Assignment_List/dulieusinhvien.txt");	    
-		    if(file.exists()) {
-		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
-		  		arrSv=arrSvFile;
-		    }
+//			File file = new File("D:/FFSE1703.JavaCore/Assignments/NamCH/Assignment_List/dulieusinhvien.txt");	    
+//		    if(file.exists()) {
+//		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.readFile("dulieusinhvien.txt");
+//		  		arrSv=arrSvFile;
+//		    }
+			
 			chooseClass =(String) cbbClass.getSelectedItem();
+			ArrayList<SinhVien> arrSvFile = new ArrayList<SinhVien>();
+			arrSv.clear();
+			arrSvFile=connectDb.SeclectDb();
+			arrSv=arrSvFile;
 			list.setRowCount(0);
 			if(chooseClass=="Tất cả") {
 				for (SinhVien sv : arrSv) {
@@ -151,10 +162,7 @@ public class MyLayout extends JFrame {
 						list.addRow(row);
 					}					
 				}
-			}
-			txtMaSv.setText("");
-			txtTenSv.setText("");
-			txtTuoiSv.setText("");
+			}			
 		}
     };
 	ActionListener eventAdd = new ActionListener() {
@@ -164,10 +172,13 @@ public class MyLayout extends JFrame {
 			txtTenSv.setText("");
 			txtTuoiSv.setText("");
 			txtMaSv.requestFocus();
+			cbbClass.showPopup();
+			txtMaSv.setEditable(true);
 		}		
 	};
 	 MouseAdapter eventChooseRow = new MouseAdapter() {
 	    	public void mouseClicked(MouseEvent e) {
+	    		txtMaSv.setEditable(false);
 	    		int col = tbl.getSelectedRow();
 	    		String[] row = new String[3];	    		
 	    		row[0] = (String) tbl.getValueAt(col, 0);
@@ -208,20 +219,11 @@ public class MyLayout extends JFrame {
 							String msg = "Không được để trống các dòng "+maSv;
 							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
 							
-							}else if(tuoi>=18 && tuoi<=35){
-								String msg = "Nhập tuổi từ 18 đến 35 "+maSv;
-								JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
 							}else {
 							arrSv.get(stt).setMaSv(maSv);
 							arrSv.get(stt).setTenSv(tenSv);
 							arrSv.get(stt).setTuoiSv(tuoiSv);
-							boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
-							if (checked == true) {
-								String msg = "Đã Sửa Thành công Sinh viên "+tenSv;
-								JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-							} else {
-								System.out.println("Lưu thất bại");
-							}
+							connectDb.editDb(maSv,tenSv,tuoiSv);							
 							int col = tbl.getSelectedRow();
 							txtMaSv.setText("");
 							txtTenSv.setText("");
@@ -258,18 +260,13 @@ public class MyLayout extends JFrame {
 				}
 	};
 	ActionListener eventDelete = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {						
+		public void actionPerformed(ActionEvent e) {
+			
 			String maSv = txtMaSv.getText();
 			String tenSv = txtTenSv.getText();
 			String tuoiSv = txtTuoiSv.getText();
-			arrSv.remove(stt);			
-			boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
-			if (checked == true) {
-				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
-				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				System.out.println("Xóa thất bại");
-			}
+			arrSv.remove(stt);
+			connectDb.deleteDb(maSv);			
 			int col = tbl.getSelectedRow();
 			txtMaSv.setText("");
 			txtTenSv.setText("");
@@ -319,13 +316,7 @@ public class MyLayout extends JFrame {
 						String[] row = {maSv,tenSv, tuoiSv,lopSv};
 						list.addRow(row);
 						arrSv.add(new SinhVien(maSv,tenSv,tuoiSv,lopSv));
-						boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
-						if (checked == true) {
-							String msg = "Đã lưu thành công Sinh viên "+tenSv;
-							JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
-						} else {
-							System.out.println("Lưu thất bại");
-						}
+						connectDb.insertDb(maSv,tenSv,tuoiSv,lopSv);
 						txtMaSv.setText("");
 						txtTenSv.setText("");
 						txtTuoiSv.setText("");
@@ -351,5 +342,6 @@ public class MyLayout extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		cbbClass.setSelectedIndex(0);					
 	}
 }
