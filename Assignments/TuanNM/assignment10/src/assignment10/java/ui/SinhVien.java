@@ -143,18 +143,7 @@ public class SinhVien extends JFrame {
 		exit.addActionListener(eventExit);
 	}
 
-//	public void docFile() {
-//		File file = new File("D:/FFSE1703.JavaCore/Assignments/TuanNM/assignment10/dulieuSV.txt");
-//		if (file.exists()) {
-//			ArrayList<ModleSinhVien> arrSvFile = SerializeFileFactory.docFile("dulieuSV.txt");
-//			arrSv = arrSvFile;
-//		}
-//
-//		for (ModleSinhVien sv : arrSv) {
-//			String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
-//			modle.addRow(row);
-//		}
-//	}
+
 
 	ActionListener chonLop = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -191,21 +180,21 @@ public class SinhVien extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			try {
-				int ktTonTai = -1;
+				int ktTonTai = 0;
 				String lop = classSV.getSelectedItem().toString();
 				String tenSV = nameSV.getText();
 				String maSinhVien = maSV.getText();
 				String tuoi = ageSV.getText();
 				for (int i = 0; i < arrSv.size(); i++) {
 					if (maSinhVien.equals(arrSv.get(i).getMaSV())) {
-						ktTonTai = i;
+						ktTonTai = 1;
 					}
 				}
 				try {
 					if (tenSV.isEmpty() || maSinhVien.isEmpty() || tuoi.isEmpty()) {
 						throw new Exception();
 						// JOptionPane.showMessageDialog(null, "Bạn phải nhập số !!");
-					} else if (ktTonTai >= 0) {
+					} else if (ktTonTai > 0) {
 						String msg = "Sinh viên " + arrSv.get(ktTonTai).getMaSV() + " đã tồn tạ !!";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
 					} else if (lop == "All") {
@@ -258,12 +247,7 @@ public class SinhVien extends JFrame {
 				Integer.parseInt(tuoiSv);
 				try {
 					
-					int so = -1;
-					for (int i = 0; i < arrSv.size(); i++) {
-						if (lop.equals(arrSv.get(i).getLopSV())) {
-							so = i;
-						}
-					}
+					
 					if (maSv.isEmpty() && tenSv.isEmpty() && tuoiSv.isEmpty()) {
 						throw new Exception();
 					} else if (maSv.isEmpty() || tenSv.isEmpty() || tuoiSv.isEmpty()) {
@@ -287,7 +271,7 @@ public class SinhVien extends JFrame {
 						ageSV.setText("");
 						maSV.requestFocus();
 						lop = (String) classSV.getSelectedItem();
-						;
+						
 						modle.setRowCount(0);
 						if (lop == "All") {
 							for (ModleSinhVien sv : arrSv) {
