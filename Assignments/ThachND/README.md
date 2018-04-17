@@ -24,4 +24,9 @@
 [class SinhVien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/sinhvien3/src/fasttrack/edu/vn/model/SinhVien.java)
 
 
-### Assignment List
+### Assignment Java Desktop
+1. Assignment 1: [Giải Phương Trình Bậc 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/Assignment11/src/assignment11/main/GiaiPhuongTrinh.java)
+[LayOut Desktop](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/Assignment11/src/assignment11/ui/GiaoDien.java)
+2. Assignment 2: [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/ui/WindowLayout.java)
+[Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/main/QuanLy.java)
+[Class Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/model/SinhVien.java)
