@@ -33,10 +33,6 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
-
 public class SinhVien extends JFrame {
 
 	private JTextField nameSV, maSV, ageSV;
@@ -52,7 +48,8 @@ public class SinhVien extends JFrame {
 		super(tieude);
 		addControls();
 		addEvents();
-		
+		//docFile();
+
 	}
 
 	public void addControls() {
@@ -145,33 +142,37 @@ public class SinhVien extends JFrame {
 		delete.addActionListener(xoaSinhVien);
 		exit.addActionListener(eventExit);
 	}
+
+
+
 	ActionListener chonLop = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			File file = new File("D:/FFSE1703.JavaCore/Assignments/TuanNM/assignment10/dulieu2.txt");	    
-		    if(file.exists()) {
-		    	ArrayList<ModleSinhVien> arrSvFile = SerializeFileFactory.docFile("dulieu2.txt");
-		  		arrSv=arrSvFile;
-		    }
-			lop =classSV.getSelectedItem().toString();
-			modle.setRowCount(0);
-			if(lop=="Tất cả") {
-				for (ModleSinhVien sv : arrSv) {
-					String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
-					modle.addRow(row);
-				}
-			}else {
-				for (ModleSinhVien sv : arrSv) {
-					if(lop.equals(sv.getLopSV())) {
-						String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
-						modle.addRow(row);
-					}					
-				}
+			File file = new File("D:/FFSE1703.JavaCore/Assignments/TuanNM/assignment10/dulieuSV.txt");
+			if (file.exists()) {
+				ArrayList<ModleSinhVien> arrSvFile = SerializeFileFactory.docFile("dulieuSV.txt");
+				arrSv = arrSvFile;
 			}
 			maSV.setText("");
 			nameSV.setText("");
 			ageSV.setText("");
+			lop = classSV.getSelectedItem().toString();
+			modle.setRowCount(0);
+			if (lop == "All") {
+				for (ModleSinhVien sv : arrSv) {
+					String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
+					modle.addRow(row);
+				}
+			} else {
+				for (ModleSinhVien sv : arrSv) {
+					if (lop.equals(sv.getLopSV())) {
+						String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
+						modle.addRow(row);
+					}
+				}
+			}
+			
 		}
-    };
+	};
 
 	ActionListener themSinhVien = new ActionListener() {
 
@@ -179,27 +180,29 @@ public class SinhVien extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			try {
-				int ktTonTai = -1;
+				int ktTonTai = 0;
 				String lop = classSV.getSelectedItem().toString();
 				String tenSV = nameSV.getText();
 				String maSinhVien = maSV.getText();
 				String tuoi = ageSV.getText();
 				for (int i = 0; i < arrSv.size(); i++) {
 					if (maSinhVien.equals(arrSv.get(i).getMaSV())) {
-						ktTonTai = i;
+						ktTonTai = 1;
 					}
 				}
 				try {
 					if (tenSV.isEmpty() || maSinhVien.isEmpty() || tuoi.isEmpty()) {
 						throw new Exception();
 						// JOptionPane.showMessageDialog(null, "Bạn phải nhập số !!");
-					} else if (ktTonTai >= 0) {
+					} else if (ktTonTai > 0) {
 						String msg = "Sinh viên " + arrSv.get(ktTonTai).getMaSV() + " đã tồn tạ !!";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					}else if(lop=="All"){
-						throw new NullPointerException();
+					} else if (lop == "All") {
+						//throw new NullPointerException();
+						String msg = "Vui lòng chọn lớp!!";
+						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						
+
 						arrSv.add(new ModleSinhVien(maSinhVien, tenSV, tuoi, lop));
 
 						for (int i = (arrSv.size() - 1); i < arrSv.size(); i++) {
@@ -208,7 +211,7 @@ public class SinhVien extends JFrame {
 									arrSv.get(i).getLopSV() };
 							modle.addRow(row);
 						}
-						boolean kt = SerializeFileFactory.luuFile(arrSv, "dulieu2.txt");
+						boolean kt = SerializeFileFactory.luuFile(arrSv, "dulieuSV.txt");
 						if (kt == true) {
 							System.out.println("Đã lưu file thành công");
 						} else {
@@ -229,7 +232,7 @@ public class SinhVien extends JFrame {
 		}
 
 	};
-	
+
 	ActionListener chinhSuaSinhVien = new ActionListener() {
 
 		@Override
@@ -239,34 +242,25 @@ public class SinhVien extends JFrame {
 			String tenSv = nameSV.getText();
 			String tuoiSv = ageSV.getText();
 			String lop = (String) classSV.getSelectedItem();
-			
-			
+
 			try {
-					Integer.parseInt(tuoiSv);				
+				Integer.parseInt(tuoiSv);
 				try {
-					int tuoi=Integer.parseInt(tuoiSv);
-					int so=-1;
-					for(int i=0;i<arrSv.size();i++) {
-						if(lop.equals(arrSv.get(i).getLopSV())) {
-							so=i;
-						}
-					}
-					if(maSv.isEmpty()&&tenSv.isEmpty()&&tuoiSv.isEmpty()) {		
+					
+					
+					if (maSv.isEmpty() && tenSv.isEmpty() && tuoiSv.isEmpty()) {
 						throw new Exception();
-					}else if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()){
-						String msg = "Không được để trống các dòng "+maSv;
+					} else if (maSv.isEmpty() || tenSv.isEmpty() || tuoiSv.isEmpty()) {
+						String msg = "Không được để trống các dòng " + maSv;
 						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-						
-						}else if(tuoi>=18 && tuoi<=35){
-							String msg = "Nhập tuổi từ 18 đến 35 "+maSv;
-							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-						}else {
+
+					} else {
 						arrSv.get(stt).setMaSV(maSv);
 						arrSv.get(stt).setNameSv(tenSv);
 						arrSv.get(stt).setAge(tuoiSv);
-						boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+						boolean checked = SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
 						if (checked == true) {
-							String msg = "Đã Sửa Thành công Sinh viên "+tenSv;
+							String msg = "Đã Sửa Thành công Sinh viên " + tenSv;
 							JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							System.out.println("Lưu thất bại");
@@ -276,34 +270,32 @@ public class SinhVien extends JFrame {
 						nameSV.setText("");
 						ageSV.setText("");
 						maSV.requestFocus();
-						lop =(String) classSV.getSelectedItem();;
+						lop = (String) classSV.getSelectedItem();
+						
 						modle.setRowCount(0);
-							if(lop=="All") {
-								for (ModleSinhVien sv : arrSv) {
-									String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
+						if (lop == "All") {
+							for (ModleSinhVien sv : arrSv) {
+								String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
+								modle.addRow(row);
+							}
+						} else {
+							for (ModleSinhVien sv : arrSv) {
+								if (lop.equals(sv.getLopSV())) {
+									String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
 									modle.addRow(row);
 								}
-							}else {
-								for (ModleSinhVien sv : arrSv) {
-									if(lop.equals(sv.getLopSV())) {
-										String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
-										modle.addRow(row);
-									}					
-								}
-							}						
+							}
+						}
 					}
-				}catch(Exception e2) {
+				} catch (Exception e2) {
 					String msg = "Chưa chọn dòng cần thay đổi ";
 					JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
 				}
-			}catch(Exception e2) {
-			String msg = "Phải Nhập số cho Tuổi "+maSv;
-			JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);					
+			} catch (Exception e2) {
 			}
 		}
 	};
 
-   
 	ActionListener eventExit = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
@@ -334,34 +326,22 @@ public class SinhVien extends JFrame {
 			String maSv = maSV.getText();
 			String tenSv = nameSV.getText();
 			String tuoiSv = ageSV.getText();
-			arrSv.remove(stt);			
-			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+			arrSv.remove(stt);
+			boolean checked = SerializeFileFactory.luuFile(arrSv, "dulieuSV.txt");
 			if (checked == true) {
-				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
+				String msg = "Đã Xóa Thành công Sinh viên " + tenSv;
 				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				System.out.println("Xóa thất bại");
 			}
-			int col = table.getSelectedRow();
+			
 			maSV.setText("");
 			nameSV.setText("");
 			ageSV.setText("");
 			maSV.requestFocus();
-			lop =(String) classSV.getSelectedItem();;
-			modle.setRowCount(0);
-			if(lop=="Tất cả") {
-				for (ModleSinhVien sv : arrSv) {
-					String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
-					modle.addRow(row);
-				}
-			}else {
-				for (ModleSinhVien sv : arrSv) {
-					if(lop.equals(sv.getLopSV())) {
-						String[] row = {sv.getMaSV(), sv.getNameSV(), sv.getAge(),sv.getLopSV()};
-						modle.addRow(row);
-					}					
-				}
-			}
+			lop = classSV.getSelectedItem().toString();
+			modle.setRowCount(arrSv.size());
+			
 		}
 	};
 

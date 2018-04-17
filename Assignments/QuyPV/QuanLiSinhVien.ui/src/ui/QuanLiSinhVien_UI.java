@@ -206,7 +206,25 @@ public class QuanLiSinhVien_UI extends JFrame {
 		btnThoat.addActionListener(eventThoat);
 		btnSua.addActionListener(eventSua);
 		btnXoa.addActionListener(eventXoa);
+		cbo.addActionListener(chonLop);
 	}
+	
+	ActionListener chonLop = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dm.setRowCount(0);
+			String chose = cbo.getSelectedItem().toString();
+			for(SinhVien x: arr) {
+				if(chose.equals(x.getLop())) {
+					String row[] = {x.getMaSV(), x.getTen(), x.getTuoi(), x.getLop()};
+					dm.addRow(row);
+				}
+			}
+			
+			
+		}
+	};
 	
 	// event nút thêm
 	ActionListener eventThem = new ActionListener() {
@@ -225,11 +243,9 @@ public class QuanLiSinhVien_UI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tuổi Sinh Viên");
 			} else {
 				nhap();
-				luuFile();
 				textMSV.setText("");
 				textTSV.setText("");
 				textT.setText("");
-				JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
 			}
 		}
 	};
@@ -263,7 +279,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 			textMSV.setEditable(true);
 			
 			if(textMSV.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần xóa!");
 			} else {
 				xoa();
 				textMSV.setText("");
@@ -288,7 +304,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 	
 	
 	public void nhap() {
-		
+	
 		String lop = cbo.getSelectedItem().toString();
 				
 		String maSV = textMSV.getText();
@@ -296,19 +312,33 @@ public class QuanLiSinhVien_UI extends JFrame {
 		String ten = textTSV.getText();
 
 		String tuoi = textT.getText();
-				
-		arr.add(new SinhVien(maSV, ten, tuoi, lop));
-		for(int i = (arr.size() - 1);i < arr.size(); i++) {
-			String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
-			dm.addRow(row);
-			
+
+		String kt = "Không";
+		
+		for(int i = 0; i < arr.size(); i++) {
+			if(textMSV.getText().equals(arr.get(i).getMaSV()) && cbo.getSelectedItem().toString().equals(arr.get(i).getLop())) {
+				kt = "Trùng";
+			}
 		}
+		if(kt == "Trùng") {
+			JOptionPane.showMessageDialog(null, "Trùng mã sinh viên!");
+		}
+		else {
+			arr.add(new SinhVien(maSV, ten, tuoi, lop));
+			for(int i = (arr.size() - 1);i < arr.size(); i++) {
+				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
+				dm.addRow(row);
+				JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
+				luuFile();
+			}
+		}
+		
 	
 	}
 	
 	public void sua() {
 		for(SinhVien x : arr) {
-			if(textMSV.getText().equals(x.getMaSV())){
+			if(textMSV.getText().equals(x.getMaSV()) && cbo.getSelectedItem().toString().equals(x.getLop())){
 					x.setTen(textTSV.getText());
 					x.setTuoi(textT.getText());
 					x.setLop(cbo.getSelectedItem().toString());
@@ -321,15 +351,17 @@ public class QuanLiSinhVien_UI extends JFrame {
 			
 		    dm.setRowCount(0);
 			for(int i = 0;i < arr.size(); i++) {
-				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
-				dm.addRow(row);
+				if(arr.get(i).getLop().equals(cbo.getSelectedItem().toString())) {
+					String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
+					dm.addRow(row);
+				}
 				
 			}
 	}
 	
 	public void xoa() {
 		for(SinhVien x : arr) {
-			if(textMSV.getText().equals(x.getMaSV())) {
+			if(textMSV.getText().equals(x.getMaSV()) && cbo.getSelectedItem().toString().equals(x.getLop())) {
 				arr.remove(x);
 				luuFile();
 				break;
@@ -337,9 +369,10 @@ public class QuanLiSinhVien_UI extends JFrame {
 		}
 		dm.setRowCount(0);
 		for(int i = 0;i < arr.size(); i++) {
-			String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
-			dm.addRow(row);
-			
+			if(arr.get(i).getLop().equals(cbo.getSelectedItem().toString())) {
+				String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
+				dm.addRow(row);
+			}
 		}
 	}
 	
@@ -355,10 +388,12 @@ public class QuanLiSinhVien_UI extends JFrame {
 				ArrayList<SinhVien> arrFile = SerializeFile.docFile("sinhvien.txt");
 				arr = arrFile;
 				dm.setRowCount(0);
+				
 				for(int i = 0;i < arr.size(); i++) {
+					if(arr.get(i).getLop().equals(cbo.getSelectedItem().toString())) {
 					String row[] = {arr.get(i).getMaSV(), arr.get(i).getTen(), arr.get(i).getTuoi(), arr.get(i).getLop()};
 					dm.addRow(row);
-					
+					}
 				}
 	
 	}
