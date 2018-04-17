@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import sinhvien.model.*;
 public class SerializeFileFactory {
-	public static boolean saveFile(ArrayList<SinhVien> arrSv,String path) {
+	public static boolean luuFile(ArrayList<SinhVien> arrSv,String path) {
 		try {
 			FileOutputStream fos = new FileOutputStream(path);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -21,7 +21,7 @@ public class SerializeFileFactory {
 		}
 		return false;
 	}
-	public static ArrayList<SinhVien> readFile(String path){	
+	public static ArrayList<SinhVien> docFile(String path){	
 		ArrayList<SinhVien> arrSvFile = new ArrayList<SinhVien>();
 		try {
 			
