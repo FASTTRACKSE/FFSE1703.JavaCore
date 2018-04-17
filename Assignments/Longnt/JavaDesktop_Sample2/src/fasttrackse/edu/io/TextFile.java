@@ -1,5 +1,5 @@
 package fasttrackse.edu.io;
-import fasttrackse.edu.model.*;
+import fasttrackse.edu.model.QuanLy;
 import fasttrackse.edu.main.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
