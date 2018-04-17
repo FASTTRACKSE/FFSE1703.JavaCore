@@ -54,11 +54,19 @@ public class GiaiPhuongTrinhBac1 extends JFrame {
 		JPanel pnMain = new JPanel();
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
 
+		ImageIcon img=new ImageIcon("h4.jpg");
+	    JLabel lblImg=new JLabel(img);
+		JScrollPane scimg=new JScrollPane(lblImg,
+		JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scimg.setPreferredSize(new Dimension(600,500));
+		add(scimg);
+		 
 		JPanel pnTitle = new JPanel();
 		pnTitle.setBackground(Color.RED);
 		JLabel lblTitle = new JLabel("Giải Phương Trình Bậc 1");
 		lblTitle.setForeground(Color.BLUE);
-		Font fontTitle = new Font("arial", Font.BOLD, 20);
+		Font fontTitle = new Font("arial", Font.BOLD, 30);
 		lblTitle.setFont(fontTitle);
 		pnTitle.add(lblTitle);
 
@@ -73,14 +81,6 @@ public class GiaiPhuongTrinhBac1 extends JFrame {
 		JTextField txtHeSoB = new JTextField(20);
 		pnInput2.add(lblTitle2);
 		pnInput2.add(txtHeSoB);
-
-		// ImageIcon img=new ImageIcon("h4.jpg");
-		// JLabel lblImg=new JLabel(img);
-		// JScrollPane scimg=new JScrollPane(lblImg,
-		// JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		// JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		// scimg.setPreferredSize(new Dimension());
-		// add(scimg);
 
 		JPanel pnAction = new JPanel();
 		pnAction.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
@@ -119,7 +119,9 @@ public class GiaiPhuongTrinhBac1 extends JFrame {
 		txtResult = new JTextField(20);
 		pnResult.add(lblTitleResult);
 		pnResult.add(txtResult);
-		// pnMain.add(scimg);
+		
+
+        pnMain.add(scimg);
 		pnMain.add(pnTitle);
 		pnMain.add(pnInput1);
 		pnMain.add(pnInput2);

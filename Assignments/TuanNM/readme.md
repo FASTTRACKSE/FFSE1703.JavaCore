@@ -32,3 +32,7 @@
 [Quan li sinh vien serialize](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment8/src/ffse1703013/java/main/QuanLySinhVienOb.java)
 6. Assignment9: [UI giai phuong trinh](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment9/src/assignment9/java/ui/PhuongTrinh.java)
 [Main giai phuong trinh](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment9/src/assignment9/java/main/GiaiPhuongTrinhBacNhat.java)
+6. Assignment10: [ui Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment10/src/assignment10/java/ui/SinhVien.java)
+[class Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment10/src/assignment10/java/modle/ModleSinhVien.java)
+[io SinhVien SerializeFileFactory](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment10/src/assignment10/java/io/SerializeFileFactory.java)
+[main Sinh vien](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TuanNM/assignment10/src/assignment10/java/main/QuanLiSinhVien.java)
