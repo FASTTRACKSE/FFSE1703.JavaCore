@@ -25,12 +25,12 @@ public class SerializeFile {
 	}
 	
 	public static ArrayList<SinhVien> docFile(String path){
-		ArrayList<SinhVien> arr = new ArrayList<>();
+		ArrayList<SinhVien> arrFile = new ArrayList<>();
 		try {
 			FileInputStream fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			Object data = ois.readObject();
-			arr = (ArrayList<SinhVien>) data;
+			arrFile = (ArrayList<SinhVien>) data;
 			ois.close();
 			fis.close();
 		} catch (Exception e) {
@@ -38,6 +38,6 @@ public class SerializeFile {
 			e.printStackTrace();
 		}
 		
-		return arr;
+		return arrFile;
 	}
 }

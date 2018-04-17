@@ -44,7 +44,9 @@ public class Text {
 			while (line != null) {
 				String[] arr = line.split(";");
 				if (arr.length == 4) {
-					SinhVien kh = new SinhVien(arr[0], arr[1], 0, 0);
+					double Diemlp1 = Double.parseDouble(arr[2]);
+					double Diemlp2 = Double.parseDouble(arr[3]);
+					SinhVien kh = new SinhVien(arr[0], arr[1], Diemlp1, Diemlp2);
 					arrSinhVien.add(kh);
 				}
 				line = br.readLine();
