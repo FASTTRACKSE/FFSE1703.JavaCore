@@ -47,7 +47,7 @@ public class PhuongTrinhBac1UI extends JFrame{
 		pnMain.add(nhapa);
 		
 		JPanel nhapb = new JPanel();
-		nhapa.setLayout(new FlowLayout());
+		nhapb.setLayout(new FlowLayout());
 		JLabel lblHesoB= new JLabel("Hệ số b :");
 		txtHesoB = new JTextField(15);
 		nhapb.add(lblHesoB);
@@ -116,6 +116,8 @@ public class PhuongTrinhBac1UI extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Nhập hệ số a và b cho: \n Phương trình bậc nhất ax + b = 0 ",
+		                  "Help", JOptionPane.WARNING_MESSAGE);
 			}
 			
 		};

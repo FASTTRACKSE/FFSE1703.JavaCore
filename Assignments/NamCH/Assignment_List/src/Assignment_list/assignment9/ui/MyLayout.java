@@ -59,6 +59,8 @@ public class MyLayout extends JFrame{
 		pnMainContent2.add(txtHeSoB);
 		pnMain.add(pnMainContent2);
 		
+		
+		
 		JPanel pnMainContent3=new JPanel();
 		pnMainContent3.setLayout(new FlowLayout());				
 		pnMainContent3.add(btnCalc);
@@ -75,7 +77,7 @@ public class MyLayout extends JFrame{
 		
 		con.add(pnMain);
 	}
-	private void addEvents() {
+	private void addEvents() {		
 		btnCalc.addActionListener(eventCalc);
 		btnExit.addActionListener(eventExit);
 		btnHelp.addActionListener(eventHelp);
@@ -85,26 +87,31 @@ public class MyLayout extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String heSoA = txtHeSoA.getText();
-				String heSoB = txtHeSoB.getText();
+				String heSoB = txtHeSoB.getText();				
+               
 				if(heSoA.isEmpty()) {
+					txtHeSoA.requestFocus();
 					String msg = "Chưa nhập hệ số A";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try { 
 						Float.parseFloat(heSoA);		           
 			        } catch (Exception ex) { 
+			        	txtHeSoA.requestFocus();
 			        	String msg = "Hệ Số A phải Nhập số";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
 			        }
 				}
 																
 				if(heSoB.isEmpty()) {
+					txtHeSoB.requestFocus();
 					String msg = "Chưa nhập hệ số B";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					try { 
 						Float.parseFloat(heSoB);		           
-			        } catch (Exception ex) { 
+			        } catch (Exception ex) {
+			        	txtHeSoB.requestFocus();
 			        	String msg = "Hệ Số B phải Nhập số";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
 			        }
