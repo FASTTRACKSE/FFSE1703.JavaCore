@@ -127,7 +127,60 @@ public class QuanLySinhVienUI extends JFrame{
 		con.add(main);
 		
 		
-	}
+	
+	
+	table.addMouseListener(new MouseListener() {
+		
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			maSV.setEditable(false);
+			for(int i = table.getSelectedRow() ; i <=table.getSelectedRow(); i++) {
+				for(int y = 0; y < table.getColumnCount(); y++) {
+					String value = (String)table.getValueAt(i, y);
+					if(y == 0) {
+						maSV.setText(value);
+					}
+					if(y == 1) {
+						tenSV.setText(value);
+					}
+					if(y == 2) {
+						tuoiSV.setText(value);
+					}
+					if(y == (table.getColumnCount() - 1)) {
+						select.setSelectedItem(value);
+					}
+					
+				}
+			}
+			
+		}
+	});
+}
 	
 	public void addEvent() 
 	{
@@ -198,16 +251,26 @@ public class QuanLySinhVienUI extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String ma = maSV.getText();
-				String ten = tenSV.getText();
-				String tuoi = tuoiSV.getText();
-				
+				for(SinhVien x : arrSV) {
+					if(maSV.getText().equals(x.getMaSV())) {
+						arrSV.remove(x);
+						boolean checked= TextFileFactory.luuFile(arrSV, "dulieu.txt");
+						break;
+					}
+				}
+				dm.setRowCount(0);
+				for(int i = 0;i < arrSV.size(); i++) {
+					String row[] = {arrSV.get(i).getMaSV(), arrSV.get(i).getTenSV(), arrSV.get(i).getTuoi()};
+					dm.addRow(row);
+				}
 				
 				
 			
 			}
 			
 		};
+		
+		
 		
 	
 	public void showWindow()
