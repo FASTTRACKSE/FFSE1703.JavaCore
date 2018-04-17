@@ -1,8 +1,8 @@
-package fasttrack.Assignment2.main;
+package assignment2.main;
 
 import java.util.Scanner;
 
-public class vonglap {
+public class VongLap {
 	public static void main(String[] args) {
 		
 		int n, i, min, max;

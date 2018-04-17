@@ -1,10 +1,10 @@
-package fasttrack.Assignment1.main;
+package assignment1.main;
 
 import java.util.Scanner;
 
 import java.lang.Math;
 
-public class ptbac2 {
+public class PTbac2 {
 	public static void main(String[] args) {
 		int a, b, c;
 		double x, x1, x2;
