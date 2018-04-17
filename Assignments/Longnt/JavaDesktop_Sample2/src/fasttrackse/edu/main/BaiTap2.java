@@ -1,6 +1,6 @@
 package fasttrackse.edu.main;
 
-import fasttrackse.edu.model.*;
+import fasttrackse.edu.model.QuanLy;
 
 public class BaiTap2 {
 	public static void main(String[] args) {

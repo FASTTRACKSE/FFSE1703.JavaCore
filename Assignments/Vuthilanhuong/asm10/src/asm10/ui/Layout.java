@@ -1,6 +1,7 @@
 package asm10.ui;
 import java.util.ArrayList;
 import asm10.model.*;
+import luufile.luuFile;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,13 +29,15 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import luufile.*;
+
 public class Layout extends JFrame {
 	JTextField txtMa, txtTen,txtTuoi;
 	JButton btnThem, btnSua,btnXoa,btnThoat,btnNhap;
 	JComboBox cbo;
 	DefaultTableModel dm=new DefaultTableModel();
-	final JTable tbl7=new JTable(dm);
-	JScrollPane sc=new JScrollPane(tbl7);
+	final JTable tbl=new JTable(dm);
+	JScrollPane sc=new JScrollPane(tbl);
 	ArrayList <SinhVien> arrSv = new ArrayList<SinhVien>();
 	public Layout(String title) {
 		super(title);
@@ -50,17 +53,18 @@ public class Layout extends JFrame {
 		btnXoa.addActionListener(eventXoa);
 		btnThoat.addActionListener(eventThoat);
 		btnNhap.addActionListener(eventNhap);
-		tbl7.addMouseListener(eventChooseRow);
+		tbl.addMouseListener(eventChooseRow);
 	}
 	 MouseAdapter eventChooseRow = new MouseAdapter() {
 	    	public void mouseClicked(MouseEvent e) {
-	    		int col = tbl7.getSelectedRow();
-	    		String ma =  (String) tbl7.getValueAt(col, 0);
-	    		String ten =  (String) tbl7.getValueAt(col, 1);
-	    		String tuoi =  (String) tbl7.getValueAt(col, 2);
+	    		int col = tbl.getSelectedRow();
+	    		String ma =  (String) tbl.getValueAt(col, 0);
+	    		String ten =  (String) tbl.getValueAt(col, 1);
+	    		String tuoi =  (String) tbl.getValueAt(col, 2);
 	    		txtMa.setText(ma);
 	    		txtTen.setText(ten);
 	    		txtTuoi.setText(tuoi);
+	    		txtMa.setEditable(false);
 	    	}
 	 };
 	ActionListener eventThem = new ActionListener() {
@@ -75,6 +79,12 @@ public class Layout extends JFrame {
 			String lop = cbo.getSelectedItem().toString();
 			arrSv.add(new SinhVien(ma,ten,tuoi,lop));
 			dm.addRow(new String[]{ma, ten, tuoi, lop});
+			boolean sv = luuFile.luuFile(arrSv, "dulieu1.txt");
+			if (sv == true) {
+				System.out.println("Đã lưu file thành công");
+			} else {
+				System.out.println("Lưu file thất bại");
+			}
 		}
 		
 	};	
@@ -88,6 +98,7 @@ public class Layout extends JFrame {
 			String ma = txtMa.getText();
 			String ten = txtTen.getText();
 			String tuoi = txtTuoi.getText();
+			
 			for (int i=0; i<arrSv.size(); i++) {
 				if(ma.equals(arrSv.get(i).getMaSv())) {
 					arrSv.get(i).setTenSv(ten);
@@ -104,8 +115,10 @@ public class Layout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			
+			int row;
+			row = tbl.getSelectedRow();
+			dm.removeRow(row);
+		
 		}
 		
 	};		
@@ -132,7 +145,12 @@ public class Layout extends JFrame {
 			txtMa.setText("");
 			txtTen.setText("");
 			txtTuoi.setText("");
-			
+			boolean sv = luuFile.luuFile(arrSv, "dulieu2.txt");
+			if (sv == true) {
+				System.out.println("Đã lưu file thành công");
+			} else {
+				System.out.println("Lưu file thất bại");
+			}
 		}
 		
 	};		
