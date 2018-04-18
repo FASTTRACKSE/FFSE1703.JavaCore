@@ -130,14 +130,14 @@ public class QuanLySinhVienUI extends JFrame {
 
 	MouseAdapter eventTable = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
-			int col = table.getSelectedRow();
-			String[] row = new String[3];
-			row[0] = (String) table.getValueAt(col, 0);
-			row[1] = (String) table.getValueAt(col, 1);
-			row[2] = (String) table.getValueAt(col, 2);
-			maSV.setText(row[0]);
-			tenSV.setText(row[1]);
-			tuoiSV.setText(row[2]);
+			int row = table.getSelectedRow();
+			String[] col = new String[3];
+			col[0] = (String) table.getValueAt(row, 0);
+			col[1] = (String) table.getValueAt(row, 1);
+			col[2] = (String) table.getValueAt(row, 2);
+			maSV.setText(col[0]);
+			tenSV.setText(col[1]);
+			tuoiSV.setText(col[2]);
 		}
 	};
 
