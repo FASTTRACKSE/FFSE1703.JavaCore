@@ -1,9 +1,9 @@
-package quanlisinhvien.ui;
+package qlsinhvien.ui;
 
-import quanlisinhvien.model.*;
-import quanlisinhvien.ui.*;
-import quanlisinhvien.model.*;
-import quanlisinhvien.io.*;
+import qlsinhvien.model.*;
+import qlsinhvien.ui.*;
+import qlsinhvien.model.*;
+import qlsinhvien.io.*;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -78,12 +78,12 @@ public class QuanLi extends JFrame {
 		pnFlow.setLayout(new FlowLayout());
 		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
 		//
-		JLabel lblTen = new JLabel("CHƯƠNG TRÌNH QUẢN LÍ SINH VIÊN");
+		JLabel lblTen = new JLabel("CHÆ¯Æ NG TRÃŒNH QUáº¢N LÃ� SINH VIÃŠN");
 		Font font = new Font("ApnFlowrial", Font.BOLD, 25);
 		lblTen.setFont(font);
 		Box1.add(lblTen);
 		//
-		JLabel lblLop = new JLabel("Chọn Lớp");
+		JLabel lblLop = new JLabel("Chá»�n Lá»›p");
 		cbo = new JComboBox();
 		cbo.addItem("ALL");
 		cbo.addItem("FFSE 1701");
@@ -93,30 +93,30 @@ public class QuanLi extends JFrame {
 		Box2.add(lblLop);
 		Box2.add(cbo);
 		//
-		JLabel lblMaSv = new JLabel("Mã Sinh Viên");
+		JLabel lblMaSv = new JLabel("MÃ£ Sinh ViÃªn");
 		lblMaSv.setPreferredSize(new Dimension(100, 10));
 		txtMaSv = new JTextField(15);
 		Box3.add(lblMaSv);
 		Box3.add(txtMaSv);
 		//
-		JLabel lblTenSv = new JLabel("Tên Sinh Viên");
+		JLabel lblTenSv = new JLabel("TÃªn Sinh ViÃªn");
 		lblTenSv.setPreferredSize(new Dimension(100, 10));
 		txtTenSv = new JTextField(15);
 		Box4.add(lblTenSv);
 		Box4.add(txtTenSv);
 		//
 		//
-		JLabel lblTuoi = new JLabel("Tuổi");
+		JLabel lblTuoi = new JLabel("Tuá»•i");
 		lblTuoi.setPreferredSize(new Dimension(100, 10));
 		txtTuoi = new JTextField(15);
 		Box5.add(lblTuoi);
 		Box5.add(txtTuoi);
 		//
-		btnThem = new JButton("Thêm");
-		btnSua = new JButton("Sửa");
-		btnXoa = new JButton("Xóa");
-		btnThoat = new JButton("Thoát");
-		btnNhap = new JButton("Nhập Mới");
+		btnThem = new JButton("ThÃªm");
+		btnSua = new JButton("Sá»­a");
+		btnXoa = new JButton("XÃ³a");
+		btnThoat = new JButton("ThoÃ¡t");
+		btnNhap = new JButton("Nháº­p Má»›i");
 
 		Box6.add(btnThem);
 		Box6.add(btnSua);
@@ -126,14 +126,14 @@ public class QuanLi extends JFrame {
 		//
 		JPanel pnTable = new JPanel();
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sÃ¡ch");
 		pnTable.setBorder(borderTitle);
 
 		dm = new DefaultTableModel();
-		dm.addColumn("Mã");
-		dm.addColumn("Tên");
-		dm.addColumn("Tuổi");
-		dm.addColumn("Lớp");
+		dm.addColumn("MÃ£");
+		dm.addColumn("TÃªn");
+		dm.addColumn("Tuá»•i");
+		dm.addColumn("Lá»›p");
 		tbl1 = new JTable(dm);
 		JScrollPane sc = new JScrollPane(tbl1);
 		pnTable.setLayout(new BorderLayout());
@@ -237,13 +237,13 @@ public class QuanLi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (txtMaSv.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Phải Nhập Mã Sinh Viên !!!");
+				JOptionPane.showMessageDialog(null, "Pháº£i Nháº­p MÃ£ Sinh ViÃªn !!!");
 			}
 			if (txtTenSv.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Phải Nhập Tên Sinh Viên !!!");
+				JOptionPane.showMessageDialog(null, "Pháº£i Nháº­p TÃªn Sinh ViÃªn !!!");
 			}
 			if (txtTuoi.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Phải Nhập Tuổi Sinh Viên !!!");
+				JOptionPane.showMessageDialog(null, "Pháº£i Nháº­p Tuá»•i Sinh ViÃªn !!!");
 			} else {
 				Them();
 				luuFile();
@@ -269,7 +269,7 @@ public class QuanLi extends JFrame {
 			}
 		}
 		if (ktMasv > 0) {
-			JOptionPane.showMessageDialog(null, "Mã Sinh Viên đã tồn tại !!!");
+			JOptionPane.showMessageDialog(null, "MÃ£ Sinh ViÃªn Ä‘Ã£ tá»“n táº¡i !!!");
 		} else {
 			arrSinhVien.add(new SinhVien(maSv, tenSv, tuoiSv, lopSv));
 			dm.setRowCount(0);
@@ -285,16 +285,16 @@ public class QuanLi extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			txtMaSv.setEditable(true);
+			txtTenSv.setEditable(true);
 			if (txtMaSv.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần Xoa!");
+				JOptionPane.showMessageDialog(null, "Vui lÃ²ng chá»�n sinh viÃªn cáº§n Xoa!");
 			} else {
 				xoa();
 				txtMaSv.setText("");
 				txtTenSv.setText("");
 				txtTuoi.setText("");
 				txtMaSv.setEditable(true);
-				JOptionPane.showMessageDialog(null, "Xóa tên sinh viên thành công!");
+				JOptionPane.showMessageDialog(null, "XÃ³a tÃªn sinh viÃªn thÃ nh cÃ´ng!");
 			}
 		}
 	};
@@ -321,15 +321,15 @@ public class QuanLi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			txtMaSv.setEditable(true);
+			txtTenSv.setEditable(true);
 			if (txtMaSv.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+				JOptionPane.showMessageDialog(null, "Vui lÃ²ng chá»�n sinh viÃªn cáº§n sá»­a!");
 			} else {
 				sua();
 				txtMaSv.setText("");
 				txtTenSv.setText("");
 				txtTuoi.setText("");
-				JOptionPane.showMessageDialog(null, "Sửa tên sinh viên thành công!");
+				JOptionPane.showMessageDialog(null, "Sá»­a tÃªn sinh viÃªn thÃ nh cÃ´ng!");
 			}
 		}
 	};
@@ -390,6 +390,7 @@ public class QuanLi extends JFrame {
 			String row[] = { arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(),
 					arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop() };
 			dm.addRow(row);
+
 		}
 	}
 
