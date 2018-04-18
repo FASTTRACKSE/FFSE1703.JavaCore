@@ -157,15 +157,15 @@ public class MyQuanLiSinhVien extends JFrame {
 	
 	MouseListener eventTable = new MouseListener() {
 
-		@Override
+	
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
+			
 
 		}
 
-		@Override
+		
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
+			
 
 		}
 
@@ -217,26 +217,24 @@ public class MyQuanLiSinhVien extends JFrame {
 	};
 	ActionListener eventXoa = new ActionListener() {
 
-	public void actionPerformed(ActionEvent e) {
-		docFile();
-		for(SinhVien x: arrSV) {
-			if(maSV.getText().equals(x.getMaSV())) {
-				arrSV.remove(x);
-				luuFile();
-				break;		
-		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			docFile();
+			for (SinhVien x : arrSV) {
+				if (maSV.getText().equals(x.getMaSV())) {
+					arrSV.remove(x);
+					luuFile();
+					break;
+				}
 			}
 			dm.setRowCount(0);
-			for (int i = 0; i < arrSV.size(); i++) {
-				String row[] = { arrSV.get(i).getMaSV(),arrSV.get(i).getTenSV(),arrSV.get(i).getTuoiSV(),arrSV.get(i).getLopSV() };
+			for (SinhVien x : arrSV) {
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 				dm.addRow(row);
-			
-        }
-			
+			}
 		}
 
-	}
-;
+	};
 
 ActionListener eventChooseClass = new ActionListener() {
 
@@ -269,7 +267,7 @@ ActionListener eventChooseClass = new ActionListener() {
 			String ten = tenSV.getText();
 			String tuoi = tuoiSV.getText();
 			dm.addRow(new String[] { ma, ten, tuoi });
-			tbl = new JTable(dm);
+			
 			maSV.setText("");
 			tenSV.setText("");
 			tuoiSV.setText("");
