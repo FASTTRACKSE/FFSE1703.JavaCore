@@ -6,6 +6,7 @@ import fasttrackse.fileiosample.io.SerializeFileFactory;
 import fasttrackse.fileiosample.model.KhachHang;
 
 public class QuanLyKhachHang2 {
+	
 
 	public static void luuFile() {
 		ArrayList<KhachHang> dsKH = new ArrayList<KhachHang>();
