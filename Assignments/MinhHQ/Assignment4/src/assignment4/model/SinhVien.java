@@ -1,8 +1,11 @@
-package fasttrack.Assignment4.model;
+package assignment4.model;
+
 
 import java.util.Scanner;
 
-public class SinhVien {
+
+public class SinhVien  {
+
 
 	public static Scanner myScanner = new Scanner(System.in);
 	private String Name;
