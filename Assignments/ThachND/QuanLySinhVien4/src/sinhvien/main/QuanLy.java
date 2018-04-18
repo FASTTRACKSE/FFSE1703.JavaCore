@@ -12,23 +12,12 @@ public class QuanLy {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		WindowLayout myUi = new WindowLayout("Window");
+		WindowLayout myUi = new WindowLayout("Quản Lí Sinh Viên");
 		myUi.showWindow();
 		Connection conn= getConnect("localhost", "ffse1703011", "thachnd", "123456");
 			if(conn!=null)
 			{
 				System.out.println("KếtnốiMYSQL thànhcông");
-				try
-				{
-					Statement statement = (Statement) conn.createStatement();
-					ResultSet result=statement.executeQuery("select * from NguoiDung");
-					while(result.next())
-					{
-						System.out.println(result.getString("HoTen"));
-						}
-					} catch(Exception e) {
-						e.printStackTrace();
-				}
 			}
 			else
 			{

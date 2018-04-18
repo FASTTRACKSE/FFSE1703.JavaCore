@@ -1,5 +1,5 @@
 package sinhvien.ui;
-
+import sinhvien.main.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.ResultSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,11 +26,17 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
 import java.util.ArrayList;
 
 import sinhvien.io.SerializeFileFactory;
 import sinhvien.model.*;
 public class WindowLayout extends JFrame {
+	protected static final String Ten = null;
+	protected static final String Tuoi = null;
+	protected static final String Lop = null;
 	JComboBox cbo;
 	JTextField txtMaSV, txtTenSV, txtTuoi;
 	JButton btnAdd, btnEdit, btnDelete, btnClose, btnSubmit;
@@ -38,6 +45,8 @@ public class WindowLayout extends JFrame {
 	final JTable tbl= new JTable(dm);
 	JScrollPane sc= new JScrollPane(tbl);
 	ArrayList<SinhVien> arrSv = new ArrayList<SinhVien>();
+	QuanLy conDb = new QuanLy();
+	Connection conn = (Connection) conDb.getConnect("localhost", "ffse1703011", "thachnd", "123456");
 	public WindowLayout(String Window){
 		super(Window);
 		addControls();
@@ -104,9 +113,10 @@ public class WindowLayout extends JFrame {
 		Border border=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle=BorderFactory.createTitledBorder(border, "Danh sách");
 		pn7.setBorder(borderTitle);
-		dm.addColumn("Mã");
-		dm.addColumn("Tên");
-		dm.addColumn("Tuổi");
+		dm.addColumn("Mã Sinh Viên");
+		dm.addColumn("Tên Sinh Vien");
+		dm.addColumn("Tuổi Sinh Viên");
+		dm.addColumn("Lớp Sinh Viên");
 	
 		
 		pn7.setLayout(new BorderLayout());
@@ -139,25 +149,43 @@ public class WindowLayout extends JFrame {
 			String ma = tbl.getValueAt(cot,0).toString();
 			String ten = tbl.getValueAt(cot,1).toString();
 			String tuoi = tbl.getValueAt(cot,2).toString();
+			
 			txtMaSV.setText(ma);
 			txtTenSV.setText(ten);
 			txtTuoi.setText(tuoi);
+			txtMaSV.setEditable(false);
+			
 			}
 	};
 	ActionListener eventChooseClass = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			File file = new File("D:/FFSE1703.JavaCore/Assignments/ThachND/QuanLySinhVien3/dulieusinhvien.txt");	    
-		    if(file.exists()) {
-		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.docFile("dulieusinhvien.txt");
-		  		arrSv=arrSvFile;
-		    }
+//			File file = new File("D:/FFSE1703.JavaCore/Assignments/ThachND/QuanLySinhVien3/dulieusinhvien.txt");	    
+//		    if(file.exists()) {
+//		    	ArrayList<SinhVien> arrSvFile = SerializeFileFactory.docFile("dulieusinhvien.txt");
+//		  		arrSv=arrSvFile;
+//		    }
+			try
+			{
+				ArrayList<SinhVien> arrDb = new ArrayList<SinhVien>();
+				Statement statement=(Statement) conn.createStatement();
+				ResultSet result=statement.executeQuery("select * from quanlysinhvien");
+				while(result.next())
+				{	
+					arrDb.add(new SinhVien(result.getString("MaSV"),result.getString("Ten"),result.getString("Tuoi"),result.getString("Lop")));
+					}
+				arrSv=arrDb;
+				}
+			catch(Exception ex) {
+				ex.printStackTrace();
+				}
+			
 			dm.setRowCount(0);
 			String choose = cbo.getSelectedItem().toString();
 			for(SinhVien x : arrSv) {
 				if(choose.equals(x.getLopSv())) {
-					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
+					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});		
 				}
 			}
 			txtMaSV.setText("");
@@ -174,6 +202,7 @@ public class WindowLayout extends JFrame {
 			txtTenSV.setText("");
 			txtTuoi.setText("");
 			cbo.showPopup();
+			txtMaSV.setEditable(true);
 		}
 	};
 	
@@ -191,11 +220,24 @@ public class WindowLayout extends JFrame {
 						x.setTuoiSv(tuoiSv);
 					}
 				}
+				try
+				{
+					String sql="update quanlysinhvien set Ten='"+tenSv+"',Tuoi='"+tuoiSv+"' where MaSV='"+maSv+"'";
+					Statement statement = (Statement) conn.createStatement();
+					int x=statement.executeUpdate(sql);
+					if(x>0)
+					{
+						JOptionPane.showMessageDialog(null, "Cập nhật OK");
+						}
+					}
+				catch(Exception ex){
+					ex.printStackTrace();
+					}
 				dm.setRowCount(0);
 				String choose = cbo.getSelectedItem().toString();
 				for(SinhVien x : arrSv) {
 					if(choose.equals(x.getLopSv())) {
-						dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
+						dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});		
 					}
 				}
 				txtMaSV.setText("");
@@ -209,7 +251,7 @@ public class WindowLayout extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			String maSv = txtMaSV.getText();
-			String tenSv = txtTenSV.getText();
+			
 			
 			int stt=0;
 			for(int i=0;i<arrSv.size();i++) {
@@ -217,19 +259,32 @@ public class WindowLayout extends JFrame {
 					stt=i;
 				}
 			}
+			try
+			{
+				String sql="delete from quanlysinhvien where MaSV='"+maSv+"'";
+				Statement statement=(Statement) conn.createStatement();
+				int x=statement.executeUpdate(sql);
+				if(x>0)
+				{
+					JOptionPane.showMessageDialog(null, "Xóa OK");
+					}
+				}
+			catch(Exception ex){
+				ex.printStackTrace();
+				}
 			arrSv.remove(stt);
-			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
-			if (checked == true) {
-				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
-				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				System.out.println("Xóa thất bại");
-			}
+//			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+//			if (checked == true) {
+//				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
+//				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+//			} else {
+//				System.out.println("Xóa thất bại");
+//			}
 			dm.setRowCount(0);
 			String choose = cbo.getSelectedItem().toString();
 			for(SinhVien x : arrSv) {
 				if(choose.equals(x.getLopSv())) {
-					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv()});		
+					dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});		
 				}
 			}
 			txtMaSV.setText("");
@@ -264,16 +319,31 @@ public class WindowLayout extends JFrame {
 			
 			if(kt == "trùng") {
 				JOptionPane.showMessageDialog(null, "Mã sinh viên đã tồn tại!");
+			}else if(lopSv == "Tất cả") {
+				JOptionPane.showMessageDialog(null, "Chưa chọn lớp!");
 			}
 			else {
 			arrSv.add(new SinhVien(maSv, tenSv, tuoiSv, lopSv));
-			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
-			if (checked == true) {
-				String msg = "Đã lưu thành công Sinh viên "+tenSv;
-				JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-				System.out.println("Lưu thất bại");
+//			boolean checked= SerializeFileFactory.luuFile(arrSv, "dulieusinhvien.txt");
+//			if (checked == true) {
+//				String msg = "Đã lưu thành công Sinh viên "+tenSv;
+//				JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
+//			} else {
+//				System.out.println("Lưu thất bại");
+//			}
+			try
+			{
+			String sql="insert into quanlysinhvien(MaSV,Ten,Tuoi,Lop) values( '"+maSv+"','"+tenSv+"','"+tuoiSv+"','"+lopSv+"')";
+			Statement statement = (Statement) conn.createStatement();
+			int x = statement.executeUpdate(sql);
+			if(x>0)
+			{
+				JOptionPane.showMessageDialog(null, "Lưu OK");
+				}
 			}
+			catch(Exception ex){
+				ex.printStackTrace();
+				}
 			dm.addRow(new String[]{maSv,tenSv,tuoiSv});
 			txtMaSV.setText("");
 			txtTenSV.setText("");
