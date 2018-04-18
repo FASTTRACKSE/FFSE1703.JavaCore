@@ -139,9 +139,9 @@ public class QuanLy extends JFrame {
 		
 		ActionListener eventClass = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/JavaDesktop_Sample2/document.txt");
+				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/JavaDesktop_Sample2/dulieu.txt");
 				if (file.exists()) {
-					ArrayList<SinhVien> arrSvFile = TextFile.readFile("document.txt");
+					ArrayList<SinhVien> arrSvFile = TextFile.readFile("dulieu.txt");
 					arraySinhVien = arrSvFile;
 				}
 				cClass =  Class.getSelectedItem().toString();
@@ -186,7 +186,7 @@ public class QuanLy extends JFrame {
 					} else if (ktTonTai >= 0) {
 						String msg = "Sinh viên " + arraySinhVien.get(ktTonTai).getMaSinhVien() + " đã tồn tạ !!";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					}else if(lop=="All"){
+					}else if(cClass=="All"){
 						throw new NullPointerException();
 					} else {
 						
@@ -242,8 +242,6 @@ public class QuanLy extends JFrame {
 						try {
 							Integer.parseInt(tuoiSv);
 							try {
-								
-								
 								if (maSv.isEmpty() && tenSv.isEmpty() && tuoiSv.isEmpty()) {
 									throw new Exception();
 								} else if (maSv.isEmpty() || tenSv.isEmpty() || tuoiSv.isEmpty()) {
@@ -254,7 +252,7 @@ public class QuanLy extends JFrame {
 									arraySinhVien.get(stt).setMaSinhVien(maSv);
 									arraySinhVien.get(stt).setTenSinhVien(tenSv);
 									arraySinhVien.get(stt).setTuoiSinhVien(tuoiSv);
-									boolean checked = TextFile.saveFile(arraySinhVien, "document.txt");
+									boolean checked = TextFile.saveFile(arraySinhVien, "dulieu.txt");
 									if (checked == true) {
 										String msg = "Đã Sửa Thành công Sinh viên " + tenSv;
 										JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
@@ -296,7 +294,7 @@ public class QuanLy extends JFrame {
 				String tenSv = tenSinhVien.getText();
 				String tuoiSv = tuoiSinhVien.getText();
 				arraySinhVien.remove(stt);			
-				boolean checked= TextFile.saveFile(arraySinhVien, "document.txt");
+				boolean checked= TextFile.saveFile(arraySinhVien, "dulieu.txt");
 				if (checked == true) {
 					String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
 					JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
@@ -310,7 +308,7 @@ public class QuanLy extends JFrame {
 				maSinhVien.requestFocus();
 				cClass =(String) Class.getSelectedItem();;
 				dm.setRowCount(0);
-				if(cClass=="Tất cả") {
+				if(cClass=="All") {
 					for (SinhVien sv : arraySinhVien) {
 						String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
 						dm.addRow(row);
