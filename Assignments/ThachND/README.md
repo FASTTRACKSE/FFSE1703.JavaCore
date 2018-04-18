@@ -30,3 +30,6 @@
 2. Assignment 2: [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/ui/WindowLayout.java)
 [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/main/QuanLy.java)
 [Class Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien3/src/sinhvien/model/SinhVien.java)
+3. Assignment 3: [Quản Lý Sinh Viên và Connect Database](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien4/src/sinhvien/main/QuanLy.java)
+[Class Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien4/src/sinhvien/model/SinhVien.java)
+[MyLayout ui](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/ThachND/QuanLySinhVien4/src/sinhvien/ui/WindowLayout.java)
