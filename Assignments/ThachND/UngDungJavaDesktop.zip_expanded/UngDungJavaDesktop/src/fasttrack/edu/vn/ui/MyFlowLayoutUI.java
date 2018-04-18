@@ -18,7 +18,7 @@ public class MyFlowLayoutUI extends JFrame{
 	{
 		Container con=getContentPane();
 		
-		//tạo 1 JPanel:
+		//tạo JPanel:
 		JPanel pnFlowLayout=new JPanel();
 		pnFlowLayout.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		
