@@ -1,6 +1,7 @@
 package asm10.ui;
 import java.util.ArrayList;
 import asm10.model.*;
+import luufile.luuFile;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -20,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,14 +31,23 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
+import luufile.*;
+import asm10.main.*;
+
 public class Layout extends JFrame {
 	JTextField txtMa, txtTen,txtTuoi;
 	JButton btnThem, btnSua,btnXoa,btnThoat,btnNhap;
 	JComboBox cbo;
 	DefaultTableModel dm=new DefaultTableModel();
-	final JTable tbl7=new JTable(dm);
-	JScrollPane sc=new JScrollPane(tbl7);
+	final JTable tbl=new JTable(dm);
+	JScrollPane sc=new JScrollPane(tbl);
 	ArrayList <SinhVien> arrSv = new ArrayList<SinhVien>();
+	QuanLySv myDb = new QuanLySv();
+	Connection conn= myDb.getConnect("localhost", "SinhVien", "huong",
+			"12345");
 	public Layout(String title) {
 		super(title);
 		addControl();
@@ -50,14 +62,15 @@ public class Layout extends JFrame {
 		btnXoa.addActionListener(eventXoa);
 		btnThoat.addActionListener(eventThoat);
 		btnNhap.addActionListener(eventNhap);
-		tbl7.addMouseListener(eventChooseRow);
+		tbl.addMouseListener(eventChooseRow);
 	}
 	 MouseAdapter eventChooseRow = new MouseAdapter() {
 	    	public void mouseClicked(MouseEvent e) {
-	    		int col = tbl7.getSelectedRow();
-	    		String ma =  (String) tbl7.getValueAt(col, 0);
-	    		String ten =  (String) tbl7.getValueAt(col, 1);
-	    		String tuoi =  (String) tbl7.getValueAt(col, 2);
+	    		txtMa.setEditable(false);
+	    		int col = tbl.getSelectedRow();
+	    		String ma =  (String) tbl.getValueAt(col, 0);
+	    		String ten =  (String) tbl.getValueAt(col, 1);
+	    		String tuoi =  (String) tbl.getValueAt(col, 2);
 	    		txtMa.setText(ma);
 	    		txtTen.setText(ten);
 	    		txtTuoi.setText(tuoi);
@@ -69,12 +82,11 @@ public class Layout extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			// TODO Auto-generated method stub
-			String ma = txtMa.getText();
-			String ten = txtTen.getText();
-			String tuoi = txtTuoi.getText();
-			String lop = cbo.getSelectedItem().toString();
-			arrSv.add(new SinhVien(ma,ten,tuoi,lop));
-			dm.addRow(new String[]{ma, ten, tuoi, lop});
+    		txtMa.setEditable(true);
+
+			txtMa.setText("");
+			txtTen.setText("");
+			txtTuoi.setText("");
 		}
 		
 	};	
@@ -83,29 +95,104 @@ public class Layout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			dm.setRowCount(0);
-			// TODO Auto-generated method stub
-			String ma = txtMa.getText();
-			String ten = txtTen.getText();
-			String tuoi = txtTuoi.getText();
-			for (int i=0; i<arrSv.size(); i++) {
-				if(ma.equals(arrSv.get(i).getMaSv())) {
-					arrSv.get(i).setTenSv(ten);
-					arrSv.get(i).setTuoiSv(tuoi);
+			try {
+				dm.setRowCount(0);
+				// TODO Auto-generated method stub
+				String ma = txtMa.getText();
+				String ten = txtTen.getText();
+				String tuoi = txtTuoi.getText();
+				if(ma.isEmpty()||ten.isEmpty()||tuoi.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Chưa chọn dòng",
+			                  "Lỗi", JOptionPane.WARNING_MESSAGE);
 				}
-			}
-			for(SinhVien x : arrSv) {
-				dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});
-			}
+				else {
+					
+					try
+					{
+					String sql="update danhsachsv set ten='"+ten+"',tuoi='"+tuoi+"' where ma='"+ma+"' ";
+					Statement statement=(Statement) conn.createStatement();
+					int x=statement.executeUpdate(sql);
+					if(x>0)
+					{
+					JOptionPane.showMessageDialog(null, "Cập nhật OK");
+					}
+					}
+					catch(Exception ex)
+					{
+					ex.printStackTrace();
+					}
+					try {
+						ArrayList<SinhVien> arrDb=new ArrayList<SinhVien>();
+						Statement statement=(Statement) conn.createStatement();
+						ResultSet result=statement.executeQuery
+						("select * from danhsachsv");
+						while(result.next())
+						{
+						arrDb.add(new SinhVien(result.getString("ma"),result.getString("ten"),result.getString("tuoi"),result.getString("lop")));
+						}
+						arrSv.clear();
+						dm.setRowCount(0);
+						arrSv=arrDb;
+						} catch (Exception ex) {
+						ex.printStackTrace();
+						}
+					
+					for(SinhVien x : arrSv) {
+						dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});
+					}
+					
+				}
+				
+				}
+		catch(Exception X) {
+			JOptionPane.showMessageDialog(null, "Nhập sai định dạng",
+	                  "Lỗi", JOptionPane.WARNING_MESSAGE);
 		}
-		
+		}
 	};		
 	ActionListener eventXoa = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			int row;
+			row = tbl.getSelectedRow();
+			dm.removeRow(row);
+			String ma=txtMa.getText();
+			try
+			{
+			String sql="delete from danhsachsv where ma='"+ma+"'";
+			Statement statement=(Statement) conn.createStatement();
+			int x=statement.executeUpdate(sql);
+			if(x>0)
+			{
+			JOptionPane.showMessageDialog(null,
+			"Xóa OK");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
+			try {
+				ArrayList<SinhVien> arrDb=new ArrayList<SinhVien>();
+				Statement statement=(Statement) conn.createStatement();
+				ResultSet result=statement.executeQuery
+				("select * from danhsachsv");
+				while(result.next())
+				{
+				arrDb.add(new SinhVien(result.getString("ma"),result.getString("ten"),result.getString("tuoi"),result.getString("lop")));
+				}
+				arrSv.clear();
+				dm.setRowCount(0);
+				arrSv=arrDb;
+				} catch (Exception ex) {
+				ex.printStackTrace();
+				}
 			
-			
+			for(SinhVien x : arrSv) {
+				dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});
+			}
+		
 		}
 		
 	};		
@@ -122,16 +209,62 @@ public class Layout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			try {
+				ArrayList<SinhVien> arrDb=new ArrayList<SinhVien>();
+				Statement statement=(Statement) conn.createStatement();
+				ResultSet result=statement.executeQuery
+				("select * from danhsachsv");
+				while(result.next())
+				{
+				arrDb.add(new SinhVien(result.getString("ma"),result.getString("ten"),result.getString("tuoi"),result.getString("lop")));
+				}
+				arrSv.clear();
+				dm.setRowCount(0);
+				arrSv=arrDb;
+				} catch (Exception ex) {
+				ex.printStackTrace();
+				}
+			
+			for(SinhVien x : arrSv) {
+				dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});
+			}
 			// TODO Auto-generated method stub
-			String ma = txtMa.getText();
-			String ten = txtTen.getText();
-			String tuoi = txtTuoi.getText();
-			String lop = cbo.getSelectedItem().toString();
-			arrSv.add(new SinhVien(ma,ten,tuoi,lop));
-			dm.addRow(new String[]{ma, ten, tuoi,lop});
-			txtMa.setText("");
-			txtTen.setText("");
-			txtTuoi.setText("");
+			try {
+				String ma = txtMa.getText();
+				String ten = txtTen.getText();
+				String tuoi = txtTuoi.getText();
+				String lop = cbo.getSelectedItem().toString();
+				if (ma.isEmpty()||ten.isEmpty()||tuoi.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Chưa nhập",
+			                  "Lỗi", JOptionPane.WARNING_MESSAGE);
+				}else {
+					arrSv.add(new SinhVien(ma,ten,tuoi,lop));
+					dm.addRow(new String[]{ma, ten, tuoi,lop});
+					txtMa.setText("");
+					txtTen.setText("");
+					txtTuoi.setText("");
+					try
+					{
+						String sql="insert into danhsachsv(ma,ten,tuoi,lop) values("+ "'" + ma + "','"+ten+"','"+tuoi+ "','"+lop+"'"+")";
+						Statement statement=(Statement) conn.createStatement();
+						int x=statement.executeUpdate(sql);
+					if(x>0)
+					{
+					JOptionPane.showMessageDialog(null, "Lưu OK");
+					}
+					}
+					catch(Exception ex){
+					ex.printStackTrace();
+					}
+					
+				}
+				
+				
+			}catch(Exception X) {
+				JOptionPane.showMessageDialog(null, "Nhập sai định dạng",
+		                  "Lỗi", JOptionPane.WARNING_MESSAGE);
+			}
+			
 			
 		}
 		
@@ -219,6 +352,25 @@ public class Layout extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		try {
+			ArrayList<SinhVien> arrDb=new ArrayList<SinhVien>();
+			Statement statement=(Statement) conn.createStatement();
+			ResultSet result=statement.executeQuery
+			("select * from danhsachsv");
+			while(result.next())
+			{
+			arrDb.add(new SinhVien(result.getString("ma"),result.getString("ten"),result.getString("tuoi"),result.getString("lop")));
+			}
+			arrSv.clear();
+			dm.setRowCount(0);
+			arrSv=arrDb;
+			} catch (Exception ex) {
+			ex.printStackTrace();
+			}
+		
+		for(SinhVien x : arrSv) {
+			dm.addRow(new String[]{x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLopSv()});
+		}
 	}
 	
 	

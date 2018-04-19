@@ -36,3 +36,7 @@ Assigment 5:
 [TextFile](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/io/TextFile.java)
 [Bài tập 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/main/BaiTap2.java)
 [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/modelsv/SinhVien.java)
+12. Assignment 11:[File Lisb](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/Libs/mysql-connector-java-5.1.46-bin.jar)
+[Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/modelsv/SinhVien.java)
+[DBConnection](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/connect/DBConnection.java)
+[Quản Lý](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Longnt/JavaDesktop_Sample2/src/fasttrackse/edu/model/QuanLy.java)
