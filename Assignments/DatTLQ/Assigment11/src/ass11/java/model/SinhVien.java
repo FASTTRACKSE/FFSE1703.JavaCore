@@ -1,8 +1,6 @@
-package ass10.java.model;
-
+package ass11.java.model;
 import java.util.Scanner;
 import java.io.Serializable;
-
 public class SinhVien implements Serializable {
 	public String txtName;
 	public String txtDate;
@@ -48,5 +46,4 @@ public class SinhVien implements Serializable {
 	public void settxtLop(String txtLop) {
 		this.txtLop = txtLop;
 	}
-
 }

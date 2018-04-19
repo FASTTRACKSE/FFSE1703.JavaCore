@@ -1,13 +1,14 @@
-package ass10.java.main;
+package ass11.java.main;
 import com.mysql.jdbc.Connection;
 
-import ass10.java.connect.Connect;
-import ass10.java.ui.QuanLi;
-public class QuanLiSV {
+import ass11.java.connect.Connect;
+import ass11.java.ui.Layout;
+
+public class QuanLi {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub		
-		QuanLi myUI= new QuanLi("Quản Lí Sinh Viên");
+			
+		Layout myUI= new Layout("Quản Lí Sinh Viên");
 		myUI.showWindow();
 		Connection conn= Connect.getConnect("localhost", "Java", "ttien96","zxcv1234");
 				if(conn!=null)

@@ -1,4 +1,4 @@
-package ass10.java.ui;
+package ass11.java.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -28,11 +29,14 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import ass10.java.model.SinhVien;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
-import ass10.java.io.*;
+import ass11.java.model.SinhVien;
+import ass11.java.connect.Connect;
+//import ass10.java.io.*;
 
-public class QuanLi extends JFrame {
+public class Layout extends JFrame {
 	private JTextField txtName, txtDate, txtMaSV;
 	private JComboBox cbo;
 	private JButton btnadd, btnrep, btndel, btnexit, btnok;
@@ -40,12 +44,13 @@ public class QuanLi extends JFrame {
 	private DefaultTableModel dm;
 	private JTable tbl;
 	int stt = 0;
+	final static Connection conn = Connect.getConnect("localhost", "Java", "ttien96", "zxcv1234");
 
-	public QuanLi() {
+	public Layout() {
 		super();
 	}
 
-	public QuanLi(String title) {
+	public Layout(String title) {
 		super(title);
 		addControls();
 		addEvent();
@@ -180,12 +185,17 @@ public class QuanLi extends JFrame {
 				} else if (lop == "All") {
 					JOptionPane.showMessageDialog(null, "Bạn phải chọn lớp!!");
 				} else {
-					arrSinhVien.add(new SinhVien(stuma, stuname, studate, lop));
-					boolean kt1 = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
-					if (kt1 == true) {
-						System.out.println("Đã lưu file thành công");
-					} else {
-						System.out.println("Lưu file thất bại");
+					// arrSinhVien.add(new SinhVien(stuma, stuname, studate, lop));
+					try {
+						String sql = "insert into SinhVien values(null,'" + stuma + "','" + stuname + "','" + studate
+								+ "','" + lop + "')";
+						Statement statement = (Statement) conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Lưu OK");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 					for (int i = (arrSinhVien.size() - 1); i < arrSinhVien.size(); i++) {
 						String[] row = { arrSinhVien.get(i).gettxtMaSV(), arrSinhVien.get(i).gettxtName(),
@@ -236,6 +246,8 @@ public class QuanLi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			arrSinhVien.removeAll(arrSinhVien);
+
 			String stuma = txtMaSV.getText();
 			String stuname = txtName.getText();
 			String studate = txtDate.getText();
@@ -246,15 +258,16 @@ public class QuanLi extends JFrame {
 				} else if (stuma.isEmpty() || stuname.isEmpty() || studate.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Bạn phải nhập vào");
 				} else {
-					arrSinhVien.get(stt).settxtMaSV(stuma);
-					arrSinhVien.get(stt).settxtName(stuname);
-					arrSinhVien.get(stt).settxtDate(studate);
-					boolean kt1 = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
-					if (kt1 == true) {
-						System.out.println("Đã lưu file thành công");
-						JOptionPane.showMessageDialog(null, "Bạn đã sửa thành công");
-					} else {
-						System.out.println("Lưu file thất bại");
+					try {
+						String sql = "update SinhVien set Masv='" + stuma + "', Tensv='" + stuname + "',Tuoi=" + studate
+								+ " where Masv='" + stuma + "'";
+						Statement statement = (Statement) conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Cập nhật OK");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 					dm.setRowCount(0);
 					if (lop == "All") {
@@ -283,23 +296,40 @@ public class QuanLi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			File file = new File("D:/FFSE1703.JavaCore/Assignments/DatTLQ/Assigment10/dulieu2.txt");
-			if (file.exists()) {
-				ArrayList<SinhVien> sv = SerializeFileFactory.docFile("dulieu2.txt");
-				arrSinhVien = sv;
-			}
+			arrSinhVien.removeAll(arrSinhVien);
 			txtMaSV.setText("");
 			txtDate.setText("");
 			txtName.setText("");
 			String lop = cbo.getSelectedItem().toString();
+
 			dm.setRowCount(0);
 			if (lop == "All") {
+				try {
+					Statement statement = (Statement) conn.createStatement();
+					ResultSet result = statement.executeQuery("select * from SinhVien");
+					while (result.next()) {
+						arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
+								result.getString("Tuoi"), result.getString("Lop")));
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				for (SinhVien x : arrSinhVien) {
 					String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
 					dm.addRow(row);
 
 				}
 			} else {
+				try {
+					Statement statement = (Statement) conn.createStatement();
+					ResultSet result = statement.executeQuery("select * from SinhVien where Lop='" + lop + "'");
+					while (result.next()) {
+						arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
+								result.getString("Tuoi"), result.getString("Lop")));
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				for (SinhVien x : arrSinhVien) {
 					if (lop.equals(x.gettxtLop())) {
 						String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
@@ -310,37 +340,36 @@ public class QuanLi extends JFrame {
 		}
 
 	};
-	
-	ActionListener xoa= new ActionListener() {
-		
+
+	ActionListener xoa = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			int row=tbl.getSelectedRow();
+			int row = tbl.getSelectedRow();
 			String stuma = (String) dm.getValueAt(row, 0);
-			for(SinhVien x:arrSinhVien) {
-				if(stuma.equals(x.gettxtMaSV())) {
-					arrSinhVien.remove(x);
-					break;
+			String lop = cbo.getSelectedItem().toString();
+			try {
+				String sql = "delete from SinhVien where Masv='" + stuma + "'and Lop='" + lop + "'";
+				Statement statement = (Statement) conn.createStatement();
+				int x = statement.executeUpdate(sql);
+				if (x > 0) {
+					JOptionPane.showMessageDialog(null, "Xóa OK");
 				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-			boolean kt1 = SerializeFileFactory.luuFile(arrSinhVien, "dulieu2.txt");
-			if (kt1 == true) {
-				System.out.println("Đã lưu file thành công");
-				JOptionPane.showMessageDialog(null, "Bạn đã xóa thành công");
-			} else {
-				System.out.println("Lưu file thất bại");
-			}
+
 			dm.removeRow(row);
 		}
 	};
-	ActionListener thoat=new ActionListener() {
-		
+	ActionListener thoat = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			int mess=JOptionPane.showConfirmDialog(null, "Bạn muốn thoát?", "Thoát", JOptionPane.YES_NO_OPTION);
-			if(mess==JOptionPane.YES_OPTION) {
+			int mess = JOptionPane.showConfirmDialog(null, "Bạn muốn thoát?", "Thoát", JOptionPane.YES_NO_OPTION);
+			if (mess == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
 		}
