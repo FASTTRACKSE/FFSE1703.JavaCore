@@ -279,6 +279,7 @@ public class WindowLayout extends JFrame {
 			txtTenSV.setText("");
 			txtTuoi.setText("");
 			}
+			
 		}
 	};
 	public void showWindow() {

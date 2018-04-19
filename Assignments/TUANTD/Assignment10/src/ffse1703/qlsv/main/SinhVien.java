@@ -23,15 +23,18 @@ public class SinhVien {
 		Connection conn = getConnect("localhost", "ffse1703020", "ffse1703", "ffse1703@2018");
 		if (conn != null) {
 			System.out.println("Kếtnối MYSQL thànhcông");
+			
 			try{
 				Statement statement=(Statement) conn.createStatement();
 				ResultSet result=statement.executeQuery("select * from quanlysinhvien");
 				while(result.next()){
 					System.out.println(result.getString("Name"));
+					System.out.println(result.getString("Age"));
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+			
 		} else {
 			System.out.println("Kếtnối MYSQL thấtbại");
 
