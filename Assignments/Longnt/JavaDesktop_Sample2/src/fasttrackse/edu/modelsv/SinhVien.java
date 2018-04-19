@@ -1,21 +1,25 @@
 package fasttrackse.edu.modelsv;
-import fasttrackse.edu.model.*;
+import fasttrackse.edu.model.QuanLy;
 import fasttrackse.edu.main.*;
+import fasttrackse.edu.io.*;
+import java.io.Serializable;
 import java.util.Comparator;
-public class SinhVien {
+import java.util.concurrent.ScheduledExecutorService;
+public class SinhVien implements Serializable {
 	private String maSinhVien;
 	private String tenSinhVien;
     private String tuoiSinhVien;
-    private String lop;
-	public SinhVien() {
+    private String lopHoc;
+    
+	public SinhVien()  {
 		
 	}
-	public SinhVien(String maSinhVien, String tenSinhVien, String tuoiSinhVien, String lop) {
+	public SinhVien(String maSinhVien, String tenSinhVien, String tuoiSinhVien, String lopHoc) {
 		super();
 		this.maSinhVien=maSinhVien;
-		this.tenSinhVien=maSinhVien;
+		this.tenSinhVien=tenSinhVien;
 		this.tuoiSinhVien=tuoiSinhVien;
-		this.lop=lop;
+		this.lopHoc=lopHoc;
 	}
 	public String getMaSinhVien() {
 		return maSinhVien;
@@ -35,11 +39,11 @@ public class SinhVien {
 	public void setTuoiSinhVien(String tuoiSinhVien) {
 		this.tuoiSinhVien = tuoiSinhVien;
 	}
-	public String getLop() {
-		return lop;
+	public String getLopHoc() {
+		return lopHoc;
 	}
-	public void setLop(String lop) {
-		this.lop = lop;
+	public void setLopHoc(String lopHoc) {
+		this.lopHoc = lopHoc;
 	}
 	
 }
