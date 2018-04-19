@@ -38,4 +38,5 @@ public class SinhVien implements Serializable{
 	public void setTuoiSv(String tuoiSv) {
 		this.tuoiSv = tuoiSv;
 	}	
+	
 }
