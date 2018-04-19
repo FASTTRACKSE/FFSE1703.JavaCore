@@ -1,8 +1,11 @@
 package fasttrackse.edu.model;
+import java.awt.event.MouseListener;
 import fasttrackse.edu.main.*;
 import java.awt.BorderLayout;
-import fasttrackse.edu.io.*;
+import fasttrackse.edu.connect.DBConnection;
+import fasttrackse.edu.io.TextFile;
 import java.awt.Button;
+import java.sql.Statement;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -13,7 +16,12 @@ import java.awt.Font;
 import fasttrackse.edu.modelsv.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
 import fasttrackse.edu.modelsv.*;
@@ -32,23 +40,28 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 public class QuanLy extends JFrame {
+	Connection conn= DBConnection.ketnoi("localhost", "ffse1703", "thanhlong123",
+			"123456"); 
 	private JTextField maSinhVien,tenSinhVien,tuoiSinhVien;
-	private JButton Nhap,Them,Sua,Xoa,Thoat;
+	private JButton Nhap,Them,Sua,Xoa,Thoat,Chon;
     String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
     String[] items = {"All","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
-    public static ArrayList<SinhVien> arraySinhVien = new ArrayList<SinhVien>();
-	JComboBox<String> Class = new JComboBox<>(items);
-	String cClass = "All choose";
+    public static ArrayList<SinhVien> arr = new ArrayList<SinhVien>();
+	JComboBox<String> comb = new JComboBox<>(items);
+	String lopHoc = "All";
     private DefaultTableModel dm = new DefaultTableModel();
 	final JTable tab = new JTable(dm);
 	JScrollPane sc = new JScrollPane(tab);
 	int stt = 0;
+	
     
 	public QuanLy(String tieude)
 	{
 		this.setTitle(tieude);
 		addControls();
 	    addEvents();
+	    DBConnection kn = new  DBConnection();
+	    
 	}
 	public void addControls()
 	{
@@ -67,8 +80,8 @@ public class QuanLy extends JFrame {
 		pan2.setLayout(new FlowLayout());
 		JLabel lab2=new JLabel("Chọn Lớp:       ");		
 		pan2.add(lab2);
-		add(Class);
-		pan2.add(Class);
+		add(comb);
+		pan2.add(comb);
 		pan.add(pan2);
 
 		JPanel pan3 = new JPanel();
@@ -113,6 +126,58 @@ public class QuanLy extends JFrame {
 		Xoa = new JButton("Xóa");
 		Thoat = new JButton("Thoát");
 		Nhap = new JButton("Nhập");
+tab.addMouseListener(new MouseListener() {
+			
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				maSinhVien.setEditable(false);
+				for(int row = tab.getSelectedRow() ; row <=tab.getSelectedRow(); row++) {
+					for(int col = 0; col < tab.getColumnCount(); col++) {
+						String value = (String)tab.getValueAt(row, col);
+						if(col == 0) {
+							maSinhVien.setText(value);
+						}
+						if(col == 1) {
+							tenSinhVien.setText(value);
+						}
+						if(col == 2) {
+							tuoiSinhVien.setText(value);
+						}
+						if(col == (tab.getColumnCount() - 1)) {
+							comb.setSelectedItem(value);
+						}
+						
+					}
+				}
+				
+			}
+		});
 
 		pnAction.add(Them);
 		pnAction.add(Sua);
@@ -124,218 +189,211 @@ public class QuanLy extends JFrame {
 		con.add(pan);
 
 	}
+	
 		public void addEvents() {
 			Them.addActionListener(eventThem);
 			Sua.addActionListener(eventSua);
 			Xoa.addActionListener(eventXoa);
 			Thoat.addActionListener(eventThoat);
-			Nhap.addActionListener(eventNhap);
-			Class.addActionListener(eventClass);
-			
-	}
+			comb.addActionListener(eventClass);		
+	} 
 		
-		ActionListener eventClass = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/fasstrackse/dulieu2.txt");
-				if (file.exists()) {
-					ArrayList<SinhVien> arrSvFile = TextFile.readFile("dulieu2.txt");
-					arraySinhVien = arrSvFile;
+		public void sellectAll() {
+			arr.clear();
+			try {
+				Statement statement=conn.createStatement();
+				ResultSet result=statement.executeQuery("select * from sinhvien");
+				while(result.next())
+				{
+					String maSV = result.getString("masv");
+					String ten = result.getString("tensv");
+					String tuoi = result.getString("tuoisv");
+					String lop = result.getString("lop");
+					arr.add(new SinhVien(maSV, ten, tuoi, lop));
 				}
-				cClass = (String) Class.getSelectedItem();
-				dm.setRowCount(0);
-				if ( cClass == "All choose") {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
-						dm.addRow(row);
+				} catch (Exception e) {
+				e.printStackTrace();
 				}
-				} else {
-					for (SinhVien sv : arraySinhVien) {
-					if (cClass.equals(sv.getLop())) {
-							String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
-							dm.addRow(row);
-				}
-				}
-				}
-				maSinhVien.setText("");
-				tenSinhVien.setText("");
-				tuoiSinhVien.setText("");
-			}
-		};
-	
-		ActionListener eventNhap = new ActionListener() {
+		}
+		
+		public void nhap() {
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String maSV=maSinhVien.getText();
-				String tenSV=tenSinhVien.getText();
-				String tuoiSV=tuoiSinhVien.getText();
-				String lop = (String) Class.getSelectedItem();
-				if(maSV.isEmpty()) {
-					String msg = "Chưa nhập mã sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(maSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "mã sinh viên phải là số";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
-				
-			    }
-				if(tenSV.isEmpty()) {
-					String msg = "Chưa nhập tên sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(tenSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "tên sinh viên phải là chữ";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
+			
+			String lop = comb.getSelectedItem().toString();
+					
+			String masv = maSinhVien.getText();
+		
+			String tensv = tenSinhVien.getText();
+
+			String tuoisv = tuoiSinhVien.getText();
+			
+			
+			
+			String kt = "Không trùng";
+			
+			for(int i = 0; i < arr.size(); i++) {
+				if(maSinhVien.getText().equals(arr.get(i).getMaSinhVien()) && comb.getSelectedItem().toString().equals(arr.get(i).getLopHoc())) {
+					kt = "Trùng";
 				}
-				if(tuoiSV.isEmpty()) {
-					String msg = "Chưa nhập tuổi sinh viên";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập", JOptionPane.INFORMATION_MESSAGE);
-				} else { 
-			      try { 
-					Float.parseFloat(tuoiSV);		           
-		        } 
-			      catch (Exception ex) { 
-		        	String msg = "tuổi sinh viên phải là số";
-					JOptionPane.showMessageDialog(null, msg, " Sai Định Dạng", JOptionPane.INFORMATION_MESSAGE); 
-		        }
-			    }
-				
-				String[] row = {maSV,tenSV,tuoiSV,lop };
-				dm.addRow(row);
-				arraySinhVien.add(new SinhVien());
-			     }
-				};
-				
-//	
-				ActionListener eventThem = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
+			}
+			if(kt == "Trùng") {
+				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên!");
+			}
+			else {
+				try {
+					String sql = "insert into sinhvien values('"+masv+"', '"+tensv+"', '"+tuoisv+"', '"+lop+"')";
+					Statement statement = (Statement) conn.createStatement();
+					int x=statement.executeUpdate(sql);
+					if(x>0) {
+						sellectAll();
+						String row[] = {masv, tensv, tuoisv, lop};
+						dm.addRow(row);
+						JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
+							// sau khi thêm sẽ reset về rỗng
 						maSinhVien.setText("");
 						tenSinhVien.setText("");
 						tuoiSinhVien.setText("");
-						maSinhVien.requestFocus();
-					}		
-				};
 		
+						//System.out.println(arr.toString());
 		
-		ActionListener eventSua = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-					String maSv = maSinhVien.getText();
-					String tenSv = tenSinhVien.getText();
-					String tuoiSv = tuoiSinhVien.getText();
-					String lopSv = (String) Class.getSelectedItem();
-					
-					
-					try {
-							Integer.parseInt(tuoiSv);				
-						try {
-							int tuoi=Integer.parseInt(tuoiSv);
-							int so=-1;
-							for(int i=0;i<arraySinhVien.size();i++) {
-								if(lopSv.equals(arraySinhVien.get(i).getLop())) {
-									so=i;
-								}
-							}
-							if(maSv.isEmpty()&&tenSv.isEmpty()&&tuoiSv.isEmpty()) {		
-								throw new Exception();
-							}else if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()){
-								String msg = "Không được để trống các dòng "+maSv;
-								JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-								
-								}else if(tuoi>=18 && tuoi<=35){
-									String msg = "Nhập tuổi từ 18 đến 35 "+maSv;
-									JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-								}else {
-									arraySinhVien.get(stt).setMaSinhVien(maSv);
-									arraySinhVien.get(stt).setTenSinhVien(tenSv);
-									arraySinhVien.get(stt).setTuoiSinhVien(tuoiSv);
-								boolean checked= TextFile.saveFile(arraySinhVien, "dulieusinhvien.txt");
-								if (checked == true) {
-									String msg = "Đã Sửa Thành công Sinh viên "+tenSv;
-									JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-								} else {
-									System.out.println("Lưu thất bại");
-								}
-								int col = tab.getSelectedRow();
-								maSinhVien.setText("");
-								tenSinhVien.setText("");
-								tuoiSinhVien.setText("");
-								maSinhVien.requestFocus();
-								cClass =(String) Class.getSelectedItem();;
-								dm.setRowCount(0);
-									if(cClass=="Tất cả") {
-										for (SinhVien sv : arraySinhVien) {
-											String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
-											dm.addRow(row);
-										}
-									}else {
-										for (SinhVien sv : arraySinhVien) {
-											if(Class.equals(sv.getLop())) {
-												String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
-												dm.addRow(row);
-											}					
-										}
-									}						
-							}
-						}catch(Exception e2) {
-							String msg = "Chưa chọn dòng cần thay đổi ";
-							JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-						}
-					}catch(Exception e2) {
-					String msg = "Phải Nhập số cho Tuổi "+maSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);					
 					}
-					
-				
-				
-						
-					}
-		};
-		ActionListener eventXoa = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {						
-				String maSv = maSinhVien.getText();
-				String tenSv = tenSinhVien.getText();
-				String tuoiSv = tuoiSinhVien.getText();
-				arraySinhVien.remove(stt);			
-				boolean checked= TextFile.saveFile(arraySinhVien, "dulieu2.txt");
-				if (checked == true) {
-					String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					System.out.println("Xóa thất bại");
 				}
-				int col = tab.getSelectedRow();
+					catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
+			}
+			
+		
+		}
+		public void sua() {
+			
+			try
+			{
+			String sql="update sinhvien set tensv='" + tenSinhVien.getText() + "', tuoisv='"+tuoiSinhVien.getText()+"' where masv='" + maSinhVien.getText() +"'";
+			Statement statement=(Statement) conn.createStatement();
+			int y=statement.executeUpdate(sql);
+			if(y>0)
+			{
+				JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
+				sellectAll();
+				//sửa xong lưu vào file
 				maSinhVien.setText("");
 				tenSinhVien.setText("");
 				tuoiSinhVien.setText("");
-				maSinhVien.requestFocus();
-				cClass =(String) Class.getSelectedItem();;
+
+	    dm.setRowCount(0);
+		for(int i = 0;i < arr.size(); i++) {
+			if(arr.get(i).getLopHoc().equals(comb.getSelectedItem().toString())) {
+				String row[] = {arr.get(i).getMaSinhVien(), arr.get(i).getTenSinhVien(), arr.get(i).getTuoiSinhVien(), arr.get(i).getLopHoc()};
+				dm.addRow(row);
+			}
+			
+		}
+}
+		public void xoa() {
+			
+			try
+			{
+			String sql="delete from sinhvien where maSV='" + maSinhVien.getText() + "' and lop='" + comb.getSelectedItem().toString() + "'";
+			Statement statement=conn.createStatement();
+			int x=statement.executeUpdate(sql);
+			if(x>0)
+			{
+			JOptionPane.showMessageDialog(null, "Xóa thành công!");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
+			
+			sellectAll();
+			dm.setRowCount(0);
+			for(int i = 0;i < arr.size(); i++) {
+				if(arr.get(i).getLopHoc().equals(comb.getSelectedItem().toString())) {
+					String row[] = {arr.get(i).getMaSinhVien(), arr.get(i).getTenSinhVien(), arr.get(i).getTuoiSinhVien(), arr.get(i).getLopHoc()};
+					dm.addRow(row);
+				}
+			}
+		}
+		ActionListener eventClass = new ActionListener() {
+			
+			// event combobox
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				dm.setRowCount(0);
-				if(cClass=="Tất cả") {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
+
+				sellectAll();
+				String chose = comb.getSelectedItem().toString();
+				for(SinhVien x: arr) {
+					if(chose.equals(x.getLopHoc())) {
+						String row[] = {x.getMaSinhVien(), x.getTenSinhVien(), x.getTuoiSinhVien(), x.getLopHoc()};
 						dm.addRow(row);
-					}
-				}else {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
-						dm.addRow(row);
-					}				
 					}
 				}
+						
+			}
+		};
+		ActionListener eventThem = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Mã Sinh Viên");
+				} 
+				if(tenSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tên Sinh Viên");
+				}
+				if(tuoiSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tuổi Sinh Viên");
+				} else {
+					nhap();
+				}
+			}
+		};
+		ActionListener eventSua = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				maSinhVien.setEditable(true);
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+				} 
+				else {
+					sua();
+				}
+			}
+			
+		};
+		ActionListener eventXoa = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				maSinhVien.setEditable(true);
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần xóa!");
+				} else {
+					xoa();
+				}
+			}
 		};
 		ActionListener eventThoat = new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				System.exit(0);			
 			}
 		};
 	public void showWindow(){

@@ -211,6 +211,8 @@ public class QuanLiSinhVien_UI extends JFrame {
 	
 	ActionListener chonLop = new ActionListener() {
 		
+		// event combobox
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			dm.setRowCount(0);
@@ -221,8 +223,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 					dm.addRow(row);
 				}
 			}
-			
-			
+
 		}
 	};
 	
@@ -243,9 +244,6 @@ public class QuanLiSinhVien_UI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tuổi Sinh Viên");
 			} else {
 				nhap();
-				textMSV.setText("");
-				textTSV.setText("");
-				textT.setText("");
 			}
 		}
 	};
@@ -262,10 +260,6 @@ public class QuanLiSinhVien_UI extends JFrame {
 			} 
 			else {
 				sua();
-				textMSV.setText("");
-				textTSV.setText("");
-				textT.setText("");
-				JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
 			}
 		}
 		
@@ -282,10 +276,6 @@ public class QuanLiSinhVien_UI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần xóa!");
 			} else {
 				xoa();
-				textMSV.setText("");
-				textTSV.setText("");
-				textT.setText("");
-				JOptionPane.showMessageDialog(null, "Xóa tên sinh viên thành công!");
 			}
 		}
 	};
@@ -330,6 +320,10 @@ public class QuanLiSinhVien_UI extends JFrame {
 				dm.addRow(row);
 				JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
 				luuFile();
+				// sau khi thêm sẽ reset về rỗng
+				textMSV.setText("");
+				textTSV.setText("");
+				textT.setText("");
 			}
 		}
 		
@@ -345,6 +339,10 @@ public class QuanLiSinhVien_UI extends JFrame {
 					
 					//sửa xong lưu vào file
 					luuFile();
+					textMSV.setText("");
+					textTSV.setText("");
+					textT.setText("");
+					JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
 				}
 				
 			}
@@ -364,6 +362,10 @@ public class QuanLiSinhVien_UI extends JFrame {
 			if(textMSV.getText().equals(x.getMaSV()) && cbo.getSelectedItem().toString().equals(x.getLop())) {
 				arr.remove(x);
 				luuFile();
+				textMSV.setText("");
+				textTSV.setText("");
+				textT.setText("");
+				JOptionPane.showMessageDialog(null, "Xóa tên sinh viên thành công!");
 				break;
 			}
 		}
