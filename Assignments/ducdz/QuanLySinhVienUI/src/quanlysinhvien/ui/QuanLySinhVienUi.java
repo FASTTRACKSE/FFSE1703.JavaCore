@@ -27,11 +27,9 @@ public class QuanLySinhVienUi extends JFrame {
 	}
 
 	public void actCreate() {
-		arrSv = QuanLySinhVienIO.readFile("FileName.txt");
 		String Lop = combo1.getSelectedItem().toString();
 		String ten = tenSv.getText();
-		int masv = (arrSv.size()+1);
-		String ma = String.valueOf(masv);
+		String ma = maSv.getText();
 		String tuoi = tuoiSv.getText();
 		dm.addRow(new String[] { Lop, ma, ten, tuoi });
 		Path path = Paths.get("FileName.txt");
