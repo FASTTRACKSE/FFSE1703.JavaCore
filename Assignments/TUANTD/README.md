@@ -33,3 +33,8 @@
                  [Lưu thông tin luồng character](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/oi/SerializeFileFactory.java      )
                  [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/ui/QuanLySinhVien.java   )
                  [Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/main/SinhVien.java  )
+3. Assignment 11: [class Sinh Viên]( https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/model/HocSinh.java  )
+                 [Lưu Database](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/oi/SerializeFileFactory.java      )
+                 [Quản Lý Sinh Viên](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/ui/QuanLySinhVien.java   )
+                 [kết nối Db](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/TUANTD/Assignment10/src/ffse1703/qlsv/main/SinhVien.java  )
+
