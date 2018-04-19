@@ -85,6 +85,7 @@ public class WindowLayout extends JFrame {
 		pnMaSV.add(textMaSV);
 		
 		JPanel pnAction = new JPanel();
+		cb.addActionListener(showSV);
 		pnAction.add(btn1);
 		pnAction.add(btn2);
 		pnAction.add(btn3);
@@ -127,27 +128,38 @@ public class WindowLayout extends JFrame {
 //		btn5.addActionListener(nhapFile);
 		btn6.addActionListener(xuatFile);
 	}
+	ActionListener showSV = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			showArray();
+		}
+	};
 	ActionListener nhapSV = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			String lopSV = (String) cb.getSelectedItem();
 			String maSV = textMaSV.getText();
 			String tenSV = textTenSV.getText();
 			String tuoiSV = textTuoiSV.getText();
 			if (maSV.isEmpty() || tenSV.isEmpty() || tuoiSV.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Xin hay nhap day du thong tin!");
-			}
-			for (SinhVien x : arrSV) {
-				if (maSV.equals(x.getMaSV())) {
-					JOptionPane.showMessageDialog(null, "Sinh vien da ton tai!"); 
-				} else {
-					textMaSV.setText("");
-					textTenSV.setText("");
-					textTuoiSV.setText("");
-					dm.addRow(new String[] {maSV,tenSV,tuoiSV});
-					JOptionPane.showMessageDialog(null, "Nhap thanh cong!");
+			} else {
+				for (SinhVien x : arrSV) {
+					if (maSV.equals(x.getMaSV())) {
+						if (lopSV.equals(x.getLopSV())) {
+							JOptionPane.showMessageDialog(null, "Sinh vien da ton tai!"); 
+						}
+					} else {
+						textMaSV.setText("");
+						textTenSV.setText("");
+						textTuoiSV.setText("");
+						dm.addRow(new String[] {maSV,tenSV,tuoiSV});
+						JOptionPane.showMessageDialog(null, "Nhap thanh cong!");
+						break;
+					}	
 				}
-				
 			}
 			arrayList();
 		}
@@ -192,19 +204,39 @@ public class WindowLayout extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JFrame f = new JFrame();
 			boolean kt = TextFileFactory.luuFile(arrSV, "dulieu.txt");
-			boolean kt2 = ByteFileFactory.luuFile(arrSV, "dulieu2.txt");
-			if (kt == true && kt2 == true) {
+//			boolean kt2 = ByteFileFactory.luuFile(arrSV, "dulieu2.txt");
+			if (kt == true) {
 				JOptionPane.showMessageDialog(f,"Luu file thanh cong!");
 			} else {
 				JOptionPane.showMessageDialog(f,"Luu file that bai cong!");
 			}
 		}
 	}; 
+	public void showArray() {
+		row = dm.getRowCount();
+		arrSV = TextFileFactory.docFile("dulieu.txt");
+		for (int i = 0; i < row; i++) {
+			dm.removeRow(i);
+		}
+		String lopSV = (String) cb.getSelectedItem();
+		for (SinhVien x : arrSV) {
+			if (lopSV.equals(x.getLopSV())) {
+				dm.addRow(new String[] {x.getMaSV(),x.getTenSV(),x.getTuoiSV()});
+			}
+		}
+	}
 	public void arrayList() {
 		row = dm.getRowCount();
-		arrSV.removeAll(arrSV);
+		String lopSV = (String) cb.getSelectedItem();
+		for (SinhVien x : arrSV) {
+			if (lopSV.equals(x.getLopSV())) {
+				arrSV.remove(x);
+				break;
+			}
+		}		
 		for (int i = 0; i < row; i++) {
 			sv = new SinhVien();
+			sv.setLopSV(lopSV);
 			String maSV = (String) dm.getValueAt(i, 0);
 			sv.setMaSV(maSV);
 			String tenSV = (String) dm.getValueAt(i, 1);

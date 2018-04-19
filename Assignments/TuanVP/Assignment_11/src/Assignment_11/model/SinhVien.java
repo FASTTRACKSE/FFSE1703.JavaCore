@@ -1,4 +1,4 @@
-package Assignment_10.model;
+package Assignment_11.model;
 
 public class SinhVien {
 	private String lopSV,maSV,tenSV,tuoiSV;
