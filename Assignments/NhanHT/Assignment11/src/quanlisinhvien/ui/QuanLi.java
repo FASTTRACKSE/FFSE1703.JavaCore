@@ -57,6 +57,7 @@ public class QuanLi extends JFrame {
 		super(title);
 		addControls();
 		addEvent();
+		comboBox();
 	}
 
 	public void showWindow() {
@@ -219,8 +220,7 @@ public class QuanLi extends JFrame {
 		btnNhap.addActionListener(eventNhapmoi);
 		cbo.addActionListener(eventCbo);
 	}
-
-	//
+//button Exit
 	ActionListener eventExit = new ActionListener() {
 
 		@Override
@@ -228,6 +228,7 @@ public class QuanLi extends JFrame {
 			System.exit(0);
 		}
 	};
+//button Nhập Mới
 	ActionListener eventNhapmoi = new ActionListener() {
 
 		@Override
@@ -239,7 +240,7 @@ public class QuanLi extends JFrame {
 			txtMaSv.setEditable(true);
 		}
 	};
-	//
+//button thêm
 	ActionListener eventThem = new ActionListener() {
 
 		@Override
@@ -272,7 +273,7 @@ public class QuanLi extends JFrame {
 		 tuoiSv = txtTuoi.getText();
 
 		for (SinhVien x : arrSinhVien) {
-			if (maSv.equals(x.getMaSv())) {
+			if (maSv.equals(x.getMaSv())&&cbo.getSelectedItem().toString().equals(x.getLop())) {
 				ktMasv = 1;
 			}
 		}
@@ -280,7 +281,7 @@ public class QuanLi extends JFrame {
 			JOptionPane.showMessageDialog(null, "Mã Sinh Viên đã tồn tại !!!");
 		} else {
 			try {
-				String sql = "insert into QLSinhVien values('" + maSv + "','" + tenSv + "'," + tuoiSv + ",'" + lopSv+ "')";
+				String sql = "insert into QLSinhVien values('" + 0 + "','" + maSv + "','" + tenSv + "'," + tuoiSv + ",'" + lopSv+ "')";
 				Statement statement = (Statement) conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x > 0) {
@@ -299,7 +300,7 @@ public class QuanLi extends JFrame {
 			}
 		}
 	}
-
+//buton xóa
 	ActionListener eventXoa = new ActionListener() {
 
 		@Override
@@ -350,7 +351,7 @@ public class QuanLi extends JFrame {
 		txtMaSv.setEditable(true);
 
 	}
-
+// button sửa
 	ActionListener eventSua = new ActionListener() {
 
 		@Override
@@ -403,6 +404,7 @@ public class QuanLi extends JFrame {
 			dm.addRow(row);
 		}
 	}
+	//add database 
 	public void selectAll() {
 		arrSinhVien.clear();
 		try {
@@ -421,31 +423,35 @@ public class QuanLi extends JFrame {
 			ex.printStackTrace();
 		}
 	}
-	//
+	//comboBox
 	ActionListener eventCbo = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			dm.setRowCount(0);
-			selectAll();
-			String comBox = cbo.getSelectedItem().toString();
-			if (comBox == "ALL") {
-				for (SinhVien x : arrSinhVien) {
-					String row[] = { x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLop() };
-					dm.addRow(row);
-				}
-			} else {
-				for (SinhVien x : arrSinhVien) {
-					if (comBox.equals(x.getLop())) {
-						String row[] = { x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLop() };
-						dm.addRow(row);
-					}
-				}
-
-			}
+			//selectAll();
+			comboBox();
+			
 		}
 	};
 	//
+	public void comboBox() {
+		selectAll();
+		String comBox = cbo.getSelectedItem().toString();
+		if (comBox == "ALL") {
+			for (SinhVien x : arrSinhVien) {
+				String row[] = { x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLop() };
+				dm.addRow(row);
+			}
+		} else {
+			for (SinhVien x : arrSinhVien) {
+				if (comBox.equals(x.getLop())) {
+					String row[] = { x.getMaSv(), x.getTenSv(), x.getTuoiSv(), x.getLop() };
+					dm.addRow(row);
+				}
+			}
 
+		}
+	}
 }

@@ -9,7 +9,7 @@ public class SinhVien implements Serializable {
 	public String txtMaSV;
 	public String txtLop;
 
-	public SinhVien(String txtName, String txtDate, String txtMaSV, String txtLop) {
+	public SinhVien( String txtMaSV,String txtName, String txtDate, String txtLop) {
 		this.txtName = txtName;
 		this.txtDate = txtDate;
 		this.txtMaSV = txtMaSV;
