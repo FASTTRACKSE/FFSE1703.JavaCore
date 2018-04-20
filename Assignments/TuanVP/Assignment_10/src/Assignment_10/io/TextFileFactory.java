@@ -17,7 +17,7 @@ public class TextFileFactory {
 			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 			BufferedWriter bw = new BufferedWriter(osw);
 			for (SinhVien sv : arrSinhVien) {
-				String line = sv.getMaSV() + ";" +sv.getTenSV() + ";" + sv.getTuoiSV();
+				String line = sv.getLopSV() + ";" + sv.getMaSV() + ";" +sv.getTenSV() + ";" + sv.getTuoiSV();
 				bw.write(line);
 				bw.newLine();
 			}
@@ -43,8 +43,8 @@ public class TextFileFactory {
 			String line = br.readLine();
 			while (line != null) {
 				String[] arr = line.split(";");
-				if (arr.length == 3) {
-					SinhVien sv = new SinhVien(arr[0],arr[1],arr[2] );
+				if (arr.length == 4) {
+					SinhVien sv = new SinhVien(arr[0],arr[1],arr[2],arr[3]);
 					arrSinhVien.add(sv);
 				}
 				line = br.readLine();

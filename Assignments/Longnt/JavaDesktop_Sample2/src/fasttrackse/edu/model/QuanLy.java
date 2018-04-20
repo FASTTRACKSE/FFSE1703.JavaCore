@@ -1,8 +1,11 @@
 package fasttrackse.edu.model;
+import java.awt.event.MouseListener;
 import fasttrackse.edu.main.*;
 import java.awt.BorderLayout;
+import fasttrackse.edu.connect.DBConnection;
 import fasttrackse.edu.io.TextFile;
 import java.awt.Button;
+import java.sql.Statement;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -16,6 +19,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
 import fasttrackse.edu.modelsv.*;
@@ -34,23 +40,28 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 public class QuanLy extends JFrame {
+	Connection conn= DBConnection.ketnoi("localhost", "ffse1703", "thanhlong123",
+			"123456"); 
 	private JTextField maSinhVien,tenSinhVien,tuoiSinhVien;
 	private JButton Nhap,Them,Sua,Xoa,Thoat,Chon;
     String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
     String[] items = {"All","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
-    public static ArrayList<SinhVien> arraySinhVien = new ArrayList<SinhVien>();
-	JComboBox<String> Class = new JComboBox<>(items);
-	String cClass = "All";
+    public static ArrayList<SinhVien> arr = new ArrayList<SinhVien>();
+	JComboBox<String> comb = new JComboBox<>(items);
+	String lopHoc = "All";
     private DefaultTableModel dm = new DefaultTableModel();
 	final JTable tab = new JTable(dm);
 	JScrollPane sc = new JScrollPane(tab);
 	int stt = 0;
+	
     
 	public QuanLy(String tieude)
 	{
 		this.setTitle(tieude);
 		addControls();
 	    addEvents();
+	    DBConnection kn = new  DBConnection();
+	    
 	}
 	public void addControls()
 	{
@@ -69,8 +80,8 @@ public class QuanLy extends JFrame {
 		pan2.setLayout(new FlowLayout());
 		JLabel lab2=new JLabel("Chọn Lớp:       ");		
 		pan2.add(lab2);
-		add(Class);
-		pan2.add(Class);
+		add(comb);
+		pan2.add(comb);
 		pan.add(pan2);
 
 		JPanel pan3 = new JPanel();
@@ -115,6 +126,58 @@ public class QuanLy extends JFrame {
 		Xoa = new JButton("Xóa");
 		Thoat = new JButton("Thoát");
 		Nhap = new JButton("Nhập");
+tab.addMouseListener(new MouseListener() {
+			
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				maSinhVien.setEditable(false);
+				for(int row = tab.getSelectedRow() ; row <=tab.getSelectedRow(); row++) {
+					for(int col = 0; col < tab.getColumnCount(); col++) {
+						String value = (String)tab.getValueAt(row, col);
+						if(col == 0) {
+							maSinhVien.setText(value);
+						}
+						if(col == 1) {
+							tenSinhVien.setText(value);
+						}
+						if(col == 2) {
+							tuoiSinhVien.setText(value);
+						}
+						if(col == (tab.getColumnCount() - 1)) {
+							comb.setSelectedItem(value);
+						}
+						
+					}
+				}
+				
+			}
+		});
 
 		pnAction.add(Them);
 		pnAction.add(Sua);
@@ -126,223 +189,211 @@ public class QuanLy extends JFrame {
 		con.add(pan);
 
 	}
+	
 		public void addEvents() {
 			Them.addActionListener(eventThem);
 			Sua.addActionListener(eventSua);
 			Xoa.addActionListener(eventXoa);
 			Thoat.addActionListener(eventThoat);
-			Nhap.addActionListener(eventNhap);
-			Class.addActionListener(eventClass);
-			tab.addMouseListener(ChonHang);
-			
-	}
+			comb.addActionListener(eventClass);		
+	} 
 		
-		ActionListener eventClass = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File file = new File("D:/java_core/FFSE1703.JavaCore/Assignments/Longnt/JavaDesktop_Sample2/document.txt");
-				if (file.exists()) {
-					ArrayList<SinhVien> arrSvFile = TextFile.readFile("document.txt");
-					arraySinhVien = arrSvFile;
+		public void sellectAll() {
+			arr.clear();
+			try {
+				Statement statement=conn.createStatement();
+				ResultSet result=statement.executeQuery("select * from sinhvien");
+				while(result.next())
+				{
+					String maSV = result.getString("masv");
+					String ten = result.getString("tensv");
+					String tuoi = result.getString("tuoisv");
+					String lop = result.getString("lop");
+					arr.add(new SinhVien(maSV, ten, tuoi, lop));
 				}
-				cClass =  Class.getSelectedItem().toString();
-				dm.setRowCount(arraySinhVien.size());
-				if ( cClass == "All") {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+		}
+		
+		public void nhap() {
+			
+			
+			String lop = comb.getSelectedItem().toString();
+					
+			String masv = maSinhVien.getText();
+		
+			String tensv = tenSinhVien.getText();
+
+			String tuoisv = tuoiSinhVien.getText();
+			
+			
+			
+			String kt = "Không trùng";
+			
+			for(int i = 0; i < arr.size(); i++) {
+				if(maSinhVien.getText().equals(arr.get(i).getMaSinhVien()) && comb.getSelectedItem().toString().equals(arr.get(i).getLopHoc())) {
+					kt = "Trùng";
+				}
+			}
+			if(kt == "Trùng") {
+				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên!");
+			}
+			else {
+				try {
+					String sql = "insert into sinhvien values('"+masv+"', '"+tensv+"', '"+tuoisv+"', '"+lop+"')";
+					Statement statement = (Statement) conn.createStatement();
+					int x=statement.executeUpdate(sql);
+					if(x>0) {
+						sellectAll();
+						String row[] = {masv, tensv, tuoisv, lop};
 						dm.addRow(row);
+						JOptionPane.showMessageDialog(null, "Thêm Sinh viên thành công!");
+							// sau khi thêm sẽ reset về rỗng
+						maSinhVien.setText("");
+						tenSinhVien.setText("");
+						tuoiSinhVien.setText("");
+		
+						//System.out.println(arr.toString());
+		
+					}
 				}
-				} else {
-					for (SinhVien sv : arraySinhVien) {
-					if (cClass.equals(sv.getLop())) {
-							String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
-							dm.addRow(row);
+					catch(Exception ex){
+					ex.printStackTrace();
 				}
-				}
-				}
+				
+			}
+			
+		
+		}
+		public void sua() {
+			
+			try
+			{
+			String sql="update sinhvien set tensv='" + tenSinhVien.getText() + "', tuoisv='"+tuoiSinhVien.getText()+"' where masv='" + maSinhVien.getText() +"'";
+			Statement statement=(Statement) conn.createStatement();
+			int y=statement.executeUpdate(sql);
+			if(y>0)
+			{
+				JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
+				sellectAll();
+				//sửa xong lưu vào file
 				maSinhVien.setText("");
 				tenSinhVien.setText("");
 				tuoiSinhVien.setText("");
+
+	    dm.setRowCount(0);
+		for(int i = 0;i < arr.size(); i++) {
+			if(arr.get(i).getLopHoc().equals(comb.getSelectedItem().toString())) {
+				String row[] = {arr.get(i).getMaSinhVien(), arr.get(i).getTenSinhVien(), arr.get(i).getTuoiSinhVien(), arr.get(i).getLopHoc()};
+				dm.addRow(row);
 			}
-		};
-	
-		ActionListener eventNhap = new ActionListener() {
+			
+		}
+}
+		public void xoa() {
+			
+			try
+			{
+			String sql="delete from sinhvien where maSV='" + maSinhVien.getText() + "' and lop='" + comb.getSelectedItem().toString() + "'";
+			Statement statement=conn.createStatement();
+			int x=statement.executeUpdate(sql);
+			if(x>0)
+			{
+			JOptionPane.showMessageDialog(null, "Xóa thành công!");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
+			
+			sellectAll();
+			dm.setRowCount(0);
+			for(int i = 0;i < arr.size(); i++) {
+				if(arr.get(i).getLopHoc().equals(comb.getSelectedItem().toString())) {
+					String row[] = {arr.get(i).getMaSinhVien(), arr.get(i).getTenSinhVien(), arr.get(i).getTuoiSinhVien(), arr.get(i).getLopHoc()};
+					dm.addRow(row);
+				}
+			}
+		}
+		ActionListener eventClass = new ActionListener() {
+			
+			// event combobox
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String maSV=maSinhVien.getText();
-				String tenSV=tenSinhVien.getText();
-				String tuoiSV=tuoiSinhVien.getText();
-			    int ktTonTai = -1;
-				String lop = (String) Class.getSelectedItem();
-				for (int i = 0; i < arraySinhVien.size(); i++) {
-					if (maSinhVien.equals(arraySinhVien.get(i).getMaSinhVien())) {
-						ktTonTai = i;
-					}
-				}
-				try {
-					if (tenSV.isEmpty() || maSV.isEmpty() || tuoiSV.isEmpty()) {
-						throw new Exception();
-						// JOptionPane.showMessageDialog(null, "Bạn phải nhập số !!");
-					} else if (ktTonTai >= 0) {
-						String msg = "Sinh viên " + arraySinhVien.get(ktTonTai).getMaSinhVien() + " đã tồn tạ !!";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					}else if(lop=="All"){
-						throw new NullPointerException();
-					} else {
-						
-						arraySinhVien.add(new SinhVien(maSV, tenSV, tuoiSV, lop));
-
-						for (int i = (arraySinhVien.size() - 1); i < arraySinhVien.size(); i++) {
-
-							String[] row = { arraySinhVien.get(i).getMaSinhVien(), arraySinhVien.get(i).getTenSinhVien(), arraySinhVien.get(i).getTuoiSinhVien(),arraySinhVien.get(i).getLop()};
-							dm.addRow(row);
-						}
-						boolean kt = TextFile.saveFile(arraySinhVien, "dulieu.txt");
-						if (kt == true) {
-							System.out.println("Đã lưu file thành công");
-						} else {
-							System.out.println("Lưu file thất bại");
-						}
-						maSinhVien.setText("");
-						tenSinhVien.setText("");
-						tuoiSinhVien.setText("");
-					}
-
-				} catch (Exception ex) {
-					String msg = "Vui lòng nhập đầy đủ thông tin";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
-				}
-
-		}
-
-	};
-				
-//	
-				ActionListener eventThem = new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						maSinhVien.setText("");
-						tenSinhVien.setText("");
-						tuoiSinhVien.setText("");
-						maSinhVien.requestFocus();
-					}		
-				};
-		
-		
-				ActionListener eventSua = new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						String maSv = maSinhVien.getText();
-						String tenSv = tenSinhVien.getText();
-						String tuoiSv = tuoiSinhVien.getText();
-						String lop = (String) Class.getSelectedItem();
-
-						try {
-							Integer.parseInt(tuoiSv);
-							try {
-								
-								
-								if (maSv.isEmpty() && tenSv.isEmpty() && tuoiSv.isEmpty()) {
-									throw new Exception();
-								} else if (maSv.isEmpty() || tenSv.isEmpty() || tuoiSv.isEmpty()) {
-									String msg = "Không được để trống các dòng " + maSv;
-									JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
-
-								} else {
-									arraySinhVien.get(stt).setMaSinhVien(maSv);
-									arraySinhVien.get(stt).setTenSinhVien(tenSv);
-									arraySinhVien.get(stt).setTuoiSinhVien(tuoiSv);
-									boolean checked = TextFile.saveFile(arraySinhVien, "document.txt");
-									if (checked == true) {
-										String msg = "Đã Sửa Thành công Sinh viên " + tenSv;
-										JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-									} else {
-										System.out.println("Lưu thất bại");
-									}
-									int col = tab.getSelectedRow();
-									maSinhVien.setText("");
-									tenSinhVien.setText("");
-									tuoiSinhVien.setText("");
-									maSinhVien.requestFocus();
-									lop = (String) Class.getSelectedItem();
-									dm.setRowCount(0);
-									if (cClass == "All") {
-										for (SinhVien sv : arraySinhVien) {
-											String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
-											dm.addRow(row);
-										}
-									} else {
-										for (SinhVien sv : arraySinhVien) {
-											if (lop.equals(sv.getLop())) {
-												String[] row = { sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(), sv.getLop() };
-												dm.addRow(row);
-											}
-										}
-									}
-								}
-							} catch (Exception e2) {
-								String msg = "Chưa chọn dòng cần thay đổi ";
-								JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-							}
-						} catch (Exception e2) {
-						}
-					}
-				};
-		ActionListener eventXoa = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {						
-				String maSv = maSinhVien.getText();
-				String tenSv = tenSinhVien.getText();
-				String tuoiSv = tuoiSinhVien.getText();
-				arraySinhVien.remove(stt);			
-				boolean checked= TextFile.saveFile(arraySinhVien, "document.txt");
-				if (checked == true) {
-					String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					System.out.println("Xóa thất bại");
-				}
-				int col = tab.getSelectedRow();
-				maSinhVien.setText("");
-				tenSinhVien.setText("");
-				tuoiSinhVien.setText("");
-				maSinhVien.requestFocus();
-				cClass =(String) Class.getSelectedItem();;
 				dm.setRowCount(0);
-				if(cClass=="Tất cả") {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
+
+				sellectAll();
+				String chose = comb.getSelectedItem().toString();
+				for(SinhVien x: arr) {
+					if(chose.equals(x.getLopHoc())) {
+						String row[] = {x.getMaSinhVien(), x.getTenSinhVien(), x.getTuoiSinhVien(), x.getLopHoc()};
 						dm.addRow(row);
-					}
-				}else {
-					for (SinhVien sv : arraySinhVien) {
-						String[] row = {sv.getMaSinhVien(), sv.getTenSinhVien(), sv.getTuoiSinhVien(),sv.getLop()};
-						dm.addRow(row);
-					}				
 					}
 				}
-		};
-		ActionListener eventThoat = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+						
 			}
 		};
-		MouseAdapter ChonHang = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				int col = tab.getSelectedRow();
-				String[] row = new String[3];
-				row[0] = (String) tab.getValueAt(col, 0);
-				row[1] = (String) tab.getValueAt(col, 1);
-				row[2] = (String) tab.getValueAt(col, 2);
-				maSinhVien.setText(row[0]);
-				tenSinhVien.setText(row[1]);
-				tuoiSinhVien.setText(row[2]);
-				for (int i = 0; i < arraySinhVien.size(); i++) {
-					if (row[0].equals(arraySinhVien.get(i).getMaSinhVien())) {
-						stt = i;
-					}
+		ActionListener eventThem = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Mã Sinh Viên");
+				} 
+				if(tenSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tên Sinh Viên");
 				}
+				if(tuoiSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập Tuổi Sinh Viên");
+				} else {
+					nhap();
+				}
+			}
+		};
+		ActionListener eventSua = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				maSinhVien.setEditable(true);
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
+				} 
+				else {
+					sua();
+				}
+			}
+			
+		};
+		ActionListener eventXoa = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				maSinhVien.setEditable(true);
+				
+				if(maSinhVien.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần xóa!");
+				} else {
+					xoa();
+				}
+			}
+		};
+		ActionListener eventThoat = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);			
 			}
 		};
 	public void showWindow(){

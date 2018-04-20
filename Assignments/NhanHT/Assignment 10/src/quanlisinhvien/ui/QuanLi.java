@@ -285,7 +285,7 @@ public class QuanLi extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			txtTenSv.setEditable(true);
+			txtMaSv.setEditable(true);
 			if (txtMaSv.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần Xoa!");
 			} else {
@@ -321,7 +321,7 @@ public class QuanLi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			txtTenSv.setEditable(true);
+			txtMaSv.setEditable(true);
 			if (txtMaSv.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần sửa!");
 			} else {
@@ -390,7 +390,6 @@ public class QuanLi extends JFrame {
 			String row[] = { arrSinhVien.get(i).getMaSv(), arrSinhVien.get(i).getTenSv(),
 					arrSinhVien.get(i).getTuoiSv(), arrSinhVien.get(i).getLop() };
 			dm.addRow(row);
-
 		}
 	}
 
