@@ -1,15 +1,22 @@
 package Assignment_10.model;
 
 public class SinhVien {
-	private String maSV,tenSV,tuoiSV;
+	private String lopSV,maSV,tenSV,tuoiSV;
 	public SinhVien() {
 		
 	}
 	
-	public SinhVien(String maSV,String tenSV,String tuoiSV) {
+	public SinhVien(String lopSV, String maSV,String tenSV,String tuoiSV) {
+		this.lopSV = lopSV;
 		this.maSV = maSV;
 		this.tenSV= tenSV;
 		this.tuoiSV= tuoiSV;
+	}
+	public void setLopSV(String lopSV) {
+		this.lopSV = lopSV;
+	}
+	public String getLopSV() {
+		return lopSV;
 	}
 	public void setMaSV(String maSV) {
 		this.maSV = maSV;
