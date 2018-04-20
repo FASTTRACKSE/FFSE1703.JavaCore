@@ -28,7 +28,11 @@
 7. Assignment 7: [QUẢN LÍ SINH VIÊN 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/quanlisv)
 [SINH VIÊN 2](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/tree/master/Assignments/VietPQ/quanlisv/src/sinhvien)
 
-8. Assignment 8:
+8. Assignment 8:[SERIALIZE](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/factory/src/factoryfiles/io/serialize.java)
+[TEXT FILE](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/factory/src/factoryfiles/io/textfile.java)
+[MODEL](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/factory/src/sv/model/sinhvien.java)
+[QUẢN LÍ SINH VIÊN 3](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/factory/src/quanlisv/main/qlsv.java)
+[QUẢN LÍ SINH VIEN TEXT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/factory/src/quanlisv/main/qlsvtext.java)
 
 9. Assignment 9: [GIẢI PHƯƠNG TRÌNH BẬC 1](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/ui/giaiptbac1.java)
 [MAIN PT](https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/VietPQ/giaiptb1/src/giaiptb1/main/main.java)
