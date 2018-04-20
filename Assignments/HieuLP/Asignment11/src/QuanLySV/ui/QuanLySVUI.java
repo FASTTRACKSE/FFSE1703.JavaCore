@@ -199,7 +199,6 @@ public class QuanLySVUI extends JFrame {
 	};
 
 	ActionListener eventAdd = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLop = (String) select.getSelectedItem();
@@ -207,27 +206,35 @@ public class QuanLySVUI extends JFrame {
 			String ten = tenSV.getText();
 			String tuoi = tuoiSV.getText();
 
+			try {
+				if (chonLop.equals("Tất Cả")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
+				} else if (ma.equals(chonLop) || ten.equals("") || tuoi.equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
+				} else {
+					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
+					dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+					Connection conn = QuanLySVMySQL.getConnect("localhost", "minhad", "minhad", "minh");
+					try {
+						String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma + "','"
+								+ ten + "','" + tuoi + "','" + chonLop + "'" + ")";
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+			}
+
 			maSV.setText("");
 			tenSV.setText("");
 			tuoiSV.setText("");
-			Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
-			try
-			{
-			String sql="INSERT INTO quanlysv(maSV,tenSV,tuoiSV,lopSV) VALUES ("
-			+ "'" + ma + "','"+ten+"','"
-			+tuoi+ "','"+chonLop+"'"+")";
-			Statement statement =conn.createStatement();
-			int x=statement.executeUpdate(sql);
-			if(x>0)
-			{
-			JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
-			}
-			}
-			catch(Exception ex){
-			ex.printStackTrace();
-			}
-			arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-			dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+
 		}
 	};
 
