@@ -74,7 +74,7 @@ public class MyQuanLiSinhVien extends JFrame {
 		lbl.setForeground(Color.YELLOW);
 		JPanel Title = new JPanel();
 		Title.setBackground(Color.PINK);
-		Title.setPreferredSize(new Dimension(0, 20));
+		Title.setPreferredSize(new Dimension(0, 50));
 		Title.add(lbl);
 		pnMain.add(Title, BorderLayout.NORTH);
 
@@ -163,7 +163,7 @@ public class MyQuanLiSinhVien extends JFrame {
 		sp = new JScrollPane(tbl);
 		JScrollPane sc = new JScrollPane(sp, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		sc.setPreferredSize(new Dimension(500, 180));
+		sc.setPreferredSize(new Dimension(450, 180));
 		pnTable1.add(sc, BorderLayout.CENTER);
 		pnMain.add(pnTable1);
 
