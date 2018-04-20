@@ -204,17 +204,22 @@ public class QuanLySinhVienUI extends JFrame {
 			tuoiSV.setText("");
 			docFile();
 			try {
-
-				arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-				luuFile();
-
-				if (checked == true) {
-					JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title",
-							JOptionPane.WARNING_MESSAGE);
+				if (chonLop.equals("Tất Cả")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
+				} else if (ma.equals(chonLop) || ten.equals("") || tuoi.equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
 				} else {
-					JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
-				}
 
+					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
+					luuFile();
+
+					if (checked == true) {
+						JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title",
+								JOptionPane.WARNING_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
+					}
+				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!", "Title",
 						JOptionPane.WARNING_MESSAGE);

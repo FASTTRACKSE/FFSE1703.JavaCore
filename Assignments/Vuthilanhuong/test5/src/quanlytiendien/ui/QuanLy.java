@@ -3,22 +3,36 @@ package quanlytiendien.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import quanlytiendien.model.*;
+
+
 public class QuanLy extends JFrame {
-	public  QuanLy(String title){
+	JTextField txtTen, txtMa, txtSCT, txtDiaChi,txtTimKiem;
+	JButton btnThem, btnSua, btnXoa, btnThoat, btnReset, btnTimKiem;
+	DefaultTableModel dm=new DefaultTableModel();
+	final JTable tbl=new JTable(dm);
+	ArrayList <KhachHang> arrKH = new ArrayList<KhachHang>();
+	public QuanLy(String title){
 		super(title);
-		addEvents();
 		addControls();
+		addEvents();
 	}
 
 	private void addControls() {
@@ -43,7 +57,7 @@ public class QuanLy extends JFrame {
 		
 		JPanel pnTen = new JPanel();
 		JLabel lblTen = new JLabel("Tên khách hàng: ");
-		JTextField txtTen = new JTextField(15);
+		txtTen = new JTextField(15);
 		
 		pnTen.add(lblTen);
 		pnTen.add(txtTen);
@@ -51,7 +65,7 @@ public class QuanLy extends JFrame {
 		
 		JPanel pnMa = new JPanel();
 		JLabel lblMa = new JLabel("Mã khách hàng: ");
-		JTextField txtMa = new JTextField(15);
+		 txtMa = new JTextField(15);
 		
 		pnMa.add(lblMa);
 		pnMa.add(txtMa);
@@ -59,7 +73,7 @@ public class QuanLy extends JFrame {
 		
 		JPanel pnSCT = new JPanel();
 		JLabel lblSCT = new JLabel("Số công tơ khách hàng: ");
-		JTextField txtSCT = new JTextField(15);
+		txtSCT = new JTextField(15);
 		
 		pnSCT.add(lblSCT);
 		pnSCT.add(txtSCT);
@@ -67,38 +81,40 @@ public class QuanLy extends JFrame {
 		
 		JPanel pnDiaChi = new JPanel();
 		JLabel lblDiaChi = new JLabel("Địa chỉ khách hàng: ");
-		JTextField txtDiaChi = new JTextField(15);
+		txtDiaChi = new JTextField(15);
 		
 		pnDiaChi.add(lblDiaChi);
 		pnDiaChi.add(txtDiaChi);
 		pnNhap.add(pnDiaChi);
 		
 		JPanel pnFlow=new JPanel();
-		JButton btn1=new JButton("FlowLayout");
-		JButton btn2=new JButton("Add các control");
-		JButton btn3=new JButton("Trên 1 dòng");
-		JButton btn4=new JButton("Hết chỗ chứa");
-		JButton btn5=new JButton("Thì xuống dòng");
-		pnFlow.add(btn1);pnFlow.add(btn2);
-		pnFlow.add(btn3);pnFlow.add(btn4);
-		pnFlow.add(btn5);
+		 btnThem=new JButton("Thêm");
+		 btnSua=new JButton("Sửa");
+		 btnXoa=new JButton("Xóa");
+		 btnThoat=new JButton("Thoát");
+		 btnReset=new JButton("Reset");
+		pnFlow.add(btnThem);
+		pnFlow.add(btnSua);
+		pnFlow.add(btnXoa);
+		pnFlow.add(btnThoat);
+		pnFlow.add(btnReset);
 		pnNhap.add(pnFlow);
 		
 		
 		JPanel pnBangC = new JPanel();
 		JPanel pnTimKiem = new JPanel();
 		
-		JTextField txtTimKiem = new JTextField(15);
+		txtTimKiem = new JTextField(15);
 		pnTimKiem.add(txtTimKiem);
-		JButton btnTimKiem =new JButton("Tìm Kiếm");
+		 btnTimKiem =new JButton("Tìm Kiếm");
 		pnTimKiem.add(btnTimKiem);
 		JPanel pnBang = new JPanel();
-		DefaultTableModel dm=new DefaultTableModel();
+		
 		dm.addColumn("Tên");
 		dm.addColumn("Mã");
 		dm.addColumn("SCT");
 		dm.addColumn("Địa Chỉ");
-		final JTable tbl=new JTable(dm);
+		
 		JScrollPane sc=new JScrollPane(tbl);
 		pnBang.setLayout(new BorderLayout());
 		pnBang.add(sc,BorderLayout.CENTER);
@@ -115,13 +131,120 @@ public class QuanLy extends JFrame {
 
 	private void addEvents() {
 		// TODO Auto-generated method stub
-		
+		btnThem.addActionListener(eventThem);
+		btnSua.addActionListener(eventSua);
+		btnXoa.addActionListener(eventXoa);
+		btnThoat.addActionListener(eventThoat);
+		btnReset.addActionListener(eventReset);
+		btnTimKiem.addActionListener(eventTimKiem);
+		tbl.addMouseListener(eventChooseRow);
 	}
+	MouseAdapter eventChooseRow = new MouseAdapter() {
+    	public void mouseClicked(MouseEvent e) {
+    		txtMa.setEditable(false);
+    		int col = tbl.getSelectedRow();
+    		String ten =  (String) tbl.getValueAt(col, 0);
+    		String ma =  (String) tbl.getValueAt(col, 1);
+    		String sct =  (String) tbl.getValueAt(col, 2);
+    		String diaC =  (String) tbl.getValueAt(col, 3);
+    		txtMa.setText(ten);
+    		txtTen.setText(ma);
+    		txtSCT.setText(sct);
+    		txtDiaChi.setText(diaC);
+    		btnSua.setEnabled(true);
+			btnXoa.setEnabled(true);
+			btnThem.setEnabled(false);
+    	}
+ };
+	ActionListener eventThem = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			String ma = txtTen.getText();
+			String ten = txtMa.getText();
+			String sct = txtSCT.getText();
+			String diaC = txtDiaChi.getText();
+			if (ma.isEmpty()||ten.isEmpty()||sct.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Chưa nhập",
+		                  "Lỗi", JOptionPane.WARNING_MESSAGE);
+			}else {
+				arrKH.add(new KhachHang(ma,ten,sct,diaC));
+				dm.addRow(new String[]{ma, ten, sct,diaC});
+				txtMa.setText("");
+				txtTen.setText("");
+				txtSCT.setText("");
+				txtDiaChi.setText("");
+				btnSua.setEnabled(false);
+				btnXoa.setEnabled(false);
+			
+		}
+		}
+		
+	};
+	ActionListener eventSua = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	
+	ActionListener eventXoa = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	ActionListener eventThoat = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			System.exit(0);
+		}
+		
+	};
+	ActionListener eventReset = new ActionListener() {
+		
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			btnThem.setEnabled(true);
+			btnSua.setEnabled(false);
+			btnXoa.setEnabled(false);
+			btnThoat.setEnabled(true);
+			txtMa.setText("");
+			txtTen.setText("");
+			txtSCT.setText("");
+			txtDiaChi.setText("");
+			txtMa.setEditable(true);
+			
+		}
+		
+	};
+	ActionListener eventTimKiem = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 	public void showWindow()
 	{
-		this.setSize(600, 500);
+		this.setSize(900, 500);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
 }
 }
