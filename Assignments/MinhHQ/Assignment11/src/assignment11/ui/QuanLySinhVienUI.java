@@ -211,24 +211,24 @@ public class QuanLySinhVienUI extends JFrame {
 			try {
 				if (chonLop.equals("Tất Cả")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
-				} else if(ma.equals(chonLop) ||ten.equals("")||tuoi.equals("") ) {
+				} else if (ma.equals(chonLop) || ten.equals("") || tuoi.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
-					} else {
-						arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-						dm.addRow(new String[] { ma, ten, tuoi, chonLop });
-						Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
-						try {
-							String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma
-									+ "','" + ten + "','" + tuoi + "','" + chonLop + "'" + ")";
-							Statement statement = conn.createStatement();
-							int x = statement.executeUpdate(sql);
-							if (x > 0) {
-								JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
-							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
+				} else {
+					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
+					dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+					Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+					try {
+						String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma + "','"
+								+ ten + "','" + tuoi + "','" + chonLop + "'" + ")";
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
 						}
-					}	
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
@@ -236,7 +236,7 @@ public class QuanLySinhVienUI extends JFrame {
 			maSV.setText("");
 			tenSV.setText("");
 			tuoiSV.setText("");
-			
+
 		}
 	};
 
