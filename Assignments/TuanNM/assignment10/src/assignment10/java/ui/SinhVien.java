@@ -170,7 +170,6 @@ public class SinhVien extends JFrame {
 					}
 				}
 			}
-			
 		}
 	};
 
@@ -241,7 +240,7 @@ public class SinhVien extends JFrame {
 			String maSv = maSV.getText();
 			String tenSv = nameSV.getText();
 			String tuoiSv = ageSV.getText();
-			String lop = (String) classSV.getSelectedItem();
+			String lop = classSV.getSelectedItem().toString();
 
 			try {
 				Integer.parseInt(tuoiSv);
@@ -270,7 +269,7 @@ public class SinhVien extends JFrame {
 						nameSV.setText("");
 						ageSV.setText("");
 						maSV.requestFocus();
-						lop = (String) classSV.getSelectedItem();
+						lop = classSV.getSelectedItem().toString();
 						
 						modle.setRowCount(0);
 						if (lop == "All") {

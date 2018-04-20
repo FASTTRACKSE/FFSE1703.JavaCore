@@ -53,7 +53,7 @@ public class GetConnect {
 	}
 	public static void select() {
 		try {
-			Statement statement = (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			Statement statement = (Statement) conn.createStatement();
 			ResultSet rs = statement.executeQuery("select * from QLSinhVien");
 			while(rs.next()){
 			System.out.println(rs.getString("TenSv")+"  "+rs.getString("MaSv"));
@@ -64,7 +64,7 @@ public class GetConnect {
 	}
 	public static void insert() {
 		try{
-		String sql="insert into QLSinhVien values('"+3+"','"+"C"+"','"+1+"','"+1+"')";
+		String sql="insert into QLSinhVien values('"+3+"','"+"A"+"','"+1+"','"+1+"')";
 		Statement statement=(Statement) conn.createStatement();
 		int x=statement.executeUpdate(sql);
 		if(x>0)

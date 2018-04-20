@@ -15,6 +15,7 @@ import javadestop.model.*;
 import javadestop.io.TextFileFactory;
 
 public class QuanLySinhVienUI extends JFrame {
+	boolean checked;
 	private JScrollPane sp;
 	private DefaultTableModel dm;
 	private JTable table;
@@ -149,6 +150,17 @@ public class QuanLySinhVienUI extends JFrame {
 			String chonLop = (String) select.getSelectedItem();
 			dm.setRowCount(0);
 			if (chonLop == "Tất Cả") {
+				SinhVien[] temp = new SinhVien[arrSV.size()];
+				for (int i = 0; i < arrSV.size() - 1; i++) {
+					for (int j = i + 1; j < arrSV.size(); j++) {
+						if (arrSV.get(i).getTenSV().compareTo(arrSV.get(j).getTenSV()) > 0) {
+							temp[i] = arrSV.get(j);
+							arrSV.set(j, arrSV.get(i));
+							arrSV.set(i, temp[i]);
+						}
+					}
+				}
+				luuFile();
 				for (SinhVien x : arrSV) {
 					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 					dm.addRow(row);
@@ -187,14 +199,22 @@ public class QuanLySinhVienUI extends JFrame {
 			String ten = tenSV.getText();
 			String tuoi = tuoiSV.getText();
 
-			
 			maSV.setText("");
 			tenSV.setText("");
 			tuoiSV.setText("");
 			docFile();
 			try {
+
 				arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
 				luuFile();
+
+				if (checked == true) {
+					JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
+				}
+
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!", "Title",
 						JOptionPane.WARNING_MESSAGE);
@@ -217,6 +237,13 @@ public class QuanLySinhVienUI extends JFrame {
 				if (maSV.getText().equals(x.getMaSV())) {
 					arrSV.remove(x);
 					luuFile();
+					if (checked == true) {
+						JOptionPane.showMessageDialog(null, "Đã xóa thông tin của sinh viên", "Title",
+								JOptionPane.WARNING_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Xóa thông tin thất bại", "Title",
+								JOptionPane.WARNING_MESSAGE);
+					}
 					break;
 				}
 			}
@@ -239,6 +266,13 @@ public class QuanLySinhVienUI extends JFrame {
 					x.setTenSV(tenSV.getText());
 					x.setTuoi(tuoiSV.getText());
 					luuFile();
+					if (checked == true) {
+						JOptionPane.showMessageDialog(null, "Đã sửa thông tin của sinh viên", "Title",
+								JOptionPane.WARNING_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Sửa thông tin thất bại", "Title",
+								JOptionPane.WARNING_MESSAGE);
+					}
 					break;
 				}
 			}
@@ -251,7 +285,7 @@ public class QuanLySinhVienUI extends JFrame {
 		}
 
 	};
-	
+
 	public void docFile() {
 		Path path = Paths.get("dulieu.txt");
 		if (Files.exists(path)) {
@@ -262,13 +296,7 @@ public class QuanLySinhVienUI extends JFrame {
 	}
 
 	public void luuFile() {
-		boolean checked = TextFileFactory.luuFile(arrSV, "dulieu.txt");
-		if (checked == true) {
-			JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title", JOptionPane.WARNING_MESSAGE);
-		} else {
-			JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
-		}
-
+		checked = TextFileFactory.luuFile(arrSV, "dulieu.txt");
 	}
 
 	public void showWindow() {
