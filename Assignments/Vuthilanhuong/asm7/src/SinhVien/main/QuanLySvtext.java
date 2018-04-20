@@ -28,8 +28,8 @@ public class QuanLySvtext {
 			System.out.println("Điểm lp2");
 			Double diemLP2 = Double.parseDouble(sc.nextLine());
 			arrsv.add(new SinhVien(tenSv, nSinh, diemLP1, diemLP2));
-			boolean kt = TextFileFactory.luuFile(arrsv, "dulieu1.txt");
-			if (kt == true) {
+			boolean sv = TextFileFactory.luuFile(arrsv, "dulieu1.txt");
+			if (sv == true) {
 				System.out.println("Đã lưu file thành công");
 			} else {
 				System.out.println("Lưu file thất bại");

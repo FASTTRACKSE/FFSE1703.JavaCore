@@ -13,6 +13,17 @@
 <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment6/src/fasttrack/assignment6/model/HinhHoc.java">HinhHoc</a>  
 <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment6/src/fasttrack/assignment6/model/TamGiac.java">TamGiac</a>  
 <a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment6/src/fasttrack/assignment6/model/Tron.java">Tron</a>  
-<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment6/src/fasttrack/assignment6/model/Vuong.java">Vuong</a>  
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment6/src/fasttrack/assignment6/model/Vuong.java">Vuong</a>
+<h1>ASSIGNMENT 7</h1>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment7/src/fasttrack/assignment7/model/SinhVien.java">SinhVien</a>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment7/src/fasttrack/assignment7/main/QuanLySinhVien.java">QuanLySinhVien</a>
+  <h1>ASSIGNMENT 8</h1>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment8/src/fasttrackse/fileiosample/io/SerializeFileFactory.java">SerializeFileFactory</a>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment8/src/fasttrackse/fileiosample/io/TextFileFactory.java">TextFileFactory</a>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment8/src/fasttrackse/fileiosample/main/QuanLyKhachHang2.java">QuanLyKhachHang2</a>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment8/src/fasttrackse/fileiosample/model/KhachHang.java">KhachHang</a>
+<h1>ASSIGNMENT 9</h1>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment9/src/assignment9/ui/DemoDesktop.java">DemoDesktop</a>
+<a href="https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/Chuong/Assignment9/src/assignment9/main/GiaiPhuongTrinh.java">GiaiPhuongTrinh</a>
 </body>
 </html>

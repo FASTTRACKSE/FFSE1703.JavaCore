@@ -1,5 +1,6 @@
 package fasttrack.edu.vn;
 import java.util.Scanner;
+import java.lang.Math;
 public class phuong_trinh_bac2 {
 
 	public static void main(String[] args) {
@@ -12,29 +13,36 @@ public class phuong_trinh_bac2 {
 		b = myInput.nextInt();
 		System.out.println("Nhap so c: ");
 		c = myInput.nextInt();
-		double delta = b*b-4*a*c;
 		if(a==0) {
 			if(b==0) {
+				if(c==0) {
+					System.out.println("Phuong trinh vo so nghiem");
+				}
+				else {
 				System.out.println("phuong trinh vo nghiem");
+				}
 			}
 			else {
-				int x = -c / b;
+				int x = -c/b;
 				System.out.print("phuong trinh co nghiem la : " + x);
 			}
 		}
-		if(delta<0) {
-			System.out.println("phuong trinh vo nghiem");
-		}
 		else {
-			if(delta==0) {
-				int x = -b/2*a;
-				System.out.println("phuong trinh co nghiem kep : "+x);
+			double delta = (b*b)-(4*(a*c));
+			System.out.println(delta);
+			if(delta < 0) {
+				
+				System.out.println("Phuong trinh vo nghiem !");
 			}
-			if(delta>0) {
+			else if(delta > 0) {
 				double x1 = (-b+(Math.sqrt(delta))/2*a);
 				double x2 = (-b-(Math.sqrt(delta))/2*a);
 				System.out.println("Phuong trinh co nghiem x1 : "+x1);
 				System.out.println("Phuong trinh co nghiem x2 : "+x2);
+			}
+			else {
+				int x = -b/2*a;
+				System.out.println("Phuong trinh co nghiem kep la: "+x);
 			}
 		}
 	}
