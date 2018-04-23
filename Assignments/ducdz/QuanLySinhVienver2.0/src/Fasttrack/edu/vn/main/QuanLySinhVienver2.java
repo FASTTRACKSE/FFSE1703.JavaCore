@@ -145,7 +145,6 @@ public class QuanLySinhVienver2 {
 		}
 		backMenu();
 	}
-
 	public static void suaSv() {
 		System.out.println("Ten sinh vien muon sua: ");
 		String svMuonSua = myScanner.next();

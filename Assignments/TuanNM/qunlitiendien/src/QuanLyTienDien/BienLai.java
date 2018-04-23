@@ -1,5 +1,7 @@
 package QuanLyTienDien;
 
+import QuanLyTienDien.KhachHang;
+
 public class BienLai extends KhachHang {
 
 	private Double chiSoCu;

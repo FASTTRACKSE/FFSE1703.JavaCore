@@ -223,8 +223,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 					dm.addRow(row);
 				}
 			}
-			
-			
+
 		}
 	};
 	

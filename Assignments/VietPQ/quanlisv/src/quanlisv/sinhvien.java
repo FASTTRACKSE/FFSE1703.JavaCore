@@ -172,14 +172,11 @@ public class sinhvien {
 	public static void xoasv() {
 		System.out.println("Ten SV can xoa :");
 		String namesv = input.next();
-		for(int z = 0; z < arraySinhvien.size(); z++) {
-			for (qlsinhvien x : arraySinhvien) {
-				if ((x.getTensv()).indexOf(namesv) > -1) {
-					arraySinhvien.remove(x);
-					z--;
-					qlsinhvien.tongsv();
-					break;
-				}
+		for (qlsinhvien x : arraySinhvien) {
+			if ((x.getTensv()).equals(namesv)) {
+				arraySinhvien.remove(x);
+//				qlsinhvien.getTongsv();
+				break;
 			}
 		}
 	}
