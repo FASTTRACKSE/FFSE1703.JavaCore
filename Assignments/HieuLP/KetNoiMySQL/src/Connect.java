@@ -1,21 +1,26 @@
-package quanlisinhvien.connect;
-
-import quanlisinhvien.main.*;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.gjt.mm.mysql.Driver;
+import com.mysql.jdbc.Driver;
 
-import com.mysql.jdbc.Connection;
+public class Connect {
+	public static void main(String[] args) {
 
-public class GetConnect {
-	//
+		Connection conn = getConnect("localhost", "admin", "admin1", "12345");
+		if (conn != null) {
+			System.out.println("Kết nối MYSQL thành công");
+		} else {
+			System.out.println("Kết nối MYSQL thất bại");
+		}
+	}
+
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
 		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase;
 		Properties pro = new Properties();
 		pro.put("user", strUser);
-		pro.put("password", strPwd);
+		pro.put("password", strPwd); 
 		try {
 			com.mysql.jdbc.Driver driver = new Driver();
 			conn = (Connection) driver.connect(strConnect, pro);

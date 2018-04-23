@@ -1,53 +1,52 @@
 package fasttrack.assignment10.model;
 
 public class SinhVien {
-	private String maSv;
-	private String tenSv;
-	private String tuoiSv;
-	private String lopSv;
-	
-	public SinhVien() {
-		
+
+	private String maSV;
+	private String tenSV;
+	private String tuoi;
+	private String lopSV;
+
+	public SinhVien(String maSV, String tenSV,  String tuoi, String lop) {
+		this.maSV = maSV;
+		this.tenSV = tenSV;
+		this.tuoi = tuoi;
+		this.lopSV = lop;
 	}
 	
-	public SinhVien(String maSv, String tenSv, String tuoiSv, String lopSv) {
-		this.maSv = maSv;
-		this.tenSv = tenSv;
-		this.tuoiSv = tuoiSv;
-		this.lopSv = lopSv; 
+	public String getLopSV() {
+		return lopSV;
 	}
 
-	public String getMaSv() {
-		return maSv;
+	public void setLopSV(String lopSV) {
+		this.lopSV = lopSV;
 	}
 
-	public void setMaSv(String maSv) {
-		this.maSv = maSv;
+	public String getMaSV() {
+		return maSV;
+	}
+
+	public void setMaSV(String maSV) {
+		this.maSV = maSV;
 	}
 
 	public String getTenSV() {
-		return tenSv;
+		return tenSV;
 	}
 
 	public void setTenSV(String tenSV) {
-		this.tenSv = tenSV;
+		this.tenSV = tenSV;
 	}
 
-	public String getTuoiSv() {
-		return tuoiSv;
+	public String getTuoi() {
+		return tuoi;
 	}
 
-	public void setTuoiSv(String tuoiSv) {
-		this.tuoiSv = tuoiSv;
+	public void setTuoi(String tuoi) {
+		this.tuoi = tuoi;
 	}
 
-	public String getLopSv() {
-		return lopSv;
+	public SinhVien() {
+		
 	}
-
-	public void setLopSv(String lopSv) {
-		this.lopSv = lopSv;
-	}
-	
-	
 }

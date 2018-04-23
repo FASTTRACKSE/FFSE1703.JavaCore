@@ -1,15 +1,10 @@
-package quanlisinhvien.connect;
-
-import quanlisinhvien.main.*;
+package QuanLySV.ui;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.gjt.mm.mysql.Driver;
-
-import com.mysql.jdbc.Connection;
-
-public class GetConnect {
-	//
+import com.mysql.jdbc.Driver;
+public class QuanLySVMySQL {
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
 		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase;

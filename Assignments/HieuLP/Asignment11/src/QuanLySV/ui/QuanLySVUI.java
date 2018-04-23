@@ -1,5 +1,4 @@
-package javadestop.ui;
-
+package QuanLySV.ui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -7,20 +6,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import javadestop.model.*;
-import javadestop.io.TextFileFactory;
-
-public class QuanLySinhVienUI extends JFrame {
+import QuanLySV.model.*;
+public class QuanLySVUI extends JFrame {
 	boolean checked;
 	private JScrollPane sp;
 	private DefaultTableModel dm;
 	private JTable table;
 	private JComboBox select;
-	private int n;
 	private JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 	private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
@@ -28,7 +24,7 @@ public class QuanLySinhVienUI extends JFrame {
 	private JButton them = new JButton("Thêm"), xoa = new JButton("Xóa"), sua = new JButton("Sửa"),
 			thoat = new JButton("Thoát"), nhap = new JButton("Nhập");
 
-	public QuanLySinhVienUI(String tieude) {
+	public QuanLySVUI(String tieude) {
 		super(tieude);
 		addControls();
 		addEvent();
@@ -100,9 +96,23 @@ public class QuanLySinhVienUI extends JFrame {
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
 		dm.addColumn("Lớp");
-		docFile();
+		
+		Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery
+			("SELECT * FROM quanlysv");
+			while(result.next())
+			{
+				arrSV.add(new SinhVien(result.getString("maSV"),result.getString("tenSV")
+						,result.getString("tuoiSV"),result.getString("lopSV")));
+			}
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+		
 		for (SinhVien x : arrSV) {
-			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
+			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 			dm.addRow(row);
 		}
 
@@ -146,7 +156,6 @@ public class QuanLySinhVienUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			String chonLop = (String) select.getSelectedItem();
 			dm.setRowCount(0);
 			if (chonLop == "Tất Cả") {
@@ -160,15 +169,14 @@ public class QuanLySinhVienUI extends JFrame {
 						}
 					}
 				}
-				luuFile();
 				for (SinhVien x : arrSV) {
-					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
+					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 					dm.addRow(row);
 				}
 			} else {
 				for (SinhVien x : arrSV) {
 					if (chonLop.equals(x.getLopSV())) {
-						String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
+						String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 						dm.addRow(row);
 					}
 				}
@@ -191,7 +199,6 @@ public class QuanLySinhVienUI extends JFrame {
 	};
 
 	ActionListener eventAdd = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLop = (String) select.getSelectedItem();
@@ -199,37 +206,35 @@ public class QuanLySinhVienUI extends JFrame {
 			String ten = tenSV.getText();
 			String tuoi = tuoiSV.getText();
 
-			maSV.setText("");
-			tenSV.setText("");
-			tuoiSV.setText("");
-			docFile();
 			try {
 				if (chonLop.equals("Tất Cả")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
 				} else if (ma.equals(chonLop) || ten.equals("") || tuoi.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
 				} else {
-
 					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-					luuFile();
-
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
+					dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+					Connection conn = QuanLySVMySQL.getConnect("localhost", "minhad", "minhad", "minh");
+					try {
+						String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma + "','"
+								+ ten + "','" + tuoi + "','" + chonLop + "'" + ")";
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!", "Title",
-						JOptionPane.WARNING_MESSAGE);
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
-			dm.addRow(new String[] { ma, ten, tuoi });
-			dm.setRowCount(0);
-			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
-				dm.addRow(row);
-			}
+
+			maSV.setText("");
+			tenSV.setText("");
+			tuoiSV.setText("");
+
 		}
 	};
 
@@ -237,24 +242,29 @@ public class QuanLySinhVienUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			for (SinhVien x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					arrSV.remove(x);
-					luuFile();
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã xóa thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Xóa thông tin thất bại", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					}
 					break;
 				}
 			}
+			Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
+			try
+			{
+			String sql = "DELETE FROM quanlysv WHERE maSV = '" + maSV.getText()+"'";
+			Statement statement = conn.createStatement();
+			int x = statement.executeUpdate(sql);
+			if(x>=0)
+			{
+			JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+			}
+			}
+			catch(Exception ex){
+			ex.printStackTrace();
+			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 				dm.addRow(row);
 			}
 		}
@@ -265,25 +275,30 @@ public class QuanLySinhVienUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			for (SinhVien x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					x.setTenSV(tenSV.getText());
-					x.setTuoi(tuoiSV.getText());
-					luuFile();
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã sửa thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Sửa thông tin thất bại", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					}
+					x.setTuoiSV(tuoiSV.getText());
 					break;
 				}
 			}
+			Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
+			try
+			{
+			String sql = "UPDATE quanlysv SET tenSV ='"+tenSV.getText()+"',tuoiSV ='"+ tuoiSV.getText()+"' WHERE maSV = '" + maSV.getText()+"'";
+			Statement statement =conn.createStatement();
+			int x = statement.executeUpdate(sql);
+			if(x>=0)
+			{
+			JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+			}
+			}
+			catch(Exception ex){
+			ex.printStackTrace();
+			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 				dm.addRow(row);
 			}
 
@@ -291,18 +306,6 @@ public class QuanLySinhVienUI extends JFrame {
 
 	};
 
-	public void docFile() {
-		Path path = Paths.get("dulieu.txt");
-		if (Files.exists(path)) {
-			arrSV = TextFileFactory.docFile("dulieu.txt");
-		} else {
-			arrSV = new ArrayList<SinhVien>();
-		}
-	}
-
-	public void luuFile() {
-		checked = TextFileFactory.luuFile(arrSV, "dulieu.txt");
-	}
 
 	public void showWindow() {
 		this.setSize(500, 440);

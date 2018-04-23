@@ -351,7 +351,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 		else {
 			try {
 				String sql = "insert into QuanLiSinhVien values('"+0+"','"+maSV+"', '"+ten+"', '"+tuoi+"', '"+lop+"')";
-				Statement statement = (Statement) conn.createStatement();
+				Statement statement = conn.createStatement();
 				int x=statement.executeUpdate(sql);
 				if(x>0) {
 					sellectAll();
@@ -381,7 +381,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 				try
 				{
 					String sql="update QuanLiSinhVien set Ten='" + textTSV.getText() + "', Tuoi='"+textT.getText()+"' where maSV='" + textMSV.getText() +"'";
-					Statement statement=(Statement) conn.createStatement();
+					Statement statement = conn.createStatement();
 					int y=statement.executeUpdate(sql);
 					if(y>0){
 						JOptionPane.showMessageDialog(null, "Sửa sinh viên thành công!");
@@ -435,7 +435,7 @@ public class QuanLiSinhVien_UI extends JFrame {
 	public void sellectAll() {
 		arr.clear();
 		try {
-			Statement statement=conn.createStatement();
+			Statement statement = conn.createStatement();
 			ResultSet result=statement.executeQuery("select * from QuanLiSinhVien");
 			while(result.next())
 			{
