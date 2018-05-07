@@ -1,4 +1,5 @@
-package QuanLySV.ui;
+package ffse20.ass11.ui;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,8 +11,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import QuanLySV.model.*;
-public class QuanLySVUI extends JFrame {
+
+import ffse20.ass11.model.*;
+
+public class QuanLySinhVienUI extends JFrame {
 	boolean checked;
 	private JScrollPane sp;
 	private DefaultTableModel dm;
@@ -19,12 +22,12 @@ public class QuanLySVUI extends JFrame {
 	private JComboBox select;
 	private JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
-	private String[] lop = {"Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
+	private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
 
 	private JButton them = new JButton("Thêm"), xoa = new JButton("Xóa"), sua = new JButton("Sửa"),
 			thoat = new JButton("Thoát"), nhap = new JButton("Nhập");
 
-	public QuanLySVUI(String tieude) {
+	public QuanLySinhVienUI(String tieude) {
 		super(tieude);
 		addControls();
 		addEvent();
@@ -96,23 +99,21 @@ public class QuanLySVUI extends JFrame {
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
 		dm.addColumn("Lớp");
-		
-		Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
+
+		Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
 		try {
 			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery
-			("SELECT * FROM quanlysv");
-			while(result.next())
-			{
-				arrSV.add(new SinhVien(result.getString("maSV"),result.getString("tenSV")
-						,result.getString("tuoiSV"),result.getString("lopSV")));
+			ResultSet result = statement.executeQuery("SELECT * FROM quanlysinhvien");
+			while (result.next()) {
+				arrSV.add(new SinhVien(result.getString("maSV"), result.getString("tenSV"), result.getString("tuoiSV"),
+						result.getString("lopSV")));
 			}
-			} catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			}
-		
+		}
+
 		for (SinhVien x : arrSV) {
-			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 			dm.addRow(row);
 		}
 
@@ -170,13 +171,13 @@ public class QuanLySVUI extends JFrame {
 					}
 				}
 				for (SinhVien x : arrSV) {
-					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 					dm.addRow(row);
 				}
 			} else {
 				for (SinhVien x : arrSV) {
 					if (chonLop.equals(x.getLopSV())) {
-						String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+						String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 						dm.addRow(row);
 					}
 				}
@@ -199,6 +200,7 @@ public class QuanLySVUI extends JFrame {
 	};
 
 	ActionListener eventAdd = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLop = (String) select.getSelectedItem();
@@ -214,7 +216,7 @@ public class QuanLySVUI extends JFrame {
 				} else {
 					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
 					dm.addRow(new String[] { ma, ten, tuoi, chonLop });
-					Connection conn = QuanLySVMySQL.getConnect("localhost", "minhad", "minhad", "minh");
+					Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
 					try {
 						String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma + "','"
 								+ ten + "','" + tuoi + "','" + chonLop + "'" + ")";
@@ -248,23 +250,20 @@ public class QuanLySVUI extends JFrame {
 					break;
 				}
 			}
-			Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
-			try
-			{
-			String sql = "DELETE FROM quanlysv WHERE maSV = '" + maSV.getText()+"'";
-			Statement statement = conn.createStatement();
-			int x = statement.executeUpdate(sql);
-			if(x>=0)
-			{
-			JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
-			}
-			}
-			catch(Exception ex){
-			ex.printStackTrace();
+			Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+			try {
+				String sql = "DELETE FROM quanlysinhvien WHERE maSV = '" + maSV.getText() + "'";
+				Statement statement = conn.createStatement();
+				int x = statement.executeUpdate(sql);
+				if (x >= 0) {
+					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 				dm.addRow(row);
 			}
 		}
@@ -278,34 +277,31 @@ public class QuanLySVUI extends JFrame {
 			for (SinhVien x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					x.setTenSV(tenSV.getText());
-					x.setTuoiSV(tuoiSV.getText());
+					x.setTuoi(tuoiSV.getText());
 					break;
 				}
 			}
-			Connection conn = QuanLySVMySQL.getConnect("localhost", "admin", "admin1", "12345");
-			try
-			{
-			String sql = "UPDATE quanlysv SET tenSV ='"+tenSV.getText()+"',tuoiSV ='"+ tuoiSV.getText()+"' WHERE maSV = '" + maSV.getText()+"'";
-			Statement statement =conn.createStatement();
-			int x = statement.executeUpdate(sql);
-			if(x>=0)
-			{
-			JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
-			}
-			}
-			catch(Exception ex){
-			ex.printStackTrace();
+			Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+			try {
+				String sql = "UPDATE quanlysinhvien SET tenSV ='" + tenSV.getText() + "',tuoiSV ='" + tuoiSV.getText()
+						+ "' WHERE maSV = '" + maSV.getText() + "'";
+				Statement statement = conn.createStatement();
+				int x = statement.executeUpdate(sql);
+				if (x >= 0) {
+					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 				dm.addRow(row);
 			}
 
 		}
 
 	};
-
 
 	public void showWindow() {
 		this.setSize(500, 440);

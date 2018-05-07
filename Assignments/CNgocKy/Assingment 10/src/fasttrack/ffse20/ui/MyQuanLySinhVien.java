@@ -280,7 +280,7 @@ public class MyQuanLySinhVien extends JFrame {
 			for (QuanLySinhVienModel x : arrSV) {
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
 				dm.addRow(row);
-			}
+			} 
 
 		}
 
