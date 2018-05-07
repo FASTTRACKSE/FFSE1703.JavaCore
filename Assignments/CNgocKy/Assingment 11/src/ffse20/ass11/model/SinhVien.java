@@ -1,4 +1,4 @@
-package fasttrack.assignment10.model;
+package ffse20.ass11.model;
 
 public class SinhVien {
 

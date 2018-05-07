@@ -1,4 +1,4 @@
-package fasttrack.assignment10.ui;
+package ffse20.ass11.ui;
 
 import java.awt.*;
 import javax.swing.*;
@@ -7,20 +7,19 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import fasttrack.assignment10.model.*;
-import fasttrack.assignment10.io.*;
 
-public class Layout extends JFrame {
+import ffse20.ass11.model.*;
+
+public class QuanLySinhVienUI extends JFrame {
 	boolean checked;
 	private JScrollPane sp;
 	private DefaultTableModel dm;
 	private JTable table;
 	private JComboBox select;
-	private int n;
 	private JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 	private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
@@ -28,7 +27,7 @@ public class Layout extends JFrame {
 	private JButton them = new JButton("Thêm"), xoa = new JButton("Xóa"), sua = new JButton("Sửa"),
 			thoat = new JButton("Thoát"), nhap = new JButton("Nhập");
 
-	public Layout(String tieude) {
+	public QuanLySinhVienUI(String tieude) {
 		super(tieude);
 		addControls();
 		addEvent();
@@ -100,7 +99,19 @@ public class Layout extends JFrame {
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
 		dm.addColumn("Lớp");
-		docFile();
+
+		Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM quanlysinhvien");
+			while (result.next()) {
+				arrSV.add(new SinhVien(result.getString("maSV"), result.getString("tenSV"), result.getString("tuoiSV"),
+						result.getString("lopSV")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		for (SinhVien x : arrSV) {
 			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 			dm.addRow(row);
@@ -146,7 +157,6 @@ public class Layout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			String chonLop = (String) select.getSelectedItem();
 			dm.setRowCount(0);
 			if (chonLop == "Tất Cả") {
@@ -160,7 +170,6 @@ public class Layout extends JFrame {
 						}
 					}
 				}
-				luuFile();
 				for (SinhVien x : arrSV) {
 					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
 					dm.addRow(row);
@@ -199,37 +208,35 @@ public class Layout extends JFrame {
 			String ten = tenSV.getText();
 			String tuoi = tuoiSV.getText();
 
-			maSV.setText("");
-			tenSV.setText("");
-			tuoiSV.setText("");
-			docFile();
 			try {
 				if (chonLop.equals("Tất Cả")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
 				} else if (ma.equals(chonLop) || ten.equals("") || tuoi.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
 				} else {
-
 					arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-					luuFile();
-
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
+					dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+					Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+					try {
+						String sql = "INSERT INTO quanlysinhvien(maSV,tenSV,tuoiSV,lopSV) VALUES (" + "'" + ma + "','"
+								+ ten + "','" + tuoi + "','" + chonLop + "'" + ")";
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!", "Title",
-						JOptionPane.WARNING_MESSAGE);
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
-			dm.addRow(new String[] { ma, ten, tuoi });
-			dm.setRowCount(0);
-			for (SinhVien x : arrSV) {
-				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoi(), x.getLopSV() };
-				dm.addRow(row);
-			}
+
+			maSV.setText("");
+			tenSV.setText("");
+			tuoiSV.setText("");
+
 		}
 	};
 
@@ -237,20 +244,22 @@ public class Layout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			for (SinhVien x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					arrSV.remove(x);
-					luuFile();
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã xóa thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Xóa thông tin thất bại", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					}
 					break;
 				}
+			}
+			Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+			try {
+				String sql = "DELETE FROM quanlysinhvien WHERE maSV = '" + maSV.getText() + "'";
+				Statement statement = conn.createStatement();
+				int x = statement.executeUpdate(sql);
+				if (x >= 0) {
+					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
@@ -265,21 +274,24 @@ public class Layout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			docFile();
 			for (SinhVien x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					x.setTenSV(tenSV.getText());
 					x.setTuoi(tuoiSV.getText());
-					luuFile();
-					if (checked == true) {
-						JOptionPane.showMessageDialog(null, "Đã sửa thông tin của sinh viên", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(null, "Sửa thông tin thất bại", "Title",
-								JOptionPane.WARNING_MESSAGE);
-					}
 					break;
 				}
+			}
+			Connection conn = QuanLySinhVienSQL.getConnect("localhost", "minhad", "minhad", "minh");
+			try {
+				String sql = "UPDATE quanlysinhvien SET tenSV ='" + tenSV.getText() + "',tuoiSV ='" + tuoiSV.getText()
+						+ "' WHERE maSV = '" + maSV.getText() + "'";
+				Statement statement = conn.createStatement();
+				int x = statement.executeUpdate(sql);
+				if (x >= 0) {
+					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			dm.setRowCount(0);
 			for (SinhVien x : arrSV) {
@@ -290,19 +302,6 @@ public class Layout extends JFrame {
 		}
 
 	};
-
-	public void docFile() {
-		Path path = Paths.get("dulieu.txt");
-		if (Files.exists(path)) {
-			arrSV = TextFile.docFile("dulieu.txt");
-		} else {
-			arrSV = new ArrayList<SinhVien>();
-		}
-	}
-
-	public void luuFile() {
-		checked = TextFile.luuFile(arrSV, "dulieu.txt");
-	}
 
 	public void showWindow() {
 		this.setSize(500, 440);

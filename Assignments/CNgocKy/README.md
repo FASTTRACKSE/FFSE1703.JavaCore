@@ -26,3 +26,6 @@ Assingment 9: Java desktop Ptb1
 <br>
 Assingment 10: desktop quản lý sinh viên
 (https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%2010/src/fasttrack/ffse20/ui/MyQuanLySinhVien.java)
+<br>
+Assingment 11: connect data
+(https://github.com/FASTTRACKSE/FFSE1703.JavaCore/blob/master/Assignments/CNgocKy/Assingment%2011/src/ffse20/ass11/main/QuanLySinhVien.java)

@@ -30,14 +30,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+import java.sql.Connection;
+import java.sql.Statement;
 
 public class QuanLi extends JFrame {
 	private String lopSv,maSv,tenSv,tuoiSv;
@@ -83,6 +84,8 @@ public class QuanLi extends JFrame {
 		//
 		pnFlow.setLayout(new FlowLayout());
 		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
+		//
+		
 		//
 		JLabel lblTen = new JLabel("CHƯƠNG TRÌNH QUẢN LÍ SINH VIÊN");
 		Font font = new Font("ApnFlowrial", Font.BOLD, 25);
@@ -134,7 +137,7 @@ public class QuanLi extends JFrame {
 		Border border = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
 		pnTable.setBorder(borderTitle);
-
+		//
 		dm = new DefaultTableModel();
 		dm.addColumn("Mã");
 		dm.addColumn("Tên");
@@ -273,7 +276,7 @@ public class QuanLi extends JFrame {
 		 tuoiSv = txtTuoi.getText();
 
 		for (SinhVien x : arrSinhVien) {
-			if (maSv.equals(x.getMaSv())&&cbo.getSelectedItem().toString().equals(x.getLop())) {
+			if (maSv.equals(x.getMaSv())) {
 				ktMasv = 1;
 			}
 		}
@@ -282,7 +285,7 @@ public class QuanLi extends JFrame {
 		} else {
 			try {
 				String sql = "insert into QLSinhVien values('" + 0 + "','" + maSv + "','" + tenSv + "'," + tuoiSv + ",'" + lopSv+ "')";
-				Statement statement = (Statement) conn.createStatement();
+				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x > 0) {
 					JOptionPane.showMessageDialog(null, "Thêm OK");
@@ -323,7 +326,7 @@ public class QuanLi extends JFrame {
 		String maSv1 = txtMaSv.getText();
 		try {
 			String sql = "delete from QlSinhVien where MaSv='" + maSv1 + "'";
-			Statement statement = (Statement) conn.createStatement();
+			Statement statement = conn.createStatement();
 			int x = statement.executeUpdate(sql);
 			if (x > 0) {
 				JOptionPane.showMessageDialog(null, "Xóa OK");
@@ -378,7 +381,7 @@ public class QuanLi extends JFrame {
 		 tuoiSv = txtTuoi.getText();
 		try{
 		String sql="update QLSinhVien set TenSv='"+tenSv+"',TuoiSv='"+tuoiSv+"',LopSv='"+lopSv+"' where MaSv='"+maSv+"'";
-		Statement statement=(Statement) conn.createStatement();
+		Statement statement=conn.createStatement();
 		int x=statement.executeUpdate(sql);
 		if(x>0)
 		{
@@ -408,7 +411,7 @@ public class QuanLi extends JFrame {
 	public void selectAll() {
 		arrSinhVien.clear();
 		try {
-			Statement statement = (Statement) conn.createStatement();
+			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("select * from QLSinhVien");
 			while (result.next()) {
 

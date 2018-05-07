@@ -1,6 +1,4 @@
-package quanlisinhvien.connect;
-
-import quanlisinhvien.main.*;
+package model;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -8,8 +6,8 @@ import org.gjt.mm.mysql.Driver;
 
 import com.mysql.jdbc.Connection;
 
-public class GetConnect {
-	//
+import main.*;
+public class GetConnectDB {
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
 		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase;

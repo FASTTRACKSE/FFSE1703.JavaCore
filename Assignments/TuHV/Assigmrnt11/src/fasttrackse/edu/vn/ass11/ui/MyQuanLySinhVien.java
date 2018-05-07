@@ -32,7 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 
 import fasttrackse.edu.vn.ass11.model.*;
 import fasttrackse.edu.vn.ass11.ui.*;
@@ -52,7 +52,7 @@ public class MyQuanLySinhVien extends JFrame {
 	private JComboBox classSV;
 	JTable tbl;
 	JComboBox cbo;
-	 final Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
+	
 	int stt = 0;
 	String lop = "All";
 	private JButton btnThem = new JButton("Thêm");
@@ -131,10 +131,10 @@ public class MyQuanLySinhVien extends JFrame {
 		dm.addColumn("Tuổi");
 		dm.addColumn("Lớp");
 
-		
+		Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
 		try {
-			Statement statement = (Statement) conn.createStatement();
-			ResultSet result = ((java.sql.Statement) statement).executeQuery("SELECT * FROM danhsachsv");
+			Statement statement = conn.createStatement();
+			ResultSet result =  statement.executeQuery("SELECT * FROM danhsachsv");
 			while (result.next()) {
 				arrSV.add(new SinhVien(result.getString("code"), result.getString("name"), result.getString("age"), result.getString("class")));
 			}
@@ -196,7 +196,7 @@ public class MyQuanLySinhVien extends JFrame {
 			
 			try {
 				arrSV.clear();
-			
+				Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
 				Statement statement = (Statement) conn.createStatement();
 				ResultSet rs = statement.executeQuery("select * from danhsachsv");
 				while (rs.next()) {
@@ -247,9 +247,23 @@ public class MyQuanLySinhVien extends JFrame {
 			String ma = chonLop + txtMaSV.getText();
 			String ten = txtTenSV.getText();
 			String tuoi = txtTuoi.getText();
-			
-			
 			try {
+				if (chonLop.equals("Tất Cả")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn lớp cho sinh viên");
+				} else if(ma.equals(chonLop) ||ten.equals("")||tuoi.equals("") ) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
+					} else {
+			arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
+			dm.addRow(new String[] { ma, ten, tuoi, chonLop });
+					}
+			}catch (Exception ex) {
+				ex.printStackTrace();
+			};
+			
+			
+			Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
+			try {
+				
 				String sql = "INSERT INTO danhsachsv(code,name,age,class) VALUES ('"  + ma + "','" + ten + "','"
 						+ tuoi + "','" + chonLop + "'" + ")";
 				Statement statement = (Statement) conn.createStatement();
@@ -263,9 +277,8 @@ public class MyQuanLySinhVien extends JFrame {
 			txtMaSV.setText("");
 			txtTenSV.setText("");
 			txtTuoi.setText("");
-			arrSV.add(new SinhVien(ma, ten, tuoi, chonLop));
-			dm.addRow(new String[] { ma, ten, tuoi, chonLop });
-
+			
+			
 		}
 	};
 
@@ -277,7 +290,7 @@ public class MyQuanLySinhVien extends JFrame {
 			arrSV.remove(stt);
 			dm.setRowCount(0);
 
-		
+			Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
 			try {
 				String sql = "DELETE FROM danhsachsv WHERE code = '" + txtMaSV.getText() + "'";
 				Statement statement = (Statement) conn.createStatement();
@@ -321,7 +334,7 @@ public class MyQuanLySinhVien extends JFrame {
 					break;
 				}
 			}
-			
+			Connection conn = QuanLySinhVienslq.getConnect("localhost", "sinhviendb", "tu", "123456");
 			try {
 				String sql = "UPDATE danhsachsv SET name ='" + txtTenSV.getText() + "',age ='" + txtTuoi.getText()
 						+ "' WHERE code = '" + txtMaSV.getText() + "'";
