@@ -1,6 +1,6 @@
 package ui;
 import model.*;
-import connector.*;
+
 import io.*;
 
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
 
+import connector.GetConnect;
 import io.SerializeFile;
 
 public class QuanLiSinhVien_UI extends JFrame {
