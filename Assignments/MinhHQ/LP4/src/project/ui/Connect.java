@@ -1,18 +1,18 @@
-package quanlisinhvien.connect;
+package project.ui;
 
-import quanlisinhvien.main.*;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.gjt.mm.mysql.Driver;
+import com.mysql.jdbc.Driver;
 
-import com.mysql.jdbc.Connection;
 
-public class GetConnect {
-	//
+
+
+public class Connect {
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
-		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase;
+		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase + "?useUnicode=true&characterEncoding=utf-8";
 		Properties pro = new Properties();
 		pro.put("user", strUser);
 		pro.put("password", strPwd);
