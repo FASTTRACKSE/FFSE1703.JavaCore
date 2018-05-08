@@ -31,17 +31,14 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.jdbc.Connection;
 
 import connector.GetConnect;
-import model.Phuong;
-import model.QuanHuyen;
 import model.QuanLiLopHoc_Model;
 import model.QuanLiSinhVien_Model;
-import model.TinhThanh;
 
 public class QuanLiSinhVien extends JPanel {
-	//final Connection conn= GetConnect.getConnect("localhost", "Quan_li_truong_hoc", "admin", "123456");
-	private ArrayList<TinhThanh> arrTinhThanh = new ArrayList<>();
-	private ArrayList<QuanHuyen> arrQuanHuyen = new ArrayList<>();
-	private ArrayList<Phuong> arrPhuong = new ArrayList<>();
+	final Connection conn= GetConnect.getConnect("localhost", "Quan_li_truong_hoc", "admin", "123456");
+	private ArrayList<String> arrTinhThanh = new ArrayList<>();
+	private ArrayList<String> arrQuanHuyen = new ArrayList<>();
+	private ArrayList<String> arrPhuong = new ArrayList<>();
 	private ArrayList<QuanLiLopHoc_Model> arrLop = new ArrayList<>();
 	private ArrayList<QuanLiSinhVien_Model> arrSinhVien = new ArrayList<>();
 	private JComboBox cboTinhThanh, cboQuanHuyen, cboPhuong, cboMaLop;
@@ -49,9 +46,6 @@ public class QuanLiSinhVien extends JPanel {
 	private JButton btnThem, btnSua, btnXoa, btnThoat;
 	private String provinceId ,districtId, nameTinhThanh, nameQuanHuyen, namePhuong, nameLop ;
 	private QuanLiSinhVien_Model quanLiSinhVienModel = new QuanLiSinhVien_Model();
-	private TinhThanh tinhThanhModel = new TinhThanh();
-	private QuanHuyen quanHuyenModel = new QuanHuyen();
-	private Phuong phuongModel = new Phuong();
 	private QuanLiLopHoc_Model quanLiLopHocModel = new QuanLiLopHoc_Model();
 	private DefaultTableModel dm;
 	public QuanLiSinhVien() {
@@ -64,29 +58,29 @@ public class QuanLiSinhVien extends JPanel {
 		Font font = new Font("Arial", Font.BOLD, 15);
 		boxQuanLiHocSinh.setLayout(new BoxLayout(boxQuanLiHocSinh, BoxLayout.Y_AXIS));
 		
-		/* PH?N NH?P TH�NG TIN SINH VI�N */
+		/* PHẦN NHẬP THÔNG TIN SINH VIÊN */
 		JPanel boxNhap = new JPanel();
 		boxNhap.setLayout(new BoxLayout(boxNhap, BoxLayout.Y_AXIS));
 		boxNhap.setPreferredSize(new Dimension(0, 300));
 		Border borderNhap = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitleNhap = BorderFactory.createTitledBorder(borderNhap,"Nh?p th�ng tin",TitledBorder.CENTER, 
+		TitledBorder borderTitleNhap = BorderFactory.createTitledBorder(borderNhap,"Nhập thông tin",TitledBorder.CENTER, 
 				TitledBorder.DEFAULT_POSITION);
 		borderTitleNhap.setTitleFont(borderTitleNhap.getTitleFont().deriveFont(Font.ITALIC,20));
 		borderTitleNhap.setTitleColor(Color.RED);
 		boxNhap.setBorder(borderTitleNhap);
 		JPanel hang1 = new JPanel();
 		hang1.setLayout(new FlowLayout());
-		JLabel maSv = new JLabel("M� sinh vi�n:");
+		JLabel maSv = new JLabel("Mã sinh viên:");
 		maSv.setPreferredSize(new Dimension(100, 30));
 		maSv.setFont(font);
 		textMaSv = new JTextField();
 		textMaSv.setPreferredSize(new Dimension(120, 30));
-		JLabel hoTen = new JLabel("H? t�n:");
+		JLabel hoTen = new JLabel("Họ tên:");
 		hoTen.setPreferredSize(new Dimension(100, 30));
 		hoTen.setFont(font);
 		textHoTen = new JTextField();
 		textHoTen.setPreferredSize(new Dimension(120, 30));
-		JLabel diaChi = new JLabel("�?a ch?:");
+		JLabel diaChi = new JLabel("Địa chỉ:");
 		diaChi.setPreferredSize(new Dimension(100, 30));
 		diaChi.setFont(font);
 		textDiaChi = new JTextField();
@@ -101,36 +95,32 @@ public class QuanLiSinhVien extends JPanel {
 		hang1.add(textDiaChi);
 		JPanel hang2 = new JPanel();
 		hang2.setLayout(new FlowLayout());
-		JLabel tinhThanh = new JLabel("T?nh th�nh:");
+		JLabel tinhThanh = new JLabel("Tỉnh thành:");
 		tinhThanh.setPreferredSize(new Dimension(100, 30));
 		tinhThanh.setFont(font);
-		ArrayList<TinhThanh> arrTinhThanhModel = new ArrayList<>();
-		//arrTinhThanhModel.clear();
-		arrTinhThanhModel = tinhThanhModel.selectAll();
-		arrTinhThanh.clear();
-		arrTinhThanh = arrTinhThanhModel;
+		selectTinhThanh();
 		cboTinhThanh = new JComboBox();
 		cboTinhThanh.setPreferredSize(new Dimension(120, 30));
-		cboTinhThanh.addItem("Ch?n T?nh");
-		//cboTinhThanh.setPrototypeDisplayValue("---Ch?n---");
-		for(TinhThanh x : arrTinhThanh) {
-			cboTinhThanh.addItem(x.getName());
+		cboTinhThanh.addItem("Chọn Tỉnh");
+		//cboTinhThanh.setPrototypeDisplayValue("---Chọn---");
+		for(String x : arrTinhThanh) {
+			cboTinhThanh.addItem(x);
 		}
-		JLabel quanHuyen = new JLabel("Qu?n huy?n:");
+		JLabel quanHuyen = new JLabel("Quận huyện:");
 		quanHuyen.setPreferredSize(new Dimension(100, 30));
 		quanHuyen.setFont(font);
 		cboQuanHuyen = new JComboBox();
-		cboQuanHuyen.addItem("Ch?n Qu?n");
+		cboQuanHuyen.addItem("Chọn Quận");
 		cboQuanHuyen.setPreferredSize(new Dimension(120, 30));
-		//cboQuanHuyen.setPrototypeDisplayValue("---Ch?n---");
+		//cboQuanHuyen.setPrototypeDisplayValue("---Chọn---");
 		
-		JLabel phuong = new JLabel("Phu?ng:");
+		JLabel phuong = new JLabel("Phường:");
 		phuong.setPreferredSize(new Dimension(100, 30));
 		phuong.setFont(font);
 		cboPhuong = new JComboBox();
-		cboPhuong.addItem("Ch?n Phu?ng");
+		cboPhuong.addItem("Chọn Phường");
 		cboPhuong.setPreferredSize(new Dimension(120, 30));
-		//cboPhuong.setPrototypeDisplayValue("---Ch?n---");
+		//cboPhuong.setPrototypeDisplayValue("---Chọn---");
 		hang2.add(tinhThanh);
 		hang2.add(cboTinhThanh);
 		hang2.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -141,7 +131,7 @@ public class QuanLiSinhVien extends JPanel {
 		hang2.add(cboPhuong);
 		JPanel hang3 = new JPanel();
 		hang3.setLayout(new FlowLayout());
-		JLabel dienThoai = new JLabel("�i?n tho?i:");
+		JLabel dienThoai = new JLabel("Điện thoại:");
 		dienThoai.setPreferredSize(new Dimension(100, 30));
 		dienThoai.setFont(font);
 		textDienthoai = new JTextField();
@@ -151,17 +141,14 @@ public class QuanLiSinhVien extends JPanel {
 		email.setFont(font);
 		textEmail = new JTextField();
 		textEmail.setPreferredSize(new Dimension(120, 30));
-		JLabel maLop = new JLabel("M� l?p:");
+		JLabel maLop = new JLabel("Mã lớp:");
 		maLop.setPreferredSize(new Dimension(100, 30));
 		maLop.setFont(font);
-		ArrayList<QuanLiLopHoc_Model> arrLopModel = new ArrayList<>();
-		arrLopModel = quanLiLopHocModel.sellectAllLop();
-		arrLop.clear();
-		arrLop = arrLopModel;
+		arrLop = quanLiLopHocModel.sellectAllLop();
 		cboMaLop = new JComboBox<>();
 		cboMaLop.setPreferredSize(new Dimension(120, 30));
-		//cboMaLop.setPrototypeDisplayValue("---Ch?n---");
-		cboMaLop.addItem("Ch?n L?p");
+		//cboMaLop.setPrototypeDisplayValue("---Chọn---");
+		cboMaLop.addItem("Chọn Lớp");
 		for(QuanLiLopHoc_Model x : arrLop) {
 			cboMaLop.addItem(x.getMaLop());
 		}
@@ -175,31 +162,31 @@ public class QuanLiSinhVien extends JPanel {
 		hang3.add(cboMaLop);
 		JPanel hang4 = new JPanel();
 		hang4.setLayout(new FlowLayout());
-		btnThem = new JButton("Th�m");
-		btnSua = new JButton("S?a");
-		btnXoa = new JButton("X�a");
-		btnThoat = new JButton("Tho�t");
+		btnThem = new JButton("Thêm");
+		btnSua = new JButton("Sửa");
+		btnXoa = new JButton("Xóa");
+		btnThoat = new JButton("Thoát");
 		hang4.add(btnThem);
 		hang4.add(btnSua);
 		hang4.add(btnXoa);
 		hang4.add(btnThoat);
 		
 		
-		/* PH?N HI?N TH? DANH S�CH SINH VI�N */
+		/* PHẦN HIỂN THỊ DANH SÁCH SINH VIÊN */
 		JPanel boxHienThi = new JPanel();
 		boxHienThi.setLayout(new BoxLayout(boxHienThi, BoxLayout.Y_AXIS));
 //		JPanel timKiem = new JPanel();
 //		timKiem.setLayout(new FlowLayout(FlowLayout.RIGHT));
-//		JLabel namHoc = new JLabel("Nam H?c:");
+//		JLabel namHoc = new JLabel("Năm Học:");
 //		namHoc.setFont(font);
 //		JComboBox cboNamHoc = new JComboBox<>();
-//		cboNamHoc.setPrototypeDisplayValue("---Ch?n---");
-//		cboNamHoc.addItem("---Ch?n---");
-//		JLabel lop = new JLabel("L?p:");
+//		cboNamHoc.setPrototypeDisplayValue("---Chọn---");
+//		cboNamHoc.addItem("---Chọn---");
+//		JLabel lop = new JLabel("Lớp:");
 //		lop.setFont(font);
 //		JComboBox cboLop = new JComboBox<>();
-//		cboLop.setPrototypeDisplayValue("---Ch?n---");
-//		cboLop.addItem("---Ch?n---");
+//		cboLop.setPrototypeDisplayValue("---Chọn---");
+//		cboLop.addItem("---Chọn---");
 //		timKiem.add(namHoc);
 //		timKiem.add(cboNamHoc);
 //		timKiem.add(lop);
@@ -207,20 +194,20 @@ public class QuanLiSinhVien extends JPanel {
 		JPanel hienThi = new JPanel();
 		hienThi.setLayout(new BorderLayout());
 		dm = new DefaultTableModel();
-		dm.addColumn("M� SV");
-		dm.addColumn("H? t�n");
-		dm.addColumn("�?a ch?");
-		dm.addColumn("Phu?ng");
-		dm.addColumn("Qu?n huy?n");
-		dm.addColumn("T?nh th�nh");
-		dm.addColumn("�i?n tho?i");
+		dm.addColumn("Mã SV");
+		dm.addColumn("Họ tên");
+		dm.addColumn("Địa chỉ");
+		dm.addColumn("Phường");
+		dm.addColumn("Quận huyện");
+		dm.addColumn("Tỉnh thành");
+		dm.addColumn("Điện thoại");
 		dm.addColumn("Email");
-		dm.addColumn("M� l?p");
+		dm.addColumn("Mã lớp");
 		JTable tbSinhVien = new JTable(dm);
 		JScrollPane sc = new JScrollPane(tbSinhVien);
 		hienThi.add(sc);
 		Border borderHienThi = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitleHienThi = BorderFactory.createTitledBorder(borderHienThi,"Danh s�ch sinh vi�n",TitledBorder.CENTER, 
+		TitledBorder borderTitleHienThi = BorderFactory.createTitledBorder(borderHienThi,"Danh sách sinh viên",TitledBorder.CENTER, 
 				TitledBorder.DEFAULT_POSITION);
 		borderTitleHienThi.setTitleFont(borderTitleHienThi.getTitleFont().deriveFont(Font.ITALIC,20));
 		borderTitleHienThi.setTitleColor(Color.RED);
@@ -266,32 +253,32 @@ public class QuanLiSinhVien extends JPanel {
 				String email = textEmail.getText();
 				String maLop = cboMaLop.getSelectedItem().toString();
 				
-				if(maLop.equals("Ch?n L?p")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng ch?n M� l?p");
+				if(maLop.equals("Chọn Lớp")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn Mã lớp");
 				}
-				else if(tinhThanh.equals("Ch?n T?nh")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng ch?n T?nh/Th�nh ");
+				else if(tinhThanh.equals("Chọn Tỉnh")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn Tỉnh/Thành ");
 				}
-				else if(quanHuyen.equals("Ch?n Qu?n")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng ch?n Qu?n/Huy?n ");
+				else if(quanHuyen.equals("Chọn Quận")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn Quận/Huyện ");
 				}
-				else if(phuong.equals("Ch?n Phu?ng")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng ch?n Phu?ng ");
+				else if(phuong.equals("Chọn Phường")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn Phường ");
 				}
 				else if(maSv.equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng Nh?p m� Sinh vi�n ");
+					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Sinh viên ");
 				}
 				else if(hoten.equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng Nh?p m� H? t�n ");
+					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Họ tên ");
 				}
 				else if(diaChi.equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng Nh?p m� �?a ch? ");
+					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Địa chỉ ");
 				}
 				else if(dienThoai.equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng Nh?p m� �i?n tho?i ");
+					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Điện thoại ");
 				}
 				else if(email.equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui l�ng Nh?p m� Email ");
+					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Email ");
 				}
 				else {
 					quanLiSinhVienModel.insert(maSv, hoten, diaChi, tinhThanh, quanHuyen, phuong, dienThoai, email, maLop);
@@ -301,9 +288,9 @@ public class QuanLiSinhVien extends JPanel {
 					textMaSv.setText("");
 					textHoTen.setText("");
 					textDiaChi.setText("");
-					cboTinhThanh.setSelectedItem("Ch?n T?nh");
-					cboQuanHuyen.setSelectedItem("Ch?n Qu?n");
-					cboPhuong.setSelectedItem("Ch?n Phu?ng");
+					cboTinhThanh.setSelectedItem("Chọn Tỉnh");
+					cboQuanHuyen.setSelectedItem("Chọn Quận");
+					cboPhuong.setSelectedItem("Chọn Phường");
 					textDienthoai.setText("");
 					textEmail.setText("");
 				}
@@ -318,35 +305,39 @@ public class QuanLiSinhVien extends JPanel {
 
 
 	
-	/*----------------- PH?N T?NH/TH�NH QU?N/HUY?N PHU?NG --------------------------------*/
+	/*----------------- PHẦN TỈNH/THÀNH QUẬN/HUYỆN PHƯỜNG --------------------------------*/
 	
 	ActionListener cboTinhThanhEvents = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// l?y id c?a t?nh th�nh l�m co s? cho qu?n huy?n
+			// lấy id của tỉnh thành làm cơ sở cho quận huyện
 			try {
 				nameTinhThanh = cboTinhThanh.getSelectedItem().toString();
-				
-				// l?y id c?a t?nh th�nh
-				provinceId = tinhThanhModel.selectProvinceId(nameTinhThanh);
-				
-				System.out.println(provinceId);
+				String sql = "select * from Tinh_thanh where name = '"+nameTinhThanh+"'";
+				Statement statement=conn.createStatement();
+				ResultSet result=statement.executeQuery(sql);
+				while(result.next())
+				{
+					 provinceId = result.getString("provinceid");
+					
+					
+				}
+//				System.out.println(nameTinhThanh);
+//				System.out.println(provinceId);
+//				System.out.println("-----------------------");
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				ArrayList<QuanHuyen> arrQuanHuyenModel = new ArrayList<>();
-				
-				arrQuanHuyenModel = quanHuyenModel.selectQuanHuyen(provinceId);
-				//arrQuanHuyen.clear();
-				arrQuanHuyen = arrQuanHuyenModel;
-				// reset l?i combobox
-				cboQuanHuyen.removeAllItems();
-				// add items v�o cboQuanhuyen
-				cboQuanHuyen.addItem("Ch?n Qu?n");
-				for(QuanHuyen x : arrQuanHuyen) {
-					cboQuanHuyen.addItem(x.getName());
-				}
+			
+			selectQuanHuyen();
+			// reset lại combobox
+			cboQuanHuyen.removeAllItems();
+			// add items vào cboQuanhuyen
+			cboQuanHuyen.addItem("Chọn Quận");
+			for(String x : arrQuanHuyen) {
+				cboQuanHuyen.addItem(x);
+			}
 			
 		}
 	};
@@ -356,23 +347,30 @@ public class QuanLiSinhVien extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			cboPhuong.removeAllItems();
-			cboQuanHuyen.addItem("Ch?n Qu?n");
-			for(QuanHuyen x : arrQuanHuyen) {
-				cboQuanHuyen.addItem(x.getName());
+			cboQuanHuyen.addItem("Chọn Quận");
+			for(String x : arrQuanHuyen) {
+				cboQuanHuyen.addItem(x);
 			}
 			try {
 				nameQuanHuyen = cboQuanHuyen.getSelectedItem().toString();
-				districtId = quanHuyenModel.selectDistrictId(nameQuanHuyen);
+				String sql = "select * from Quan_huyen where name = '"+nameQuanHuyen+"'";
+				Statement statement=conn.createStatement();
+				ResultSet result=statement.executeQuery(sql);
+				while(result.next())
+				{
+					 districtId = result.getString("districtid");
+					
+				}
+//				System.out.println(nameQuanHuyen);
+//				System.out.println(districtId);
+//				System.out.println("-----------------------");
 				} catch (Exception ex) {
 					ex.printStackTrace();
-				}
-			ArrayList<Phuong> arrPhuongModel = new ArrayList<>();
-			arrPhuongModel = phuongModel.selectPhuong(districtId);
-			
-			arrPhuong = arrPhuongModel;
-			cboPhuong.addItem("Ch?n Phu?ng");
-			for(Phuong x : arrPhuong) {
-				cboPhuong.addItem(x.getName());
+				}	
+			selectPhuong();
+			cboPhuong.addItem("Chọn Phường");
+			for(String x : arrPhuong) {
+				cboPhuong.addItem(x);
 			}
 		}
 	};
@@ -386,43 +384,64 @@ public class QuanLiSinhVien extends JPanel {
 			String chose = cboMaLop.getSelectedItem().toString();
 			for(QuanLiSinhVien_Model x : arrSinhVien) {
 				if(chose.equals(x.getMaLop())) {
-					String row[] = {x.getMaSV(), x.getHoTen(), x.getDiaChi(), x.getPhuong(), x.getQuanHuyen(), x.getTinhThanh(), x.getDienThoai(), x.getEmail(), x.getMaLop()};
+					String row[] = {x.getMaSV(), x.getHoTen(), x.getDiaChi(), x.getPhương(), x.getQuanHuyen(), x.getTinhThanh(), x.getDienThoai(), x.getEmail(), x.getMaLop()};
 					dm.addRow(row);
 				}
 			}
 			
 		}
 	};
+	private void selectTinhThanh() {
+		arrTinhThanh.clear();
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result=statement.executeQuery("select name from Tinh_thanh");
+			while(result.next())
+			{
+				String tenTinhThanh = result.getString("name");
+				
+				arrTinhThanh.add(tenTinhThanh);
+			}
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+	}
 	
-	// select qu?n huy?n d?a v�o T?nh th�nh
-//	private void selectQuanHuyen() {
-//		
-//		try {
-//				quanHuyenModel.selectQuanHuyen(provinceId);
-//				arrQuanHuyen = quanHuyenModel.getArrayList();
-//				
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//			}
-//	}
+	// select quận huyện dựa vào Tỉnh thành
+	private void selectQuanHuyen() {
+		arrQuanHuyen.clear();
+		try {
+			String sql = "select * from Quan_huyen where provinceid =" + "'"+ provinceId +"'";
+			Statement statement=conn.createStatement();
+			ResultSet result=statement.executeQuery(sql);
+			while(result.next())
+			{
+				 nameQuanHuyen = result.getString("name");
+				 arrQuanHuyen.add(nameQuanHuyen);
+				 //System.out.println(nameQuanHuyen);
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+	}
 	
-//	private void selectPhuong() {
-//		arrPhuong.clear();
-//		try {
-//			String sql = "select * from Phuong where districtid = '"+districtId+"'";
-//			Statement statement=conn.createStatement();
-//			ResultSet result=statement.executeQuery(sql);
-//			while(result.next())
-//			{
-//				 namePhuong = result.getString("name");
-//				 arrPhuong.add(namePhuong);
-//				 //System.out.println(nameQuanHuyen);
-//			}
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//			}
-//	
-//	}
+	private void selectPhuong() {
+		arrPhuong.clear();
+		try {
+			String sql = "select * from Phuong where districtid = '"+districtId+"'";
+			Statement statement=conn.createStatement();
+			ResultSet result=statement.executeQuery(sql);
+			while(result.next())
+			{
+				 namePhuong = result.getString("name");
+				 arrPhuong.add(namePhuong);
+				 //System.out.println(nameQuanHuyen);
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+	
+	}
 	
 	
 }
