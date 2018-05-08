@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,6 +30,7 @@ public class QuanLiLopHocUI extends JPanel {
 		//
 		JPanel pnlLopHocInput = new JPanel();
 		JPanel pnlLopHocTable = new JPanel();
+		JPanel pnlLopHocTable1 = new JPanel();
 		// INPUT
 		Border border = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Nhập Thông Tin Lớp Học");
@@ -96,9 +98,52 @@ public class QuanLiLopHocUI extends JPanel {
 		JScrollPane sc = new JScrollPane(tbl);
 		pnlLopHocTable.setLayout(new BorderLayout());
 		pnlLopHocTable.add(sc);
+		
+		
+		
+		//Chọn môn cho lớp
+		Border border2 = BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle2 = BorderFactory.createTitledBorder(border2, "Chọn Môn Cho Lớp");
+		pnlLopHocTable1.setBorder(borderTitle2);
+		pnlLopHocTable1.setLayout(new BoxLayout(pnlLopHocTable1, BoxLayout.Y_AXIS));
+		
+		JPanel chonMon = new JPanel();
+		JLabel lblchonMon = new JLabel("Chọn Môn");
+		JComboBox cboChonMon = new JComboBox();
+		cboChonMon.addItem("Chọn Môn");
+		JButton themMon = new JButton("Thêm Môn");
+		JButton xoaMon = new JButton("Xóa Môn");
+		chonMon.add(lblchonMon);
+		chonMon.add(cboChonMon);
+		chonMon.add(themMon);
+		chonMon.add(xoaMon);
+		pnlLopHocTable1.add(chonMon);
+		//
+		//
+		DefaultTableModel dm1 = new DefaultTableModel();
+		dm1.addColumn("Mã Môn");
+		dm1.addColumn("Tên Môn");
+
+		JTable tbl1 = new JTable(dm1);
+		dm1.addRow(new String[] { "FFSE1703", "LP4" });
+		dm1.addRow(new String[] { "FFSE1703", "LP3"});
+		dm1.addRow(new String[] { "FFSE1703", "LP2"});
+		// setColum
+		TableColumnModel columnModel1 = tbl1.getColumnModel();
+		columnModel1.getColumn(1).setPreferredWidth(110);
+		tbl1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		JScrollPane sc1 = new JScrollPane(tbl1);
+		//pnlLopHocTable1.setLayout(new BorderLayout());
+		pnlLopHocTable1.add(sc1);
+		//
+		
+		
+		
 
 		pnl.add(pnlLopHocInput);
+		pnl.add(pnlLopHocTable1);
 		pnl.add(pnlLopHocTable);
+
 		this.setLayout(new BorderLayout());
 		this.add(pnl);
 		//
