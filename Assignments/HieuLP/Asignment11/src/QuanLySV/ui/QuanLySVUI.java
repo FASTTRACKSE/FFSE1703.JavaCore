@@ -19,7 +19,7 @@ public class QuanLySVUI extends JFrame {
 	private JComboBox select;
 	private JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
-	private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
+	private String[] lop = {"Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
 
 	private JButton them = new JButton("Thêm"), xoa = new JButton("Xóa"), sua = new JButton("Sửa"),
 			thoat = new JButton("Thoát"), nhap = new JButton("Nhập");
