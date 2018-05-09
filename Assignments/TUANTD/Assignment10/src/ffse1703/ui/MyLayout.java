@@ -1,7 +1,7 @@
-package Assignment_list.assignment10.ui;
+package ffse1703.ui;
 
-import Assignment_list.assignment10.io.*;
-import Assignment_list.assignment10.model.*;
+import ffse1703.io.*;
+import ffse1703.model.*;
 import java.util.ArrayList;
 import java.io.File;
 
@@ -22,12 +22,12 @@ public class MyLayout extends JFrame {
 	
 	private JTextField txtMaSv,txtTenSv,txtTuoiSv;
 	private JButton btnAdd,btnEdit,btnDelete,btnExit,btnSubmit;
-	String[] items = {"Tất cả","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
+	String[] items = {"Táº¥t cáº£","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
 	JComboBox<String> cbbClass = new JComboBox<>(items);
-	String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
+	String[] col = {"MÃ£ Sinh ViÃªn","TÃªn Sinh ViÃªn","Tuá»•i Sinh ViÃªn","Lá»›p"};
     DefaultTableModel list = new DefaultTableModel(col, 0);
 	public static ArrayList<SinhVien> arrSv=new ArrayList<SinhVien>();
-	String chooseClass="Tất cả";
+	String chooseClass="Táº¥t cáº£";
 	final JTable tbl=new JTable(list);		
 	JScrollPane sc=new JScrollPane(tbl);
 	int stt=0;
@@ -45,7 +45,7 @@ public class MyLayout extends JFrame {
 		
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
 		
-		JLabel lbltitle=new JLabel("Chương Trình Quản Lý Sinh Viên");
+		JLabel lbltitle=new JLabel("ChÆ°Æ¡ng TrÃ¬nh Quáº£n LÃ½ Sinh ViÃªn");
 		Font font=new Font("Arial", Font.BOLD,20);
 		lbltitle.setFont(font);
 		JPanel pnMainTitle=new JPanel();
@@ -54,7 +54,7 @@ public class MyLayout extends JFrame {
 		
 		JPanel pnMainContent1=new JPanel();
 		pnMainContent1.setLayout(new FlowLayout());
-		JLabel lblContent1=new JLabel("Chọn Lớp:       ");		
+		JLabel lblContent1=new JLabel("Chá»�n Lá»›p:       ");		
 		pnMainContent1.add(lblContent1);
 		
 		add(cbbClass);
@@ -63,7 +63,7 @@ public class MyLayout extends JFrame {
 		
 		JPanel pnMainContent2=new JPanel();
 		pnMainContent2.setLayout(new FlowLayout());
-		JLabel lblContent2=new JLabel("Mã Sinh Viên:    ");		
+		JLabel lblContent2=new JLabel("MÃ£ Sinh ViÃªn:    ");		
 		pnMainContent2.add(lblContent2);
 		txtMaSv = new JTextField(25);
 		pnMainContent2.add(txtMaSv);
@@ -71,7 +71,7 @@ public class MyLayout extends JFrame {
 		
 		JPanel pnMainContent3=new JPanel();
 		pnMainContent3.setLayout(new FlowLayout());
-		JLabel lblContent3=new JLabel("Tên Sinh Viên:   ");		
+		JLabel lblContent3=new JLabel("TÃªn Sinh ViÃªn:   ");		
 		pnMainContent3.add(lblContent3);
 		txtTenSv = new JTextField(25);
 		pnMainContent3.add(txtTenSv);
@@ -79,7 +79,7 @@ public class MyLayout extends JFrame {
 		
 		JPanel pnMainContent4=new JPanel();
 		pnMainContent4.setLayout(new FlowLayout());
-		JLabel lblContent4=new JLabel("Tuổi Sinh Viên:  ");		
+		JLabel lblContent4=new JLabel("Tuá»•i Sinh ViÃªn:  ");		
 		pnMainContent4.add(lblContent4);
 		txtTuoiSv = new JTextField(25);
 		pnMainContent4.add(txtTuoiSv);
@@ -87,11 +87,11 @@ public class MyLayout extends JFrame {
 		
 		JPanel pnMainContent5=new JPanel();
 		pnMainContent5.setLayout(new FlowLayout());	
-		btnAdd =new JButton("Thêm");
-		btnEdit =new JButton("Sửa");
-		btnDelete =new JButton("Xóa");
-		btnExit =new JButton("Thoát");
-		btnSubmit =new JButton("Nhập");
+		btnAdd =new JButton("ThÃªm");
+		btnEdit =new JButton("Sá»­a");
+		btnDelete =new JButton("XÃ³a");
+		btnExit =new JButton("ThoÃ¡t");
+		btnSubmit =new JButton("Nháº­p");
 		pnMainContent5.add(btnAdd);
 		pnMainContent5.add(btnEdit);
 		pnMainContent5.add(btnDelete);
@@ -104,7 +104,7 @@ public class MyLayout extends JFrame {
 				BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle=
 				BorderFactory.createTitledBorder(
-				border, "Danh sách");
+				border, "Danh sÃ¡ch");
 
 		pnMainContent6.setBorder(borderTitle);
 		
@@ -139,7 +139,7 @@ public class MyLayout extends JFrame {
 		    }
 			chooseClass =(String) cbbClass.getSelectedItem();
 			list.setRowCount(0);
-			if(chooseClass=="Tất cả") {
+			if(chooseClass=="Táº¥t cáº£") {
 				for (SinhVien sv : arrSv) {
 					String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 					list.addRow(row);
@@ -205,22 +205,22 @@ public class MyLayout extends JFrame {
 						if(maSv.isEmpty()&&tenSv.isEmpty()&&tuoiSv.isEmpty()) {		
 							throw new Exception();
 						}else if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()){
-							String msg = "Không được để trống các dòng "+maSv;
-							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
+							String msg = "KhÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng cÃ¡c dÃ²ng "+maSv;
+							JOptionPane.showMessageDialog(null, msg, "Lá»—i Nháº­p ThÃ´ng tin", JOptionPane.INFORMATION_MESSAGE);
 							
 							}else if(tuoi>=18 && tuoi<=35){
-								String msg = "Nhập tuổi từ 18 đến 35 "+maSv;
-								JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
+								String msg = "Nháº­p tuá»•i tá»« 18 Ä‘áº¿n 35 "+maSv;
+								JOptionPane.showMessageDialog(null, msg, "Lá»—i Nháº­p ThÃ´ng tin", JOptionPane.INFORMATION_MESSAGE);
 							}else {
 							arrSv.get(stt).setMaSv(maSv);
 							arrSv.get(stt).setTenSv(tenSv);
 							arrSv.get(stt).setTuoiSv(tuoiSv);
 							boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
 							if (checked == true) {
-								String msg = "Đã Sửa Thành công Sinh viên "+tenSv;
-								JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+								String msg = "Ä�Ã£ Sá»­a ThÃ nh cÃ´ng Sinh viÃªn "+tenSv;
+								JOptionPane.showMessageDialog(null, msg, "Sá»­a ThÃ nh CÃ´ng", JOptionPane.INFORMATION_MESSAGE);
 							} else {
-								System.out.println("Lưu thất bại");
+								System.out.println("LÆ°u tháº¥t báº¡i");
 							}
 							int col = tbl.getSelectedRow();
 							txtMaSv.setText("");
@@ -229,7 +229,7 @@ public class MyLayout extends JFrame {
 							txtMaSv.requestFocus();
 							chooseClass =(String) cbbClass.getSelectedItem();;
 							list.setRowCount(0);
-								if(chooseClass=="Tất cả") {
+								if(chooseClass=="Táº¥t cáº£") {
 									for (SinhVien sv : arrSv) {
 										String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 										list.addRow(row);
@@ -244,12 +244,12 @@ public class MyLayout extends JFrame {
 								}						
 						}
 					}catch(Exception e2) {
-						String msg = "Chưa chọn dòng cần thay đổi ";
-						JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+						String msg = "ChÆ°a chá»�n dÃ²ng cáº§n thay Ä‘á»•i ";
+						JOptionPane.showMessageDialog(null, msg, "Sá»­a ThÃ nh CÃ´ng", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}catch(Exception e2) {
-				String msg = "Phải Nhập số cho Tuổi "+maSv;
-				JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);					
+				String msg = "Pháº£i Nháº­p sá»‘ cho Tuá»•i "+maSv;
+				JOptionPane.showMessageDialog(null, msg, "Lá»—i Nháº­p ThÃ´ng tin", JOptionPane.INFORMATION_MESSAGE);					
 				}
 				
 			
@@ -265,10 +265,10 @@ public class MyLayout extends JFrame {
 			arrSv.remove(stt);			
 			boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
 			if (checked == true) {
-				String msg = "Đã Xóa Thành công Sinh viên "+tenSv;
-				JOptionPane.showMessageDialog(null, msg, "Xóa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+				String msg = "Ä�Ã£ XÃ³a ThÃ nh cÃ´ng Sinh viÃªn "+tenSv;
+				JOptionPane.showMessageDialog(null, msg, "XÃ³a ThÃ nh CÃ´ng", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				System.out.println("Xóa thất bại");
+				System.out.println("XÃ³a tháº¥t báº¡i");
 			}
 			int col = tbl.getSelectedRow();
 			txtMaSv.setText("");
@@ -277,7 +277,7 @@ public class MyLayout extends JFrame {
 			txtMaSv.requestFocus();
 			chooseClass =(String) cbbClass.getSelectedItem();;
 			list.setRowCount(0);
-			if(chooseClass=="Tất cả") {
+			if(chooseClass=="Táº¥t cáº£") {
 				for (SinhVien sv : arrSv) {
 					String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 					list.addRow(row);
@@ -310,32 +310,32 @@ public class MyLayout extends JFrame {
 				try {
 					if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()) {		
 						throw new Exception();
-					}else if(lopSv=="Tất cả"){
+					}else if(lopSv=="Táº¥t cáº£"){
 						throw new NullPointerException();
 					}else if(so>=0){
-						String msg = "Đã tồn tại sinh viên có mã là "+maSv;
-						JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
+						String msg = "Ä�Ã£ tá»“n táº¡i sinh viÃªn cÃ³ mÃ£ lÃ  "+maSv;
+						JOptionPane.showMessageDialog(null, msg, "LÆ°u ThÃ nh CÃ´ng", JOptionPane.INFORMATION_MESSAGE);
 					}else {
 						String[] row = {maSv,tenSv, tuoiSv,lopSv};
 						list.addRow(row);
 						arrSv.add(new SinhVien(maSv,tenSv,tuoiSv,lopSv));
 						boolean checked= SerializeFileFactory.saveFile(arrSv, "dulieusinhvien.txt");
 						if (checked == true) {
-							String msg = "Đã lưu thành công Sinh viên "+tenSv;
-							JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
+							String msg = "Ä�Ã£ lÆ°u thÃ nh cÃ´ng Sinh viÃªn "+tenSv;
+							JOptionPane.showMessageDialog(null, msg, "LÆ°u ThÃ nh CÃ´ng", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							System.out.println("Lưu thất bại");
+							System.out.println("LÆ°u tháº¥t báº¡i");
 						}
 						txtMaSv.setText("");
 						txtTenSv.setText("");
 						txtTuoiSv.setText("");
 					}
 				}catch(NullPointerException e) {
-					String msg = "Chưa chọn Lớp\n Vui Lòng Nhập Lại "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
+					String msg = "ChÆ°a chá»�n Lá»›p\n Vui LÃ²ng Nháº­p Láº¡i "+tenSv;
+					JOptionPane.showMessageDialog(null, msg, "Lá»—i Nháº­p Thiáº¿u", JOptionPane.INFORMATION_MESSAGE);
 				}catch(Exception e) {
-					String msg = "Chưa nhập đủ các dòng\n Vui Lòng Nhập Lại "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
+					String msg = "ChÆ°a nháº­p Ä‘á»§ cÃ¡c dÃ²ng\n Vui LÃ²ng Nháº­p Láº¡i "+tenSv;
+					JOptionPane.showMessageDialog(null, msg, "Lá»—i Nháº­p Thiáº¿u", JOptionPane.INFORMATION_MESSAGE);
 				}			
 			}catch(Exception e) {				
 			}						
