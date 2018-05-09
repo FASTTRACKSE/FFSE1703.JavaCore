@@ -2,9 +2,9 @@ package project.main;
 
 import project.ui.*;
 
-public class ThongTinSVMain {
+public class QuanLySinhVien {
 	public static void main(String[] args) {
-		ThongTinSVUI myUI = new ThongTinSVUI("Quản Lý Trường Học");
+		QuanLySinhVienUI myUI = new QuanLySinhVienUI("Quản Lý Trường Học");
 		myUI.showWindow();
 	}
 }

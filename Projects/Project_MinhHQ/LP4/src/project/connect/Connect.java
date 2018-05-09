@@ -1,4 +1,4 @@
-package project.ui;
+package project.connect;
 
 import java.sql.Connection;
 import java.sql.SQLException;
