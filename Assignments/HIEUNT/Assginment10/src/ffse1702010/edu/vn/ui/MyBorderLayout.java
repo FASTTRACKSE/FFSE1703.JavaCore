@@ -186,21 +186,6 @@ public class MyBorderLayout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String chonLop = (String) cbo.getSelectedItem();
-			dm.setRowCount(0);
-			for (SinhVien x : arr) {
-				if (chonLop.equals(x.getLopSV())) {
-					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
-					dm.addRow(row);
-				}
-				}
-			nhapMaSinhVien.setText("");
-			nhapTenSinhVien.setText("");
-			nhapTuoiSinhVien.setText("");
-
-		
-
-
 
 		
 		}
@@ -265,7 +250,6 @@ public class MyBorderLayout extends JFrame {
 			if (nhapMa.isEmpty() || nhapTen.isEmpty() || nhapTuoi.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Xin hay nhap day du thong tin!");
 			} else {
-
 				arr.add(new SinhVien(nhapMa, nhapTen, nhapTuoi, lop));
 				String[] row = { nhapMa, nhapTen, nhapTuoi, lop };
 				dm.addRow(row);

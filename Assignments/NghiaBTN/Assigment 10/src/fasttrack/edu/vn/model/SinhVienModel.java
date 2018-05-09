@@ -25,7 +25,7 @@ public class SinhVienModel {
 		return tenSV;
 	}
 	
-	public void setTenSV() {
+	public void setTenSV(String string) {
 		this.tenSV = tenSV;
 	}
 	
@@ -33,7 +33,7 @@ public class SinhVienModel {
 		return tuoiSV;
 	}
 	
-	public void setTuoiSV() {
+	public void setTuoiSV(String string) {
 		this.tuoiSV = tuoiSV;
 	}
 	

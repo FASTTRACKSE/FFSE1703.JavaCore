@@ -8,7 +8,6 @@ public class ShowMyBorderLayout {
 		MyBorderLayout myUi = new MyBorderLayout("♥♥♥♥♥♥♥♥♥♥♥");
 		myUi.showWindow();
 		
-
 	}
 
 }

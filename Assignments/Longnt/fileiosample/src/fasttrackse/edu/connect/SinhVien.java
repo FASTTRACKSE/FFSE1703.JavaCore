@@ -1,6 +1,9 @@
 package fasttrackse.edu.connect;
 import java.sql.*;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import java.util.*;
 public class SinhVien {
 			Connection con = null;
@@ -41,6 +44,21 @@ public class SinhVien {
 			DBConnection kn = new  DBConnection();
 			con = kn.ketnoi("localhost", "ffse1703", "thanhlong123",
 					"123456");
-			
+			String tensv,tuoisv,lop;
+			try
+			{
+			String sql="delete from sinhvien where id";
+			Statement statement=con.createStatement();
+			int x=statement.executeUpdate(sql);
+			if(x>0)
+			{
+			JOptionPane.showMessageDialog(null,
+			"Xóa OK");
+			}
+			}
+			catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}
 		}
 		}

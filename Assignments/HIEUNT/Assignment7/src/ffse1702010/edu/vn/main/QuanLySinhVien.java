@@ -3,14 +3,24 @@ package ffse1702010.edu.vn.main;
 import ffse1702010.edu.vn.model.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import ffse1702010.edu.vn.io.TextFileFactory;
 
 public class QuanLySinhVien {
-	public static ArrayList<SinhVien> arrSinhVien = new ArrayList<SinhVien>();
 	public static Scanner input = new Scanner(System.in);
-	public static SinhVien sinhVien = new SinhVien();
+	public static ArrayList<SinhVien> arrSinhVien = new ArrayList<SinhVien>();
+
 
 	public static void main(String[] args) {
 		meNu();
+	}
+	public static void luuFile() {
+
+		boolean kt = TextFileFactory.luuFile(arrSinhVien, "dulieu.txt");
+		if (kt == true) {
+			System.out.println("Lưu file thành công");
+		} else {
+			System.out.println("Lưu file thất bại");
+		}
 	}
 
 	public static void meNu() {
@@ -67,10 +77,7 @@ public class QuanLySinhVien {
 				System.out.println("Điểm lp2     :");
 				int lp2 = input.nextInt();
 				SinhVien.tongSV();
-				sinhVien.setLp1(lp1);
-				sinhVien.setLp2(lp2);
-				sinhVien.setNgaySinh(ngaysinh);
-				sinhVien.setTen(ten);
+			
 				arrSinhVien.add(new SinhVien(ten, ngaysinh, lp1, lp2));
 			}
 
@@ -103,14 +110,16 @@ public class QuanLySinhVien {
 		System.out.println("Nhập tên sinh viên cần xóa");
 		String Ten = input.nextLine();
 		for (int i = arrSinhVien.size() - 1; i > -1; i--) {
-			if (arrSinhVien.get(i).getTen().equals(Ten)) {
+			if (arrSinhVien.get(i).getTen().equals(Ten)) 
 				SinhVien.tongSV -= 1;
 				arrSinhVien.remove(i);
 			}
 		}
-	}
+	
 
 	public static void inSinhVien() {
+		luuFile();
+
 		System.out.println("Danh sách sinh viên có tổng số là :" + SinhVien.tongSV);
 		System.out.println("♥♥♥--------------------------------------------------------------------♥♥♥");
 		System.out.println("STT  Họ và tên              Ngày sinh     lp1  lp2     ");
