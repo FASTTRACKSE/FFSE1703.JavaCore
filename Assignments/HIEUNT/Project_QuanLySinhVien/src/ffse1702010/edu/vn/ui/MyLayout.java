@@ -53,7 +53,7 @@ public class MyLayout extends JFrame {
 	private JPanel pnCRUD;
 	private JPanel pnLopHoc;
 	private JPanel pnQuanLySinhVien;
-	private JPanel pnQuanLyDiem = new JPanel();
+	private JPanel pnQuanLyDiem;
 
 	private Button btn1 = new Button("QUẢN LÝ SINH VIÊN");
 	private Button btn2 = new Button("QUẢN LÝ ĐIỂM");
@@ -249,6 +249,10 @@ public class MyLayout extends JFrame {
 
 		pnCenter.add(sc);
 		pnQuanLySinhVien.add(pnCenter);
+		pnQuanLyDiem = new JPanel();
+		pnQuanLyDiem.setLayout(new BorderLayout());
+
+		
 
 		pnBorder.add(pnQuanLySinhVien);
 		pnBorder.add(pnQuanLyDiem);
