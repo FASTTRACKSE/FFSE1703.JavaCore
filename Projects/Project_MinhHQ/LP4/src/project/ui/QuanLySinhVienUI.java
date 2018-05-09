@@ -324,10 +324,10 @@ public class QuanLySinhVienUI extends JFrame {
 		dm_SinhVien.addColumn("Lớp");
 		dm_SinhVien.addColumn("Mã sinh viên");
 		dm_SinhVien.addColumn("Tên sinh viên");
-		dm_SinhVien.addColumn("Địa chỉ");
 		dm_SinhVien.addColumn("Thành phố");
 		dm_SinhVien.addColumn("Quận");
 		dm_SinhVien.addColumn("Phường");
+		dm_SinhVien.addColumn("Địa chỉ");
 		dm_SinhVien.addColumn("Email");
 		dm_SinhVien.addColumn("SĐT");
 
@@ -594,9 +594,9 @@ public class QuanLySinhVienUI extends JFrame {
 		// CRUD sinh viên
 		table_SinhVien.addMouseListener(eventTable_SinhVien);
 		them_SinhVien.addActionListener(eventAdd_SinhVien);
-//		xoa_SinhVien.addActionListener(eventDel_SinhVien);
-//		sua_SinhVien.addActionListener(eventEdit_SinhVien);
-//		nhap_SinhVien.addActionListener(eventReset_SinhVien);
+		xoa_SinhVien.addActionListener(eventDel_SinhVien);
+		sua_SinhVien.addActionListener(eventEdit_SinhVien);
+		nhap_SinhVien.addActionListener(eventReset_SinhVien);
 
 		Lop.addActionListener(new ActionListener() {
 
@@ -651,7 +651,6 @@ public class QuanLySinhVienUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonTinh = (String) tp.getSelectedItem();
-			dm_SinhVien.setRowCount(0);
 			quan.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
@@ -673,7 +672,6 @@ public class QuanLySinhVienUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonTinh = (String) quan.getSelectedItem();
-			dm_SinhVien.setRowCount(0);
 			phuong.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
@@ -968,10 +966,10 @@ public class QuanLySinhVienUI extends JFrame {
 				select_SinhVien.setSelectedItem(col[0]);
 				MaSV.setText(col[1]);
 				TenSV.setText(col[2]);
-				Diachi.setText(col[3]);
-				tp.setSelectedItem(col[4]);
-				quan.setSelectedItem(col[5]);
-				phuong.setSelectedItem(col[6]);
+				tp.setSelectedItem(col[3]);
+				quan.setSelectedItem(col[4]);
+				phuong.setSelectedItem(col[5]);
+				Diachi.setText(col[6]);
 				Email.setText(col[7]);
 				SDT.setText(col[8]);
 			}
@@ -1000,7 +998,7 @@ public class QuanLySinhVienUI extends JFrame {
 						dm_SinhVien.addRow(new String[] { lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien,quan_SinhVien,phuong_SinhVien,diachi_SinhVien,email_SinhVien,sdt_SinhVien });
 						Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 						try {
-							String sql = "INSERT INTO sinhvien(MaSV, TenSV, MaLop, DiaChi, Phuong, Quan, ThanhPho, Email, DT) VALUES  ('"+ ma_SinhVien +"','"+ ten_SinhVien +"','"+ lop_SinhVien +"','"+ diachi_SinhVien +"','"+ phuong_SinhVien +"','"+ quan_SinhVien +"','"+ tp_SinhVien +"','"+ email_SinhVien +"','"+ sdt_SinhVien +"')";
+							String sql = "INSERT INTO sinhvien(MaSV, TenSV, MaLop,  ThanhPho, Quan,Phuong, DiaChi, Email, DT) VALUES  ('"+ ma_SinhVien +"','"+ ten_SinhVien +"','"+ lop_SinhVien +"','"+ tp_SinhVien +"','"+ quan_SinhVien +"','"+ phuong_SinhVien +"','"+ diachi_SinhVien +"','"+ email_SinhVien +"','"+ sdt_SinhVien +"')";
 							Statement statement = conn.createStatement();
 							int x = statement.executeUpdate(sql);
 							if (x > 0) {
@@ -1016,9 +1014,11 @@ public class QuanLySinhVienUI extends JFrame {
 				
 				dm_SinhVien.setRowCount(0);
 				for (SinhVien x : arrSV) {
-					String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
-							x.getEmail(), x.getSdt() };
-					dm_SinhVien.addRow(row);
+					if (lop_SinhVien.equals(x.getLop())) {
+						String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
+								x.getEmail(), x.getSdt() };
+						dm_SinhVien.addRow(row);
+					}
 				}
 				
 				MaSV.setText("");
@@ -1033,15 +1033,15 @@ public class QuanLySinhVienUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				for (MonHoc x : arrMH) {
-					if (MaMH.getText().equals(x.getMaMH())) {
-						arrMH.remove(x);
+				for (SinhVien x : arrSV) {
+					if (MaSV.getText().equals(x.getMaSV())) {
+						arrSV.remove(x);
 						break;
 					}
 				}
 				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 				try {
-					String sql = "DELETE FROM table_monhoc WHERE MaMH = '" + MaMH.getText() + "'";
+					String sql = "DELETE FROM sinhvien WHERE MaSV = '" + MaSV.getText() + "'";
 					Statement statement = conn.createStatement();
 					int x = statement.executeUpdate(sql);
 					if (x >= 0) {
@@ -1050,10 +1050,14 @@ public class QuanLySinhVienUI extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				dm_MonHoc.setRowCount(0);
-				for (MonHoc x : arrMH) {
-					String[] row = { x.getMaMH(), x.getTenMH(), x.getTinChi(), x.getTime() };
-					dm_MonHoc.addRow(row);
+				dm_SinhVien.setRowCount(0);
+				String chonLop = (String) select_SinhVien.getSelectedItem();
+				for (SinhVien x : arrSV) {
+					if (chonLop.equals(x.getLop())) {
+						String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
+								x.getEmail(), x.getSdt() };
+						dm_SinhVien.addRow(row);
+					}
 				}
 			}
 
@@ -1063,18 +1067,22 @@ public class QuanLySinhVienUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				for (MonHoc x : arrMH) {
-					if (MaMH.getText().equals(x.getMaMH())) {
-						x.setTenMH(TenMH.getText());
-						x.setTinChi(Tinchi.getText());
-						x.setTime(Time.getText());
+				for (SinhVien x : arrSV) {
+					if (MaSV.getText().equals(x.getMaSV())) {
+						x.setTenSV(TenSV.getText());
+						x.setLop((String)select_SinhVien.getSelectedItem());
+						x.setTp((String)tp.getSelectedItem());
+						x.setQuan((String)quan.getSelectedItem());
+						x.setPhuong((String)phuong.getSelectedItem());
+						x.setAdress(Diachi.getText());
+						x.setEmail(Email.getText());
+						x.setSdt(SDT.getText());
 						break;
 					}
 				}
 				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 				try {
-					String sql = "UPDATE table_monhoc SET TenMH ='" + TenMH.getText() + "',STC ='" + Tinchi.getText()
-							+ "',ThoiGian ='" + Time.getText() + "' WHERE MaMH = '" + MaMH.getText() + "'";
+					String sql = "UPDATE sinhvien SET TenSV='"+ TenSV.getText() +"',MaLop='"+(String)select_SinhVien.getSelectedItem()+"',DiaChi='"+Diachi.getText()+"',Phuong='"+(String)phuong.getSelectedItem()+"',Quan='"+(String)quan.getSelectedItem()+"',ThanhPho='"+(String)tp.getSelectedItem()+"',Email='"+Email.getText()+"',DT='"+SDT.getText()+"' WHERE  MaSV='"+MaSV.getText()+"'";
 					Statement statement = conn.createStatement();
 					int x = statement.executeUpdate(sql);
 					if (x >= 0) {
@@ -1083,10 +1091,14 @@ public class QuanLySinhVienUI extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				dm_MonHoc.setRowCount(0);
-				for (MonHoc x : arrMH) {
-					String[] row = { x.getMaMH(), x.getTenMH(), x.getTinChi(), x.getTime() };
-					dm_MonHoc.addRow(row);
+				dm_SinhVien.setRowCount(0);
+				String chonLop = (String) select_SinhVien.getSelectedItem();
+				for (SinhVien x : arrSV) {
+					if (chonLop.equals(x.getLop())) {
+						String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
+								x.getEmail(), x.getSdt() };
+						dm_SinhVien.addRow(row);
+					}
 				}
 			}
 		};
@@ -1095,10 +1107,13 @@ public class QuanLySinhVienUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MaMH.setText("");
-				TenMH.setText("");
-				Tinchi.setText("");
-				Time.setText("");
+				MaSV.setText("");
+				TenSV.setText("");
+				Diachi.setText("");
+				Email.setText("");
+				SDT.setText("");
+				select_SinhVien.setSelectedItem("Tất Cả");
+				tp.setSelectedItem("Thành phố Hà Nội");
 			}
 		};
 		// kết thúc CRUD môn học
@@ -1113,7 +1128,7 @@ public class QuanLySinhVienUI extends JFrame {
 				if (chonLop == "Tất Cả") {
 
 					for (SinhVien x : arrSV) {
-						String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getAdress(), x.getTp(), x.getQuan(), x.getPhuong(),
+						String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
 								x.getEmail(), x.getSdt() };
 						dm_SinhVien.addRow(row);
 					}
@@ -1121,8 +1136,8 @@ public class QuanLySinhVienUI extends JFrame {
 				} else {
 					for (SinhVien x : arrSV) {
 						if (chonLop.equals(x.getLop())) {
-							String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getAdress(), x.getTp(), x.getQuan(),
-									x.getPhuong(), x.getEmail(), x.getSdt() };
+							String[] row = { x.getLop(),x.getMaSV(), x.getTenSV(), x.getTp(), x.getQuan(), x.getPhuong(), x.getAdress(),
+									x.getEmail(), x.getSdt() };
 							dm_SinhVien.addRow(row);
 						}
 					}

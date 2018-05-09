@@ -11,7 +11,7 @@ public class SinhVien {
 	private String email;
 	private String sdt;
 	
-	public SinhVien( String lop,String maSV, String tenSV, String tp, String phuong, String quan, String diachi,
+	public SinhVien( String lop,String maSV, String tenSV, String tp, String quan,String phuong,  String diachi,
 			String email, String sdt) {
 		this.maSV = maSV;
 		this.tenSV = tenSV;
