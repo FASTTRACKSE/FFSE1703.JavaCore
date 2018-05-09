@@ -43,7 +43,7 @@ public class QuanLiTruongHocUI extends JFrame {
 		ThongKeSinhVienUI thongKeSinhVienUi= new ThongKeSinhVienUI();
 		myTabled.add("Thống Kê Sinh Viên", thongKeSinhVienUi);
 		ThongKeLopHocUI thongKeLopHocUi= new ThongKeLopHocUI();
-		myTabled.add("Thống Kê Sinh Viên", thongKeLopHocUi);
+		myTabled.add("Thống Kê Lớp Học", thongKeLopHocUi);
 		
 		con.add(myTabled);
 		

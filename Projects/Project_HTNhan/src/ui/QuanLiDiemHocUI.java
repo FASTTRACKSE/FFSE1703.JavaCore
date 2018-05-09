@@ -57,6 +57,26 @@ public class QuanLiDiemHocUI extends JPanel {
 		chonMon.add(cbochonMon);
 		pnlDiemHocInput1.add(chonMon);
 		
+		JPanel tenSv = new JPanel();
+		JLabel lbltenSv = new JLabel("Tên Sinh Viên");
+		JTextField txttenSv = new JTextField(15);
+		lbltenSv.setPreferredSize(new Dimension(90, 20));
+		tenSv.add(lbltenSv);
+		tenSv.add(txttenSv);
+		pnlDiemHocInput1.add(tenSv);
+		//
+		//
+		JPanel diemSv = new JPanel();
+		JLabel lbldiemSv = new JLabel("Nhập Điểm");
+		JTextField txtdiemSv = new JTextField(15);
+		lbldiemSv.setPreferredSize(new Dimension(90, 20));
+		diemSv.add(lbldiemSv);
+		diemSv.add(txtdiemSv);
+		pnlDiemHocInput1.add(diemSv);
+		//
+		
+		
+		
 		JPanel btn = new JPanel();
 		JButton btnNhap = new JButton("Nhập");
 		btnNhap.setPreferredSize(new Dimension(90, 30));
@@ -91,45 +111,12 @@ public class QuanLiDiemHocUI extends JPanel {
 		
 		
 		//Sinh Vien Nhap Diem
-		Border border2 = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle2 = BorderFactory.createTitledBorder(border2 ,"Sinh Viên Cần Nhập");
-		pnlDiemHocInput2.setBorder(borderTitle2);
-		//
-		pnlDiemHocInput2.setLayout(new BoxLayout(pnlDiemHocInput2, BoxLayout.Y_AXIS));
-		JPanel tenSv = new JPanel();
-		JLabel lbltenSv = new JLabel("Tên Sinh Viên");
-		JTextField txttenSv = new JTextField(15);
-		lbltenSv.setPreferredSize(new Dimension(90, 20));
-		tenSv.add(lbltenSv);
-		tenSv.add(txttenSv);
-		pnlDiemHocInput2.add(tenSv);
-		//
-		JPanel monHoc = new JPanel();
-		JLabel lblmonHoc = new JLabel("Môn Học");
-		JComboBox cbomonHoc = new JComboBox();
-		cbomonHoc.addItem("itemmmmmmmmmmm");
-		cbomonHoc.setPreferredSize(new Dimension(165, 20));
-		lblmonHoc.setPreferredSize(new Dimension(90, 20));
-		monHoc.add(lblmonHoc);
-		monHoc.add(cbomonHoc);
-		pnlDiemHocInput2.add(monHoc);
-		//
-		JPanel diemSv = new JPanel();
-		JLabel lbldiemSv = new JLabel("Nhập Điểm");
-		JTextField txtdiemSv = new JTextField(15);
-		lbldiemSv.setPreferredSize(new Dimension(90, 20));
-		diemSv.add(lbldiemSv);
-		diemSv.add(txtdiemSv);
-		pnlDiemHocInput2.add(diemSv);
-		//
-		JPanel btn2 = new JPanel();
-		JLabel lblNhap2 = new JLabel("");
-		JButton btnNhap2 = new JButton("Nhập Điểm");
-		btnNhap2.setPreferredSize(new Dimension(165, 20));
-		lblNhap2.setPreferredSize(new Dimension(90, 20));
-		btn2.add(lblNhap2);
-		btn2.add(btnNhap2);
-		pnlDiemHocInput2.add(btn2);
+//		Border border2 = BorderFactory.createLineBorder(Color.RED);
+//		TitledBorder borderTitle2 = BorderFactory.createTitledBorder(border2 ,"Sinh Viên Cần Nhập");
+//		pnlDiemHocInput2.setBorder(borderTitle2);
+//		//
+//		pnlDiemHocInput2.setLayout(new BoxLayout(pnlDiemHocInput2, BoxLayout.Y_AXIS));
+		
 		
 		
 		
