@@ -2,12 +2,12 @@ package ffse20.project_lp4.model;
 
 public class QuanLySinhVienModel {
 public String maSV, tenSV, maLop, ngaySinh, phuong,quan,thanhPho,email;
-public int phone;
+public String phone;
 
 
 
 public QuanLySinhVienModel(String maSV, String tenSV, String maLop, String ngaySinh, String phuong, String quan,
-		String thanhPho, String email, int phone) {
+		String thanhPho, String email, String sdt) {
 	super();
 	this.maSV = maSV;
 	this.tenSV = tenSV;
@@ -17,7 +17,7 @@ public QuanLySinhVienModel(String maSV, String tenSV, String maLop, String ngayS
 	this.quan = quan;
 	this.thanhPho = thanhPho;
 	this.email = email;
-	this.phone = phone;
+	this.phone = sdt;
 }
 
 
@@ -118,13 +118,13 @@ public void setEmail(String email) {
 
 
 
-public int getPhone() {
+public String getPhone() {
 	return phone;
 }
 
 
 
-public void setPhone(int phone) {
+public void setPhone(String phone) {
 	this.phone = phone;
 }
 

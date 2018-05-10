@@ -47,6 +47,7 @@ public class QuanLySinhVienUI extends JFrame {
 	// private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703",
 	// "FFSE1704" };
 
+	
 	private JButton btnThemsv = new JButton("Thêm");
 	private JButton btnSuasv = new JButton("Sửa");
 	private JButton btnXoasv = new JButton("Xóa");
@@ -58,6 +59,10 @@ public class QuanLySinhVienUI extends JFrame {
 	private JButton btnThemMon = new JButton("Thêm");
 	private JButton btnSuaMon = new JButton("Sửa");
 	private JButton btnXoaMon = new JButton("Xóa");
+	
+	private JButton btnThemDiem = new JButton("Thêm");
+	private JButton btnSuaDiem = new JButton("Sửa");
+	private JButton btnXoaDiem = new JButton("Xóa");
 	
 	private JComboBox<String> cboTinh = new JComboBox();
 	private JComboBox<String> cboQuan = new JComboBox();
@@ -79,7 +84,7 @@ public class QuanLySinhVienUI extends JFrame {
 	private JButton btnBctd;
 	private JButton btnBctdd;
 	private JTable tableMH, table1;
-	private DefaultTableModel dm, dmMhoc, dmLhoc;
+	private DefaultTableModel dm, dmMhoc, dmLhoc,dmDiem,dmSV;
 	private JTextField maLop1 = new JTextField(), tenLop1 = new JTextField(), namHoc1 = new JTextField(),
 			moTa1 = new JTextField();// LopHoc
 	
@@ -93,18 +98,35 @@ public class QuanLySinhVienUI extends JFrame {
 	private JTable tblLopHoc;
 	private JScrollPane sc_monHoc;
 	private JTable tblMonHoc;
-
+///////quanlysinhvien/////////
+	private JTextField masv;
+	private JTextField tenSV;
+	private JTextField ngaySinh;
+	private JTextField phone;
+	private JTextField Email;
+	
+	private JScrollPane sc_Diem;
+	private JTable tblDiem;
+	
+	private JScrollPane sc_SVien;
+	private JTable tblSinhVien;
+	
+	private JComboBox maLopcomnoBox = new JComboBox();
+	
 	private JPanel pnCard1;
 	private JPanel pnCard2;
 	private JPanel pnCard3;
+	private JPanel pnCard4;
 	
 	private ArrayList<QuanLyLopHocModel> arrMH = new ArrayList<QuanLyLopHocModel>();
+	private ArrayList<QuanLySinhVienModel> arrSV = new ArrayList<QuanLySinhVienModel>();
 
 	public QuanLySinhVienUI(String title) {
 		super(title);
 		addControls();
 		addEvents();
 		tinh();
+		maLopcomnoBox();
 
 	}
 
@@ -188,58 +210,41 @@ public class QuanLySinhVienUI extends JFrame {
 
 		JPanel chonlop = new JPanel();
 		chonlop.add(txtlop);
-		JComboBox select = new JComboBox();
-		chonlop.add(select);
+		chonlop.add(maLopcomnoBox);
 		cot1.add(chonlop);
 		
-//		Connection con1 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-//		try {
-//			Statement statement = con1.createStatement();
-//			ResultSet result = statement.executeQuery("SELECT tabel_lop.maLop FROM tabel_lop");
-//			while (result.next()) {
-//				arrMH.add(new QuanLyLopHocModel(result.getString("MaLop"), result.getString("TenLop"),
-//						result.getString("NamHoc")));
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		for (QuanLyLopHocModel x : arrMH) {
-//			String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc()};
-//			dmMhoc.addRow(row);
-//		}
 
 		JPanel nhapMaSV = new JPanel();
 		nhapMaSV.setLayout(new FlowLayout());
-		JTextField masv = new JTextField(12);
+		masv = new JTextField(12);
 		nhapMaSV.add(lblNhapmaSV);
 		nhapMaSV.add(masv);
 		cot1.add(nhapMaSV);
 
 		JPanel nhapTen = new JPanel();
 		nhapTen.setLayout(new FlowLayout());
-		JTextField tenLop = new JTextField(12);
+		tenSV = new JTextField(12);
 		nhapTen.add(lblNhapten);
-		nhapTen.add(tenLop);
+		nhapTen.add(tenSV);
 		cot1.add(nhapTen);
 
 		JPanel nhapNgaySinh = new JPanel();
 		nhapNgaySinh.setLayout(new FlowLayout());
-		JTextField namHoc = new JTextField(12);
+		ngaySinh = new JTextField(12);
 		nhapNgaySinh.add(lblNhapNgaySinh);
-		nhapNgaySinh.add(namHoc);
+		nhapNgaySinh.add(ngaySinh);
 		cot1.add(nhapNgaySinh);
 
 		JPanel nhapPhone = new JPanel();
 		nhapPhone.setLayout(new FlowLayout());
-		JTextField phone = new JTextField(12);
+		 phone = new JTextField(12);
 		nhapPhone.add(lblPhone);
 		nhapPhone.add(phone);
 		cot1.add(nhapPhone);
 
 		JPanel nhapEmail = new JPanel();
 		nhapEmail.setLayout(new FlowLayout());
-		JTextField Email = new JTextField(12);
+		Email = new JTextField(12);
 		nhapEmail.add(lblNhapEmail);
 		nhapEmail.add(Email);
 		cot1.add(nhapEmail);
@@ -277,20 +282,51 @@ public class QuanLySinhVienUI extends JFrame {
 		pnCard1.add(cot3);
 
 		JPanel pnTable = new JPanel();
-		dm = new DefaultTableModel();
-		JTable tbl = new JTable(dm);
-		dm.addColumn("Mã Lớp");
-		dm.addColumn("Mã SV");
-		dm.addColumn("Họ Tên");
-		dm.addColumn("Ngày Sinh");
-		dm.addColumn("SĐT");
-		dm.addColumn("Email");
-		dm.addColumn("Thành Phố(Tỉnh)");
-		dm.addColumn("Quận(Huyện)");
-		dm.addColumn("Phường(Xã)");
+		dmSV = new DefaultTableModel();
+		JTable tbl = new JTable(dmSV);
+		dmSV.addColumn("Mã Lớp");
+		dmSV.addColumn("Mã SV");
+		dmSV.addColumn("Họ Tên");
+		dmSV.addColumn("Ngày Sinh");
+		dmSV.addColumn("SĐT");
+		dmSV.addColumn("Email");
+		dmSV.addColumn("Thành Phố(Tỉnh)");
+		dmSV.addColumn("Quận(Huyện)");
+		dmSV.addColumn("Phường(Xã)");
+		
+		
+		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM tabel_sinhvien");
+			while (result.next()) {
+				arrSV.add(new QuanLySinhVienModel(result.getString("ma_SV"), 
+												result.getString("tenSV"), 
+												result.getString("maLop"),
+												result.getString("ngaysinh"), 
+												result.getString("phuong"), 
+												result.getString("quan"),
+												result.getString("thanhPho"), 
+												result.getString("email"),
+												result.getString("phone")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		JScrollPane sc = new JScrollPane(tbl);
-		JScrollPane VT = new JScrollPane(sc, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		for (QuanLySinhVienModel x : arrSV) {
+			String[] row = { x.getMaLop(), x.getMaSV(),
+							x.getTenSV(), x.getNgaySinh(),
+							x.getPhone(), x.getEmail(),
+							x.getPhuong(),x.getQuan(),
+							x.getThanhPho() };
+			dmSV.addRow(row);
+		}
+		
+		
+		tblSinhVien = new JTable(dmSV);
+		sc_SVien = new JScrollPane(tblSinhVien);
+		JScrollPane VT = new JScrollPane(sc_SVien, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		VT.setPreferredSize(new Dimension(1200, 350));
 		pnTable.add(VT, BorderLayout.CENTER);
@@ -301,7 +337,16 @@ public class QuanLySinhVienUI extends JFrame {
 		pnCard1.add(pnTable);
 		pnCenter.add(pnCard1);
 
+		
+		
+		
+		
+		///////////////////
 		//////////////////////////////// CardLayout2-QuanLyMonHoc///////////////////////////////////
+		//////////////
+		
+		
+		
 		pnCard2 = new JPanel();
 		Border border1 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle1 = BorderFactory.createTitledBorder(border1, "NHẬP THÔNG TIN");
@@ -342,9 +387,9 @@ public class QuanLySinhVienUI extends JFrame {
 		dmLhoc.addColumn("Tên Lớp");
 		dmLhoc.addColumn("Năm Học");
 
-		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		Connection conn2 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 		try {
-			Statement statement = conn.createStatement();
+			Statement statement = conn2.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM tabel_lop");
 			while (result.next()) {
 				arrMH.add(new QuanLyLopHocModel(result.getString("maLop"), result.getString("tenLop"),
@@ -372,7 +417,13 @@ public class QuanLySinhVienUI extends JFrame {
 		pnTable1.setBorder(borderTitle3);
 		pnCard2.add(pnTable1);
 		
+		
+		////////////
 		////////////Card3-QuanLyMonHoc///////////////////
+		///////////////
+		
+		
+		
 		pnCard3 = new JPanel();
 		Border border4 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle4 = BorderFactory.createTitledBorder(border4, "NHẬP THÔNG TIN");
@@ -463,13 +514,100 @@ public class QuanLySinhVienUI extends JFrame {
 		pnTable2.setBorder(borderTitle5);
 		pnCard3.add(pnTable2);
 		
+		
+		
 		///////////////////////////
+		///////////////CardLayout4-QuanLyDiem///////////////
+		///////////////////
+		pnCard4 = new JPanel();
+		Border border6 = BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle6 = BorderFactory.createTitledBorder(border6, "NHẬP THÔNG TIN");
+		pnCard4.setBorder(borderTitle6);
+
+		JLabel lblNhapLop5 = new JLabel("Mã Lớp :");
+		JPanel chonlop5 = new JPanel();
+		chonlop5.add(lblNhapLop5);
+		JComboBox maLop5 = new JComboBox();
+		chonlop5.add(maLop5);
+		pnCard4.add(chonlop5);
+		
+		
+		JLabel lblNhapSV5 = new JLabel("Sinh Viên :");
+		JPanel chonSV5 = new JPanel();
+		chonSV5.add(lblNhapSV5);
+		JComboBox maSV5 = new JComboBox();
+		chonSV5.add(maSV5);
+		pnCard4.add(chonSV5);
+		
+		JLabel lblNhapMhoc5 = new JLabel("Môn Học :");
+		JPanel chonMhoc5 = new JPanel();
+		chonMhoc5.add(lblNhapMhoc5);
+		JComboBox maMhoc5 = new JComboBox();
+		chonMhoc5.add(maMhoc5);
+		pnCard4.add(chonMhoc5);
+		
+			
+		JPanel nhapDiem5 = new JPanel();
+		maMhoc = new JTextField(12);
+		JLabel lblNhapDiem5 = new JLabel("Điểm :");
+		nhapDiem5.add(lblNhapDiem5);
+		nhapDiem5.add(maMhoc);
+		pnCard4.add(nhapDiem5);
+
+
+		JPanel chucNang5 = new JPanel();
+		chucNang5.setLayout(new FlowLayout());
+		chucNang5.add(btnThemDiem);
+		chucNang5.add(btnSuaDiem);
+		chucNang5.add(btnXoaDiem);
+		pnCard4.add(chucNang5);
+		
+		JPanel pnTable5 = new JPanel();
+		
+		dmDiem = new DefaultTableModel();
+
+		dmDiem.addColumn("Mã Lớp");
+		dmDiem.addColumn("Sinh Viên");
+		dmDiem.addColumn("Mã Môn Học");
+		dmDiem.addColumn("Điểm");
+
+//		Connection con2 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+//		try {
+//			Statement statement = con2.createStatement();
+//			ResultSet result = statement.executeQuery("SELECT * FROM tabel_lop");
+//			while (result.next()) {
+//				arrMH.add(new QuanLyLopHocModel(result.getString("maLop"), result.getString("tenLop"),
+//						result.getString("namHoc")));
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		for (QuanLyLopHocModel x : arrMH) {
+//			String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc()};
+//			dmMhoc.addRow(row);
+//		}
+		
+		tblDiem = new JTable(dmDiem);
+		sc_Diem = new JScrollPane(tblDiem);
+		JScrollPane VT5 = new JScrollPane(sc_Diem, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		VT5.setPreferredSize(new Dimension(1200, 400));
+		pnTable5.add(VT5, BorderLayout.CENTER);
+		pnMain.add(pnTable5);
+
+		Border border7 = BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle7 = BorderFactory.createTitledBorder(border7, "Danh sách");
+		pnTable5.setBorder(borderTitle7);
+		pnCard4.add(pnTable5);
+		
 		
 		pnMain.add(pnTitle);
 		pnMain.add(pnCenter);
 		cardlayout.add(pnCard1);
 		cardlayout.add(pnCard2);
 		cardlayout.add(pnCard3);
+		cardlayout.add(pnCard4);
 		pnMain.add(cardlayout);
 		setVisible(true);
 
@@ -494,12 +632,32 @@ public class QuanLySinhVienUI extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void maLopcomnoBox() {
+		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM tabel_lop");
+			while (result.next()) {
+				maLopcomnoBox.addItem(new String(result.getString("MaLop")));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+	
 
 	public void addEvents() {
 		tblLopHoc.addMouseListener(eventTableLop);
 		btnThemlp.addActionListener(eventAdd);
 		btnXoalp.addActionListener(eventDel);
 		btnSualp.addActionListener(eventEdit);
+		
+		btnThemsv.addActionListener(eventAddSinhVien);
+		
 		cboTinh.addActionListener(eventChooseQuan);
 		cboQuan.addActionListener(eventChoosePhuong);
 
@@ -511,6 +669,7 @@ public class QuanLySinhVienUI extends JFrame {
 				pnCard1.setVisible(false);
 				pnCard2.setVisible(true);
 				pnCard3.setVisible(false);
+				pnCard4.setVisible(false);
 			}
 
 		});
@@ -522,6 +681,7 @@ public class QuanLySinhVienUI extends JFrame {
 				pnCard1.setVisible(true);
 				pnCard2.setVisible(false);
 				pnCard3.setVisible(false);
+				pnCard4.setVisible(false);
 			}
 
 		});
@@ -533,6 +693,19 @@ public class QuanLySinhVienUI extends JFrame {
 				pnCard1.setVisible(false);
 				pnCard2.setVisible(false);
 				pnCard3.setVisible(true);
+				pnCard4.setVisible(false);
+			}
+
+		});
+		btnBctd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				pnCard1.setVisible(false);
+				pnCard2.setVisible(false);
+				pnCard3.setVisible(false);
+				pnCard4.setVisible(true);
 			}
 
 		});
@@ -585,7 +758,13 @@ public class QuanLySinhVienUI extends JFrame {
 
 		}
 	};
+	
+	
+	/////////////////
 	/////////////////// envent-QuanLyLop////////////////////
+	//////////////////
+	
+	
 	MouseAdapter eventTableLop = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			int row = tblLopHoc.getSelectedRow();
@@ -618,10 +797,12 @@ public class QuanLySinhVienUI extends JFrame {
 				dmLhoc.addRow(new String[] { malop, tenlp, nam });
 				Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 				try {
-					String sql = "INSERT INTO tabel_lop(maLop,tenLop,namHoc) VALUES (" + "'" + malop + "','"
+					String sqlLop = "INSERT INTO tabel_lop(maLop,tenLop,namHoc) VALUES (" + "'" + malop + "','"
 							+ tenlp + "','" + nam + "')";
+					
+
 					Statement statement = conn.createStatement();
-					int x = statement.executeUpdate(sql);
+					int x = statement.executeUpdate(sqlLop);
 					if (x > 0) {
 						JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
 					}
@@ -697,11 +878,93 @@ public class QuanLySinhVienUI extends JFrame {
 		}
 
 	};
+	
+	
+	///////////////////////////////////////////////////////////////////
+	/////////////////EVENT-QUANLYSINHVIEN////////////////////////
+	///////////////////////////////////////////////////////
+	MouseAdapter eventTableSV = new MouseAdapter() {
+		public void mouseClicked(MouseEvent e) {
+			int row = tblSinhVien.getSelectedRow();
+			String[] col = new String[9];
+			col[0] = (String) tblSinhVien.getValueAt(row, 0);
+			col[1] = (String) tblSinhVien.getValueAt(row, 1);
+			col[2] = (String) tblSinhVien.getValueAt(row, 2);
+			col[3] = (String) tblSinhVien.getValueAt(row, 3);
+			col[4] = (String) tblSinhVien.getValueAt(row, 4);
+			col[5] = (String) tblSinhVien.getValueAt(row, 5);
+			col[6] = (String) tblSinhVien.getValueAt(row, 6);
+			col[7] = (String) tblSinhVien.getValueAt(row, 7);
+			col[8] = (String) tblSinhVien.getValueAt(row, 8);
 
+
+			masv.setText(col[0]);
+			tenSV.setText(col[1]);
+			maLopcomnoBox.setSelectedItem(col[2]);
+			ngaySinh.setText(col[3]);
+			cboPhuong.setSelectedItem(col[4]);
+			cboQuan.setSelectedItem(col[5]);
+			cboTinh.setSelectedItem(col[6]);
+			phone.setText(col[7]);
+			Email.setText(col[8]);
+
+		}
+	};
+	
+	ActionListener eventAddSinhVien = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String maLp = (String)maLopcomnoBox.getSelectedItem();
+
+			String maSV = masv.getText();
+			String ten = tenSV.getText();
+			String nam = ngaySinh.getText();
+			String sdt = phone.getText();
+			String email = Email.getText();
+			String tp_SinhVien = (String)cboTinh.getSelectedItem();
+			String quan_SinhVien = (String)cboQuan.getSelectedItem();
+			String phuong_SinhVien = (String)cboPhuong.getSelectedItem();
+			System.out.println(phuong_SinhVien);
+
+			try {
+				if ( maSV.equals("") || ten.equals("") || nam.equals("")
+						|| email.equals("")) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+				} else {
+					arrSV.add(new QuanLySinhVienModel( maSV, ten,maLp,nam,phuong_SinhVien,quan_SinhVien, tp_SinhVien,email,sdt));
+					dmSV.addRow(new String[] {  maSV, ten,maLp, nam,phuong_SinhVien,quan_SinhVien,tp_SinhVien,email,sdt });
+					Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+					try {
+						String sql = "INSERT INTO tabel_sinhvien(ma_SV, tenSV, maLop , ngaysinh, phuong, quan, thanhPho, email, phone) VALUES('"+maSV+"','"+ten+"','"+maLp+"','"+nam+"','"+phuong_SinhVien+"','"+quan_SinhVien+"','"+tp_SinhVien+"','"+email+"','"+sdt+"')";
+						System.out.println(sql);
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+			}
+			
+			dmSV.setRowCount(0);
+			for (QuanLySinhVienModel x : arrSV) {
+				if (maLp.equals(x.getMaLop())) {
+					String[] row = {x.getMaSV(), x.getTenSV(), x.getMaLop(), x.getNgaySinh(), x.getPhuong(), x.getQuan(), x.getThanhPho(),
+							x.getEmail(), x.getPhone() };
+					dmSV.addRow(row);
+				}
+			}
+		}
+		};
+	
 	public void showWindow() {
 		this.setSize(1250, 750);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-}
+	}
