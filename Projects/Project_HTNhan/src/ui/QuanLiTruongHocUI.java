@@ -49,7 +49,7 @@ public class QuanLiTruongHocUI extends JFrame {
 		
 	}
 	public void showWindow() {
-		this.setSize(1000, 700);
+		this.setSize(1200, 700);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
