@@ -3,6 +3,8 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -41,15 +43,17 @@ public class QuanLiDiemHocUI extends JPanel {
 	private QuanLiSinhVienSQL quanLiSinhVienSQL = new QuanLiSinhVienSQL();
 	private QuanLiLopHocSQL quanLiLopHocSQL = new QuanLiLopHocSQL();
 	private QuanLiMonHocSQL quanLiMonHocSQL = new QuanLiMonHocSQL();
-	
+
 	private ArrayList<QuanLiMonHocModel> arrMonHoc = new ArrayList<>();
 	private ArrayList<QuanLiLopHocModel> arrMaLop = new ArrayList<>();
+	private ArrayList<QuanLiMonHocCuaLopModel> arrMonvaLop = new ArrayList<>();
 	private ArrayList<QuanLiSinhVienModel> arrQlSinhVien = new ArrayList<>();
 
 	public QuanLiDiemHocUI() {
 		addControls();
 		addEvents();
 		table();
+
 	}
 
 	public void addControls() {
@@ -71,7 +75,8 @@ public class QuanLiDiemHocUI extends JPanel {
 		cbochonLop = new JComboBox();
 
 		arrMaLop = quanLiLopHocSQL.selectLop();
-		for(QuanLiLopHocModel x: arrMaLop) {
+		cbochonLop.addItem("Chọn Lớp");
+		for (QuanLiLopHocModel x : arrMaLop) {
 			cbochonLop.addItem(x.getMaLop());
 		}
 		cbochonLop.setPreferredSize(new Dimension(170, 20));
@@ -83,10 +88,7 @@ public class QuanLiDiemHocUI extends JPanel {
 		JPanel chonMon = new JPanel();
 		JLabel lblchonMon = new JLabel("Chọn Môn ");
 		cbochonMon = new JComboBox();
-		arrMonHoc = quanLiMonHocSQL.selectMonHoc();
-		for(QuanLiMonHocModel x: arrMonHoc) {
-			cbochonMon.addItem(x.getMaMH());
-		}
+
 		cbochonMon.setPreferredSize(new Dimension(170, 20));
 		lblchonMon.setPreferredSize(new Dimension(90, 50));
 		chonMon.add(lblchonMon);
@@ -149,14 +151,51 @@ public class QuanLiDiemHocUI extends JPanel {
 	}
 
 	public void addEvents() {
+		cbochonLop.addActionListener(eventCboMaLop);
+		cbochonMon.addActionListener(eventCboChonMon);
 
 	}
+
+	ActionListener eventCboMaLop = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dm.setRowCount(0);
+			table();
+		}
+	};
+	ActionListener eventCboChonMon = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			arrMonvaLop = quanLiLopHocSQL.selectMonHocCuaLop(maLop);
+			String comBox = cbochonLop.getSelectedItem().toString();
+			for (QuanLiMonHocCuaLopModel x : arrMonvaLop) {
+				if (comBox.equals(x.getMalop())) {
+					cbochonMon.addItem(x.getMaMh());
+				}
+			}
+
+		}
+	};
 
 	public void table() {
 		arrQlSinhVien = quanLiSinhVienSQL.selectAll();
-		for (QuanLiSinhVienModel x : arrQlSinhVien) {
-			String row[] = { x.getMaSv(), x.getHoTenSv(), x.getMaLop() };
-			dm.addRow(row);
+		String comBox = cbochonLop.getSelectedItem().toString();
+		if (comBox == "Chọn Lớp") {
+			for (QuanLiSinhVienModel x : arrQlSinhVien) {
+				String row[] = { x.getMaSv(), x.getHoTenSv(), x.getMaLop() };
+				dm.addRow(row);
+			}
+		} else {
+			for (QuanLiSinhVienModel x : arrQlSinhVien) {
+				if (comBox.equals(x.getMaLop())) {
+					String row[] = { x.getMaSv(), x.getHoTenSv(), x.getMaLop() };
+					dm.addRow(row);
+				}
+			}
+
 		}
 	}
+
 }

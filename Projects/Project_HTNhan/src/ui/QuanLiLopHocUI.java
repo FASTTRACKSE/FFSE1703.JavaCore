@@ -373,10 +373,11 @@ public class QuanLiLopHocUI extends JPanel {
 	}
 
 	public void tableMonCuaLop(String maLop) {
+
 		dm1.setRowCount(0);
 		arrMonHocCuaLop = quanLiLopHocSQL.selectMonHocCuaLop(maLop);
 		for (QuanLiMonHocCuaLopModel x : arrMonHocCuaLop) {
-			String row[] = { x.getMaMh() };
+			String row[] = { x.getMaMh()};
 			dm1.addRow(row);
 		}
 	}
