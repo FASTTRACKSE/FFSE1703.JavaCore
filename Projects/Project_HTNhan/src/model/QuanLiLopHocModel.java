@@ -1,14 +1,8 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 public class QuanLiLopHocModel {
 	private String maLop,tenLop,namHoc;
-	final Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
-	private static ArrayList<QuanLiLopHocModel> arrMaLop = new ArrayList<>();
+	
 	public QuanLiLopHocModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,20 +28,6 @@ public class QuanLiLopHocModel {
 	}
 	public void setNamHoc(String namHoc) {
 		this.namHoc = namHoc;
-	}
-	public ArrayList<QuanLiLopHocModel> selectLop() {
-		try {
-			arrMaLop.clear();
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("select MaLop from QLLopHoc");
-			while (result.next()) {
-				maLop = result.getString("MaLop");
-				arrMaLop.add(new QuanLiLopHocModel(maLop,tenLop,namHoc));
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return arrMaLop;
 	}
 	public String toString () {
 		return this.maLop;
