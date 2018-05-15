@@ -414,7 +414,21 @@ public class LayoutTransactionCus extends JPanel{
 				int checkDay=0;
 				try {
 					dayFrom = jdcFromDay.getCalendar();
-					dayTo = jdcToDay.getCalendar();					
+					dayTo = jdcToDay.getCalendar();	
+					Calendar checkFrom = Calendar.getInstance();
+					Calendar checkTo = Calendar.getInstance();
+					if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
+			    		dayTo = Calendar.getInstance();
+			    		dayFrom = Calendar.getInstance();
+			    		jdcFromDay.setCalendar(checkFrom);
+			    		jdcToDay.setCalendar(checkTo);
+			    	}else if(checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
+			    		dayFrom = Calendar.getInstance();
+			    		jdcFromDay.setCalendar(checkFrom);    		
+			    	}else if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()) {
+			    		dayTo = Calendar.getInstance();
+			    		jdcToDay.setCalendar(checkTo);
+			        }
 					dayF =dayFrom.getTimeInMillis();
 					dayT =dayTo.getTimeInMillis();
 					checkDay=(int) TimeUnit.MILLISECONDS.toDays(Math.abs(dayT - dayF));
@@ -441,8 +455,10 @@ public class LayoutTransactionCus extends JPanel{
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = Calendar.getInstance();
 					jdcToDay.setCalendar(dayTo);
+					
 					searchTss(districts,wards,codeTss,streetTss,dayFrom,dayTo);
 				}else {
+					
 					if((dayT-dayF)<0) {
 						String msgXoa ="Ngày Kết Thúc Phải Lớn Hơn\nNgày Bắt Đầu";
 						JOptionPane.showMessageDialog(null, msgXoa, "Lỗi Thời Gian!!!", JOptionPane.INFORMATION_MESSAGE);
@@ -450,6 +466,7 @@ public class LayoutTransactionCus extends JPanel{
 						String msgXoa ="khoảng thời gian không quá 90 ngày";
 						JOptionPane.showMessageDialog(null, msgXoa, "Lỗi Thời Gian!!!", JOptionPane.INFORMATION_MESSAGE);
 					}else{
+						
 						searchTss(districts,wards,codeTss,streetTss,dayFrom,dayTo);
 					}
 				}
@@ -470,15 +487,22 @@ public class LayoutTransactionCus extends JPanel{
 				String wards = cboWards.getSelectedItem().toString();
 				int month = jmcMonth.getMonth();
 				int year = jycYear.getValue();
-				String monthDate = String.valueOf(month+1);
-				String yearDate = String.valueOf(year);
-				String resuiltChoose;
-				if((month+1)>=10) {
-					resuiltChoose = yearDate+"-"+monthDate;
+				int nowMonth =Calendar.getInstance().get(Calendar.MONTH);
+				int nowYear =Calendar.getInstance().get(Calendar.YEAR);								
+				if(year>nowYear) {
+					year=nowYear;
+					month=nowMonth;
+					jmcMonth.setMonth(nowMonth);
+					jycYear.setYear(nowYear);
+					searchTssMonth( districts, wards, codeTss, streetTss,month,year);
+				}else if(month>nowMonth){
+					month=nowMonth;
+					jmcMonth.setMonth(nowMonth);
+					searchTssMonth( districts, wards, codeTss, streetTss,month,year);
 				}else {
-					resuiltChoose = yearDate+"-0"+monthDate;
-				}				 
-				searchTssMonth( districts, wards, codeTss, streetTss, resuiltChoose);				
+					searchTssMonth( districts, wards, codeTss, streetTss,month,year);
+				}
+								
 			}catch (Exception e1) {
 				String msgXoa ="Chưa Chọn Ngày !!!";
 				JOptionPane.showMessageDialog(null, msgXoa, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
@@ -487,7 +511,21 @@ public class LayoutTransactionCus extends JPanel{
     };
     
     public void searchTss(String districts,String wards,String codeTss,String streetTss,Calendar dayFrom,Calendar dayTo) {
-    	ArrayList<CusTransaction> arrCusTss = new ArrayList<>();
+    	ArrayList<CusTransaction> arrCusTss = new ArrayList<>();    	
+    	Calendar checkFrom = Calendar.getInstance();
+		Calendar checkTo = Calendar.getInstance();
+		if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
+    		dayTo = Calendar.getInstance();
+    		dayFrom = Calendar.getInstance();
+    		jdcFromDay.setCalendar(checkFrom);
+    		jdcToDay.setCalendar(checkTo);
+    	}else if(checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
+    		dayFrom = Calendar.getInstance();
+    		jdcFromDay.setCalendar(checkFrom);    		
+    	}else if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()) {
+    		dayTo = Calendar.getInstance();
+    		jdcToDay.setCalendar(checkTo);
+        }
     	if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
@@ -518,18 +556,26 @@ public class LayoutTransactionCus extends JPanel{
     	
     }
     
-    public void searchTssMonth(String districts,String wards,String codeTss,String streetTss,String dayChoose) {
+    public void searchTssMonth(String districts,String wards,String codeTss,String streetTss, int month, int year ) {
     	ArrayList<CusTransaction> arrCusTss = new ArrayList<>();
+    	String monthDate = String.valueOf(month+1);
+		String yearDate = String.valueOf(year);
+		String resuiltChoose;
+		if((month+1)>=10) {
+			resuiltChoose = yearDate+"-"+monthDate;
+		}else {
+			resuiltChoose = yearDate+"-0"+monthDate;
+		}
     	if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
-			arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, dayChoose);
+			arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
 		}else {
 			if(wards.equals("Tất Cả")) {
 				wards="";
-				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, dayChoose);
+				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
 			}else {
-				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, dayChoose);
+				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
 			}
 		}	
 		list.setRowCount(0);
