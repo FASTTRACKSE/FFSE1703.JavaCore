@@ -49,8 +49,7 @@ public class SinhVienUI extends JPanel{
 
 
 	public SinhVienUI() {
-		lop(selectSinhVien);
-		
+		lop(selectSinhVien);	
 		sinhvien();
 		tinh();
 		quan();

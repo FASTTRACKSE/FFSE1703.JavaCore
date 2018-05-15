@@ -31,7 +31,6 @@ public class LopHocUI extends JPanel{
 	private JButton suaLopHoc = new JButton("Sửa");
 	private JButton nhapLopHoc = new JButton("Nhập");
 
-	private JComboBox<String> selectMaMH = new JComboBox<>();
 	private JComboBox<String> selectMaSV = new JComboBox<>();
 	private JComboBox<String> namhoc = new JComboBox<>();
 
@@ -41,7 +40,6 @@ public class LopHocUI extends JPanel{
 	
 
 	public LopHocUI() {
-		monhoc(selectMaMH);
 		addControls();
 		addEvent();
 	}

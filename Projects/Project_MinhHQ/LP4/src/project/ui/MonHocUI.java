@@ -1,41 +1,25 @@
 package project.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import project.connect.Connect;
+import project.model.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import project.connect.Connect;
-import project.model.MonHoc;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MonHocUI extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	public MonHocUI() {
 		lop(selectMonHoc);
-		monhoc(selectMaMH);
 		addControls();
 		addEvent();
 	}
@@ -52,10 +36,7 @@ public class MonHocUI extends JPanel{
 	private JButton suaMonHoc = new JButton("Sửa");
 	private JButton nhapMonHoc = new JButton("Nhập");
 
-
-	private JComboBox<String> selectMonHoc = new JComboBox<>();
-	private JComboBox<String> selectMaMH = new JComboBox<>();
-	
+	private JComboBox<String> selectMonHoc = new JComboBox<>();	
 
 	private DefaultTableModel dm_MonHoc;
 	private JTable table_MonHoc;
