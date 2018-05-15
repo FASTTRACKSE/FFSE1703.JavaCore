@@ -17,6 +17,7 @@ public class LayoutCustomer extends JPanel {
 	private LayoutCustomerManage layoutCusManage;
 	private LayoutReportCus layoutCusReport;
 	private LayoutTransactionCus layoutCusTransaction;
+	private LayoutRechargeCus layoutCusRecharge;
 	public LayoutCustomer() {
 		addControlls();
 		addEvents();
@@ -121,8 +122,26 @@ public class LayoutCustomer extends JPanel {
 		layoutCusTransaction = new LayoutTransactionCus();
 		pnTabMoney.add(layoutCusTransaction);
 		
+		JPanel pnRecharge=new JPanel(){ 
+			private static final long serialVersionUID = 1L;
+
+			public void paintComponent(Graphics g) 
+            { 
+                Dimension d = getSize(); 
+                Image img=this.getToolkit().getImage("src/ffse1703005/software/atm/images/money.png"); 
+                g.drawImage(img, 0, 0, d.width, d.height, null); 
+
+                setOpaque( false );  // lam trong suot  
+                super.paintComponent(g); 
+            } 
+        };
+        pnRecharge.setOpaque(false);
+        layoutCusRecharge = new LayoutRechargeCus();
+		pnRecharge.add(layoutCusRecharge);
+		
 		myTabled.add(pnTabCustomer,"Quản Lý Khách Hàng");
 		myTabled.add(pnTabReport,"Thống Kê Khách Hàng");
+		myTabled.add(pnRecharge,"Nạp Tiền Cho Khách Hàng");
 		myTabled.add(pnTabMoney,"Giao Dịch Của Khách Hàng");
 		pnMail.add(myTabled);
 		

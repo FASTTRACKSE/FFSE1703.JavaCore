@@ -8,14 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,35 +32,26 @@ import javax.swing.table.DefaultTableModel;
 
 import ffse1703005.software.atm.model.Customer;
 import ffse1703005.software.atm.model.CustomerDB;
-import ffse1703005.software.atm.model.StamentAdress;
+import ffse1703005.software.atm.model.TransactionsDb;
 
-public class LayoutReportCus extends JPanel{
+public class LayoutRechargeCus extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor;
-	private JComboBox<String> cboDistricts,cboWards;
-	private JTextField txtFullname,txtPhone,txtEmail,txtCode,txtStreets;
+	private JButton btnClearInfor,btnRecharge;
+	private JTextField txtFullname,txtPhone,txtEmail,txtCode,txtRecharge;
 	private JTextField txtDetailFullname,txtDetailPhone,txtDetailEmail,txtDetailDistricts,txtDetailWards,
 	txtDetailStreets,txtDetailCode,txtDetailAccNumber,txtDetailBalance;
-	private String nameSearch="",phoneSearch="",emailSearch="",codeSearch="",streetSearch;
+	private String nameSearch="",phoneSearch="",emailSearch="",codeSearch="";
 	private DefaultTableModel list=new DefaultTableModel();
 	private final JTable tbl=new JTable(list);
-	private ArrayList<String> arrAdress = new ArrayList<String>();
-	private StamentAdress adress = new StamentAdress();
 	private ArrayList<Customer> arrCtm;
 	private ArrayList<Customer> arrCtmAll;
-	public LayoutReportCus() {
+	public LayoutRechargeCus() {
 		addControlls();
-		addEvents();
-		arrAdress = adress.SeclectDis();
-		for(String x:arrAdress) {
-			cboDistricts.addItem(x);
-		}
-		
+		addEvents();		
 		arrCtmAll = new ArrayList<Customer>();
 		arrCtmAll = CustomerDB.getCustomersList();
 		arrCtm = new ArrayList<Customer>();
-		arrCtm = arrCtmAll;
-		printListCus();
+		arrCtm = updateArrCtm();
 	}
 
 	private void addControlls() {
@@ -86,10 +80,10 @@ public class LayoutReportCus extends JPanel{
 			JPanel pnList = new JPanel();
 			Border titleBorderList;
 			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
-			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
+			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"CHỌN KHÁCH HÀNG",
 			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 			pnList.setBorder(titleBorderList);
-			pnList.setPreferredSize(new Dimension(700,250));
+			pnList.setPreferredSize(new Dimension(700,220));
 			pnList.setMaximumSize(pnList.getPreferredSize() );
 			list.addColumn("Mã Khách Hàng");
 			list.addColumn("Họ Và Tên");
@@ -115,10 +109,10 @@ public class LayoutReportCus extends JPanel{
 			pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
 			Border titleBorderDetail;
 			Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
-			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
+			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Nạp Tiền Cho Khách Hàng",
 			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 			pnDetail.setBorder(titleBorderDetail);
-			pnDetail.setPreferredSize(new Dimension(700,155));
+			pnDetail.setPreferredSize(new Dimension(700,190));
 			pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
 			pnCenter.add(pnDetail);
 			
@@ -267,12 +261,21 @@ public class LayoutReportCus extends JPanel{
 			);
 			pnAllInfor.add(pnDetailAccount);
 			
+			JPanel pnRecharge = new JPanel();
+			JLabel lblRecharge = new JLabel("Nhập Số Tiền Cần Nạp");
+			txtRecharge = new JTextField(20);
+			btnRecharge = new JButton("Nạp Tiền");
+			pnRecharge.add(lblRecharge);
+			pnRecharge.add(txtRecharge);
+			pnRecharge.add(btnRecharge);
+			
 			JPanel pnClear = new JPanel();
 			btnClearInfor = new JButton("Clear Thông Tin");
 			btnClearInfor.setEnabled(false);
 			pnClear.add(btnClearInfor);
 			
 			pnDetail.add(pnAllInfor);
+			pnDetail.add(pnRecharge);
 			pnDetail.add(pnClear);
 			pnMain.add(pnCenter);
 			
@@ -288,7 +291,7 @@ public class LayoutReportCus extends JPanel{
 			pnAction.setOpaque(false);
 			
 			JPanel pnBlank = new JPanel();
-			pnBlank.setPreferredSize(new Dimension(340,50));
+			pnBlank.setPreferredSize(new Dimension(340,140));
 			pnBlank.setMaximumSize(pnBlank.getPreferredSize() );
 			pnBlank.setOpaque(false);
 			pnAction.add(pnBlank);
@@ -300,7 +303,7 @@ public class LayoutReportCus extends JPanel{
 			pnInformation.setOpaque(false);
 			Border titleBorderInfor;
 			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
-			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
+			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Nhập 1 trong các ô dưới để tìm kiếm",
 			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 			pnInformation.setBorder(titleBorderInfor);
 			pnInformation.setOpaque(false);
@@ -356,82 +359,8 @@ public class LayoutReportCus extends JPanel{
 						.addComponent(txtCode)
 					)			
 			);
-			
-			
-			JPanel pnAdress = new JPanel();
-			pnAdress.setPreferredSize(new Dimension(340,180));
-			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
-			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
-			pnAdress.setOpaque(false);
-			Border titleBorderAdress;
-			Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
-			titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
-			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-			pnAdress.setBorder(titleBorderAdress);
-			pnAdress.setOpaque(false);
-			
-		
-			JLabel lblDistricts = new JLabel("Quận :");
-			cboDistricts=new JComboBox<>();
-			cboDistricts.addItem("Tất Cả");
-
-			JLabel lblWards = new JLabel("Phường :");
-			cboWards=new JComboBox<>();
-			cboWards.addItem("Tất Cả");
-			
-			JLabel lblStreets = new JLabel("Địa Chỉ Nhà :");
-			txtStreets = new JTextField(20);
-			
-			JPanel pnSearchAdress = new JPanel();
-			pnSearchAdress.setOpaque(false);
-			btnSearchAdress = new JButton("Xem");										
-			btnCancelAdress = new JButton("Hủy");
-			btnCancelAdress.setEnabled(false);
-			pnSearchAdress.add(btnSearchAdress);
-			pnSearchAdress.add(btnCancelAdress);
-			
-			
-			GroupLayout adressLayout = new GroupLayout(pnAdress);
-			pnAdress.setLayout(adressLayout);
-			adressLayout.setAutoCreateGaps(true);
-			adressLayout.setAutoCreateContainerGaps(true);
-			
-			adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
-				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-					.addComponent(lblDistricts, 0, 100, Short.MAX_VALUE)
-					.addComponent(lblWards)
-					.addComponent(lblStreets)
-				)
-				.addGroup(adressLayout.createParallelGroup()
-					.addComponent(cboDistricts)
-					.addComponent(cboWards)
-					.addComponent(txtStreets)
-					.addComponent(pnSearchAdress)
-				)
-			);
-			
-			adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
-				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-					.addComponent(lblDistricts)
-					.addComponent(cboDistricts)
-				)
-				.addGroup(adressLayout.createParallelGroup()
-						.addComponent(lblWards)
-						.addComponent(cboWards)
-					)
-				.addGroup(adressLayout.createParallelGroup()
-						.addComponent(lblStreets)
-						.addComponent(txtStreets)
-					)
-				.addGroup(adressLayout.createParallelGroup()
-						.addComponent(pnSearchAdress)
-					)
-			);
-			
-
-			
+											
 			pnAction.add(pnInformation);
-			pnAction.add(pnAdress);
 			
 			pnMain.add(pnAction);
 			this.add(pnMain);
@@ -443,15 +372,12 @@ public class LayoutReportCus extends JPanel{
 
 	private void addEvents() {
 		tbl.addMouseListener(eventChooseRow);
-		cboDistricts.addActionListener(eventChooseDistricts);
 		txtFullname.getDocument().addDocumentListener(eventSearchFullname);
 		txtPhone.getDocument().addDocumentListener(eventSearchPhone);
 		txtEmail.getDocument().addDocumentListener(eventSearchEmail);
 		txtCode.getDocument().addDocumentListener(eventSearchCode);	
-		txtStreets.getDocument().addDocumentListener(eventSearchStreets);
-		btnSearchAdress.addActionListener(eventSearchDistricts);
-		btnCancelAdress.addActionListener(eventCancelAdress);
 		btnClearInfor.addActionListener(eventClearInfor);
+		btnRecharge.addActionListener(eventRecharge);
 	}
 	
 	MouseAdapter eventChooseRow = new MouseAdapter() {
@@ -477,13 +403,66 @@ public class LayoutReportCus extends JPanel{
 					txtDetailDistricts.setText(arrCtm.get(i).getNameDistricts());
 					txtDetailWards.setText(arrCtm.get(i).getNameWards());									
 				}
-			}			
+			}
+			btnClearInfor.setEnabled(true);
     	}
     };
 	
+    ActionListener eventRecharge = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<Customer> arrCtm = new ArrayList<Customer>();
+			
+			try {
+				String codeCus = txtDetailCode.getText();				
+				String money = txtRecharge.getText();
+				
+				if(codeCus.isEmpty()) {
+					String msg = "Chưa Chọn Khách Hàng";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi Nạp Tiền!!!", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					int moneyRecharge = Integer.parseInt(money);
+					arrCtm = CustomerDB.searchCode(codeCus);
+					if(moneyRecharge % 10000 == 0) {
+						int balanceCus = (arrCtm.get(0).getAmountCus() + moneyRecharge);						
+						int checkCus = CustomerDB.editMoney(balanceCus,codeCus);
+						if(checkCus >-1) {
+							txtRecharge.setText("");							
+							    LocalTime localTime=LocalTime.now();
+							    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+							    String formattedTime=localTime.format(formatter);
+							    
+							    Time t = Time.valueOf(formattedTime);
+							    System.out.println(formattedTime);
+							    long int_transactions = t.getTime();	
+							    String code_transactions = "MGD" + int_transactions;
+								int checkTss = TransactionsDb.addTransactions(codeCus, "Tại Hệ Thống", code_transactions , moneyRecharge ,"Nạp Tiền");
+								if(checkTss>-1) {
+									list.setRowCount(0);
+									arrCtmAll = CustomerDB.getCustomersList();
+									String msg = "Nạp Thành Công\n"+ String.format("%,d", (long) moneyRecharge)+" VNĐ"+
+											" Từ Tài Khoản\n"+"Số Tiền Còn Lại Trong Tài Khoản Của "+arrCtm.get(0).getFullnameCus()+" Là "
+											+String.format("%,d", (long) balanceCus)+" VNĐ";
+									JOptionPane.showMessageDialog(null, msg, "Nạp Tiền!!!", JOptionPane.INFORMATION_MESSAGE);									
+								}																						
+						}
+											
+					}else {
+						String msg = "Số tiền mỗi lần rút là bội số của 10.000 VNĐ";
+						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);						
+					}
+				}
+			}catch (Exception e1) {
+				String msg = "Phải Nhập Số!!!";
+				JOptionPane.showMessageDialog(null, msg, "Lỗi Chưa Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		}
+    };
+    
     ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
+			btnClearInfor.setEnabled(false);
 		}
     };
     
@@ -499,44 +478,7 @@ public class LayoutReportCus extends JPanel{
 		txtDetailWards.setText("");	
 		tbl.clearSelection();
 		btnClearInfor.setEnabled(false);
-    }
-    
-	ActionListener eventCancelAdress = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			txtFullname.setText("");
-			txtPhone.setText("");			
-			txtEmail.setText("");
-			txtCode.setText("");
-			txtStreets.setText("");
-			cboDistricts.setSelectedIndex(0);			
-			btnCancelAdress.setEnabled(false);
-			txtStreets.setEditable(true);
-			cboDistricts.setEnabled(isEnabled());
-			cboWards.setEnabled(isEnabled());
-			printListCus();
-			clearInfor();
-		}
-    };
-	
-	ActionListener eventChooseDistricts = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {			
-			int keys = cboDistricts.getSelectedIndex();
-			if (keys==0) {
-				cboWards.removeAllItems();
-				cboWards.addItem("Tất Cả");
-				btnCancelAdress.setEnabled(false);
-			}else {
-				btnCancelAdress.setEnabled(true);
-				arrAdress = adress.SeclectWard(keys);
-				cboWards.removeAllItems();
-				cboWards.addItem("Tất Cả");
-				for(String x:arrAdress) {
-					
-					cboWards.addItem(x);
-				}
-			}						
-		}
-    };		
+    }    			
 	
 	private DocumentListener eventSearchFullname = new DocumentListener() {		
 		@Override
@@ -556,7 +498,6 @@ public class LayoutReportCus extends JPanel{
 			if(change.isEmpty()) {
 				changeReset();
 				arrCtm = updateArrCtm();
-				btnCancelAdress.setEnabled(false);
 				printListCus();
 			}else {
 				changeFullname();
@@ -566,7 +507,6 @@ public class LayoutReportCus extends JPanel{
 	};
 	private void searchName() {	
 		clearInfor();
-		btnCancelAdress.setEnabled(true);
 		nameSearch = txtFullname.getText();
 		list.setRowCount(0);
 		for(Customer x:arrCtmAll) {		
@@ -602,7 +542,6 @@ public class LayoutReportCus extends JPanel{
 			String change = txtPhone.getText();
 			if(change.isEmpty()) {
 				arrCtm = updateArrCtm();
-				btnCancelAdress.setEnabled(false);
 				printListCus();
 				changeReset();
 				
@@ -615,7 +554,6 @@ public class LayoutReportCus extends JPanel{
 	
 	private void searchPhone() {	
 		clearInfor();
-		btnCancelAdress.setEnabled(true);
 		phoneSearch = txtPhone.getText();
 		list.setRowCount(0);
 		for(Customer x:arrCtmAll) {		
@@ -649,7 +587,6 @@ public class LayoutReportCus extends JPanel{
 			String change = txtEmail.getText();
 			if(change.isEmpty()) {
 				arrCtm = updateArrCtm();
-				btnCancelAdress.setEnabled(false);
 				printListCus();
 				changeReset();
 			}else {
@@ -661,7 +598,6 @@ public class LayoutReportCus extends JPanel{
 	
 	private void searchEmail() {
 		clearInfor();
-		btnCancelAdress.setEnabled(true);
 		emailSearch = txtEmail.getText();
 		list.setRowCount(0);
 		for(Customer x:arrCtmAll) {		
@@ -695,7 +631,6 @@ public class LayoutReportCus extends JPanel{
 			String change = txtCode.getText();
 			if(change.isEmpty()) {
 				arrCtm = updateArrCtm();
-				btnCancelAdress.setEnabled(false);
 				printListCus();
 				changeReset();
 			}else {
@@ -707,7 +642,6 @@ public class LayoutReportCus extends JPanel{
 	
 	private void searchCode() {	
 		clearInfor();
-		btnCancelAdress.setEnabled(true);
 		codeSearch = txtCode.getText();
 		list.setRowCount(0);
 		for(Customer x:arrCtmAll) {		
@@ -724,93 +658,9 @@ public class LayoutReportCus extends JPanel{
 		txtPhone.setEditable(false);
 		txtEmail.setEditable(false);
 		txtCode.setEditable(true);
-	}
+	}	
+		
 	
-	private DocumentListener eventSearchStreets = new DocumentListener() {		
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			searchStreets();
-		}
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			searchStreets();
-		}
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			String change = txtCode.getText();
-			if(change.isEmpty()) {
-				arrCtm = updateArrCtm();
-				btnCancelAdress.setEnabled(false);
-				printListCus();
-			}else {
-				searchStreets();
-			}
-		}
-	};
-	
-	private void searchStreets() {	
-		clearInfor();
-		btnCancelAdress.setEnabled(true);
-		streetSearch = txtStreets.getText();
-		list.setRowCount(0);
-		for(Customer x:arrCtmAll) {		
-			if(x.getStreetCus().toUpperCase().trim().indexOf(streetSearch.toUpperCase().trim()) > -1) {				
-				String phone = String.valueOf(x.getPhoneCus());
-				String[] row = {x.getCodeCus(), x.getFullnameCus(), phone,x.getEmailCus(),x.getCardnumberCus(),String.format("%,d", (long) x.getAmountCus())+" VNĐ"};
-				list.addRow(row);			
-			}			
-		}				
-	}
-	
-	
-	ActionListener eventSearchDistricts = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			clearInfor();
-			btnCancelAdress.setEnabled(true);
-				int keyDistricts = cboDistricts.getSelectedIndex();
-				if(keyDistricts==0) {
-					arrCtm = updateArrCtm();
-					printListCus();
-				}else {
-					btnCancelAdress.setEnabled(true);
-					int keyW = cboWards.getSelectedIndex();
-					if(keyW==0) {
-						searchStreetsWards( keyDistricts);						
-					}else {
-						String wards = (String) cboWards.getSelectedItem();
-						int keyWards = adress.SeclectIdWards(wards);
-						searchStreets( keyDistricts, keyWards);					
-					}
-				}								
-		}
-    };
-	
-    private void searchStreets(int keyDistricts,int keyWards) {
-		btnCancelAdress.setEnabled(true);
-		clearInfor();
-		list.setRowCount(0);
-		for(Customer ctm : arrCtm) {		
-			if(ctm.getDistrictCus()==keyDistricts && ctm.getWardCus()==keyWards ) {				
-				String phone = String.valueOf(ctm.getPhoneCus());
-				String[] row = {ctm.getCodeCus(), ctm.getFullnameCus(), phone,ctm.getEmailCus(),ctm.getCardnumberCus(),String.format("%,d", (long) ctm.getAmountCus())+" VNĐ"};
-				list.addRow(row);			
-			}			
-		}			
-	}
-    
-    private void searchStreetsWards(int keyDistricts) {
-		btnCancelAdress.setEnabled(true);
-		clearInfor();
-		list.setRowCount(0);
-		for(Customer ctm : arrCtm) {		
-			if(ctm.getDistrictCus()==keyDistricts ) {				
-				String phone = String.valueOf(ctm.getPhoneCus());
-				String[] row = {ctm.getCodeCus(), ctm.getFullnameCus(), phone,ctm.getEmailCus(),ctm.getCardnumberCus(),String.format("%,d", (long) ctm.getAmountCus())+" VNĐ"};
-				list.addRow(row);			
-			}			
-		}			
-	}
-    
 	private void changeReset() {
 		txtFullname.setEditable(true);
 		txtPhone.setEditable(true);
@@ -823,6 +673,7 @@ public class LayoutReportCus extends JPanel{
     }
     
     private void printListCus() {
+    	arrCtm = arrCtmAll;
     	list.setRowCount(0);
     	for (Customer ctm : arrCtm) { 		
 			String phone = String.valueOf(ctm.getPhoneCus());

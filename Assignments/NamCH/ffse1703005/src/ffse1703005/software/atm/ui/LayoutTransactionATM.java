@@ -440,7 +440,6 @@ public class LayoutTransactionATM extends JPanel{
 				try {
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = jdcToDay.getCalendar();	
-					dayTo.add(Calendar.DATE, 1);
 					Calendar checkFrom = Calendar.getInstance();
 					Calendar checkTo = Calendar.getInstance();
 					if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
@@ -502,7 +501,6 @@ public class LayoutTransactionATM extends JPanel{
     };
     
     public void searchTss(String districts,String wards,String codeTss,String streetTss,Calendar dayFrom,Calendar dayTo) {
-    	ArrayList<ATMTransaction> arrAtmTss = new ArrayList<>();   	
     	Calendar checkFrom = Calendar.getInstance();
 		Calendar checkTo = Calendar.getInstance();
 		if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
@@ -520,31 +518,41 @@ public class LayoutTransactionATM extends JPanel{
 		if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
-			arrAtmTss = TransactionsDb.getAtmTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+			getListSearch( codeTss, streetTss, districts, wards,  dayFrom, dayTo);
 		}else {
 			if(wards.equals("Tất Cả")) {
 				wards="";
-				arrAtmTss = TransactionsDb.getAtmTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+				getListSearch( codeTss, streetTss, districts, wards,  dayFrom, dayTo);
 			}else {
-				arrAtmTss = TransactionsDb.getAtmTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+				getListSearch( codeTss, streetTss, districts, wards,  dayFrom, dayTo);
 			}
 		}	
-		list.setRowCount(0);
+		getListSearch( codeTss, streetTss, districts, wards,  dayFrom, dayTo);
+    	
+    }
+    
+    public void getListSearch(String codeTss,String streetTss,String districts,String wards, Calendar dayFrom,Calendar dayTo){
+    	list.setRowCount(0);
+    	btnClearList.setEnabled(false);
+    	dayFrom.set(dayFrom.get(Calendar.YEAR), dayFrom.get(Calendar.MONTH), dayFrom.get(Calendar.DATE), 0, 0);
+    	dayTo.set(dayTo.get(Calendar.YEAR), dayTo.get(Calendar.MONTH), dayTo.get(Calendar.DATE), 23, 59);
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
-		for (ATMTransaction tss : arrAtmTss) { 
+    	for(ATMTransaction tss : arrAtmTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
 			String time = dateFormat.format(date);
-			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
-			list.addRow(row);
-		}
-    	if(arrAtmTss.size()>0) {
-    		btnClearList.setEnabled(true);
-    	}else {
-    		btnClearList.setEnabled(false);
+			Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(ts);
+		    
+    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
+    				calendar2.getTime().after(dayFrom.getTime()) && calendar2.getTime().before(dayTo.getTime())) {    			
+    			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
+    			list.addRow(row);
+    			btnClearList.setEnabled(true);
+    		}
     	}
-    	
     }
     
     ActionListener eventSearchMonth = new ActionListener() {
@@ -580,7 +588,6 @@ public class LayoutTransactionATM extends JPanel{
     };
     
     public void searchTssMonth(String districts,String wards,String codeTss,String streetTss, int month, int year ) {
-    	ArrayList<ATMTransaction> arrAtmTss = new ArrayList<>();
     	String monthDate = String.valueOf(month+1);
 		String yearDate = String.valueOf(year);
 		String resuiltChoose;
@@ -592,32 +599,45 @@ public class LayoutTransactionATM extends JPanel{
     	if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
-			arrAtmTss = TransactionsDb.getAtmTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+			getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 		}else {
 			if(wards.equals("Tất Cả")) {
 				wards="";
-				arrAtmTss = TransactionsDb.getAtmTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+				getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 			}else {
-				arrAtmTss = TransactionsDb.getAtmTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+				getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 			}
 		}	
-		list.setRowCount(0);
+    	getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
+    	
+    }
+    
+    public void getListSearchMonth(String codeTss,String streetTss,String districts,String wards,String resuiltChoose){
+    	list.setRowCount(0);
+    	btnClearList.setEnabled(false);
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    	DateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
-    	for (ATMTransaction tss : arrAtmTss) { 
+		Date dateChoose = new Date();
+    	for(ATMTransaction tss : arrAtmTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
 			String time = dateFormat.format(date);
-			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
-			list.addRow(row);
-		}
-    	if(arrAtmTss.size()>0) {
-    		btnClearList.setEnabled(true);
-    	}else {
-    		btnClearList.setEnabled(false);
+			Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(ts);
+		    dateChoose.setTime(tss.getTimeTransaction().getTime());
+			String timeChoose = dateFormatChoose.format(dateChoose);
+    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
+    				timeChoose.indexOf(resuiltChoose)>-1) {    			
+    			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
+    			list.addRow(row);
+    			btnClearList.setEnabled(true);
+    		}
     	}
-    	
     }
+    
+    
     
     private ActionListener eventClearList = new ActionListener() {
 		@Override

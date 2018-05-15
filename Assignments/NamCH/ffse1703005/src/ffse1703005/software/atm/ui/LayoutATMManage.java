@@ -53,10 +53,11 @@ public class LayoutATMManage extends JPanel{
 		for(String x:arrAdress) {
 			cboDistricts.addItem(x);
 		}
+		
+		arrAtmAll = new ArrayList<MachineATM>();
+		arrAtmAll = MachineATMDb.getAtmList();
 		arrAtm = new ArrayList<MachineATM>();
 		updateArrAtm();
-		arrAtmAll = new ArrayList<MachineATM>();
-		arrAtmAll = updateArrAtm();
 		printListAtm();
 	}
 
@@ -431,7 +432,7 @@ public class LayoutATMManage extends JPanel{
 	}
     
     private ArrayList<MachineATM> updateArrAtm() {    	
-    	return arrAtm = MachineATMDb.getAtmList();
+    	return arrAtm = arrAtmAll;
     }
     
     private void printListAtm() {
