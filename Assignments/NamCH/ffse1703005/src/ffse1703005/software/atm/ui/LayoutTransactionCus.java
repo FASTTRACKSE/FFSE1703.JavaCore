@@ -283,7 +283,7 @@ public class LayoutTransactionCus extends JPanel{
 		
 		JPanel pnChoose=new JPanel();
 		pnChoose.setOpaque(false);
-		rdoDay=new JRadioButton("Theo Ngày"); 
+		rdoDay=new JRadioButton("Theo Khoảng Thời Gian"); 
 		rdoDay.setOpaque(false);
 		rdoMonth=new JRadioButton("Theo Tháng");
 		rdoMonth.setOpaque(false);
@@ -377,7 +377,7 @@ public class LayoutTransactionCus extends JPanel{
 		btnSearch.addActionListener(eventSearch);
 		btnCancel.addActionListener(eventCancel);
 		btnSearchMonth.addActionListener(eventSearchMonth);
-		
+		btnCancelMonth.addActionListener(eventCancelMonth);
 		cboDistricts.addActionListener(eventChooseDistricts);
 		rdoDay.addActionListener(chooseDay);
 		rdoMonth.addActionListener(chooseDay);
@@ -415,6 +415,7 @@ public class LayoutTransactionCus extends JPanel{
 				try {
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = jdcToDay.getCalendar();	
+					dayTo.add(Calendar.DATE, 1); 
 					Calendar checkFrom = Calendar.getInstance();
 					Calendar checkTo = Calendar.getInstance();
 					if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
@@ -635,6 +636,19 @@ public class LayoutTransactionCus extends JPanel{
 			txtStreets.setText("");
 			jdcFromDay.setCalendar(null);
 			jdcToDay.setCalendar(null);
+			cboDistricts.setSelectedIndex(0);
+			cboWards.setSelectedIndex(0);
+		}
+    };
+    
+    ActionListener eventCancelMonth = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			txtCodeCus.setText("");
+			txtStreets.setText("");
+			int nowMonth =Calendar.getInstance().get(Calendar.MONTH);
+			int nowYear =Calendar.getInstance().get(Calendar.YEAR);	
+			jmcMonth.setMonth(nowMonth);
+			jycYear.setYear(nowYear);
 			cboDistricts.setSelectedIndex(0);
 			cboWards.setSelectedIndex(0);
 		}

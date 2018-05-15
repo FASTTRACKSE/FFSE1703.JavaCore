@@ -63,8 +63,7 @@ public class TransactionsDb {
 	
 	public static ArrayList<CusTransaction> getCusTransactionSearch(String code,String streets,String districts,String wards,Calendar cldFrom,Calendar cldTo) {
 		System.out.println(wards);
-		ArrayList<CusTransaction> arrTssCus = new ArrayList<CusTransaction>();
-		cldTo.add(Calendar.DAY_OF_MONTH, 1); 
+		ArrayList<CusTransaction> arrTssCus = new ArrayList<CusTransaction>();		
 		Date sqlDateFrom = new Date(cldFrom.getTimeInMillis());
 		Date sqlDateTo = new Date(cldTo.getTimeInMillis());
 		String sql = "SELECT * "
@@ -184,6 +183,40 @@ public class TransactionsDb {
 			stm.setString(4, "%" + wards + "%");
 			stm.setDate(5, sqlDateFrom);
 			stm.setDate(6, sqlDateTo);
+			ResultSet rs = stm.executeQuery();			
+			while (rs.next()) {
+				ATMTransaction atmTss = new ATMTransaction();
+				atmTss.setCodeCus(rs.getString("atm_transactions.code_customer"));
+				atmTss.setAdressATM(rs.getString("atm_atm.streets"));
+				atmTss.setCodeATM(rs.getString("atm_atm.code"));
+				atmTss.setCodeTransaction(rs.getString("atm_transactions.code_transactions"));
+				atmTss.setTimeTransaction(rs.getTimestamp("atm_transactions.time_transactions"));
+				atmTss.setPayTransaction(rs.getInt("atm_transactions.amount"));
+				arrTssAtm.add(atmTss);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arrTssAtm;
+	}
+	
+	public static ArrayList<ATMTransaction> getAtmTransactionSearchMonth(String code,String streets,String districts,String wards,String monthChoose) {
+		System.out.println(wards);
+		ArrayList<ATMTransaction> arrTssAtm = new ArrayList<ATMTransaction>();
+		String sql = "SELECT * "
+				+ "FROM atm_atm INNER JOIN atm_transactions " 
+				+ "ON atm_atm.code = atm_transactions.code_atm "
+				+"inner join atm_wards ON atm_atm.code_wards = atm_wards.code_wards  "
+				+"inner join atm_districts ON atm_wards.code_districts = atm_districts.code_districts "
+				+ "WHERE atm_atm.code LIKE ? ESCAPE '!' AND atm_atm.streets LIKE ? ESCAPE '!' AND atm_districts.name LIKE ? ESCAPE '!' AND atm_wards.name LIKE ? ESCAPE '!' " 
+				+ "AND atm_transactions.time_transactions LIKE ? ESCAPE '!' ORDER by atm_transactions.id_transactions DESC";
+		try {			
+			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+			stm.setString(1, "%" + code + "%");
+			stm.setString(2, "%" + streets + "%");
+			stm.setString(3, "%" + districts + "%");
+			stm.setString(4, "%" + wards + "%");
+			stm.setString(5, "%" + monthChoose + "%");
 			ResultSet rs = stm.executeQuery();			
 			while (rs.next()) {
 				ATMTransaction atmTss = new ATMTransaction();
