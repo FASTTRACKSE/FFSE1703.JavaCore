@@ -380,7 +380,7 @@ public class SinhVienUI extends JPanel{
 			try {
 				if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("")
 						|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên",null,JOptionPane.WARNING_MESSAGE );
 				} else {
 					arrSV.add(new SinhVien(lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien, quan_SinhVien,
 							phuong_SinhVien, diachi_SinhVien, email_SinhVien, sdt_SinhVien));

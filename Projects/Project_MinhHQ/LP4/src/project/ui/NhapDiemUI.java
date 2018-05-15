@@ -126,7 +126,6 @@ public class NhapDiemUI extends JPanel{
 	// Lấy giá trị tĩnh cho các JComboBox
 
 	public void lop(JComboBox<String> x) {
-		x.addItem("Tất Cả");
 		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 		try {
 			Statement statement = conn.createStatement();
@@ -141,7 +140,7 @@ public class NhapDiemUI extends JPanel{
 	// lấy xong giá trị của JComboBox
 
 	public void addEvent() {
-
+		
 		
 	}
 	
@@ -166,19 +165,19 @@ public class NhapDiemUI extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (Diem x : arrDiem) {
-			}
-			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-			try {
-				String sql = "UPDATE table_monhoc SET TenMH ='" + "',STC ='" + "',ThoiGian ='" + "' WHERE MaMH = '" + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+//			for (Diem x : arrDiem) {
+//			}
+//			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+//			try {
+//				String sql = "UPDATE table_monhoc SET TenMH ='" + "',STC ='" + "',ThoiGian ='" + "' WHERE MaMH = '" + "'";
+//				Statement statement = conn.createStatement();
+//				int x = statement.executeUpdate(sql);
+//				if (x >= 0) {
+//					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+//				}
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//			}
 //			dm_MonHoc.setRowCount(0);
 //			for (MonHoc x : arrMH) {
 //				String[] row = { x.getMaMH(), x.getTenMH(), x.getTinChi(), x.getTime() };
