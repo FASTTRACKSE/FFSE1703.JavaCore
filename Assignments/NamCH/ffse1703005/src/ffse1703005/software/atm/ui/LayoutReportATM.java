@@ -485,17 +485,40 @@ public class LayoutReportATM extends JPanel{
 					btnCancelAdress.setEnabled(true);
 					int keyW = cboWards.getSelectedIndex();
 					if(keyW==0) {
-						arrAtm = MachineATMDb.searchAdrees(keyDistricts,keyW);
+						searchStreetsWards(keyDistricts);
 						
 					}else {
 						String wards = (String) cboWards.getSelectedItem();
 						int keyWards = adress.SeclectIdWards(wards);
-						arrAtm = MachineATMDb.searchAdrees(keyDistricts,keyWards);					
+						searchStreets( keyDistricts, keyWards)	;				
 					}
-					printListAtm();	
 				}											
 		}
     };
+    
+    private void searchStreets(int keyDistricts,int keyWards) {
+		btnCancelAdress.setEnabled(true);
+		clearInfor();
+		list.setRowCount(0);
+		for(MachineATM x:arrAtmAll) {		
+			if(x.getDistrictATM()==keyDistricts && x.getWardATM()==keyWards ) {				
+				String[] row = {x.getCodeATM(),x.getStreetATM(),String.format("%,d", (long) x.getAmountATM())+" VNĐ"};
+				list.addRow(row);			
+			}			
+		}			
+	}
+    
+    private void searchStreetsWards(int keyDistricts) {
+		btnCancelAdress.setEnabled(true);
+		clearInfor();
+		list.setRowCount(0);
+		for(MachineATM x:arrAtmAll) {		
+			if(x.getDistrictATM()==keyDistricts ) {				
+				String[] row = {x.getCodeATM(),x.getStreetATM(),String.format("%,d", (long) x.getAmountATM())+" VNĐ"};
+				list.addRow(row);			
+			}			
+		}			
+	}
     
     private ArrayList<MachineATM> updateArrAtm() {    	
     	return arrAtm = arrAtmAll;

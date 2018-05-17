@@ -53,7 +53,7 @@ public class LayoutTransactionCus extends JPanel{
 	private JDateChooser  jdcFromDay,jdcToDay ;
 	private JMonthChooser jmcMonth;
 	private JYearChooser  jycYear;
-	private JButton btnSearch,btnCancel,btnSearchMonth,btnCancelMonth,btnClearList;
+	private JButton btnSearch,btnCancel,btnSearchMonth,btnCancelMonth,btnClearList,btnUpdate,btnUpdateMonth;
 	private JTextField txtCodeCus,txtStreets;
 	private DefaultTableModel list=new DefaultTableModel();
 	private final JTable tbl=new JTable(list);
@@ -107,7 +107,8 @@ public class LayoutTransactionCus extends JPanel{
 		list.addColumn("Mã Máy ATM");
 		list.addColumn("Mã Giao Dịch");
 		list.addColumn("Thời Gian Giao Dịch");
-		list.addColumn("Số tiền Đã Rút");
+		list.addColumn("Số Tiền");
+		list.addColumn("Tình Trạng");
 		
 		JScrollPane sc=new JScrollPane(tbl);		
 		pnList.setLayout(new BorderLayout());
@@ -117,7 +118,8 @@ public class LayoutTransactionCus extends JPanel{
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 		tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-		
+		tbl.getColumnModel().getColumn(1).setPreferredWidth(105);
+		tbl.getColumnModel().getColumn(6).setPreferredWidth(40);
 		JPanel pnClearList = new JPanel();
 		pnClearList.setOpaque(false);
 		btnClearList = new JButton("Xóa Danh Sách");
@@ -275,15 +277,17 @@ public class LayoutTransactionCus extends JPanel{
 		
 		JPanel pnSearch = new JPanel();
 		pnSearch.setOpaque(false);
+		btnUpdate = new JButton("Cập Nhập Dữ Liệu");
 		btnSearch = new JButton("Xem");										
 		btnCancel = new JButton("Hủy");
 		pnSearch.add(btnSearch);
 		pnSearch.add(btnCancel);
+		pnSearch.add(btnUpdate);
 		pnChooserDay.add(pnSearch);
 		
 		JPanel pnChoose=new JPanel();
 		pnChoose.setOpaque(false);
-		rdoDay=new JRadioButton("Theo Ngày"); 
+		rdoDay=new JRadioButton("Theo Khoảng Thời Gian"); 
 		rdoDay.setOpaque(false);
 		rdoMonth=new JRadioButton("Theo Tháng");
 		rdoMonth.setOpaque(false);
@@ -351,8 +355,10 @@ public class LayoutTransactionCus extends JPanel{
 		pnSearchMonth.setOpaque(false);
 		btnSearchMonth = new JButton("Xem");										
 		btnCancelMonth = new JButton("Hủy");
+		btnUpdateMonth = new JButton("Cập Nhập Dữ Liệu");
 		pnSearchMonth.add(btnSearchMonth);
 		pnSearchMonth.add(btnCancelMonth);
+		pnSearchMonth.add(btnUpdateMonth);
 		pnChooserMonth.add(pnSearchMonth);
 		
 		
@@ -377,12 +383,24 @@ public class LayoutTransactionCus extends JPanel{
 		btnSearch.addActionListener(eventSearch);
 		btnCancel.addActionListener(eventCancel);
 		btnSearchMonth.addActionListener(eventSearchMonth);
-		
+		btnCancelMonth.addActionListener(eventCancelMonth);
 		cboDistricts.addActionListener(eventChooseDistricts);
 		rdoDay.addActionListener(chooseDay);
 		rdoMonth.addActionListener(chooseDay);
 		btnClearList.addActionListener(eventClearList);
+		btnUpdate.addActionListener(eventUpdate);
+		btnUpdateMonth.addActionListener(eventUpdate);
 	}
+	
+	private ActionListener eventUpdate = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			arrAllCusTss = TransactionsDb.getCusTransactionList();
+			arrCusTss=updateArrCusTss();	
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
+		}
+	};
 	
 	private ActionListener eventClearList = new ActionListener() {
 		@Override
@@ -407,6 +425,7 @@ public class LayoutTransactionCus extends JPanel{
 	ActionListener eventSearch = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {	
 			try {				
+				btnClearList.setEnabled(true);
 				String codeTss = txtCodeCus.getText();
 				String streetTss =txtStreets.getText();
 				Calendar dayFrom=null,dayTo=null;
@@ -415,6 +434,7 @@ public class LayoutTransactionCus extends JPanel{
 				try {
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = jdcToDay.getCalendar();	
+//					dayTo.add(Calendar.DATE, 1); 
 					Calendar checkFrom = Calendar.getInstance();
 					Calendar checkTo = Calendar.getInstance();
 					if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
@@ -442,8 +462,9 @@ public class LayoutTransactionCus extends JPanel{
 					dayTo = Calendar.getInstance();
 					dayFrom = Calendar.getInstance();
 					dayFrom.add(Calendar.DATE, -90);
-					jdcFromDay.setCalendar(dayFrom);
+					jdcFromDay.setCalendar(dayFrom);					
 					jdcToDay.setCalendar(dayTo);
+					
 					searchTss(districts,wards,codeTss,streetTss,dayFrom,dayTo);
 				}else if(dayFrom==null){
 					dayTo = jdcToDay.getCalendar();
@@ -454,7 +475,9 @@ public class LayoutTransactionCus extends JPanel{
 				}else if(dayTo==null){
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = Calendar.getInstance();
+					
 					jdcToDay.setCalendar(dayTo);
+					
 					
 					searchTss(districts,wards,codeTss,streetTss,dayFrom,dayTo);
 				}else {
@@ -480,6 +503,7 @@ public class LayoutTransactionCus extends JPanel{
     
     ActionListener eventSearchMonth = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {	
+			btnClearList.setEnabled(true);
 			try {				
 				String codeTss = txtCodeCus.getText();
 				String streetTss =txtStreets.getText();																							
@@ -511,53 +535,59 @@ public class LayoutTransactionCus extends JPanel{
     };
     
     public void searchTss(String districts,String wards,String codeTss,String streetTss,Calendar dayFrom,Calendar dayTo) {
-    	ArrayList<CusTransaction> arrCusTss = new ArrayList<>();    	
     	Calendar checkFrom = Calendar.getInstance();
 		Calendar checkTo = Calendar.getInstance();
 		if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()&&checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
     		dayTo = Calendar.getInstance();
-    		dayFrom = Calendar.getInstance();
+    		dayFrom = Calendar.getInstance();    		 
     		jdcFromDay.setCalendar(checkFrom);
-    		jdcToDay.setCalendar(checkTo);
+    		jdcToDay.setCalendar(checkTo);    		
     	}else if(checkFrom.getTimeInMillis()<dayFrom.getTimeInMillis()) {
     		dayFrom = Calendar.getInstance();
     		jdcFromDay.setCalendar(checkFrom);    		
     	}else if(checkTo.getTimeInMillis()<dayTo.getTimeInMillis()) {
-    		dayTo = Calendar.getInstance();
-    		jdcToDay.setCalendar(checkTo);
+    		dayTo = Calendar.getInstance();    		
+    		jdcToDay.setCalendar(checkTo);        		
         }
     	if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
-			arrCusTss = TransactionsDb.getCusTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+			getListSearch(codeTss,streetTss,districts, wards, dayFrom, dayTo);
 		}else {
 			if(wards.equals("Tất Cả")) {
 				wards="";
-				arrCusTss = TransactionsDb.getCusTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+				getListSearch(codeTss,streetTss,districts, wards, dayFrom, dayTo);
 			}else {
-				arrCusTss = TransactionsDb.getCusTransactionSearch(codeTss, streetTss, districts, wards, dayFrom, dayTo);
+				getListSearch(codeTss,streetTss,districts, wards, dayFrom, dayTo);
 			}
 		}	
-		list.setRowCount(0);
-    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Date date = new Date();
-    	for (CusTransaction tss : arrCusTss) { 
-    		Timestamp ts = tss.getTimeTransaction();
-			date.setTime(ts.getTime());
-			String time = dateFormat.format(date);
-			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
-			list.addRow(row);
-		}
-    	if(arrCusTss.size()>0) {
-    		btnClearList.setEnabled(true);
-    	}else {
-    		btnClearList.setEnabled(false);
-    	}
+    	getListSearch(codeTss,streetTss,districts, wards, dayFrom, dayTo);
     	
     }
     
+    public void getListSearch(String codeTss,String streetTss,String districts,String wards, Calendar dayFrom,Calendar dayTo){
+    	list.setRowCount(0);
+    	dayFrom.set(dayFrom.get(Calendar.YEAR), dayFrom.get(Calendar.MONTH), dayFrom.get(Calendar.DATE), 0, 0);
+    	dayTo.set(dayTo.get(Calendar.YEAR), dayTo.get(Calendar.MONTH), dayTo.get(Calendar.DATE), 23, 59);
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date date = new Date();
+    	for(CusTransaction tss:arrCusTss) {
+    		Timestamp ts = tss.getTimeTransaction();
+			date.setTime(ts.getTime());
+			String time = dateFormat.format(date);
+			Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(ts);
+		    
+    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
+    				calendar2.getTime().after(dayFrom.getTime()) && calendar2.getTime().before(dayTo.getTime())) {    			
+    			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ",tss.getStatus()};
+    			list.addRow(row);
+    		}
+    	}
+    }
+    
     public void searchTssMonth(String districts,String wards,String codeTss,String streetTss, int month, int year ) {
-    	ArrayList<CusTransaction> arrCusTss = new ArrayList<>();
     	String monthDate = String.valueOf(month+1);
 		String yearDate = String.valueOf(year);
 		String resuiltChoose;
@@ -569,31 +599,40 @@ public class LayoutTransactionCus extends JPanel{
     	if(districts.equals("Tất Cả")) {
 			districts="";
 			wards="";
-			arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+			getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 		}else {
 			if(wards.equals("Tất Cả")) {
 				wards="";
-				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+				getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 			}else {
-				arrCusTss = TransactionsDb.getCusTransactionSearchMonth(codeTss, streetTss, districts, wards, resuiltChoose);
+				getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
 			}
 		}	
-		list.setRowCount(0);
+    	getListSearchMonth( codeTss, streetTss, districts, wards, resuiltChoose);
+    	
+    }
+    
+    public void getListSearchMonth(String codeTss,String streetTss,String districts,String wards,String resuiltChoose){
+    	list.setRowCount(0);
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    	DateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
-    	for (CusTransaction tss : arrCusTss) { 
+		Date dateChoose = new Date();
+    	for(CusTransaction tss:arrCusTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
 			String time = dateFormat.format(date);
-			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
-			list.addRow(row);
-		}
-    	if(arrCusTss.size()>0) {
-    		btnClearList.setEnabled(true);
-    	}else {
-    		btnClearList.setEnabled(false);
+			Calendar calendar2 = Calendar.getInstance();
+		    calendar2.setTime(ts);
+		    dateChoose.setTime(tss.getTimeTransaction().getTime());
+			String timeChoose = dateFormatChoose.format(dateChoose);
+    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
+    				timeChoose.indexOf(resuiltChoose)>-1) {    			
+    			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ",tss.getStatus()};
+    			list.addRow(row);
+    		}
     	}
-    	
     }
     
     MouseAdapter eventChooseRow = new MouseAdapter() {
@@ -630,11 +669,24 @@ public class LayoutTransactionCus extends JPanel{
     };
     
     ActionListener eventCancel = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {			
+		public void actionPerformed(ActionEvent e) {
 			txtCodeCus.setText("");
 			txtStreets.setText("");
 			jdcFromDay.setCalendar(null);
 			jdcToDay.setCalendar(null);
+			cboDistricts.setSelectedIndex(0);
+			cboWards.setSelectedIndex(0);
+		}
+    };
+    
+    ActionListener eventCancelMonth = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			txtCodeCus.setText("");
+			txtStreets.setText("");
+			int nowMonth =Calendar.getInstance().get(Calendar.MONTH);
+			int nowYear =Calendar.getInstance().get(Calendar.YEAR);	
+			jmcMonth.setMonth(nowMonth);
+			jycYear.setYear(nowYear);
 			cboDistricts.setSelectedIndex(0);
 			cboWards.setSelectedIndex(0);
 		}
