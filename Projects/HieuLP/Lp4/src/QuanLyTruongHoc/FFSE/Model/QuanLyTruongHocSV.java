@@ -10,21 +10,26 @@ public class QuanLyTruongHocSV {
 	private String Lop;
 	private String Email;
 	private String DT;
-	public QuanLyTruongHocSV( String MaSV, String Ten,  String lop,String DiaChi, String Phuong, String Quan, String TP, String Email, String DT) {
+	public QuanLyTruongHocSV( String MaSV, String Ten,  String lop,String DiaChi, String Phuong,
+							  String Quan, String TP, String Email, String DT) {
 		this.MaSV = MaSV;
 		this.Ten = Ten;
 		this.Lop = lop;
 		this.DiaChi = DiaChi;
 		this.Phuong = Phuong;
-		this.Phuong = Phuong;
+		this.Quan = Quan;
 		this.TP = TP;
 		this.Email = Email;
 		this.DT = DT;
 		
 		}
-	public void setMaSV(String maSV) {
+		public String getMaSV() {
+			return MaSV;
+		}
+		public void setMaSV(String maSV) {
 		this.MaSV = maSV;
 		}
+		
 
 		public String getTen() {
 		return Ten;
@@ -42,12 +47,12 @@ public class QuanLyTruongHocSV {
 		Lop = lop;
 		}
 
-		public String getAdress() {
+		public String getDiaChi() {
 		return DiaChi;
 		}
 
 		public void setAdress(String DiaChi) {
-			DiaChi = DiaChi;
+			this.DiaChi = DiaChi;
 		}
 
 		public String getPhuong() {

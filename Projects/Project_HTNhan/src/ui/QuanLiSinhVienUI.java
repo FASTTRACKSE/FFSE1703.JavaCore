@@ -3,13 +3,12 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,43 +20,44 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import model.DistrictModel;
-import model.GetConnectDB;
+import model.DistrictSQL;
 import model.ProvinceModel;
 import model.QuanLiLopHocModel;
+import model.QuanLiLopHocSQL;
 import model.QuanLiSinhVienModel;
+import model.QuanLiSinhVienSQL;
+import model.ProvinceSQL;
 import model.WardModel;
+import model.WardSQL;
 
 public class QuanLiSinhVienUI extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtMaSv, txtTenSv, txtdiaChi, txtdienThoai, txtemail;
-	private String province, district, ward, nameProvince, nameDistrict, provinceId, districtId, maLop;
+	private String provinceId, districtId;
 	private JComboBox cboThanhPho, cboQuan, cboPhuong, cbomaLop;
-	private JButton btnThemMoi,btnThem, btnSua, btnXoa, btnThoat;
-	private static ArrayList<QuanLiSinhVienModel> arrQlSinhVien = new ArrayList<>();
-	private static ArrayList<ProvinceModel> arrProvince = new ArrayList<>();
-	private static ArrayList<DistrictModel> arrDistrict = new ArrayList<>();
-	private static ArrayList<WardModel> arrWard = new ArrayList<>();
-	private static ArrayList<QuanLiLopHocModel> arrMaLop = new ArrayList<>();
-	final Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
+	private JButton btnThemMoi, btnThem, btnSua, btnXoa, btnThoat;
+	private ArrayList<QuanLiSinhVienModel> arrQlSinhVien = new ArrayList<>();
+	private ArrayList<ProvinceModel> arrProvince = new ArrayList<>();
+	private ArrayList<DistrictModel> arrDistrict = new ArrayList<>();
+	private ArrayList<WardModel> arrWard = new ArrayList<>();
+	private ArrayList <QuanLiLopHocModel> arrMaLop = new ArrayList<>();
 	private DefaultTableModel dm;
 	private String maSv, tenSv, diachiSv, sodienthoaiSv, emailSv, thanhPho, quan, phuong, malopSv;
 	private JTable tbl;
-	private QuanLiSinhVienModel QuanLiSinhVienModel = new QuanLiSinhVienModel();
-	private QuanLiLopHocModel QuanLiLopHocModel = new QuanLiLopHocModel();
-	private ProvinceModel provinceModel = new ProvinceModel();
-	private DistrictModel districtModel = new DistrictModel();
-	private WardModel wardModel = new WardModel();
+	private QuanLiSinhVienSQL quanLiSinhVienSQL = new QuanLiSinhVienSQL();
+	private QuanLiLopHocSQL quanLiLopHocSQL = new QuanLiLopHocSQL();
+	private ProvinceSQL provinceSQL = new ProvinceSQL();
+	private DistrictSQL districtSQL = new DistrictSQL();
+	private WardSQL wardSQL = new WardSQL();
 
 	public QuanLiSinhVienUI() {
 		addControls();
@@ -122,8 +122,8 @@ public class QuanLiSinhVienUI extends JPanel {
 		cboThanhPho = new JComboBox();
 		cboThanhPho.setPreferredSize(new Dimension(170, 20));
 		cboThanhPho.addItem(new ProvinceModel(null, "Chọn Tỉnh/Thành Phố"));
-		provinceModel.selectProvince();
-		arrProvince = provinceModel.selectProvince();
+		provinceSQL.selectProvince();
+		arrProvince = provinceSQL.selectProvince();
 		for (ProvinceModel x : arrProvince) {
 			cboThanhPho.addItem(x);
 		}
@@ -156,8 +156,8 @@ public class QuanLiSinhVienUI extends JPanel {
 		JLabel lblmaLop = new JLabel("Chọn Lớp ");
 		cbomaLop = new JComboBox();
 		cbomaLop.addItem("");
-		QuanLiLopHocModel.selectLop();
-		arrMaLop = QuanLiLopHocModel.selectLop();
+		quanLiLopHocSQL.selectLop();
+		arrMaLop = quanLiLopHocSQL.selectLop();
 		for (QuanLiLopHocModel x : arrMaLop) {
 			cbomaLop.addItem(x.getMaLop());
 		}
@@ -169,9 +169,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		//
 		// button
 		JPanel btn = new JPanel();
-		btnThemMoi = new JButton("Thêm Mới");
-		btnThemMoi.setPreferredSize(new Dimension(95, 30));
-		btn.add(btnThemMoi);
+
 		btnThem = new JButton("Thêm");
 		btnThem.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThem);
@@ -184,6 +182,9 @@ public class QuanLiSinhVienUI extends JPanel {
 		btnThoat = new JButton("Thoát");
 		btnThoat.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThoat);
+		btnThemMoi = new JButton("Thêm Mới");
+		btnThemMoi.setPreferredSize(new Dimension(95, 30));
+		btn.add(btnThemMoi);
 		pnlSinhVienInput.add(btn);
 
 		// TABLE
@@ -224,22 +225,22 @@ public class QuanLiSinhVienUI extends JPanel {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+			
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+
 			}
 
 			@Override
@@ -307,7 +308,7 @@ public class QuanLiSinhVienUI extends JPanel {
 				// lấy tên tỉnh/tp của combobox
 				ProvinceModel item = (ProvinceModel) cboThanhPho.getSelectedItem();
 				provinceId = item.getProvinceid();
-				arrDistrict = districtModel.selectDistrict(provinceId);
+				arrDistrict = districtSQL.selectDistrict(provinceId);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -333,7 +334,7 @@ public class QuanLiSinhVienUI extends JPanel {
 			try {
 				DistrictModel item = (DistrictModel) cboQuan.getSelectedItem();
 				districtId = item.getDistrictid();
-				arrWard = wardModel.selectWard(districtId);
+				arrWard = wardSQL.selectWard(districtId);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -381,8 +382,12 @@ public class QuanLiSinhVienUI extends JPanel {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Địa Chỉ Sinh Viên !!!");
 			} else if (txtdienThoai.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập SDT Sinh Viên !!!");
+			} else if (!(Pattern.matches("^\\+?[0-9. ()-]{10,25}$", txtdienThoai.getText()))) {
+				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Đúng Định Dạng SDT");
 			} else if (txtemail.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Email Sinh Viên !!!");
+			} else if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", txtemail.getText()))) {
+				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Đúng Định Dạng Email");
 			} else if (cboThanhPho.getSelectedItem().toString().equals("Chọn Tỉnh/Thành Phố")) {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Chọn Tỉnh/Thành Phố !!!");
 			} else if (cboQuan.getSelectedItem().toString().equals("Chọn Quận/Huyện")) {
@@ -392,22 +397,21 @@ public class QuanLiSinhVienUI extends JPanel {
 			} else if (cbomaLop.getSelectedItem().toString().equals("")) {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Chọn Lớp !!!");
 			} else {
-				them();
-				txtMaSv.setText("");
-				txtTenSv.setText("");
-				txtdiaChi.setText("");
-				txtdienThoai.setText("");
-				txtemail.setText("");
-				cboThanhPho.setSelectedIndex(0);
-//				cboQuan.setSelectedItem("Chọn Quận/Huyện");
-//				cboPhuong.setSelectedItem("Chọn Phường/Xã");
-				cbomaLop.setSelectedItem("");
+				if (them()) {
+					txtMaSv.setText("");
+					txtTenSv.setText("");
+					txtdiaChi.setText("");
+					txtdienThoai.setText("");
+					txtemail.setText("");
+					cboThanhPho.setSelectedIndex(0);
+					cbomaLop.setSelectedItem("");
+				}
 			}
 
 		}
 	};
 	ActionListener eventSua = new ActionListener() {
-	
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (txtMaSv.getText().equals("")) {
@@ -420,9 +424,7 @@ public class QuanLiSinhVienUI extends JPanel {
 				txtdiaChi.setText("");
 				txtdienThoai.setText("");
 				txtemail.setText("");
-				cboThanhPho.setSelectedIndex(0);;
-//				cboQuan.setSelectedItem("Chọn Quận/Huyện");
-//				cboPhuong.setSelectedItem("Chọn Phường/Xã");
+				cboThanhPho.setSelectedIndex(0);
 				cbomaLop.setSelectedItem("");
 			}
 		}
@@ -431,31 +433,36 @@ public class QuanLiSinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			dm.setRowCount(0);
 			comboBox();
 		}
 	};
 	ActionListener eventXoa = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(txtMaSv.getText().equals("")) {
+			if (txtMaSv.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên cần Xóa!");
-			}else {
-				xoa();
-				txtMaSv.setEditable(true);
-				txtMaSv.setText("");
-				txtTenSv.setText("");
-				txtdiaChi.setText("");
-				txtdienThoai.setText("");
-				txtemail.setText("");
-				cboThanhPho.setSelectedIndex(0);;
-				cbomaLop.setSelectedItem("");
+			} else {
+				int ret = JOptionPane.showConfirmDialog(null, "Bạn có muốn Xóa?", "Xóa Sinh Viên",
+						JOptionPane.YES_NO_OPTION);
+				if (ret == JOptionPane.YES_OPTION) {
+					xoa();
+					txtMaSv.setEditable(true);
+					txtMaSv.setText("");
+					txtTenSv.setText("");
+					txtdiaChi.setText("");
+					txtdienThoai.setText("");
+					txtemail.setText("");
+					cboThanhPho.setSelectedIndex(0);
+					cbomaLop.setSelectedItem("");
+				}
+
 			}
 		}
 	};
-	public void them() {
+
+	public boolean them() {
 		int ktMaSv = 0;
 		maSv = txtMaSv.getText();
 		tenSv = txtTenSv.getText();
@@ -474,8 +481,9 @@ public class QuanLiSinhVienUI extends JPanel {
 		}
 		if (ktMaSv > 0) {
 			JOptionPane.showMessageDialog(null, "Sinh Viên Đã Tồn Tại !!");
+			return false;
 		} else {
-			QuanLiSinhVienModel.insert(maSv, tenSv, diachiSv, phuong, quan, thanhPho, sodienthoaiSv, emailSv, malopSv);
+			quanLiSinhVienSQL.insert(maSv, tenSv, diachiSv, phuong, quan, thanhPho, sodienthoaiSv, emailSv, malopSv);
 
 			//
 			dm.setRowCount(0);
@@ -485,7 +493,9 @@ public class QuanLiSinhVienUI extends JPanel {
 				dm.addRow(row);
 			}
 		}
+		return true;
 	}
+
 	public void sua() {
 		maSv = txtMaSv.getText();
 		tenSv = txtTenSv.getText();
@@ -497,7 +507,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		phuong = cboPhuong.getSelectedItem().toString();
 		malopSv = cbomaLop.getSelectedItem().toString();
 		//
-		QuanLiSinhVienModel.update(maSv, tenSv, diachiSv, phuong, quan, thanhPho, sodienthoaiSv, emailSv, malopSv);
+		quanLiSinhVienSQL.update(maSv, tenSv, diachiSv, phuong, quan, thanhPho, sodienthoaiSv, emailSv, malopSv);
 		//
 		dm.setRowCount(0);
 		for (QuanLiSinhVienModel x : arrQlSinhVien) {
@@ -506,9 +516,10 @@ public class QuanLiSinhVienUI extends JPanel {
 			dm.addRow(row);
 		}
 	}
+
 	public void xoa() {
 		maSv = txtMaSv.getText();
-		QuanLiSinhVienModel.delete(maSv);
+		quanLiSinhVienSQL.delete(maSv);
 		dm.setRowCount(0);
 		for (QuanLiSinhVienModel x : arrQlSinhVien) {
 			String row[] = { x.getMaSv(), x.getHoTenSv(), x.getDiaChiSv(), x.getXa(), x.getHuyen(), x.getTinh(),
@@ -516,9 +527,9 @@ public class QuanLiSinhVienUI extends JPanel {
 			dm.addRow(row);
 		}
 	}
+
 	public void comboBox() {
-		QuanLiSinhVienModel.selectAll();
-		arrQlSinhVien = QuanLiSinhVienModel.selectAll();
+		arrQlSinhVien = quanLiSinhVienSQL.selectAll();
 		String comBox = cbomaLop.getSelectedItem().toString();
 		if (comBox == "") {
 			for (QuanLiSinhVienModel x : arrQlSinhVien) {
@@ -537,4 +548,5 @@ public class QuanLiSinhVienUI extends JPanel {
 
 		}
 	}
+
 }

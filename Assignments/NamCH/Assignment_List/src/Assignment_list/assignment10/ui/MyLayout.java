@@ -24,12 +24,12 @@ public class MyLayout extends JFrame {
 	
 	private JTextField txtMaSv,txtTenSv,txtTuoiSv;
 	private JButton btnAdd,btnEdit,btnDelete,btnExit,btnSubmit;
-	String[] items = {"Tất cả","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
+	String[] items = {"Tất Cả","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
 	JComboBox<String> cbbClass = new JComboBox<>(items);
 	String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
     DefaultTableModel list = new DefaultTableModel(col, 0);
 	public static ArrayList<SinhVien> arrSv=new ArrayList<SinhVien>();
-	String chooseClass="Tất cả";
+	String chooseClass="Tất Cả";
 	final JTable tbl=new JTable(list);		
 	JScrollPane sc=new JScrollPane(tbl);
 	int stt=0;
@@ -49,7 +49,7 @@ public class MyLayout extends JFrame {
 		
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
 		
-		JLabel lbltitle=new JLabel("Chương Trình Quản Lý Sinh Viên");
+		JLabel lbltitle=new JLabel("Chương trình quản lý sinh viên");
 		Font font=new Font("Arial", Font.BOLD,20);
 		lbltitle.setFont(font);
 		JPanel pnMainTitle=new JPanel();
@@ -108,7 +108,7 @@ public class MyLayout extends JFrame {
 				BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle=
 				BorderFactory.createTitledBorder(
-				border, "Danh sách");
+				border, "Danh Sách");
 
 		pnMainContent6.setBorder(borderTitle);
 		
@@ -150,7 +150,7 @@ public class MyLayout extends JFrame {
 			arrSvFile=connectDb.SeclectDb();
 			arrSv=arrSvFile;
 			list.setRowCount(0);
-			if(chooseClass=="Tất cả") {
+			if(chooseClass=="Tất Cả") {
 				for (SinhVien sv : arrSv) {
 					String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 					list.addRow(row);
@@ -216,8 +216,8 @@ public class MyLayout extends JFrame {
 						if(maSv.isEmpty()&&tenSv.isEmpty()&&tuoiSv.isEmpty()) {		
 							throw new Exception();
 						}else if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()){
-							String msg = "Không được để trống các dòng "+maSv;
-							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);
+							String msg = "Không được để trống các dòng"+maSv;
+							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông Tin", JOptionPane.INFORMATION_MESSAGE);
 							
 							}else {
 							arrSv.get(stt).setMaSv(maSv);
@@ -231,7 +231,7 @@ public class MyLayout extends JFrame {
 							txtMaSv.requestFocus();
 							chooseClass =(String) cbbClass.getSelectedItem();;
 							list.setRowCount(0);
-								if(chooseClass=="Tất cả") {
+								if(chooseClass=="Tất Cả") {
 									for (SinhVien sv : arrSv) {
 										String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 										list.addRow(row);
@@ -246,12 +246,12 @@ public class MyLayout extends JFrame {
 								}						
 						}
 					}catch(Exception e2) {
-						String msg = "Chưa chọn dòng cần thay đổi ";
-						JOptionPane.showMessageDialog(null, msg, "Sửa Thành Công", JOptionPane.INFORMATION_MESSAGE);
+						String msg = "Chưa chọn dòng";
+						JOptionPane.showMessageDialog(null, msg, "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}catch(Exception e2) {
-				String msg = "Phải Nhập số cho Tuổi "+maSv;
-				JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông tin", JOptionPane.INFORMATION_MESSAGE);					
+				String msg = "Nhập đúng định dạng"+maSv;
+				JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông Tin", JOptionPane.INFORMATION_MESSAGE);					
 				}
 				
 			
@@ -274,7 +274,7 @@ public class MyLayout extends JFrame {
 			txtMaSv.requestFocus();
 			chooseClass =(String) cbbClass.getSelectedItem();;
 			list.setRowCount(0);
-			if(chooseClass=="Tất cả") {
+			if(chooseClass=="Tất Cả") {
 				for (SinhVien sv : arrSv) {
 					String[] row = {sv.getMaSv(), sv.getTenSv(), sv.getTuoiSv(),sv.getLopSv()};
 					list.addRow(row);
@@ -307,10 +307,10 @@ public class MyLayout extends JFrame {
 				try {
 					if(maSv.isEmpty()||tenSv.isEmpty()||tuoiSv.isEmpty()) {		
 						throw new Exception();
-					}else if(lopSv=="Tất cả"){
+					}else if(lopSv=="Tất Cả"){
 						throw new NullPointerException();
 					}else if(so>=0){
-						String msg = "Đã tồn tại sinh viên có mã là "+maSv;
+						String msg = "Đã Thêm Sinh Viên "+maSv;
 						JOptionPane.showMessageDialog(null, msg, "Lưu Thành Công", JOptionPane.INFORMATION_MESSAGE);
 					}else {
 						String[] row = {maSv,tenSv, tuoiSv,lopSv};
@@ -322,11 +322,11 @@ public class MyLayout extends JFrame {
 						txtTuoiSv.setText("");
 					}
 				}catch(NullPointerException e) {
-					String msg = "Chưa chọn Lớp\n Vui Lòng Nhập Lại "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
+					String msg = "Chưa Chọn Lớp"+tenSv;
+					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông Tin", JOptionPane.INFORMATION_MESSAGE);
 				}catch(Exception e) {
-					String msg = "Chưa nhập đủ các dòng\n Vui Lòng Nhập Lại "+tenSv;
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
+					String msg = "Chưa Nhập Đúng Định Dạng"+tenSv;
+					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thông Tin", JOptionPane.INFORMATION_MESSAGE);
 				}			
 			}catch(Exception e) {				
 			}						
