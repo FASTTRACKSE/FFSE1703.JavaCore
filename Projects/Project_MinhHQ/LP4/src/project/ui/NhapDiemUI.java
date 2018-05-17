@@ -73,13 +73,13 @@ public class NhapDiemUI extends JPanel {
 		DiemSV = new JTextField(20);
 		nhapDiem.add(lblNhapDiem);
 		nhapDiem.add(DiemSV);
-		pnLeft_NhapDiem.add(nhapDiem);
-		pnLeft_NhapDiem.add(suaND);
+		nhapDiem.add(suaND);
 
 		JPanel pn_NhapDiem = new JPanel();
-		pn_NhapDiem.setLayout(new FlowLayout());
+		pn_NhapDiem.setLayout(new BoxLayout(pn_NhapDiem,BoxLayout.Y_AXIS));
 
 		pn_NhapDiem.add(pnLeft_NhapDiem);
+		pn_NhapDiem.add(nhapDiem);
 		this.add(pn_NhapDiem);
 
 		JPanel Table_NhapDiem = new JPanel();
@@ -206,6 +206,25 @@ public class NhapDiemUI extends JPanel {
 	};
 	// kết thúc Chọn lớp -> mã môn học -> sinh viên
 	
+	// chọn lớp và môn cho table Nhập điểm
+		ActionListener eventChooseClass = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String chonLop = (String) selectNhapDiem.getSelectedItem();
+				String chonMH = (String) selectMaMH.getSelectedItem();
+				dm_NhapDiem.setRowCount(0);
+					for (Diem x : arrDiem) {
+						if (chonLop.equals(x.getLop()) && chonMH.equals(x.getMaMH())) {
+							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+							dm_NhapDiem.addRow(row);
+						}
+					}
+			}
+		};
+		// Kết thúc chọn lớp cho sinh vien
+
+	
 	// CRUD nhập điểm
 
 	MouseAdapter eventTable_NhapDiem = new MouseAdapter() {
@@ -217,8 +236,8 @@ public class NhapDiemUI extends JPanel {
 			col[2] = (String) table_NhapDiem.getValueAt(row, 2);
 			col[3] = (String) table_NhapDiem.getValueAt(row, 3);
 			selectNhapDiem.setSelectedItem(col[0]);
-			selectMaMH.setSelectedItem(col[1]);
-			selectMaSV.setSelectedItem(col[2]);
+			selectMaSV.setSelectedItem(col[1]);
+			selectMaMH.setSelectedItem(col[2]);
 			DiemSV.setText(col[3]);
 		}
 	};

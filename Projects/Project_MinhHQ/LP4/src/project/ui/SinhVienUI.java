@@ -360,7 +360,7 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			int i = 0;
 			String lop_SinhVien = (String) selectSinhVien.getSelectedItem();
-			String ma_SinhVien = lop_SinhVien + MaSV.getText();
+			String ma_SinhVien =  MaSV.getText();
 			String ten_SinhVien = TenSV.getText();
 			String diachi_SinhVien = Diachi.getText();
 			String tp_SinhVien = (String) tp.getSelectedItem();
@@ -378,7 +378,7 @@ public class SinhVienUI extends JPanel {
 				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
-					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("")
+					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals("") || ten_SinhVien.equals("")
 							|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
 						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên", null,
 								JOptionPane.WARNING_MESSAGE);
