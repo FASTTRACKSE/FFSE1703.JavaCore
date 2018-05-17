@@ -175,19 +175,23 @@ public class LopUI extends JPanel {
 	ActionListener eventAdd = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int i = 0;
 			String malop = maLop1.getText();
 			String tenlp = tenLop1.getText();
 			String nam = namHoc1.getText();
-
+			for (QuanLyLopHocModel y : arrLH) {
+				if (malop.equals(y.getMaLop())) {
+					i = 1;
+			}
+			}
+			if(i>0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã lớp");
+			}else {
 			try {
 				if (malop.equals("") || tenlp.equals("") || nam.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
 				} else {
-					for (QuanLyLopHocModel y : arrLH) {
-						if (malop.equals(y.getMaLop())) {
-							JOptionPane.showMessageDialog(null, "Trùng mã lớp");
-						} else {
+
 
 							arrLH.add(new QuanLyLopHocModel(malop, tenlp, nam));
 							dmLhoc.addRow(new String[] { malop, tenlp, nam });
@@ -206,12 +210,10 @@ public class LopUI extends JPanel {
 								ex.printStackTrace();
 							}
 						}
-						break;
-					}
-				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin lớp");
 			}
+		}
 		}
 	};
 

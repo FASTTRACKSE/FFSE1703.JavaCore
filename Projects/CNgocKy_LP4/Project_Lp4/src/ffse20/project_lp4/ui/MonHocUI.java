@@ -189,7 +189,15 @@ public class MonHocUI extends JPanel {
 			String tenMH = tenMhoc.getText();
 			String tinchi = soTinChi.getText();
 			String giohoc = gioHoc.getText();
-
+			int i =0;
+			for (QuanLyMonHocModel y : arrMH) {
+				if (maMH.equals(y.getMaMonHoc())) {
+					i = 1;
+			}
+			}
+			if(i>0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã môn học");
+			}else {
 
 			try {
 				if (maMH.equals("") || tenMH.equals("") || tinchi.equals("") || giohoc.equals("")) {
@@ -213,6 +221,7 @@ public class MonHocUI extends JPanel {
 				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+			}
 			}
 		}
 	};
@@ -265,7 +274,6 @@ public class MonHocUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 			try {
 				String sql = "DELETE FROM table_monhoc WHERE ma_monhoc = '" + maMhoc.getText() + "'";
-				System.out.print(sql);
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {

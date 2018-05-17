@@ -34,6 +34,7 @@ public class QuanLySinhVienUI extends JFrame {
 	private MonHocUI monHocUI;
 	private MonHoc_LopUI monHocLopUI;
 	private DiemUI nhapDiemUI;
+	private ThongKeUI thongKeUI;
 	
 	public QuanLySinhVienUI(String title) {
 		super(title);
@@ -66,7 +67,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction = new JPanel();
 		ImageIcon iconView = new ImageIcon("image/1.png");
 		Image getIconView = iconView.getImage();
-		Image newIconView = getIconView.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView = getIconView.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon = new ImageIcon(newIconView);
 		btnQllh = new JButton("QUẢN LÝ LỚP HỌC", newIcon);
 		pnAction.add(btnQllh);
@@ -75,7 +76,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction1 = new JPanel();
 		ImageIcon iconView1 = new ImageIcon("image/6.jpg");
 		Image getIconView1 = iconView1.getImage();
-		Image newIconView1 = getIconView1.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView1 = getIconView1.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon1 = new ImageIcon(newIconView1);
 		btnQlsv = new JButton("QUẢN LÝ SINH VIÊN", newIcon1);
 		pnAction1.add(btnQlsv);
@@ -84,7 +85,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction2 = new JPanel();
 		ImageIcon iconView2 = new ImageIcon("image/2.jpg");
 		Image getIconView2 = iconView2.getImage();
-		Image newIconView2 = getIconView2.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView2 = getIconView2.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon2 = new ImageIcon(newIconView2);
 		btnQlmh = new JButton("QUẢN LÝ MÔN HỌC", newIcon2);
 		pnAction2.add(btnQlmh);
@@ -93,7 +94,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction5 = new JPanel();
 		ImageIcon iconView5 = new ImageIcon("image/1a.jpg");
 		Image getIconView5 = iconView5.getImage();
-		Image newIconView5 = getIconView5.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView5 = getIconView5.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon5 = new ImageIcon(newIconView5);
 		btnMHLop = new JButton("MÔN HỌC-LỚP    ", newIcon5);
 		pnAction5.add(btnMHLop);
@@ -102,7 +103,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction3 = new JPanel();
 		ImageIcon iconView3 = new ImageIcon("image/a.jpg");
 		Image getIconView3 = iconView3.getImage();
-		Image newIconView3 = getIconView3.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView3 = getIconView3.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon3 = new ImageIcon(newIconView3);
 		btnQld = new JButton("QUẢN LÝ ĐIỂM       ", newIcon3);
 		pnAction3.add(btnQld);
@@ -112,7 +113,7 @@ public class QuanLySinhVienUI extends JFrame {
 		JPanel pnAction4 = new JPanel();
 		ImageIcon iconView4 = new ImageIcon("image/5.jpg");
 		Image getIconView4 = iconView4.getImage();
-		Image newIconView4 = getIconView4.getScaledInstance(70, 90, java.awt.Image.SCALE_SMOOTH);
+		Image newIconView4 = getIconView4.getScaledInstance(75, 90, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon4 = new ImageIcon(newIconView4);
 		btnTk = new JButton("THỐNG KÊ                ", newIcon4);
 		pnAction4.add(btnTk);
@@ -196,6 +197,16 @@ public class QuanLySinhVienUI extends JFrame {
 				nhapDiemUI = new DiemUI();
 				ttSV.add(nhapDiemUI, "5");
 				cardlayout.show(ttSV, "5");
+			}
+		});
+		
+		btnTk.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				thongKeUI = new ThongKeUI();
+				ttSV.add(thongKeUI, "6");
+				cardlayout.show(ttSV, "6");
 			}
 		});
 	}
