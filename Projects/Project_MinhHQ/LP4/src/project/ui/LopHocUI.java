@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class LopHocUI extends JPanel{
+public class LopHocUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,19 +31,17 @@ public class LopHocUI extends JPanel{
 	private JButton suaLopHoc = new JButton("Sửa");
 	private JButton nhapLopHoc = new JButton("Nhập");
 
-	private JComboBox<String> selectMaSV = new JComboBox<>();
 	private JComboBox<String> namhoc = new JComboBox<>();
 
 	private DefaultTableModel dm_LopHoc;
 	private JTable table_LopHoc;
 	private JScrollPane sp_LopHoc;
-	
 
 	public LopHocUI() {
 		addControls();
 		addEvent();
 	}
-	
+
 	public void addControls() {
 
 		// Quản lý lớp học
@@ -132,48 +130,6 @@ public class LopHocUI extends JPanel{
 		this.add(Table_LopHoc);
 	}
 
-
-	public void lop(JComboBox<String> x) {
-		x.addItem("Tất Cả");
-		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM lophoc");
-			while (result.next()) {
-				x.addItem(new String(result.getString("MaLop")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void monhoc(JComboBox<String> x) {
-		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
-			while (result.next()) {
-				x.addItem(new String(result.getString("MaMH")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sinhvien() {
-		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM sinhvien");
-			while (result.next()) {
-				selectMaSV.addItem(new String(result.getString("MaSV")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	// lấy xong giá trị của JComboBox
-
 	public void addEvent() {
 
 		// CRUD lớp học
@@ -185,7 +141,6 @@ public class LopHocUI extends JPanel{
 
 	}
 
-	
 	// CRUD Lớp Học
 
 	MouseAdapter eventTable_LopHoc = new MouseAdapter() {
@@ -207,41 +162,44 @@ public class LopHocUI extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int i = 0;
 			String ma_LopHoc = MaLH.getText();
 			String ten_LopHoc = TenLH.getText();
 			String nam_LopHoc = NamHoc.getText();
 
-			try {
-				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-				if (ma_LopHoc.equals("") || ten_LopHoc.equals("") || nam_LopHoc.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					for (LopHoc y : arrLH) {
-						if (ma_LopHoc.equals(y.getMaLop())) {
-							JOptionPane.showMessageDialog(null, "Trùng mã lớp");
-						} else {
-							arrLH.add(new LopHoc(ma_LopHoc, ten_LopHoc, nam_LopHoc));
-							dm_LopHoc.addRow(new String[] { ma_LopHoc, ten_LopHoc, nam_LopHoc });
-							try {
-								String sql = "INSERT INTO lophoc(MaLop,TenLop,NamHoc) VALUES (" + "'" + ma_LopHoc
-										+ "','" + ten_LopHoc + "','" + nam_LopHoc + "'" + ")";
-								Statement statement = conn.createStatement();
-								int x = statement.executeUpdate(sql);
-								if (x > 0) {
-									JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
-								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-						break;
-					}
+			for (LopHoc y : arrLH) {
+				if (ma_LopHoc.equals(y.getMaLop())) {
+					i = 1;
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
 			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Lớp Học đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
+			} else {
 
+				try {
+					Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+					if (ma_LopHoc.equals("") || ten_LopHoc.equals("") || nam_LopHoc.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+
+						arrLH.add(new LopHoc(ma_LopHoc, ten_LopHoc, nam_LopHoc));
+						dm_LopHoc.addRow(new String[] { ma_LopHoc, ten_LopHoc, nam_LopHoc });
+						try {
+							String sql = "INSERT INTO lophoc(MaLop,TenLop,NamHoc) VALUES (" + "'" + ma_LopHoc + "','"
+									+ ten_LopHoc + "','" + nam_LopHoc + "'" + ")";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+				}
+			}
 			MaLH.setText("");
 			TenLH.setText("");
 			NamHoc.setText("");
@@ -333,5 +291,4 @@ public class LopHocUI extends JPanel{
 	};
 	// kết thúc CRUD lớp học
 
-	
 }

@@ -92,7 +92,7 @@ public class MonHocLopUI extends JPanel {
 		}
 
 		for (MonHocLop x : arrLopMH) {
-			if (((String)selectMonHoc.getSelectedItem()).equals(x.getTenLop())) {
+			if (((String) selectMonHoc.getSelectedItem()).equals(x.getTenLop())) {
 				String[] row = { x.getTenLop(), x.getMaMH(), x.getTenMH(), x.getSoTC(), x.getThoigian() };
 				dm_MonHoc_lop.addRow(row);
 			}
@@ -173,27 +173,29 @@ public class MonHocLopUI extends JPanel {
 				for (MonHocLop y : arrLopMH) {
 					if (chonLop.equals(y.getTenLop()) && chonMH.equals(y.getMaMH())) {
 						i = 1;
-					}}
-					if (i > 0) {
-						JOptionPane.showMessageDialog(null, "Môn học đã tồn tại!", null, JOptionPane.WARNING_MESSAGE);
-					} else {
-							Statement statement = conn.createStatement();
-							ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc WHERE maMH ='"+chonMH+"'");
-							result.next();
-							arrLopMH.add(new MonHocLop(result.getString("maMH"), result.getString("tenMH"), chonLop,
-									result.getString("STC"), result.getString("ThoiGian")));
-
-							String[] row = { chonLop, result.getString("maMH"), result.getString("tenMH")};
-							dm_MonHoc_lop.addRow(row);
-
-							String sql = "INSERT INTO monhoc( MaMH, Ten, TenLop, SoTC, thoigian) VALUES ('" +  result.getString("maMH")
-									+ "','" + result.getString("tenMH") + "','" + chonLop + "','"
-									+ result.getString("STC") + "','" + result.getString("ThoiGian") + "')";
-							int x = statement.executeUpdate(sql);
-							if (x > 0) {
-								JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
-							}
 					}
+				}
+				if (i > 0) {
+					JOptionPane.showMessageDialog(null, "Môn học đã tồn tại!", null, JOptionPane.WARNING_MESSAGE);
+				} else {
+					Statement statement = conn.createStatement();
+					ResultSet result = statement
+							.executeQuery("SELECT * FROM table_monhoc WHERE maMH ='" + chonMH + "'");
+					result.next();
+					arrLopMH.add(new MonHocLop(result.getString("maMH"), result.getString("tenMH"), chonLop,
+							result.getString("STC"), result.getString("ThoiGian")));
+
+					String[] row = { chonLop, result.getString("maMH"), result.getString("tenMH") };
+					dm_MonHoc_lop.addRow(row);
+
+					String sql = "INSERT INTO monhoc( MaMH, Ten, TenLop, SoTC, thoigian) VALUES ('"
+							+ result.getString("maMH") + "','" + result.getString("tenMH") + "','" + chonLop + "','"
+							+ result.getString("STC") + "','" + result.getString("ThoiGian") + "')";
+					int x = statement.executeUpdate(sql);
+					if (x > 0) {
+						JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
+					}
+				}
 
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
@@ -214,15 +216,15 @@ public class MonHocLopUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLop = (String) selectMonHoc.getSelectedItem();
 			String chonMH = (String) maMHLop.getSelectedItem();
-			 for (MonHocLop x : arrLopMH) {
-			 if (chonMH.equals(x.getMaMH()) && chonLop.equals(x.getTenLop()) ) {
-				 arrLopMH.remove(x);
-			 break;
-			 }
-			 }
+			for (MonHocLop x : arrLopMH) {
+				if (chonMH.equals(x.getMaMH()) && chonLop.equals(x.getTenLop())) {
+					arrLopMH.remove(x);
+					break;
+				}
+			}
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
-				String sql = "DELETE FROM monhoc WHERE MaMH = '"+chonMH+"' AND TenLop ='"+chonLop+"'";
+				String sql = "DELETE FROM monhoc WHERE MaMH = '" + chonMH + "' AND TenLop ='" + chonLop + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
@@ -242,21 +244,20 @@ public class MonHocLopUI extends JPanel {
 
 	};
 	// kết thúc CRUD chọn môn học cho lớp
-	
-	//Chọn lớp học cho button
+
+	// Chọn lớp học cho button
 	ActionListener eventChooseLop = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLop = (String) selectMonHoc.getSelectedItem();
 			dm_MonHoc_lop.setRowCount(0);
-				for (MonHocLop x : arrLopMH) {
-					if (chonLop.equals(x.getTenLop())) {
-						String[] row = { x.getTenLop(), x.getMaMH(), x.getTenMH(), x.getSoTC(), x.getThoigian() };
-						dm_MonHoc_lop.addRow(row);
-					}
+			for (MonHocLop x : arrLopMH) {
+				if (chonLop.equals(x.getTenLop())) {
+					String[] row = { x.getTenLop(), x.getMaMH(), x.getTenMH(), x.getSoTC(), x.getThoigian() };
+					dm_MonHoc_lop.addRow(row);
 				}
+			}
 		}
 	};
 }
-	

@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SinhVienUI extends JPanel{
+public class SinhVienUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,8 +32,6 @@ public class SinhVienUI extends JPanel{
 	private JButton suaSinhVien = new JButton("Sửa");
 	private JButton nhapSinhVien = new JButton("Nhập");
 
-
-
 	private JComboBox<String> selectSinhVien = new JComboBox<>();
 	private JComboBox<String> selectMaSV = new JComboBox<>();
 	private JComboBox<String> tp = new JComboBox<>();
@@ -41,15 +39,12 @@ public class SinhVienUI extends JPanel{
 	private JComboBox<String> phuong = new JComboBox<>();
 	// private JComboBox<String> TenMHLop = new JComboBox<>();
 
-
 	private DefaultTableModel dm_SinhVien;
 	private JTable table_SinhVien;
 	private JScrollPane sp_SinhVien;
 
-
-
 	public SinhVienUI() {
-		lop(selectSinhVien);	
+		lop(selectSinhVien);
 		sinhvien();
 		tinh();
 		quan();
@@ -276,7 +271,7 @@ public class SinhVienUI extends JPanel{
 		selectSinhVien.addActionListener(eventChooseClass);
 		tp.addActionListener(eventChooseTp);
 		quan.addActionListener(eventChooseQuan);
-		
+
 		// CRUD sinh viên
 		table_SinhVien.addMouseListener(eventTable_SinhVien);
 		themSinhVien.addActionListener(eventAdd_SinhVien);
@@ -284,7 +279,6 @@ public class SinhVienUI extends JPanel{
 		suaSinhVien.addActionListener(eventEdit_SinhVien);
 		nhapSinhVien.addActionListener(eventReset_SinhVien);
 
-		
 	}
 
 	// Chọn tỉnh -> quận huyện -> xã phường
@@ -331,9 +325,6 @@ public class SinhVienUI extends JPanel{
 	};
 	// kết thúc chọn tỉnh -> quận huyện -> xã phường
 
-	
-
-
 	// CRUD Sinh Viên
 
 	MouseAdapter eventTable_SinhVien = new MouseAdapter() {
@@ -367,6 +358,7 @@ public class SinhVienUI extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int i = 0;
 			String lop_SinhVien = (String) selectSinhVien.getSelectedItem();
 			String ma_SinhVien = lop_SinhVien + MaSV.getText();
 			String ten_SinhVien = TenSV.getText();
@@ -377,34 +369,43 @@ public class SinhVienUI extends JPanel{
 			String email_SinhVien = Email.getText();
 			String sdt_SinhVien = SDT.getText();
 
-			try {
-				if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("")
-						|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên",null,JOptionPane.WARNING_MESSAGE );
-				} else {
-					arrSV.add(new SinhVien(lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien, quan_SinhVien,
-							phuong_SinhVien, diachi_SinhVien, email_SinhVien, sdt_SinhVien));
-					dm_SinhVien.addRow(new String[] { lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien,
-							quan_SinhVien, phuong_SinhVien, diachi_SinhVien, email_SinhVien, sdt_SinhVien });
-					Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-					try {
-						String sql = "INSERT INTO sinhvien(MaSV, TenSV, MaLop,  ThanhPho, Quan,Phuong, DiaChi, Email, DT) VALUES  ('"
-								+ ma_SinhVien + "','" + ten_SinhVien + "','" + lop_SinhVien + "','" + tp_SinhVien
-								+ "','" + quan_SinhVien + "','" + phuong_SinhVien + "','" + diachi_SinhVien + "','"
-								+ email_SinhVien + "','" + sdt_SinhVien + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+			for (SinhVien x : arrSV) {
+				if (MaSV.getText().equals(x.getMaSV())) {
+					i = 1;
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
-
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("")
+							|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên", null,
+								JOptionPane.WARNING_MESSAGE);
+					} else {
+						arrSV.add(new SinhVien(lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien, quan_SinhVien,
+								phuong_SinhVien, diachi_SinhVien, email_SinhVien, sdt_SinhVien));
+						dm_SinhVien.addRow(new String[] { lop_SinhVien, ma_SinhVien, ten_SinhVien, tp_SinhVien,
+								quan_SinhVien, phuong_SinhVien, diachi_SinhVien, email_SinhVien, sdt_SinhVien });
+						Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+						try {
+							String sql = "INSERT INTO sinhvien(MaSV, TenSV, MaLop,  ThanhPho, Quan,Phuong, DiaChi, Email, DT) VALUES  ('"
+									+ ma_SinhVien + "','" + ten_SinhVien + "','" + lop_SinhVien + "','" + tp_SinhVien
+									+ "','" + quan_SinhVien + "','" + phuong_SinhVien + "','" + diachi_SinhVien + "','"
+									+ email_SinhVien + "','" + sdt_SinhVien + "')";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+				}
+			}
 			dm_SinhVien.setRowCount(0);
 			for (SinhVien x : arrSV) {
 				if (lop_SinhVien.equals(x.getLop())) {
@@ -577,5 +578,4 @@ public class SinhVienUI extends JPanel{
 	};
 	// Kết thúc chọn lớp cho sinh vien
 
-	
 }

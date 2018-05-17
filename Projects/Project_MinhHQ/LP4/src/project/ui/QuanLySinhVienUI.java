@@ -54,7 +54,7 @@ public class QuanLySinhVienUI extends JFrame {
 		Luachon.add(Diem);
 		Luachon.add(Thongke);
 		Main.add(Luachon, BorderLayout.WEST);
-		
+
 		lopHocUI = new LopHocUI();
 		ttSV.add(lopHocUI, "1");
 
@@ -62,10 +62,6 @@ public class QuanLySinhVienUI extends JFrame {
 		con.add(Main);
 		setVisible(true);
 	}
-
-	// Lấy giá trị tĩnh cho các JComboBox
-
-	// lấy xong giá trị của JComboBox
 
 	public void addEvent() {
 
@@ -118,6 +114,7 @@ public class QuanLySinhVienUI extends JFrame {
 			}
 		});
 	}
+
 	public void showWindow() {
 		this.setSize(1350, 700);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

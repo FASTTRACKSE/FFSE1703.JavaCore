@@ -15,15 +15,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class MonHocUI extends JPanel{
+public class MonHocUI extends JPanel {
 	private static final long serialVersionUID = 1L;
-	
+
 	public MonHocUI() {
 		lop(selectMonHoc);
 		addControls();
 		addEvent();
 	}
-	
+
 	private JTextField MaMH = new JTextField();
 	private JTextField TenMH = new JTextField();
 	private JTextField Tinchi = new JTextField();
@@ -36,13 +36,11 @@ public class MonHocUI extends JPanel{
 	private JButton suaMonHoc = new JButton("Sửa");
 	private JButton nhapMonHoc = new JButton("Nhập");
 
-	private JComboBox<String> selectMonHoc = new JComboBox<>();	
+	private JComboBox<String> selectMonHoc = new JComboBox<>();
 
 	private DefaultTableModel dm_MonHoc;
 	private JTable table_MonHoc;
 	private JScrollPane sp_MonHoc;
-	
-	
 
 	public void addControls() {
 		// Quản lý môn học
@@ -139,7 +137,7 @@ public class MonHocUI extends JPanel{
 		sc_MonHoc.setPreferredSize(new Dimension(470, 180));
 		Table_MonHoc.add(sc_MonHoc, BorderLayout.CENTER);
 		this.add(Table_MonHoc);
-		
+
 	}
 
 	// Lấy giá trị tĩnh cho các JComboBox
@@ -157,20 +155,6 @@ public class MonHocUI extends JPanel{
 			e.printStackTrace();
 		}
 	}
-
-	public void monhoc(JComboBox<String> x) {
-		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
-			while (result.next()) {
-				x.addItem(new String(result.getString("MaMH")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	// lấy xong giá trị của JComboBox
 
 	public void addEvent() {
@@ -183,7 +167,6 @@ public class MonHocUI extends JPanel{
 		nhapMonHoc.addActionListener(eventReset_MonHoc);
 	}
 
-	
 	// CRUD Lớp Học
 
 	MouseAdapter eventTable_MonHoc = new MouseAdapter() {
@@ -207,45 +190,45 @@ public class MonHocUI extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int i = 0;
 			String ma_MonHoc = MaMH.getText();
 			String ten_MonHoc = TenMH.getText();
 			String tinchi_MonHoc = Tinchi.getText();
 			String time_MonHoc = Time.getText();
 
-			try {
-				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-				if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("")
-						|| time_MonHoc.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					for (MonHoc y : arrMH) {
-						if (ma_MonHoc.equals(y.getMaMH())) {
-							JOptionPane.showMessageDialog(null, "Trùng mã môn học");
-							break;
-						} else {
-							arrMH.add(new MonHoc(ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc));
-							dm_MonHoc.addRow(new String[] { ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc });
-
-							try {
-								String sql = "INSERT INTO table_monhoc( maMH, tenMH, STC, ThoiGian) VALUES ('"
-										+ ma_MonHoc + "','" + ten_MonHoc + "','" + tinchi_MonHoc + "','" + time_MonHoc
-										+ "')";
-								Statement statement = conn.createStatement();
-								int x = statement.executeUpdate(sql);
-								if (x > 0) {
-									JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
-								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-
-					}
+			for (MonHoc y : arrMH) {
+				if (ma_MonHoc.equals(y.getMaMH())) {
+					i = 1;
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
 			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Môn Học đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+					if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("")
+							|| time_MonHoc.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+						arrMH.add(new MonHoc(ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc));
+						dm_MonHoc.addRow(new String[] { ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc });
 
+						try {
+							String sql = "INSERT INTO table_monhoc( maMH, tenMH, STC, ThoiGian) VALUES ('" + ma_MonHoc
+									+ "','" + ten_MonHoc + "','" + tinchi_MonHoc + "','" + time_MonHoc + "')";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+				}
+			}
 			MaMH.setText("");
 			TenMH.setText("");
 			Tinchi.setText("");
@@ -338,7 +321,5 @@ public class MonHocUI extends JPanel{
 		}
 	};
 	// kết thúc CRUD môn học
-	
-	
-	
+
 }
