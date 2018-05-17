@@ -169,6 +169,7 @@ public class NhapDiemUI extends JPanel {
 		table_NhapDiem.addMouseListener(eventTable_NhapDiem);
 		suaND.addActionListener(eventEdit_NhapDiem);
 		selectNhapDiem.addActionListener(eventChooseLop);
+		selectNhapDiem.addActionListener(eventChooseClass);
 	}
 
 	// Chọn lớp -> mã môn học -> sinh viên
