@@ -4,7 +4,7 @@ import java.sql.Statement;
 
 import com.mysql.jdbc.Connection;
 
-import ffse1702010.edu.vn.ui.ConnectData;
+import ffse1702010.edu.vn.Connect.ConnectData;
 import ffse1702010.edu.vn.ui.MyLayout;
 
 public class ShowMyLayout {
