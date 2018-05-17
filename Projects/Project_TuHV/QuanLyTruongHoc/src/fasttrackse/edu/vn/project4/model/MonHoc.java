@@ -4,6 +4,7 @@ public class MonHoc {
 	
 	private String maMH;
 	private String tenMH;
+	
 	private String soTC;
 	private String thoiluonghoc;
 	
@@ -11,12 +12,16 @@ public class MonHoc {
 		
 		this.maMH = maMH;
 		this.tenMH = tenMH;
+		
 		this.soTC = soTC;
 		this.thoiluonghoc = thoiluonghoc;
 		
 	}
 
 	
+
+	
+
 
 	public String getMaMH() {
 		return maMH;

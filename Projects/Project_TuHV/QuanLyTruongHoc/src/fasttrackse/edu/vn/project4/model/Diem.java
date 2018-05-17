@@ -5,13 +5,13 @@ public class Diem {
 	private String maMH;
 	private String maSV;
 	private String diem;
-	private String tenMH;
+	private String malophoc;
 	
-	public Diem(String maMH, String maSV, String diem, String tenMH) {
+	public Diem(String maMH, String maSV, String diem, String malophoc) {
 		this.maMH = maMH;
 		this.maSV = maSV;
 		this.diem = diem;
-		this.tenMH = tenMH;
+		this.malophoc = malophoc;
 		
 	}
 
@@ -39,13 +39,16 @@ public class Diem {
 		this.diem = diem;
 	}
 
-	public String getTenMH() {
-		return tenMH;
+	public String getMalophoc() {
+		return malophoc;
 	}
 
-	public void setTenMH(String tenMH) {
-		this.tenMH = tenMH;
+	public void setMalophoc(String malophoc) {
+		this.malophoc = malophoc;
 	}
+
+	
+	
 	
 
 }
