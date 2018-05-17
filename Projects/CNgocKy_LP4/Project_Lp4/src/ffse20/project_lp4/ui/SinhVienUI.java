@@ -1,8 +1,5 @@
 package ffse20.project_lp4.ui;
 
-
-
-
 import java.awt.BorderLayout;
 import ffse20.project_lp4.connect.*;
 import java.awt.Color;
@@ -33,12 +30,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class SinhVienUI  extends JPanel {
+public class SinhVienUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JButton btnThemsv = new JButton("Thêm");
 	private JButton btnSuasv = new JButton("Sửa");
 	private JButton btnXoasv = new JButton("Xóa");
 	private JButton btnNhapsv = new JButton("Nhập");
+	private JButton btnTimSV = new JButton("Tìm");
 	private JComboBox<String> cboTinh = new JComboBox<>();
 	private JComboBox<String> cboQuan = new JComboBox<>();
 	private JComboBox<String> cboPhuong = new JComboBox<>();
@@ -46,48 +44,44 @@ public class SinhVienUI  extends JPanel {
 	private JLabel txttinh = new JLabel("Thành Phố(Tỉnh): ");
 	private JLabel txtphuong = new JLabel("Phường(Xã): ");
 	private JLabel txtlop = new JLabel("Chọn Mã Lớp: ");
+	private JLabel txtlopSeach = new JLabel("Xem Lớp: ");
 	private JLabel lblNhapmaSV = new JLabel("Mã SV:");
 	private JLabel lblNhapten = new JLabel("Họ Tên:");
+	private JLabel lblSeach = new JLabel("Tiềm Kiếm:");
 	private JLabel lblNhapNgaySinh = new JLabel("Ngày Sinh:");
 	private JLabel lblPhone = new JLabel("SĐT:");
 	private JLabel lblNhapEmail = new JLabel("Email:");
 
-	private DefaultTableModel  dmSV;
+	private DefaultTableModel dmSV;
 
 	private JTextField masv;
 	private JTextField tenSV;
 	private JTextField ngaySinh;
 	private JTextField phone;
 	private JTextField Email;
+	private JTextField seach = new JTextField();
 
 	private JScrollPane sc_SVien;
 	private JTable tblSinhVien;
 	JPanel ttSV = new JPanel();
 
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
-
-	
-	private JComboBox<String> maSV5 = new JComboBox<>();
-
-
-
+	private JComboBox<String> maLopSeachcomnoBox = new JComboBox<>();
 
 	private ArrayList<QuanLySinhVienModel> arrSV = new ArrayList<QuanLySinhVienModel>();
 
-	
 	public SinhVienUI() {
 		addControls();
 		addEvents();
 		tinh();
-		lop(maLopcomnoBox);
-
+		lop(maLopSeachcomnoBox);
+		lop2(maLopcomnoBox);
+		// timKiem(btnTimSV);
 
 	}
 
 	public void addControls() {
 
-
-		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Border border2 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle2 = BorderFactory.createTitledBorder(border2, "NHẬP THÔNG TIN");
@@ -168,6 +162,28 @@ public class SinhVienUI  extends JPanel {
 
 		this.add(cot3);
 
+		JPanel cot4 = new JPanel();
+
+		JPanel chonlopSeach = new JPanel();
+		chonlopSeach.add(txtlopSeach);
+		chonlopSeach.add(maLopSeachcomnoBox);
+		cot4.add(chonlopSeach);
+
+		JPanel timkiem = new JPanel();
+		timkiem.setLayout(new FlowLayout());
+		seach = new JTextField(20);
+		timkiem.add(lblSeach);
+		timkiem.add(seach);
+		cot4.add(timkiem);
+
+		JPanel timKiem = new JPanel();
+		timKiem.setLayout(new FlowLayout());
+		timKiem.add(btnTimSV);
+
+		cot4.add(timKiem);
+
+		this.add(cot4);
+
 		JPanel pnTable = new JPanel();
 		dmSV = new DefaultTableModel();
 		new JTable(dmSV);
@@ -205,7 +221,7 @@ public class SinhVienUI  extends JPanel {
 		sc_SVien = new JScrollPane(tblSinhVien);
 		JScrollPane VT = new JScrollPane(sc_SVien, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		VT.setPreferredSize(new Dimension(1300, 350));
+		VT.setPreferredSize(new Dimension(1300, 270));
 		pnTable.add(VT, BorderLayout.CENTER);
 
 		Border border = BorderFactory.createLineBorder(Color.RED);
@@ -222,7 +238,6 @@ public class SinhVienUI  extends JPanel {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("select * from devvn_tinhthanhpho");
 			while (result.next()) {
-				// System.out.print(result);
 				cboTinh.addItem(result.getString("name"));
 
 			}
@@ -231,7 +246,6 @@ public class SinhVienUI  extends JPanel {
 		}
 	}
 
-	
 	public void lop(JComboBox<String> x) {
 		x.addItem("Tất Cả");
 		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
@@ -245,68 +259,63 @@ public class SinhVienUI  extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-//	public void maLopcomnoBox() {
-//		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-//		try {
-//
-//			Statement statement = conn.createStatement();
-//			ResultSet result = statement.executeQuery("SELECT * FROM tabel_lop");
-//			while (result.next()) {
-//				maLopcomnoBox.addItem(new String(result.getString("MaLop")));
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
 
+	public void lop2(JComboBox<String> x) {
+		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM tabel_lop");
+			while (result.next()) {
+				x.addItem(new String(result.getString("MaLop")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void timKiem() {
+		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			// String timkiem = (String) seach.getText();
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM tabel_sinhvien WHERE tabel_sinhvien.ma_SV LIKE'"
+					+ seach.getText().trim() + "%'" + " OR tabel_sinhvien.tenSV LIKE'" + seach.getText().trim() + "%'"
+					+ " OR tabel_sinhvien.maLop LIKE'" + seach.getText().trim() + "%'"
+					+ " OR tabel_sinhvien.ngaysinh LIKE'" + seach.getText().trim() + "%'"
+					+ " OR tabel_sinhvien.phuong LIKE'" + seach.getText().trim() + "%'"
+					+ " OR tabel_sinhvien.quan LIKE'" + seach.getText().trim() + "%'" + " OR tabel_sinhvien.thanhPho"
+					+ " LIKE'" + seach.getText().trim() + "%'" + " OR tabel_sinhvien.email" + " LIKE'"
+					+ seach.getText().trim() + "%'" + " OR tabel_sinhvien.phone" + " LIKE'" + seach.getText().trim()
+					+ "%'");
+
+			// bang.getDataVector().removeAllElements();
+			dmSV.setRowCount(0);
+			while (result.next()) {
+				dmSV.addRow(new String[] { result.getString(1), result.getString(2), result.getString(3),
+						result.getString(4), result.getString(5), result.getString(6), result.getString(7),
+						result.getString(8), result.getString(9) });
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu !", "Warning", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
 
 	public void addEvents() {
 
 		tblSinhVien.addMouseListener(eventTableSV);
 
-		maLopcomnoBox.addActionListener(eventChooseClass);
-		
+		maLopSeachcomnoBox.addActionListener(eventChooseClass);
+		btnTimSV.addActionListener(eventTiemKiem);
+
 		btnSuasv.addActionListener(eventEditSV);
 		btnThemsv.addActionListener(eventAddSinhVien);
 		btnXoasv.addActionListener(eventDelSinhVien);
 		btnNhapsv.addActionListener(eventReset_SinhVien);
-			
+
 		cboTinh.addActionListener(eventChooseQuan);
 		cboQuan.addActionListener(eventChoosePhuong);
-
-
-
 	}
-
-	
-	
-	
-	ActionListener eventChooseSVien= new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			maSV5.removeAllItems();
-
-			String chonSV = (String) maLopcomnoBox.getSelectedItem();
-			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-			try {
-				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery(
-						"SELECT tabel_sinhvien.tenSV FROM tabel_sinhvien INNER JOIN tabel_lop WHERE tabel_lop.maLop=tabel_sinhvien.maLop AND tabel_lop.maLop ='"
-								+ chonSV + "'");
-				while (result.next()) {
-					maSV5.addItem(result.getString("tabel_sinhvien.tenSV"));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
-	};
 
 	///////////// event-ThanhPho/////////////////////
 	ActionListener eventChooseQuan = new ActionListener() {
@@ -355,8 +364,6 @@ public class SinhVienUI  extends JPanel {
 		}
 	};
 
-
-
 	///////////////////////////////////////////////////////////////////
 	///////////////// EVENT-QUANLYSINHVIEN////////////////////////
 	///////////////////////////////////////////////////////
@@ -389,7 +396,8 @@ public class SinhVienUI  extends JPanel {
 	};
 
 	ActionListener eventAddSinhVien = new ActionListener() {
-		@Override
+
+
 		public void actionPerformed(ActionEvent arg0) {
 			String maLp = (String) maLopcomnoBox.getSelectedItem();
 
@@ -401,7 +409,15 @@ public class SinhVienUI  extends JPanel {
 			String tp_SinhVien = (String) cboTinh.getSelectedItem();
 			String quan_SinhVien = (String) cboQuan.getSelectedItem();
 			String phuong_SinhVien = (String) cboPhuong.getSelectedItem();
-
+			int i =0;
+			for (QuanLySinhVienModel y : arrSV) {
+				if (maSV.equals(y.getMaSV())) {
+					i = 1;
+			}
+			}
+			if(i>0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên");
+			}else {
 			try {
 				if (maSV.equals("") || ten.equals("") || nam.equals("") || email.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
@@ -428,7 +444,40 @@ public class SinhVienUI  extends JPanel {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
 		}
+		}
 	};
+
+	ActionListener eventTiemKiem = new ActionListener() {
+
+		public void actionPerformed(ActionEvent arg0) {
+			if (seach.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+				
+			} else {
+				Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+				try {
+//					 String timkiem = (String) seach.getText();
+					Statement statement = conn.createStatement();
+					ResultSet result = statement.executeQuery(
+							"SELECT * FROM tabel_sinhvien WHERE ma_SV LIKE'" + "%" +  seach.getText()
+									+ "%'" + " OR tenSV LIKE'" + "%" + seach.getText() + "%'");
+
+
+					dmSV.setRowCount(0);
+
+					while (result.next()) {
+						dmSV.addRow(new String[] { result.getString(4), result.getString(2), result.getString(3),
+								result.getString(5), result.getString(10), result.getString(9), result.getString(6),
+								result.getString(7), result.getString(8) });
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Không tìm thấy dữ liệu !", "Warning",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	};
+
 	ActionListener eventEditSV = new ActionListener() {
 
 		@Override
@@ -506,21 +555,21 @@ public class SinhVienUI  extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String chonLop = (String) maLopcomnoBox.getSelectedItem();
+			String chonLop = (String) maLopSeachcomnoBox.getSelectedItem();
 			dmSV.setRowCount(0);
 			if (chonLop == "Tất Cả") {
 
 				for (QuanLySinhVienModel x : arrSV) {
-					String[] row = { x.getMaLop(), x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getPhone(), x.getEmail(),
-							x.getPhuong(), x.getQuan(), x.getThanhPho() };
+					String[] row = { x.getMaLop(), x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getPhone(),
+							x.getEmail(), x.getPhuong(), x.getQuan(), x.getThanhPho() };
 					dmSV.addRow(row);
 				}
 
 			} else {
 				for (QuanLySinhVienModel x : arrSV) {
 					if (chonLop.equals(x.getMaLop())) {
-						String[] row = { x.getMaLop(), x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getPhone(), x.getEmail(),
-								x.getPhuong(), x.getQuan(), x.getThanhPho() };
+						String[] row = { x.getMaLop(), x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getPhone(),
+								x.getEmail(), x.getPhuong(), x.getQuan(), x.getThanhPho() };
 						dmSV.addRow(row);
 					}
 				}
