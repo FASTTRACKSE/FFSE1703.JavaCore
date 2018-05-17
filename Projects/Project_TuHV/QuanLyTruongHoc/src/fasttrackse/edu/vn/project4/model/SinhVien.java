@@ -57,7 +57,7 @@ public class SinhVien {
 	}
 
 	public void setLop(String lop) {
-		lop = lop;
+		this.lop = lop;
 	}
 
 	

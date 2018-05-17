@@ -266,7 +266,7 @@ public class LayoutUser extends JPanel {
 		
 		JPanel pnActionHistory = new JPanel();
 		pnActionHistory.setOpaque(false);
-		layoutHistory = new LayoutUserHistory();
+		layoutHistory = new LayoutUserHistory(codeCus,codeATM);
 		pnActionHistory.add(layoutHistory);
 		
 		pnAction.add(pnActionWithdrawal,"myCardWithdrawal");
@@ -293,6 +293,7 @@ public class LayoutUser extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			cardLayoutAction.show(pnAction, "myCardHistory");
 			btnBalance.setBackground(null);
 			btnWithdrawal.setBackground(null);	
@@ -318,9 +319,10 @@ public class LayoutUser extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			JPanel pnActionBalance=new JPanel();
 			pnActionBalance.setOpaque(false);
-			arrCheckCtm=CustomerDB.searchCode(codeCus);
+			arrCheckCtm = CustomerDB.searchCode(codeCus);
 			for(Customer x:arrCheckCtm) {
 				if(codeCus.equals(x.getCodeCus())) {
 					balance=x.getAmountCus();
@@ -355,7 +357,6 @@ public class LayoutUser extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			arrCheckCtm = CustomerDB.searchCode(codeCus);
 			txtCodeUser.setText(arrCheckCtm.get(0).getCodeCus());
 			txtAccountNumber.setText(arrCheckCtm.get(0).getCardnumberCus());
 			
@@ -418,12 +419,12 @@ public class LayoutUser extends JPanel {
 								    System.out.println(formattedTime);
 								    long int_transactions = t.getTime();	
 								    String code_transactions = "MGD" + int_transactions;
-									int checkTss = TransactionsDb.addTransactions(codeCus, codeATM, code_transactions , moneyWithdrawal);
+									int checkTss = TransactionsDb.addTransactions(codeCus, codeATM, code_transactions , moneyWithdrawal ,"Rút Tiền");
 									if(checkTss>-1) {
 										String msg = "Rút Thành Công\n"+ String.format("%,d", (long) moneyWithdrawal)+" VNĐ"+
 												" Từ Tài Khoản\n"+"Số Tiền Còn Lại Trong Tài Khoản Của Bạn Là "
 												+String.format("%,d", (long) balanceCus)+" VNĐ";
-										JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);									
+										JOptionPane.showMessageDialog(null, msg, "Rút Tiền!!!", JOptionPane.INFORMATION_MESSAGE);									
 									}											
 								}				
 							}

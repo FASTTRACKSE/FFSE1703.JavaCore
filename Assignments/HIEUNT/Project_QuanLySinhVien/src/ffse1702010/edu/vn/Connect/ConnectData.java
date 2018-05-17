@@ -1,4 +1,4 @@
-package ffse1702010.edu.vn.ui;
+package ffse1702010.edu.vn.Connect;
 
 import java.sql.SQLException;
 import java.util.Properties;

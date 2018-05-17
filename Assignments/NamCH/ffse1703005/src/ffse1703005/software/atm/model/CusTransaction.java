@@ -3,12 +3,12 @@ package ffse1703005.software.atm.model;
 import java.sql.Timestamp;
 
 public class CusTransaction extends Transaction {
-	private String codeCus,fullnameCus,codeATM,districts,wards,streets;
+	private String codeCus,fullnameCus,codeATM,districts,wards,streets,status;
 	public CusTransaction() {
 		super();
 	}
 	public CusTransaction(String codeTransaction,Timestamp timeTransaction,float payTransaction,
-			String codeCus,String fullnameCus,String codeATM,String districts,String wards,String streets) {
+			String codeCus,String fullnameCus,String codeATM,String districts,String wards,String streets,String status) {
 		super(codeTransaction,timeTransaction,payTransaction);
 		this.codeCus = codeCus;
 		this.fullnameCus = fullnameCus;
@@ -16,6 +16,7 @@ public class CusTransaction extends Transaction {
 		this.districts = districts;
 		this.wards = wards;
 		this.streets = streets;
+		this.status = status;
 	}
 	public String getCodeCus() {
 		return codeCus;
@@ -52,5 +53,11 @@ public class CusTransaction extends Transaction {
 	}
 	public void setCodeATM(String codeATM) {
 		this.codeATM = codeATM;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

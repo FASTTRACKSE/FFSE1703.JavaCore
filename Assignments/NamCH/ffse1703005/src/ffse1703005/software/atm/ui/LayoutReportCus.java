@@ -52,386 +52,392 @@ public class LayoutReportCus extends JPanel{
 		for(String x:arrAdress) {
 			cboDistricts.addItem(x);
 		}
-		arrCtm = new ArrayList<Customer>();
-		arrCtm = CustomerDB.getCustomersList();
+		
 		arrCtmAll = new ArrayList<Customer>();
-		arrCtmAll = updateArrCtm();
+		arrCtmAll = CustomerDB.getCustomersList();
+		arrCtm = new ArrayList<Customer>();
+		arrCtm = arrCtmAll;
 		printListCus();
 	}
 
 	private void addControlls() {
-		this.setOpaque(false);		
-		
-		JPanel pnMain = new JPanel();
-		pnMain.setOpaque(false);	
-		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
-		pnMain.setPreferredSize(new Dimension(1050, 587));
-		pnMain.setMaximumSize(pnMain.getPreferredSize() );
-		
-		JPanel pnCenter = new JPanel();
-		pnCenter.setOpaque(false);		
-		
-		pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
-		pnCenter.setPreferredSize(new Dimension(700, 587));
-		pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
-		
-		JPanel pnSeacher = new JPanel();
-		pnSeacher.setOpaque(false);
-		pnSeacher.setPreferredSize(new Dimension(700, 35));
-		pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
-		pnCenter.add(pnSeacher);
-		
-		JPanel pnList = new JPanel();
-		Border titleBorderList;
-		Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
-		titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnList.setBorder(titleBorderList);
-		pnList.setPreferredSize(new Dimension(700,250));
-		pnList.setMaximumSize(pnList.getPreferredSize() );
-		list.addColumn("Mã Khách Hàng");
-		list.addColumn("Họ Và Tên");
-		list.addColumn("Số Điện Thoại");
-		list.addColumn("Địa Chỉ Email");
-		list.addColumn("Số Tài Khoảng");
-		list.addColumn("Số Dư Tài Khoảng");
-				
+		try {
+			this.setOpaque(false);		
+			
+			JPanel pnMain = new JPanel();
+			pnMain.setOpaque(false);	
+			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
+			pnMain.setPreferredSize(new Dimension(1050, 587));
+			pnMain.setMaximumSize(pnMain.getPreferredSize() );
+			
+			JPanel pnCenter = new JPanel();
+			pnCenter.setOpaque(false);		
+			
+			pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
+			pnCenter.setPreferredSize(new Dimension(700, 587));
+			pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
+			
+			JPanel pnSeacher = new JPanel();
+			pnSeacher.setOpaque(false);
+			pnSeacher.setPreferredSize(new Dimension(700, 35));
+			pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
+			pnCenter.add(pnSeacher);
+			
+			JPanel pnList = new JPanel();
+			Border titleBorderList;
+			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
+			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnList.setBorder(titleBorderList);
+			pnList.setPreferredSize(new Dimension(700,250));
+			pnList.setMaximumSize(pnList.getPreferredSize() );
+			list.addColumn("Mã Khách Hàng");
+			list.addColumn("Họ Và Tên");
+			list.addColumn("Số Điện Thoại");
+			list.addColumn("Địa Chỉ Email");
+			list.addColumn("Số Tài Khoảng");
+			list.addColumn("Số Dư Tài Khoảng");
+					
 
-		JScrollPane sc=new JScrollPane(tbl);		
-		pnList.setLayout(new BorderLayout());
-		pnList.add(sc,BorderLayout.CENTER);
-		pnCenter.add(pnList);
-		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-		tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-		tbl.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
-		tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-		
-		
-		
-		JPanel pnDetail = new JPanel();
-		pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
-		Border titleBorderDetail;
-		Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
-		titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnDetail.setBorder(titleBorderDetail);
-		pnDetail.setPreferredSize(new Dimension(700,155));
-		pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
-		pnCenter.add(pnDetail);
-		
-		JPanel pnAllInfor = new JPanel();
-		pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
-		
-		JPanel pnDetailInfor = new JPanel();
-		JLabel lblDetailFn = new JLabel("Họ Và Tên :");
-		txtDetailFullname = new JTextField(20);
-		txtDetailFullname.setEditable(false);
-		
-		JLabel lblDetailP = new JLabel("Số Điện Thoại :");
-		txtDetailPhone = new JTextField(20);	
-		txtDetailPhone.setEditable(false);
+			JScrollPane sc=new JScrollPane(tbl);		
+			pnList.setLayout(new BorderLayout());
+			pnList.add(sc,BorderLayout.CENTER);
+			pnCenter.add(pnList);
+			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+			tbl.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+			tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+			
+			
+			
+			JPanel pnDetail = new JPanel();
+			pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
+			Border titleBorderDetail;
+			Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
+			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnDetail.setBorder(titleBorderDetail);
+			pnDetail.setPreferredSize(new Dimension(700,155));
+			pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
+			pnCenter.add(pnDetail);
+			
+			JPanel pnAllInfor = new JPanel();
+			pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
+			
+			JPanel pnDetailInfor = new JPanel();
+			JLabel lblDetailFn = new JLabel("Họ Và Tên :");
+			txtDetailFullname = new JTextField(20);
+			txtDetailFullname.setEditable(false);
+			
+			JLabel lblDetailP = new JLabel("Số Điện Thoại :");
+			txtDetailPhone = new JTextField(20);	
+			txtDetailPhone.setEditable(false);
 
-		JLabel lblDetailE = new JLabel("Địa Chỉ Email :");
-		txtDetailEmail = new JTextField(20);
-		txtDetailEmail.setEditable(false);
-		
-		GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
-		pnDetailInfor.setLayout(infoDetailLayout);
-		infoDetailLayout.setAutoCreateGaps(true);
-		infoDetailLayout.setAutoCreateContainerGaps(true);
-		
-		infoDetailLayout.setHorizontalGroup(infoDetailLayout.createSequentialGroup()
-			.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblDetailFn, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblDetailP)
-				.addComponent(lblDetailE)
-			)
-			.addGroup(infoDetailLayout.createParallelGroup()
-				.addComponent(txtDetailFullname)
-				.addComponent(txtDetailPhone)
-				.addComponent(txtDetailEmail)
-			)
-		);
-		
-		infoDetailLayout.setVerticalGroup(infoDetailLayout.createSequentialGroup()
-			.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblDetailFn)
-				.addComponent(txtDetailFullname)
-			)			
-			.addGroup(infoDetailLayout.createParallelGroup()
+			JLabel lblDetailE = new JLabel("Địa Chỉ Email :");
+			txtDetailEmail = new JTextField(20);
+			txtDetailEmail.setEditable(false);
+			
+			GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
+			pnDetailInfor.setLayout(infoDetailLayout);
+			infoDetailLayout.setAutoCreateGaps(true);
+			infoDetailLayout.setAutoCreateContainerGaps(true);
+			
+			infoDetailLayout.setHorizontalGroup(infoDetailLayout.createSequentialGroup()
+				.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblDetailFn, 0, 100, Short.MAX_VALUE)
 					.addComponent(lblDetailP)
-					.addComponent(txtDetailPhone)
-				)
-			.addGroup(infoDetailLayout.createParallelGroup()
 					.addComponent(lblDetailE)
+				)
+				.addGroup(infoDetailLayout.createParallelGroup()
+					.addComponent(txtDetailFullname)
+					.addComponent(txtDetailPhone)
 					.addComponent(txtDetailEmail)
 				)
-		);
-		pnAllInfor.add(pnDetailInfor);
-		
-		JPanel pnDetailAdress = new JPanel();
-		JLabel lblDetailDis = new JLabel("Quận :");
-		txtDetailDistricts = new JTextField(20);
-		txtDetailDistricts.setEditable(false);
-		
-		JLabel lblDetailWa = new JLabel("Phường :");
-		txtDetailWards = new JTextField(20);
-		txtDetailWards.setEditable(false);
+			);
+			
+			infoDetailLayout.setVerticalGroup(infoDetailLayout.createSequentialGroup()
+				.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblDetailFn)
+					.addComponent(txtDetailFullname)
+				)			
+				.addGroup(infoDetailLayout.createParallelGroup()
+						.addComponent(lblDetailP)
+						.addComponent(txtDetailPhone)
+					)
+				.addGroup(infoDetailLayout.createParallelGroup()
+						.addComponent(lblDetailE)
+						.addComponent(txtDetailEmail)
+					)
+			);
+			pnAllInfor.add(pnDetailInfor);
+			
+			JPanel pnDetailAdress = new JPanel();
+			JLabel lblDetailDis = new JLabel("Quận :");
+			txtDetailDistricts = new JTextField(20);
+			txtDetailDistricts.setEditable(false);
+			
+			JLabel lblDetailWa = new JLabel("Phường :");
+			txtDetailWards = new JTextField(20);
+			txtDetailWards.setEditable(false);
 
-		JLabel lblDetailSt = new JLabel("Địa Chỉ Nhà :");
-		txtDetailStreets = new JTextField(20);
-		txtDetailStreets.setEditable(false);
-		
-		GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
-		pnDetailAdress.setLayout(adressDetailLayout);
-		adressDetailLayout.setAutoCreateGaps(true);
-		adressDetailLayout.setAutoCreateContainerGaps(true);
-		
-		adressDetailLayout.setHorizontalGroup(adressDetailLayout.createSequentialGroup()
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(lblDetailDis)
-				.addComponent(lblDetailWa)
-				.addComponent(lblDetailSt)
-			)
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(txtDetailDistricts)
-				.addComponent(txtDetailWards)
-				.addComponent(txtDetailStreets)
-			)
-		);
-		
-		adressDetailLayout.setVerticalGroup(adressDetailLayout.createSequentialGroup()
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(lblDetailDis)
-				.addComponent(txtDetailDistricts)
-			)			
-			.addGroup(adressDetailLayout.createParallelGroup()
+			JLabel lblDetailSt = new JLabel("Địa Chỉ Nhà :");
+			txtDetailStreets = new JTextField(20);
+			txtDetailStreets.setEditable(false);
+			
+			GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
+			pnDetailAdress.setLayout(adressDetailLayout);
+			adressDetailLayout.setAutoCreateGaps(true);
+			adressDetailLayout.setAutoCreateContainerGaps(true);
+			
+			adressDetailLayout.setHorizontalGroup(adressDetailLayout.createSequentialGroup()
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(lblDetailDis)
 					.addComponent(lblDetailWa)
-					.addComponent(txtDetailWards)
-				)
-			.addGroup(adressDetailLayout.createParallelGroup()
 					.addComponent(lblDetailSt)
+				)
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(txtDetailDistricts)
+					.addComponent(txtDetailWards)
 					.addComponent(txtDetailStreets)
 				)
-		);
-		pnAllInfor.add(pnDetailAdress);
-		
-		JPanel pnDetailAccount = new JPanel();
-		JLabel lblDetailCd = new JLabel("Mã Khách Hàng :");
-		txtDetailCode = new JTextField(20);
-		txtDetailCode.setEditable(false);
-		
+			);
+			
+			adressDetailLayout.setVerticalGroup(adressDetailLayout.createSequentialGroup()
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(lblDetailDis)
+					.addComponent(txtDetailDistricts)
+				)			
+				.addGroup(adressDetailLayout.createParallelGroup()
+						.addComponent(lblDetailWa)
+						.addComponent(txtDetailWards)
+					)
+				.addGroup(adressDetailLayout.createParallelGroup()
+						.addComponent(lblDetailSt)
+						.addComponent(txtDetailStreets)
+					)
+			);
+			pnAllInfor.add(pnDetailAdress);
+			
+			JPanel pnDetailAccount = new JPanel();
+			JLabel lblDetailCd = new JLabel("Mã Khách Hàng :");
+			txtDetailCode = new JTextField(20);
+			txtDetailCode.setEditable(false);
+			
 
-		JLabel lblDetailAN = new JLabel("Số Tài Khoảng :");
-		txtDetailAccNumber = new JTextField(20);	
-		txtDetailAccNumber.setEditable(false);
-		
-		JLabel lblDetailB = new JLabel("Số Dư :");
-		txtDetailBalance = new JTextField(20);
-		txtDetailBalance.setEditable(false);
-		
-		GroupLayout accountDetailLayout = new GroupLayout(pnDetailAccount);
-		pnDetailAccount.setLayout(accountDetailLayout);
-		accountDetailLayout.setAutoCreateGaps(true);
-		accountDetailLayout.setAutoCreateContainerGaps(true);
-		
-		accountDetailLayout.setHorizontalGroup(accountDetailLayout.createSequentialGroup()
-			.addGroup(accountDetailLayout.createParallelGroup()
-				.addComponent(lblDetailCd)
-				.addComponent(lblDetailAN)
-				.addComponent(lblDetailB)
-			)
-			.addGroup(accountDetailLayout.createParallelGroup()
-				.addComponent(txtDetailCode)
-				.addComponent(txtDetailAccNumber)
-				.addComponent(txtDetailBalance)
-			)
-		);
-		
-		accountDetailLayout.setVerticalGroup(accountDetailLayout.createSequentialGroup()
-			.addGroup(accountDetailLayout.createParallelGroup()
-				.addComponent(lblDetailCd)
-				.addComponent(txtDetailCode)
-			)			
-			.addGroup(accountDetailLayout.createParallelGroup()
+			JLabel lblDetailAN = new JLabel("Số Tài Khoảng :");
+			txtDetailAccNumber = new JTextField(20);	
+			txtDetailAccNumber.setEditable(false);
+			
+			JLabel lblDetailB = new JLabel("Số Dư :");
+			txtDetailBalance = new JTextField(20);
+			txtDetailBalance.setEditable(false);
+			
+			GroupLayout accountDetailLayout = new GroupLayout(pnDetailAccount);
+			pnDetailAccount.setLayout(accountDetailLayout);
+			accountDetailLayout.setAutoCreateGaps(true);
+			accountDetailLayout.setAutoCreateContainerGaps(true);
+			
+			accountDetailLayout.setHorizontalGroup(accountDetailLayout.createSequentialGroup()
+				.addGroup(accountDetailLayout.createParallelGroup()
+					.addComponent(lblDetailCd)
 					.addComponent(lblDetailAN)
-					.addComponent(txtDetailAccNumber)
-				)
-			.addGroup(accountDetailLayout.createParallelGroup()
 					.addComponent(lblDetailB)
+				)
+				.addGroup(accountDetailLayout.createParallelGroup()
+					.addComponent(txtDetailCode)
+					.addComponent(txtDetailAccNumber)
 					.addComponent(txtDetailBalance)
 				)
-		);
-		pnAllInfor.add(pnDetailAccount);
-		
-		JPanel pnClear = new JPanel();
-		btnClearInfor = new JButton("Clear Thông Tin");
-		pnClear.add(btnClearInfor);
-		
-		pnDetail.add(pnAllInfor);
-		pnDetail.add(pnClear);
-		pnMain.add(pnCenter);
-		
-		JPanel pnAction = new JPanel();
-		
-		pnAction.setPreferredSize(new Dimension(350, 587));
-		pnAction.setMaximumSize(pnAction.getPreferredSize() );
-		Border titleBorderAction;
-		Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAction.setBorder(titleBorderAction);
-		pnAction.setOpaque(false);
-		
-		JPanel pnBlank = new JPanel();
-		pnBlank.setPreferredSize(new Dimension(340,50));
-		pnBlank.setMaximumSize(pnBlank.getPreferredSize() );
-		pnBlank.setOpaque(false);
-		pnAction.add(pnBlank);
-		
-		JPanel pnInformation = new JPanel();
-		pnInformation.setPreferredSize(new Dimension(340,140));
-		pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
-		pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
-		pnInformation.setOpaque(false);
-		Border titleBorderInfor;
-		Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnInformation.setBorder(titleBorderInfor);
-		pnInformation.setOpaque(false);
-		
-
-		JLabel lblFullname = new JLabel("Họ Và Tên :");
-		txtFullname = new JTextField(20);
-
-		JLabel lblPhone = new JLabel("Số Điện Thoại :");
-		txtPhone = new JTextField(20);
-		
-		JLabel lblEmail = new JLabel("Địa Chỉ Email :");
-		txtEmail = new JTextField(20);
-		
-		JLabel lblCode = new JLabel("Mã Khách Hàng :");
-		txtCode = new JTextField(20);				
-		
-		GroupLayout infolayout = new GroupLayout(pnInformation);
-		pnInformation.setLayout(infolayout);
-		infolayout.setAutoCreateGaps(true);
-		infolayout.setAutoCreateContainerGaps(true);
-		
-		infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblFullname, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblPhone)
-				.addComponent(lblEmail)
-				.addComponent(lblCode)
-			)
-			.addGroup(infolayout.createParallelGroup()
-				.addComponent(txtFullname)
-				.addComponent(txtPhone)
-				.addComponent(txtEmail)
-				.addComponent(txtCode)
-			)
-		);
-		
-		infolayout.setVerticalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblFullname)
-				.addComponent(txtFullname)
-			)			
-			.addGroup(infolayout.createParallelGroup()
-					.addComponent(lblPhone)
-					.addComponent(txtPhone)
-				)
-			.addGroup(infolayout.createParallelGroup()
-					.addComponent(lblEmail)
-					.addComponent(txtEmail)
-				)
-			.addGroup(infolayout.createParallelGroup()
-					.addComponent(lblCode)
-					.addComponent(txtCode)
+			);
+			
+			accountDetailLayout.setVerticalGroup(accountDetailLayout.createSequentialGroup()
+				.addGroup(accountDetailLayout.createParallelGroup()
+					.addComponent(lblDetailCd)
+					.addComponent(txtDetailCode)
 				)			
-		);
-		
-		
-		JPanel pnAdress = new JPanel();
-		pnAdress.setPreferredSize(new Dimension(340,180));
-		pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
-		pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
-		pnAdress.setOpaque(false);
-		Border titleBorderAdress;
-		Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAdress.setBorder(titleBorderAdress);
-		pnAdress.setOpaque(false);
-		
-	
-		JLabel lblDistricts = new JLabel("Quận :");
-		cboDistricts=new JComboBox<>();
-		cboDistricts.addItem("Tất Cả");
+				.addGroup(accountDetailLayout.createParallelGroup()
+						.addComponent(lblDetailAN)
+						.addComponent(txtDetailAccNumber)
+					)
+				.addGroup(accountDetailLayout.createParallelGroup()
+						.addComponent(lblDetailB)
+						.addComponent(txtDetailBalance)
+					)
+			);
+			pnAllInfor.add(pnDetailAccount);
+			
+			JPanel pnClear = new JPanel();
+			btnClearInfor = new JButton("Clear Thông Tin");
+			btnClearInfor.setEnabled(false);
+			pnClear.add(btnClearInfor);
+			
+			pnDetail.add(pnAllInfor);
+			pnDetail.add(pnClear);
+			pnMain.add(pnCenter);
+			
+			JPanel pnAction = new JPanel();
+			
+			pnAction.setPreferredSize(new Dimension(350, 587));
+			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			Border titleBorderAction;
+			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAction.setBorder(titleBorderAction);
+			pnAction.setOpaque(false);
+			
+			JPanel pnBlank = new JPanel();
+			pnBlank.setPreferredSize(new Dimension(340,50));
+			pnBlank.setMaximumSize(pnBlank.getPreferredSize() );
+			pnBlank.setOpaque(false);
+			pnAction.add(pnBlank);
+			
+			JPanel pnInformation = new JPanel();
+			pnInformation.setPreferredSize(new Dimension(340,140));
+			pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
+			pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
+			pnInformation.setOpaque(false);
+			Border titleBorderInfor;
+			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnInformation.setBorder(titleBorderInfor);
+			pnInformation.setOpaque(false);
+			
 
-		JLabel lblWards = new JLabel("Phường :");
-		cboWards=new JComboBox<>();
-		cboWards.addItem("Tất Cả");
+			JLabel lblFullname = new JLabel("Họ Và Tên :");
+			txtFullname = new JTextField(20);
+
+			JLabel lblPhone = new JLabel("Số Điện Thoại :");
+			txtPhone = new JTextField(20);
+			
+			JLabel lblEmail = new JLabel("Địa Chỉ Email :");
+			txtEmail = new JTextField(20);
+			
+			JLabel lblCode = new JLabel("Mã Khách Hàng :");
+			txtCode = new JTextField(20);				
+			
+			GroupLayout infolayout = new GroupLayout(pnInformation);
+			pnInformation.setLayout(infolayout);
+			infolayout.setAutoCreateGaps(true);
+			infolayout.setAutoCreateContainerGaps(true);
+			
+			infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblFullname, 0, 100, Short.MAX_VALUE)
+					.addComponent(lblPhone)
+					.addComponent(lblEmail)
+					.addComponent(lblCode)
+				)
+				.addGroup(infolayout.createParallelGroup()
+					.addComponent(txtFullname)
+					.addComponent(txtPhone)
+					.addComponent(txtEmail)
+					.addComponent(txtCode)
+				)
+			);
+			
+			infolayout.setVerticalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblFullname)
+					.addComponent(txtFullname)
+				)			
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblPhone)
+						.addComponent(txtPhone)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblEmail)
+						.addComponent(txtEmail)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblCode)
+						.addComponent(txtCode)
+					)			
+			);
+			
+			
+			JPanel pnAdress = new JPanel();
+			pnAdress.setPreferredSize(new Dimension(340,180));
+			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
+			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
+			pnAdress.setOpaque(false);
+			Border titleBorderAdress;
+			Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAdress.setBorder(titleBorderAdress);
+			pnAdress.setOpaque(false);
+			
 		
-		JLabel lblStreets = new JLabel("Địa Chỉ Nhà :");
-		txtStreets = new JTextField(20);
-		
-		JPanel pnSearchAdress = new JPanel();
-		pnSearchAdress.setOpaque(false);
-		btnSearchAdress = new JButton("Xem");										
-		btnCancelAdress = new JButton("Hủy");
-		btnCancelAdress.setEnabled(false);
-		pnSearchAdress.add(btnSearchAdress);
-		pnSearchAdress.add(btnCancelAdress);
-		
-		
-		GroupLayout adressLayout = new GroupLayout(pnAdress);
-		pnAdress.setLayout(adressLayout);
-		adressLayout.setAutoCreateGaps(true);
-		adressLayout.setAutoCreateContainerGaps(true);
-		
-		adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblDistricts, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblWards)
-				.addComponent(lblStreets)
-			)
-			.addGroup(adressLayout.createParallelGroup()
-				.addComponent(cboDistricts)
-				.addComponent(cboWards)
-				.addComponent(txtStreets)
-				.addComponent(pnSearchAdress)
-			)
-		);
-		
-		adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblDistricts)
-				.addComponent(cboDistricts)
-			)
-			.addGroup(adressLayout.createParallelGroup()
+			JLabel lblDistricts = new JLabel("Quận :");
+			cboDistricts=new JComboBox<>();
+			cboDistricts.addItem("Tất Cả");
+
+			JLabel lblWards = new JLabel("Phường :");
+			cboWards=new JComboBox<>();
+			cboWards.addItem("Tất Cả");
+			
+			JLabel lblStreets = new JLabel("Địa Chỉ Nhà :");
+			txtStreets = new JTextField(20);
+			
+			JPanel pnSearchAdress = new JPanel();
+			pnSearchAdress.setOpaque(false);
+			btnSearchAdress = new JButton("Xem");										
+			btnCancelAdress = new JButton("Hủy");
+			btnCancelAdress.setEnabled(false);
+			pnSearchAdress.add(btnSearchAdress);
+			pnSearchAdress.add(btnCancelAdress);
+			
+			
+			GroupLayout adressLayout = new GroupLayout(pnAdress);
+			pnAdress.setLayout(adressLayout);
+			adressLayout.setAutoCreateGaps(true);
+			adressLayout.setAutoCreateContainerGaps(true);
+			
+			adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblDistricts, 0, 100, Short.MAX_VALUE)
 					.addComponent(lblWards)
-					.addComponent(cboWards)
-				)
-			.addGroup(adressLayout.createParallelGroup()
 					.addComponent(lblStreets)
-					.addComponent(txtStreets)
 				)
-			.addGroup(adressLayout.createParallelGroup()
+				.addGroup(adressLayout.createParallelGroup()
+					.addComponent(cboDistricts)
+					.addComponent(cboWards)
+					.addComponent(txtStreets)
 					.addComponent(pnSearchAdress)
 				)
-		);
-		
+			);
+			
+			adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblDistricts)
+					.addComponent(cboDistricts)
+				)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblWards)
+						.addComponent(cboWards)
+					)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblStreets)
+						.addComponent(txtStreets)
+					)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(pnSearchAdress)
+					)
+			);
+			
 
+			
+			pnAction.add(pnInformation);
+			pnAction.add(pnAdress);
+			
+			pnMain.add(pnAction);
+			this.add(pnMain);
+		}catch (Exception e) {
+		}
 		
-		pnAction.add(pnInformation);
-		pnAction.add(pnAdress);
-		
-		pnMain.add(pnAction);
-		this.add(pnMain);
 		
 	}
 
@@ -492,6 +498,7 @@ public class LayoutReportCus extends JPanel{
 		txtDetailDistricts.setText("");
 		txtDetailWards.setText("");	
 		tbl.clearSelection();
+		btnClearInfor.setEnabled(false);
     }
     
 	ActionListener eventCancelAdress = new ActionListener() {
@@ -768,18 +775,41 @@ public class LayoutReportCus extends JPanel{
 					btnCancelAdress.setEnabled(true);
 					int keyW = cboWards.getSelectedIndex();
 					if(keyW==0) {
-						arrCtm = CustomerDB.searchAdrees(keyDistricts,keyW);
-						
+						searchStreetsWards( keyDistricts);						
 					}else {
 						String wards = (String) cboWards.getSelectedItem();
 						int keyWards = adress.SeclectIdWards(wards);
-						arrCtm = CustomerDB.searchAdrees(keyDistricts,keyWards);					
+						searchStreets( keyDistricts, keyWards);					
 					}
-					printListCus();	
 				}								
 		}
     };
-					
+	
+    private void searchStreets(int keyDistricts,int keyWards) {
+		btnCancelAdress.setEnabled(true);
+		clearInfor();
+		list.setRowCount(0);
+		for(Customer ctm : arrCtm) {		
+			if(ctm.getDistrictCus()==keyDistricts && ctm.getWardCus()==keyWards ) {				
+				String phone = String.valueOf(ctm.getPhoneCus());
+				String[] row = {ctm.getCodeCus(), ctm.getFullnameCus(), phone,ctm.getEmailCus(),ctm.getCardnumberCus(),String.format("%,d", (long) ctm.getAmountCus())+" VNĐ"};
+				list.addRow(row);			
+			}			
+		}			
+	}
+    
+    private void searchStreetsWards(int keyDistricts) {
+		btnCancelAdress.setEnabled(true);
+		clearInfor();
+		list.setRowCount(0);
+		for(Customer ctm : arrCtm) {		
+			if(ctm.getDistrictCus()==keyDistricts ) {				
+				String phone = String.valueOf(ctm.getPhoneCus());
+				String[] row = {ctm.getCodeCus(), ctm.getFullnameCus(), phone,ctm.getEmailCus(),ctm.getCardnumberCus(),String.format("%,d", (long) ctm.getAmountCus())+" VNĐ"};
+				list.addRow(row);			
+			}			
+		}			
+	}
     
 	private void changeReset() {
 		txtFullname.setEditable(true);
@@ -789,7 +819,7 @@ public class LayoutReportCus extends JPanel{
 	}		
 	
 	private ArrayList<Customer> updateArrCtm() {
-    	return arrCtm = CustomerDB.getCustomersList();
+    	return arrCtm = arrCtmAll;
     }
     
     private void printListCus() {

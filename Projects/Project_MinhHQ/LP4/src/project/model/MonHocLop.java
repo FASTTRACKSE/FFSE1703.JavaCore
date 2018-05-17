@@ -6,7 +6,7 @@ public class MonHocLop {
 	private String TenLop;
 	private String SoTC;
 	private String Thoigian;
-	
+
 	public MonHocLop(String maMH, String tenMH, String tenLop, String soTC, String thoigian) {
 		this.MaMH = maMH;
 		this.TenMH = tenMH;
@@ -54,6 +54,5 @@ public class MonHocLop {
 	public void setThoigian(String thoigian) {
 		Thoigian = thoigian;
 	}
-	
-	
+
 }
