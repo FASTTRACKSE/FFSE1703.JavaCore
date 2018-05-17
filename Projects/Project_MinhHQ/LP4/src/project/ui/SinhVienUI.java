@@ -401,6 +401,19 @@ public class SinhVienUI extends JPanel {
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
+						try {
+							Statement statement = conn.createStatement();
+							ResultSet result = statement
+									.executeQuery("SELECT * FROM monhoc WHERE TenLop ='" + lop_SinhVien + "'");
+							while (result.next()) {		
+								String query = "INSERT INTO diem( MaLop,MaSV,MaMH,Diem) VALUES ('"+lop_SinhVien+"','"+ma_SinhVien+"','"+result.getString("maMH")+"','"+"0"+"')";
+								Statement sttm = conn.createStatement();
+								sttm.executeUpdate(query);
+							
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
@@ -438,7 +451,9 @@ public class SinhVienUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				String sql = "DELETE FROM sinhvien WHERE MaSV = '" + MaSV.getText() + "'";
+				String query = "DELETE FROM diem WHERE MaSV = '" + MaSV.getText() + "'";
 				Statement statement = conn.createStatement();
+				statement.executeUpdate(query);
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
 					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
