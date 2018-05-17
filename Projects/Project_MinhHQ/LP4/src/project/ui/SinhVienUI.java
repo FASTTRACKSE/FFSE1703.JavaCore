@@ -307,14 +307,14 @@ public class SinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String chonTinh = (String) quan.getSelectedItem();
+			String chonQuan = (String) quan.getSelectedItem();
 			phuong.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				Statement statement = conn.createStatement();
 				ResultSet result = statement.executeQuery(
 						"SELECT devvn_xaphuongthitran.name FROM devvn_xaphuongthitran INNER JOIN devvn_quanhuyen WHERE devvn_xaphuongthitran.maqh=devvn_quanhuyen.maqh AND devvn_quanhuyen.name ='"
-								+ chonTinh + "'");
+								+ chonQuan + "'");
 				while (result.next()) {
 					phuong.addItem(new String(result.getString("devvn_xaphuongthitran.name")));
 				}
