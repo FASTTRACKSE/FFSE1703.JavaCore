@@ -3,6 +3,7 @@ package ffse1703020.qltv.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
@@ -51,7 +54,8 @@ public class BanDocUI extends JPanel {
 	private String tbBDoc[] = { "Mã TV", "Tên", "Email", "Điện thoại", "Địa chỉ nhà", "Thành phố", "Quận", "Phường",
 			"Số sách mượn" };
 	DefaultTableModel mdTableBDoc = new DefaultTableModel(tbBDoc, 0);
-
+	
+    //<--Sửa Thông tin bạn đọc-->
 	ActionListener evUpdate = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -111,6 +115,7 @@ public class BanDocUI extends JPanel {
 
 	MouseAdapter eventselect = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
+			txtMTV.setEditable(false);
 			int i = tbListBDoc.getSelectedRow();
 			String[] row = new String[8];
 			for (int j = 0; j < row.length; j++) {
@@ -148,7 +153,6 @@ public class BanDocUI extends JPanel {
 		txtTKBDoc.setFont(fTk);
 		jbTKBDoc = new JButton("Tìm kiếm");
 		jbTKBDoc.setPreferredSize(new Dimension(90, 20));
-		Font fTK = new Font("arial", Font.PLAIN, 12);
 		pnTimKiemBDoc.add(txtTKBDoc);
 		pnTimKiemBDoc.add(jbTKBDoc);
 
@@ -173,8 +177,7 @@ public class BanDocUI extends JPanel {
 		txtDC.setPreferredSize(new Dimension(170, 20));
 		Font fDC = new Font("arial", Font.PLAIN, 12);
 		lbDC.setFont(fDC);
-		// \
-
+		// 
 		pnBDoc.add(lbMTV);
 		pnBDoc.add(txtMTV);
 		pnBDoc.add(lbDC);
@@ -223,7 +226,6 @@ public class BanDocUI extends JPanel {
 		JLabel lbQuan = new JLabel("Quận");
 		lbQuan.setPreferredSize(new Dimension(90, 20));
 		lbQuan.setFont(new Font("Arial", Font.PLAIN, 12));
-
 		comboBoxQuan = new JComboBox<Object>();
 		comboBoxQuan.setPreferredSize(new Dimension(170, 20));
 		comboBoxQuan.addActionListener(new ActionListener() {
@@ -256,10 +258,8 @@ public class BanDocUI extends JPanel {
 		JLabel lbPhuong = new JLabel("Phường");
 		lbPhuong.setPreferredSize(new Dimension(90, 20));
 		lbPhuong.setFont(new Font("Arial", Font.PLAIN, 12));
-
 		comboBoxPhuong = new JComboBox<Object>();
 		comboBoxPhuong.setPreferredSize(new Dimension(170, 20));
-
 		comboBoxPhuong.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBoxPhuong.setToolTipText("");
 
@@ -272,26 +272,43 @@ public class BanDocUI extends JPanel {
 
 		JPanel pnThem = new JPanel();
 		jbThem = new JButton("Thêm");
-		jbThem.setPreferredSize(new Dimension(100, 20));
+		jbThem.setPreferredSize(new Dimension(140, 45));
+		ImageIcon insert = new ImageIcon(
+				new ImageIcon("icons/insert.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconInsert = new JLabel(insert);
+		jbThem.add(lblIconInsert);
 		pnThem.add(jbThem);
 
 		JPanel pnSua = new JPanel();
 		jbSua = new JButton("Sửa");
-		jbSua.setPreferredSize(new Dimension(100, 20));
+		jbSua.setPreferredSize(new Dimension(140, 45));
+		ImageIcon edit = new ImageIcon(
+				new ImageIcon("icons/t.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconEdit = new JLabel(edit);
+		jbSua.add(lblIconEdit);
 		pnSua.add(jbSua);
 
 		JPanel pnXoa = new JPanel();
 		jbXoa = new JButton("Xóa");
-		jbXoa.setPreferredSize(new Dimension(100, 20));
+		jbXoa.setPreferredSize(new Dimension(140, 45));
+		ImageIcon delete = new ImageIcon(
+				new ImageIcon("icons/delete.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconDelete = new JLabel(delete);
+		jbXoa.add(lblIconDelete);
 		pnXoa.add(jbXoa);
 
 		JPanel pnThoat = new JPanel();
 		jbThoat = new JButton("Quay lại");
-		jbThoat.setPreferredSize(new Dimension(100, 20));
+		jbThoat.setPreferredSize(new Dimension(140, 45));
+		ImageIcon back = new ImageIcon(
+				new ImageIcon("icons/Undo.png").getImage().getScaledInstance(25, 30, Image.SCALE_SMOOTH));
+		JLabel lblIconBack = new JLabel(back);
+		jbThoat.add(lblIconBack);
 		jbThoat.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				 txtMTV.setEditable(true);
 				 txtMTV.setText("");
 				 txtHTen.setText("");
 				 txtSDT.setText("");
@@ -316,7 +333,7 @@ public class BanDocUI extends JPanel {
 		JPanel pnTableKH = new JPanel();
 
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTittle1 = BorderFactory.createTitledBorder(border, "Danh Sach");
+		TitledBorder borderTittle1 = BorderFactory.createTitledBorder(border, "Danh Sách");
 		spListBDoc.setBorder(borderTittle1);
 		tbListBDoc.setModel(mdTableBDoc);
 		tbListBDoc.setPreferredScrollableViewportSize(new Dimension(700, 200));
@@ -324,6 +341,11 @@ public class BanDocUI extends JPanel {
 		spListBDoc.setViewportView(tbListBDoc);
 		pnTableKH.add(spListBDoc);
 
+		DefaultTableCellRenderer righttable = new DefaultTableCellRenderer();
+		righttable.setHorizontalAlignment(JLabel.RIGHT);
+		tbListBDoc.getColumnModel().getColumn(8).setCellRenderer(righttable);
+		
+		
 		pnMain.add(pnTimKiemBDoc);
 		pnThongTin.add(pnBDoc);
 		pnThongTin.add(pnBDoc1);
@@ -419,7 +441,6 @@ public class BanDocUI extends JPanel {
 							JOptionPane.showMessageDialog(null, "Thêm không thành công");
 					} catch (SQLException e) {
 						System.out.println("loi  " + e.getMessage());
-
 					}
 				} else {
 					System.out.println("Kết nối MYSQL thất bại");
@@ -434,7 +455,7 @@ public class BanDocUI extends JPanel {
 		try {
 
 			if (MyException.ChekEmpty(txtHTen.getText()) && MyException.ChekSo(txtSDT.getText())
-					&& MyException.ChekEmpty(txtEmail.getText()) && MyException.ChekEmpty(txtDC.getText()))  {
+					&& MyException.ChekEmail(txtEmail.getText()) && MyException.ChekEmpty(txtDC.getText()))  {
 				if (conn != null) {
 					String sql = "UPDATE `ban_doc` SET `ho_ten`=?,`dien_thoai`=?,`email`=?,`dia_chi`=?,`thanh_pho`=? ,`quan`=?,`phuong`=? WHERE `ma_ban_doc` = ?";
 					try {
