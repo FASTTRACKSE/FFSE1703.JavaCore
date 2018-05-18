@@ -402,6 +402,7 @@ public class LayoutCustomerManage extends JPanel{
 									+"\nMã Pin Mặc Định Của Khách Là : 123456";
 						JOptionPane.showMessageDialog(null, msg, "Thêm Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
 					}
+					arrCtmAll = CustomerDB.getCustomersList();
 					updateArrCtm();
 					printListCus();
 					resetAll();
@@ -449,7 +450,8 @@ public class LayoutCustomerManage extends JPanel{
 							}
 						}
 					}
-				}												
+				}
+				arrCtmAll = CustomerDB.getCustomersList();
 				resetAll();
 				updateArrCtm();
 				printListCus();
@@ -470,6 +472,7 @@ public class LayoutCustomerManage extends JPanel{
 				if(check>-1) {
 					String msgXoa = "Xóa Thành Công Khách Hàng : "+txtFullname.getText();
 					JOptionPane.showMessageDialog(null, msgXoa, "Xóa Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
+					arrCtmAll = CustomerDB.getCustomersList();
 					updateArrCtm();
 					printListCus();
 					resetAll();

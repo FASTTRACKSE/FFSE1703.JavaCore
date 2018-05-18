@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,7 +34,7 @@ import ffse1703005.software.atm.model.StamentAdress;
 
 public class LayoutReportCus extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor;
+	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor,btnUpdate;
 	private JComboBox<String> cboDistricts,cboWards;
 	private JTextField txtFullname,txtPhone,txtEmail,txtCode,txtStreets;
 	private JTextField txtDetailFullname,txtDetailPhone,txtDetailEmail,txtDetailDistricts,txtDetailWards,
@@ -359,7 +360,7 @@ public class LayoutReportCus extends JPanel{
 			
 			
 			JPanel pnAdress = new JPanel();
-			pnAdress.setPreferredSize(new Dimension(340,180));
+			pnAdress.setPreferredSize(new Dimension(340,130));
 			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
 			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
 			pnAdress.setOpaque(false);
@@ -386,9 +387,11 @@ public class LayoutReportCus extends JPanel{
 			pnSearchAdress.setOpaque(false);
 			btnSearchAdress = new JButton("Xem");										
 			btnCancelAdress = new JButton("Hủy");
+			btnUpdate = new JButton("Cập Nhập");
 			btnCancelAdress.setEnabled(false);
 			pnSearchAdress.add(btnSearchAdress);
 			pnSearchAdress.add(btnCancelAdress);
+			pnSearchAdress.add(btnUpdate);
 			
 			
 			GroupLayout adressLayout = new GroupLayout(pnAdress);
@@ -406,7 +409,6 @@ public class LayoutReportCus extends JPanel{
 					.addComponent(cboDistricts)
 					.addComponent(cboWards)
 					.addComponent(txtStreets)
-					.addComponent(pnSearchAdress)
 				)
 			);
 			
@@ -422,16 +424,14 @@ public class LayoutReportCus extends JPanel{
 				.addGroup(adressLayout.createParallelGroup()
 						.addComponent(lblStreets)
 						.addComponent(txtStreets)
-					)
-				.addGroup(adressLayout.createParallelGroup()
-						.addComponent(pnSearchAdress)
-					)
+					)				
 			);
 			
 
 			
 			pnAction.add(pnInformation);
 			pnAction.add(pnAdress);
+			pnAction.add(pnSearchAdress);
 			
 			pnMain.add(pnAction);
 			this.add(pnMain);
@@ -452,6 +452,7 @@ public class LayoutReportCus extends JPanel{
 		btnSearchAdress.addActionListener(eventSearchDistricts);
 		btnCancelAdress.addActionListener(eventCancelAdress);
 		btnClearInfor.addActionListener(eventClearInfor);
+		btnUpdate.addActionListener(eventUpdate);
 	}
 	
 	MouseAdapter eventChooseRow = new MouseAdapter() {
@@ -484,6 +485,16 @@ public class LayoutReportCus extends JPanel{
     ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
+		}
+    };
+    
+    ActionListener eventUpdate = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			arrCtmAll = CustomerDB.getCustomersList();
+			updateArrCtm();
+			printListCus();
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
     
