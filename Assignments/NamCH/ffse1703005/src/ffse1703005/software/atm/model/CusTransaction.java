@@ -7,7 +7,7 @@ public class CusTransaction extends Transaction {
 	public CusTransaction() {
 		super();
 	}
-	public CusTransaction(String codeTransaction,Timestamp timeTransaction,float payTransaction,
+	public CusTransaction(String codeTransaction,Timestamp timeTransaction,int payTransaction,
 			String codeCus,String fullnameCus,String codeATM,String districts,String wards,String streets,String status) {
 		super(codeTransaction,timeTransaction,payTransaction);
 		this.codeCus = codeCus;
