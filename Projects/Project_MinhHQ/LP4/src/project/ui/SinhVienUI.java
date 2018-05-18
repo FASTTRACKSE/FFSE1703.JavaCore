@@ -378,8 +378,8 @@ public class SinhVienUI extends JPanel {
 				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
-					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals("") || ten_SinhVien.equals("")
-							|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
+					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.isEmpty() || ten_SinhVien.isEmpty()
+							|| diachi_SinhVien.isEmpty() || email_SinhVien.isEmpty() || sdt_SinhVien.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên", null,
 								JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -488,9 +488,9 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 
 			try {
-				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().equals("")
-						|| TenSV.getText().equals("") || Diachi.getText().equals("") || Email.getText().equals("")
-						|| SDT.getText().equals("")) {
+				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().isEmpty()
+						|| TenSV.getText().isEmpty() || Diachi.getText().isEmpty() || Email.getText().isEmpty()
+						|| SDT.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
 				} else {
 					for (SinhVien x : arrSV) {
