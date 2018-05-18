@@ -277,6 +277,13 @@ public class NhapDiemUI extends JPanel {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			dm_NhapDiem.setRowCount(0);
+			for (Diem x : arrDiem) {
+				if (selectNhapDiem.getSelectedItem().equals(x.getLop()) && selectMaMH.getSelectedItem().equals(x.getMaMH())) {
+					String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+					dm_NhapDiem.addRow(row);
+				}
+			}
 			DiemSV.setText("");
 		}
 	};
