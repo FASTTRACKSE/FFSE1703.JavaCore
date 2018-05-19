@@ -39,7 +39,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 	Connection conn = (Connection) ConnectDB.getConnect();
 	private JComboBox<Object> comboBoxBDoc, comboBoxNXB, comboBoxTheLoai;
 	private JTextField txtTKBD, txttonKho, txttongKho;
-	private JButton jbTKBD, jbTKSach,jbThoat;
+	private JButton jbTKBD, jbTKSach, jbThoat;
 	// tabel Ban doc
 	JScrollPane scrollPaneBD = new JScrollPane();
 	JTable tbListBD = new JTable();
@@ -50,7 +50,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 	JTable tbListSach = new JTable();
 	private String tbSach[] = { "Mã Sách", "Tên Sách", "Tác Giả", "Sách Tồn Kho", "Tổng Sách" };
 	DefaultTableModel mdTableSach = new DefaultTableModel(tbSach, 0);
-	
+
 	ActionListener evTimKiem = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -69,18 +69,19 @@ public class ThongKeBaoCaoUI extends JPanel {
 
 	public ThongKeBaoCaoUI() {
 		controls();
-    	KhoSach();
+		KhoSach();
 		events();
 		comboboxThanhPho();
 		comboboxNXB();
 		comboboxTheLoai();
-		
+
 	}
-    //layout thống kê báo cáo
+
+	// layout thống kê báo cáo
 	private void controls() {
 		JPanel pnMain = new JPanel();
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
-        // Main 2
+		// Main 2
 		JPanel pnMain1 = new JPanel();
 		pnMain1.setLayout(new BoxLayout(pnMain1, BoxLayout.Y_AXIS));
 		JPanel pnTittle = new JPanel();
@@ -214,11 +215,11 @@ public class ThongKeBaoCaoUI extends JPanel {
 			}
 		});
 		pnThoat.add(jbThoat);
-		
+
 		pnMain.add(pnMain1);
 		pnMain.add(pnMain2);
 		pnMain.add(pnThoat);
-		
+
 		this.add(pnMain);
 
 	}
@@ -227,17 +228,18 @@ public class ThongKeBaoCaoUI extends JPanel {
 		jbTKBD.addActionListener(evTimKiem);
 		jbTKSach.addActionListener(evTimKiemSach);
 	}
-//tìm kiếm bạn đọc
+
+	// tìm kiếm bạn đọc
 	public void TimKiemBDoc() {
 		if (conn != null) {
 			// System.out.print(txtTKS.getText());
 			String sql = "SELECT * FROM Ban_Doc WHERE thanh_pho LIKE '%" + comboBoxBDoc.getSelectedItem().toString()
 					+ "%' and ma_ban_doc LIKE '%" + txtTKBD.getText() + "%'";
-			
+
 			String sql1 = "SELECT * FROM Ban_Doc WHERE ma_ban_doc LIKE '%" + txtTKBD.getText() + "%'";
-			
+
 			try {
-				if(comboBoxBDoc.getSelectedItem().toString().equals("Tất Cả")) {
+				if (comboBoxBDoc.getSelectedItem().toString().equals("Tất Cả")) {
 					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql1);
 					// khởi tạo resultset
 
@@ -255,22 +257,23 @@ public class ThongKeBaoCaoUI extends JPanel {
 						mdTableBD.addRow(rows);
 					}
 				} else {
-				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
-				// khởi tạo resultset
+					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
+					// khởi tạo resultset
 
-				ResultSet rs = ptmt.executeQuery();
-				mdTableBD.setRowCount(0);
-				// mdTableSach.getDataVector().removeAllElements();
-				while (rs.next()) {
-					String rows[] = new String[4];
+					ResultSet rs = ptmt.executeQuery();
+					mdTableBD.setRowCount(0);
+					// mdTableSach.getDataVector().removeAllElements();
+					while (rs.next()) {
+						String rows[] = new String[4];
 
-					rows[0] = rs.getString(2);
-					rows[1] = rs.getString(3);
-					rows[2] = rs.getString(7);
-					rows[3] = rs.getString(10);
+						rows[0] = rs.getString(2);
+						rows[1] = rs.getString(3);
+						rows[2] = rs.getString(7);
+						rows[3] = rs.getString(10);
 
-					mdTableBD.addRow(rows);
-				}}
+						mdTableBD.addRow(rows);
+					}
+				}
 			} catch (SQLException e) {
 				System.out.println("loi  " + e.getMessage());
 			}
@@ -278,7 +281,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select thành phố
+
+	// select thành phố
 	public void comboboxThanhPho() {
 		if (conn != null) {
 			String sql = "select * from gsovn_tinhthanhpho";
@@ -298,11 +302,13 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//tìm kiếm sách
+
+	// tìm kiếm sách
 	public void TimKiemSach() {
 		if (conn != null) {
 			String sql = "SELECT * FROM sach WHERE nha_xuat_ban LIKE '%" + comboBoxNXB.getSelectedItem().toString()
 					+ "%' and the_loai LIKE '%" + comboBoxTheLoai.getSelectedItem().toString() + "%'";
+
 			try {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset
@@ -326,7 +332,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select nhà xuất bản
+
+	// select nhà xuất bản
 	public void comboboxNXB() {
 		if (conn != null) {
 			String sql = "select distinct nha_xuat_ban from sach";
@@ -334,6 +341,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset
 				ResultSet rs = ptmt.executeQuery();
+				comboBoxNXB.addItem("Tất Cả");
 				while (rs.next()) {
 					String nxb = rs.getString("nha_xuat_ban");
 					comboBoxNXB.addItem(nxb);
@@ -345,7 +353,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select thể loại
+
+	// select thể loại
 	public void comboboxTheLoai() {
 		if (conn != null) {
 			String sql = "select * from the_loai";
@@ -364,7 +373,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//kho sách
+
+	// kho sách
 	public void KhoSach() {
 		if (conn != null) {
 			String sql = "SELECT SUM(so_luong_tong), SUM(ton_kho) FROM sach";

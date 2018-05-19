@@ -54,7 +54,7 @@ public class MuonTraSachUI extends JPanel {
 	private JTextField txtFldTenSach, txtFldLoaiSach, txtMaDG, txtSoLuong;
 	private JTable tblSachChuaTra, tblBD;
 	private JLabel lblSoLuong;
-	private JButton btnSearch, btnSearchBD, btnThem,btnThoat;
+	private JButton btnSearch, btnSearchBD, btnThem, btnThoat;
 	private JDateChooser dayMuon, dayTra;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbBxSearch, cbBxSearchBD;
@@ -68,7 +68,7 @@ public class MuonTraSachUI extends JPanel {
 	/**
 	 * Create the pnl.
 	 */
-	// tìm kiếm sách
+	// <--------tìm kiếm sách------->
 	ActionListener evTimKiem = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -76,7 +76,7 @@ public class MuonTraSachUI extends JPanel {
 			TimKiem();
 		}
 	};
-	// tìm kiếm Bạn Đọc
+	//<------tìm kiếm Bạn Đọc------>
 	ActionListener evTimKiemBD = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -84,7 +84,7 @@ public class MuonTraSachUI extends JPanel {
 			TimKiemBD();
 		}
 	};
-	// cho mượn sách
+	//<-----Thêm Vào danh sách mượn------->
 	ActionListener evInsert = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -98,7 +98,7 @@ public class MuonTraSachUI extends JPanel {
 		addEvents();
 	}
 
-	// hiển thị danh sách
+	// <-------hiển thị danh sách sách------>
 	MouseAdapter eventselect = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			txtFldMaSach.setEditable(false);
@@ -114,7 +114,7 @@ public class MuonTraSachUI extends JPanel {
 
 		}
 	};
-	// hiển thị danh sách
+	//<--------hiển thị danh sách bạn đọc--------->
 	MouseAdapter eventselectBD = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			txtMaDG.setEditable(false);
@@ -125,13 +125,12 @@ public class MuonTraSachUI extends JPanel {
 			}
 			txtMaDG.setText(row[0]);
 			txtSoLuong.setText(row[3]);
-		
 
 		}
 	};
 
-	// cho mượn
-	public void muon() {
+	//<--------- Phương thức cho mượn sách--------->
+	public void muonSach() {
 		String sqlCommand = "INSERT INTO muon_tra_sach (`ma_ban_doc`, `ma_sach_muon`, `ngay_muon`, `ngay_tra`,`tinh_trang`) VALUE( ?, ?, ?, ?, 'Đang mượn')";
 		PreparedStatement pst = null;
 		int kiemTra = 0;
@@ -165,7 +164,8 @@ public class MuonTraSachUI extends JPanel {
 		}
 
 	}
-	// Kiểm tra đọc giả
+
+	//<--------Phương thức Kiểm tra đọc giả--------> 
 	private ResultSet ktDG() {
 		ResultSet rs = null;
 		ResultSet rs1 = null;
@@ -189,22 +189,23 @@ public class MuonTraSachUI extends JPanel {
 			if (rsdg >= 3) {
 				JOptionPane.showMessageDialog(null, "Mỗi đọc giả chỉ được mượn 3 cuốn", "Add Button",
 						JOptionPane.PLAIN_MESSAGE);
-				
+
 			} else if (rssach == 0) {
 				JOptionPane.showMessageDialog(null, "Số sách không đủ", "Add Button", JOptionPane.PLAIN_MESSAGE);
 			} else {
-				muon();
+				muonSach();
 				ttDG((String) tblBD.getValueAt(row1, 0));
 				ttSach((String) tblSachChuaTra.getValueAt(row2, 0));
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Vui Lòng Chọn sách và đọc giả", "Borrow Button", JOptionPane.PLAIN_MESSAGE);
-			
+			JOptionPane.showMessageDialog(null, "Vui Lòng Chọn sách và đọc giả", "Borrow Button",
+					JOptionPane.PLAIN_MESSAGE);
+
 		}
 		return rs;
 	}
 
-	// Tình trạng sách
+	// <-----Tình trạng sách------->
 	public void ttSach(String ID_Sach) {
 		String sqlCommand = "UPDATE sach SET `ton_kho` = `ton_kho` - 1 WHERE ma_sach = ?";
 		PreparedStatement pst = null;
@@ -221,7 +222,7 @@ public class MuonTraSachUI extends JPanel {
 		}
 	}
 
-	// Tình trạng bạn đọc
+	// <-------Tình trạng bạn đọc-------->
 	public void ttDG(String ID) {
 		String sqlCommand = "UPDATE ban_doc SET `so_sach_muon` = `so_sach_muon` + 1 WHERE ma_ban_doc = ?";
 		PreparedStatement pst = null;
@@ -457,32 +458,31 @@ public class MuonTraSachUI extends JPanel {
 
 		btnThem = new JButton("Thêm vào DS mượn");
 		btnThem.setEnabled(true);
-		
+
 		btnThoat = new JButton("Quay lại");
 		btnThoat.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 txtFldSearch.setText("");
-				 txtFldSearchBD.setText("");
-				 //update sách
-				 txtFldMaSach.setEditable(true);
-				 txtFldMaSach.setText("");
-				 txtFldTenSach.setText("");
-				 txtFldLoaiSach.setText("");
-				 lblSoLuong.setText("");
-				 //update bạn đọc
-				 txtMaDG.setEditable(true);
-				 txtMaDG.setText("");
-				 txtSoLuong.setText("");
-				 //update table
-				 tblBanDoc.setRowCount(0);
-				 tblSachChuaTraModel.setRowCount(0);
-				
-			
+				txtFldSearch.setText("");
+				txtFldSearchBD.setText("");
+				// update sách
+				txtFldMaSach.setEditable(true);
+				txtFldMaSach.setText("");
+				txtFldTenSach.setText("");
+				txtFldLoaiSach.setText("");
+				lblSoLuong.setText("");
+				// update bạn đọc
+				txtMaDG.setEditable(true);
+				txtMaDG.setText("");
+				txtSoLuong.setText("");
+				// update table
+				tblBanDoc.setRowCount(0);
+				tblSachChuaTraModel.setRowCount(0);
+
 			}
 		});
-		
+
 		pnlThongTinSachButton.add(btnThem);
 		pnlThongTinSachButton.add(btnThoat);
 		// ADD TO Jpnl
@@ -507,7 +507,7 @@ public class MuonTraSachUI extends JPanel {
 		}
 	}
 
-	// phần tìm kiếm sách
+	//<-------Phương thức tìm kiếm sách------->
 	public void TimKiem() {
 		if (conn != null) {
 			String choose = cbBxSearch.getSelectedItem().toString();
@@ -544,7 +544,7 @@ public class MuonTraSachUI extends JPanel {
 		}
 	}
 
-	// phần tìm kiếm bạn đọc
+	//<-------Phương Thức tìm kiếm bạn đọc--------->
 	public void TimKiemBD() {
 		if (conn != null) {
 			// System.out.print(txtTKS.getText());
