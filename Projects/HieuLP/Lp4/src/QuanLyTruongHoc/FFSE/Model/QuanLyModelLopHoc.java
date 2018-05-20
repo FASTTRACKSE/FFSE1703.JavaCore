@@ -6,7 +6,6 @@ package QuanLyTruongHoc.FFSE.Model;
 		private String MaLop;
 		private String MoTa;
 		private String NamHoc;
-		private String MaSV;
 		
 		
 		public QuanLyModelLopHoc( String MaLop, String MoTa, String NamHoc) {
@@ -15,8 +14,6 @@ package QuanLyTruongHoc.FFSE.Model;
 			this.NamHoc = NamHoc;
 			
 			}
-		
-
 		public QuanLyModelLopHoc() {
 
 		}

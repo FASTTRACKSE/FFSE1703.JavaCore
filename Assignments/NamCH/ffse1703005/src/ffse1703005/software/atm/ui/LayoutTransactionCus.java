@@ -54,7 +54,7 @@ public class LayoutTransactionCus extends JPanel{
 	private JMonthChooser jmcMonth;
 	private JYearChooser  jycYear;
 	private JButton btnSearch,btnCancel,btnSearchMonth,btnCancelMonth,btnClearList,btnUpdate,btnUpdateMonth;
-	private JTextField txtCodeCus,txtStreets;
+	private JTextField txtCodeCus,txtStreets,txtDetailRecharge,txtWithdrawal;
 	private DefaultTableModel list=new DefaultTableModel();
 	private final JTable tbl=new JTable(list);
 	private ArrayList<String> arrAdress = new ArrayList<String>();
@@ -99,7 +99,7 @@ public class LayoutTransactionCus extends JPanel{
 		titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH GIAO DỊCH",
 		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 		pnList.setBorder(titleBorderList);
-		pnList.setPreferredSize(new Dimension(700,400));
+		pnList.setPreferredSize(new Dimension(700,350));
 		pnList.setMaximumSize(pnList.getPreferredSize() );
 		
 		list.addColumn("Mã Khách Hàng");
@@ -114,6 +114,37 @@ public class LayoutTransactionCus extends JPanel{
 		pnList.setLayout(new BorderLayout());
 		pnList.add(sc,BorderLayout.CENTER);
 		pnCenter.add(pnList);
+		
+		JPanel pnSumAll = new JPanel();
+		pnSumAll.setLayout(new BoxLayout(pnSumAll, BoxLayout.X_AXIS));
+		Border titleBorderSum;
+		Border blueBorderSum = BorderFactory.createLineBorder(Color.BLACK,2);
+		titleBorderSum = BorderFactory.createTitledBorder(blueBorderSum,"",
+		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+		pnSumAll.setBorder(titleBorderSum);
+		pnSumAll.setPreferredSize(new Dimension(700,50));
+		pnSumAll.setMaximumSize(pnSumAll.getPreferredSize() );
+		pnSumAll.setBackground(Color.white);
+		JPanel pnRecharge = new JPanel();
+		JLabel lblDetailRecharge = new JLabel("Tổng tiền Đã Nạp :");
+		txtDetailRecharge = new JTextField(20);
+		txtDetailRecharge.setEditable(false);
+		
+		pnRecharge.add(lblDetailRecharge);
+		pnRecharge.add(txtDetailRecharge);
+		
+		JPanel pnWithdrawal = new JPanel();
+		JLabel lblWithdrawal = new JLabel("Tổng tiền Đã Rút :");
+		txtWithdrawal = new JTextField(20);
+		txtWithdrawal.setEditable(false);
+		
+		pnWithdrawal.add(lblWithdrawal);
+		pnWithdrawal.add(txtWithdrawal);
+		
+		pnSumAll.add(pnRecharge);
+		pnSumAll.add(pnWithdrawal);
+		
+		pnCenter.add(pnSumAll);
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
@@ -405,7 +436,9 @@ public class LayoutTransactionCus extends JPanel{
 	private ActionListener eventClearList = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			list.setRowCount(0);		
+			list.setRowCount(0);	
+			txtDetailRecharge.setText("");
+			txtWithdrawal.setText("");
 			btnClearList.setEnabled(false);
 		}
 	};
@@ -571,6 +604,7 @@ public class LayoutTransactionCus extends JPanel{
     	dayTo.set(dayTo.get(Calendar.YEAR), dayTo.get(Calendar.MONTH), dayTo.get(Calendar.DATE), 23, 59);
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
+		int moneyRecharge=0;int moneyWithdrawal=0;
     	for(CusTransaction tss:arrCusTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
@@ -583,8 +617,17 @@ public class LayoutTransactionCus extends JPanel{
     				calendar2.getTime().after(dayFrom.getTime()) && calendar2.getTime().before(dayTo.getTime())) {    			
     			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ",tss.getStatus()};
     			list.addRow(row);
+    			if(tss.getStatus().indexOf("Rút Tiền")>-1) {				
+    				moneyWithdrawal=tss.getPayTransaction()+moneyWithdrawal;
+    			}
+    			if(tss.getStatus().indexOf("Nạp Tiền")>-1) {				
+    				moneyRecharge=tss.getPayTransaction()+moneyRecharge;
+    			}
     		}
     	}
+    			
+		txtDetailRecharge.setText(String.format("%,d", (long) moneyRecharge)+" VNĐ");
+		txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     }
     
     public void searchTssMonth(String districts,String wards,String codeTss,String streetTss, int month, int year ) {
@@ -618,6 +661,7 @@ public class LayoutTransactionCus extends JPanel{
     	DateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		Date dateChoose = new Date();
+		int moneyRecharge=0;int moneyWithdrawal=0;
     	for(CusTransaction tss:arrCusTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
@@ -631,8 +675,16 @@ public class LayoutTransactionCus extends JPanel{
     				timeChoose.indexOf(resuiltChoose)>-1) {    			
     			String[] row = {tss.getCodeCus(), tss.getFullnameCus(), tss.getCodeATM(),tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ",tss.getStatus()};
     			list.addRow(row);
+    			if(tss.getStatus().indexOf("Rút Tiền")>-1) {				
+    				moneyWithdrawal=tss.getPayTransaction()+moneyWithdrawal;
+    			}
+    			if(tss.getStatus().indexOf("Nạp Tiền")>-1) {				
+    				moneyRecharge=tss.getPayTransaction()+moneyRecharge;
+    			}
     		}
     	}
+    	txtDetailRecharge.setText(String.format("%,d", (long) moneyRecharge)+" VNĐ");
+		txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     }
     
     MouseAdapter eventChooseRow = new MouseAdapter() {

@@ -307,14 +307,14 @@ public class SinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String chonTinh = (String) quan.getSelectedItem();
+			String chonQuan = (String) quan.getSelectedItem();
 			phuong.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				Statement statement = conn.createStatement();
 				ResultSet result = statement.executeQuery(
 						"SELECT devvn_xaphuongthitran.name FROM devvn_xaphuongthitran INNER JOIN devvn_quanhuyen WHERE devvn_xaphuongthitran.maqh=devvn_quanhuyen.maqh AND devvn_quanhuyen.name ='"
-								+ chonTinh + "'");
+								+ chonQuan + "'");
 				while (result.next()) {
 					phuong.addItem(new String(result.getString("devvn_xaphuongthitran.name")));
 				}
@@ -378,8 +378,8 @@ public class SinhVienUI extends JPanel {
 				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
-					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals("") || ten_SinhVien.equals("")
-							|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
+					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.isEmpty() || ten_SinhVien.isEmpty()
+							|| diachi_SinhVien.isEmpty() || email_SinhVien.isEmpty() || sdt_SinhVien.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên", null,
 								JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -488,9 +488,9 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 
 			try {
-				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().equals("")
-						|| TenSV.getText().equals("") || Diachi.getText().equals("") || Email.getText().equals("")
-						|| SDT.getText().equals("")) {
+				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().isEmpty()
+						|| TenSV.getText().isEmpty() || Diachi.getText().isEmpty() || Email.getText().isEmpty()
+						|| SDT.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
 				} else {
 					for (SinhVien x : arrSV) {

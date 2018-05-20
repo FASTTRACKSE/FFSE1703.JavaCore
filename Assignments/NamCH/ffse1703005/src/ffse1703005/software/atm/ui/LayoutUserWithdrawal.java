@@ -43,7 +43,7 @@ public class LayoutUserWithdrawal extends JPanel {
 		pnMain.setOpaque(false);
 		
 		JPanel pnTitle = new JPanel();
-		pnTitle.setPreferredSize(new Dimension(650, 200));
+		pnTitle.setPreferredSize(new Dimension(650, 180));
 		pnTitle.setMaximumSize(pnTitle.getPreferredSize() );
 		pnTitle.setOpaque(false);
 		JLabel lblTitle = new JLabel("HỆ THỐNG RÚT TIỀN TP_BANK");
@@ -65,7 +65,7 @@ public class LayoutUserWithdrawal extends JPanel {
 		pnTitle.add(pnNameATM);
 		
 		JPanel pnWithDrawal = new JPanel();
-		pnWithDrawal.setPreferredSize(new Dimension(350, 100));
+		pnWithDrawal.setPreferredSize(new Dimension(350, 150));
 		pnWithDrawal.setMaximumSize(pnWithDrawal.getPreferredSize() );
 		pnWithDrawal.setBackground(Color.WHITE);
 		Border titleBorderAction;
@@ -84,6 +84,19 @@ public class LayoutUserWithdrawal extends JPanel {
 		pnMoney.add(lblMoney);
 		pnMoney.add(txtMoney);
 		
+		JPanel pnNote = new JPanel();
+		pnNote.setPreferredSize(new Dimension(350, 40));
+		pnNote.setMaximumSize(pnNote.getPreferredSize() );
+		pnNote.setOpaque(false);
+		JLabel lblNote1 = new JLabel("Rút Tối Đa 3 Lần Mỗi Ngày");
+		JLabel lblNote2 = new JLabel("Mỗi Lần Rút Không Quá 5.000.000 VNĐ");
+		lblNote1.setFont(new Font("Courier New", Font.ITALIC, 12));
+		lblNote1.setForeground(Color.DARK_GRAY);
+		lblNote2.setFont(new Font("Courier New", Font.ITALIC, 12));
+		lblNote2.setForeground(Color.DARK_GRAY);
+		pnNote.add(lblNote1);
+		pnNote.add(lblNote2);
+		
 		JPanel pnSubmit = new JPanel();
 		pnSubmit.setPreferredSize(new Dimension(650, 50));
 		pnSubmit.setMaximumSize(pnSubmit.getPreferredSize() );
@@ -94,6 +107,7 @@ public class LayoutUserWithdrawal extends JPanel {
 		pnSubmit.add(btnCancel);
 		
 		pnWithDrawal.add(pnMoney);
+		pnWithDrawal.add(pnNote);
 		pnWithDrawal.add(pnSubmit);
 		
 		pnMain.add(pnTitle);

@@ -10,12 +10,8 @@ import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,14 +25,21 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
 import ffse1703020.qltv.main.MyApp;
 import ffse1703020.qltv.model.AccountModel;
+import ffse1703020.qltv.model.ConnectDB;
+import ffse1703020.qltv.model.MyException;
 
 @SuppressWarnings("serial")
 public class LoginUi extends JFrame {
+	ConnectDB cn = new ConnectDB();
+	Connection conn = (Connection) ConnectDB.getConnect();
 	private JTextField textField;
 	private JPasswordField passwordField;
-	private JButton btnSubmit;
+	private JButton btnSubmit, btnTaiKhoan;
 	private AccountModel accountModel = new AccountModel();
 
 	public void showWindow() {
@@ -59,23 +62,22 @@ public class LoginUi extends JFrame {
 	private void addControls() {
 		Container con = getContentPane();
 
-		JPanel pnl = new JPanel(){ 
-            public void paintComponent(Graphics g) 
-            { 
-                Dimension d = getSize(); 
-                Image img=this.getToolkit().getImage("icons/img.jpg"); 
-                g.drawImage(img, 0, 0, d.width, d.height, null); 
+		JPanel pnl = new JPanel() {
+			public void paintComponent(Graphics g) {
+				Dimension d = getSize();
+				Image img = this.getToolkit().getImage("icons/img.jpg");
+				g.drawImage(img, 0, 0, d.width, d.height, null);
 
-                setOpaque( false );  // lam trong suot  
-                super.paintComponent(g); 
-            } 
-        };
+				setOpaque(false); // lam trong suot
+				super.paintComponent(g);
+			}
+		};
 
 		con.add(pnl);
 		pnl.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel pnlNorth = new JPanel();
-		pnlNorth.setOpaque( false );
+		pnlNorth.setOpaque(false);
 		FlowLayout flowLayout_2 = (FlowLayout) pnlNorth.getLayout();
 		flowLayout_2.setVgap(15);
 		pnl.add(pnlNorth, BorderLayout.NORTH);
@@ -85,16 +87,16 @@ public class LoginUi extends JFrame {
 		pnlNorth.add(lblHeader);
 
 		JPanel pnlCenter = new JPanel();
-		pnlCenter.setOpaque( false );
+		pnlCenter.setOpaque(false);
 		pnl.add(pnlCenter);
 
 		JPanel pnlBorder = new JPanel();
-		pnlBorder.setOpaque( false );
+		pnlBorder.setOpaque(false);
 		pnlCenter.add(pnlBorder);
 		pnlBorder.setLayout(new BoxLayout(pnlBorder, BoxLayout.Y_AXIS));
 
 		JPanel pnlUser = new JPanel();
-		pnlUser.setOpaque( false );
+		pnlUser.setOpaque(false);
 		FlowLayout flowLayout = (FlowLayout) pnlUser.getLayout();
 		flowLayout.setHgap(20);
 		pnlBorder.add(pnlUser);
@@ -105,7 +107,7 @@ public class LoginUi extends JFrame {
 		pnlUser.add(lblIconUser);
 
 		JPanel pnlBorderUser = new JPanel();
-		pnlBorderUser.setOpaque( false );
+		pnlBorderUser.setOpaque(false);
 		pnlBorderUser
 				.setBorder(new TitledBorder(null, "Tài khoản", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlUser.add(pnlBorderUser);
@@ -115,7 +117,7 @@ public class LoginUi extends JFrame {
 		textField.setPreferredSize(new Dimension(200, 25));
 
 		JPanel pnlPass = new JPanel();
-		pnlPass.setOpaque( false );
+		pnlPass.setOpaque(false);
 		FlowLayout flowLayout_1 = (FlowLayout) pnlPass.getLayout();
 		flowLayout_1.setHgap(20);
 		pnlBorder.add(pnlPass);
@@ -126,7 +128,7 @@ public class LoginUi extends JFrame {
 		pnlPass.add(lblIconUser1);
 
 		JPanel pnlBorderPass = new JPanel();
-		pnlBorderPass.setOpaque( false );
+		pnlBorderPass.setOpaque(false);
 		pnlBorderPass.setBorder(new TitledBorder(null, "Mật khẩu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pnlPass.add(pnlBorderPass);
 
@@ -135,19 +137,25 @@ public class LoginUi extends JFrame {
 		passwordField.setPreferredSize(textField.getPreferredSize());
 
 		JPanel pnlSouth = new JPanel();
-		pnlSouth.setOpaque( false );
+		pnlSouth.setOpaque(false);
 		pnl.add(pnlSouth, BorderLayout.SOUTH);
 		pnlSouth.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
 		btnSubmit = new JButton("Đăng nhập");
 		btnSubmit.setBorder(new LineBorder(UIManager.getColor("Button.light"), 1, true));
-		btnSubmit.setPreferredSize(new Dimension(91, 30));
+		btnSubmit.setPreferredSize(new Dimension(100, 30));
+
+		btnTaiKhoan = new JButton("Tạo Tài Khoản");
+		btnTaiKhoan.setBorder(new LineBorder(UIManager.getColor(""), 1, true));
+		btnTaiKhoan.setPreferredSize(new Dimension(100, 30));
 		pnlSouth.add(btnSubmit);
+		pnlSouth.add(btnTaiKhoan);
 	}
 
 	private void addEvents() {
 		passwordField.addActionListener(new EnterListener());
 		btnSubmit.addActionListener(new DangNhapListener());
+		btnTaiKhoan.addActionListener(evInsert);
 
 	}
 
@@ -155,6 +163,53 @@ public class LoginUi extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			btnSubmit.doClick();
+		}
+	}
+
+	ActionListener evInsert = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			try {
+				insert();
+			} catch (MyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	};
+
+	@SuppressWarnings("deprecation")
+	public void insert() throws MyException {
+		try {
+
+			if (MyException.ChekEmpty(textField.getText()) && MyException.ChekEmpty(passwordField.getText())) {
+				if (conn != null) {
+					String sql = "INSERT INTO account (username, password, role, ma_ban_doc) VALUES (?,?,'bandoc','DK')";
+					try {
+
+						PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
+						// khởi tạo resultset
+						ptmt.setString(1, textField.getText());
+						ptmt.setString(2, passwordField.getText());
+						int k = ptmt.executeUpdate();
+						if (k != 0) {
+							JOptionPane.showMessageDialog(null, "Thêm thành công");
+							textField.setText("");
+							passwordField.setText("");
+						} else
+							JOptionPane.showMessageDialog(null, "Thêm không thành công");
+					} catch (SQLException e) {
+						System.out.println("loi  " + e.getMessage());
+					}
+				} else {
+					System.out.println("Kết nối MYSQL thất bại");
+				}
+			}
+		} catch (MyException e) {
+			System.out.println(e);
 		}
 	}
 

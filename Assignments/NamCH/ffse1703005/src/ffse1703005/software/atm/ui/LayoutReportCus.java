@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,24 +28,29 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import ffse1703005.software.atm.model.CusTransaction;
 import ffse1703005.software.atm.model.Customer;
 import ffse1703005.software.atm.model.CustomerDB;
 import ffse1703005.software.atm.model.StamentAdress;
+import ffse1703005.software.atm.model.TransactionsDb;
 
 public class LayoutReportCus extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor;
+	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor,btnUpdate;
 	private JComboBox<String> cboDistricts,cboWards;
 	private JTextField txtFullname,txtPhone,txtEmail,txtCode,txtStreets;
 	private JTextField txtDetailFullname,txtDetailPhone,txtDetailEmail,txtDetailDistricts,txtDetailWards,
-	txtDetailStreets,txtDetailCode,txtDetailAccNumber,txtDetailBalance;
+	txtDetailStreets,txtDetailCode,txtDetailAccNumber,txtDetailBalance,txtDetailRecharge,txtWithdrawal;
 	private String nameSearch="",phoneSearch="",emailSearch="",codeSearch="",streetSearch;
+	private int moneyWithdrawal;
+	private int moneyRecharge;
 	private DefaultTableModel list=new DefaultTableModel();
 	private final JTable tbl=new JTable(list);
 	private ArrayList<String> arrAdress = new ArrayList<String>();
 	private StamentAdress adress = new StamentAdress();
 	private ArrayList<Customer> arrCtm;
 	private ArrayList<Customer> arrCtmAll;
+	private ArrayList<CusTransaction> arrCtmTss;
 	public LayoutReportCus() {
 		addControlls();
 		addEvents();
@@ -55,6 +61,7 @@ public class LayoutReportCus extends JPanel{
 		
 		arrCtmAll = new ArrayList<Customer>();
 		arrCtmAll = CustomerDB.getCustomersList();
+		arrCtmTss = TransactionsDb.getCusTransactionList();
 		arrCtm = new ArrayList<Customer>();
 		arrCtm = arrCtmAll;
 		printListCus();
@@ -118,7 +125,7 @@ public class LayoutReportCus extends JPanel{
 			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
 			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 			pnDetail.setBorder(titleBorderDetail);
-			pnDetail.setPreferredSize(new Dimension(700,155));
+			pnDetail.setPreferredSize(new Dimension(700,185));
 			pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
 			pnCenter.add(pnDetail);
 			
@@ -267,12 +274,35 @@ public class LayoutReportCus extends JPanel{
 			);
 			pnAllInfor.add(pnDetailAccount);
 			
+			JPanel pnMoney = new JPanel();
+			pnMoney.setLayout(new BoxLayout(pnMoney, BoxLayout.X_AXIS));
+			
+			JPanel pnRecharge = new JPanel();
+			JLabel lblDetailRecharge = new JLabel("Tổng tiền Đã Nạp :");
+			txtDetailRecharge = new JTextField(20);
+			txtDetailRecharge.setEditable(false);
+			
+			pnRecharge.add(lblDetailRecharge);
+			pnRecharge.add(txtDetailRecharge);
+			
+			JPanel pnWithdrawal = new JPanel();
+			JLabel lblWithdrawal = new JLabel("Tổng tiền Đã Rút :");
+			txtWithdrawal = new JTextField(20);
+			txtWithdrawal.setEditable(false);
+			
+			pnWithdrawal.add(lblWithdrawal);
+			pnWithdrawal.add(txtWithdrawal);
+			
+			pnMoney.add(pnRecharge);
+			pnMoney.add(pnWithdrawal);
+			
 			JPanel pnClear = new JPanel();
 			btnClearInfor = new JButton("Clear Thông Tin");
 			btnClearInfor.setEnabled(false);
 			pnClear.add(btnClearInfor);
 			
 			pnDetail.add(pnAllInfor);
+			pnDetail.add(pnMoney);
 			pnDetail.add(pnClear);
 			pnMain.add(pnCenter);
 			
@@ -359,7 +389,7 @@ public class LayoutReportCus extends JPanel{
 			
 			
 			JPanel pnAdress = new JPanel();
-			pnAdress.setPreferredSize(new Dimension(340,180));
+			pnAdress.setPreferredSize(new Dimension(340,130));
 			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
 			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
 			pnAdress.setOpaque(false);
@@ -386,9 +416,11 @@ public class LayoutReportCus extends JPanel{
 			pnSearchAdress.setOpaque(false);
 			btnSearchAdress = new JButton("Xem");										
 			btnCancelAdress = new JButton("Hủy");
+			btnUpdate = new JButton("Cập Nhập");
 			btnCancelAdress.setEnabled(false);
 			pnSearchAdress.add(btnSearchAdress);
 			pnSearchAdress.add(btnCancelAdress);
+			pnSearchAdress.add(btnUpdate);
 			
 			
 			GroupLayout adressLayout = new GroupLayout(pnAdress);
@@ -406,7 +438,6 @@ public class LayoutReportCus extends JPanel{
 					.addComponent(cboDistricts)
 					.addComponent(cboWards)
 					.addComponent(txtStreets)
-					.addComponent(pnSearchAdress)
 				)
 			);
 			
@@ -422,16 +453,14 @@ public class LayoutReportCus extends JPanel{
 				.addGroup(adressLayout.createParallelGroup()
 						.addComponent(lblStreets)
 						.addComponent(txtStreets)
-					)
-				.addGroup(adressLayout.createParallelGroup()
-						.addComponent(pnSearchAdress)
-					)
+					)				
 			);
 			
 
 			
 			pnAction.add(pnInformation);
 			pnAction.add(pnAdress);
+			pnAction.add(pnSearchAdress);
 			
 			pnMain.add(pnAction);
 			this.add(pnMain);
@@ -452,6 +481,7 @@ public class LayoutReportCus extends JPanel{
 		btnSearchAdress.addActionListener(eventSearchDistricts);
 		btnCancelAdress.addActionListener(eventCancelAdress);
 		btnClearInfor.addActionListener(eventClearInfor);
+		btnUpdate.addActionListener(eventUpdate);
 	}
 	
 	MouseAdapter eventChooseRow = new MouseAdapter() {
@@ -470,20 +500,41 @@ public class LayoutReportCus extends JPanel{
     		txtDetailEmail.setText(row[3]);
     		txtDetailAccNumber.setText(row[4]);
     		txtDetailBalance.setText(row[5]);
-    		
+    		btnClearInfor.setEnabled(true);
+    		int money=0;
 			for(int i=0;i<arrCtm.size();i++) {
 				if(row[0].equals(arrCtm.get(i).getCodeCus())) {
 					txtDetailStreets.setText(arrCtm.get(i).getStreetCus());
 					txtDetailDistricts.setText(arrCtm.get(i).getNameDistricts());
-					txtDetailWards.setText(arrCtm.get(i).getNameWards());									
+					txtDetailWards.setText(arrCtm.get(i).getNameWards());	
+					money = arrCtm.get(i).getAmountCus();
 				}
-			}			
+			}
+			moneyRecharge=0;moneyWithdrawal=0;
+			for(CusTransaction x:arrCtmTss) {				
+				if(x.getCodeCus().indexOf(row[0])>-1&&x.getStatus().indexOf("Rút Tiền")>-1) {				
+					moneyWithdrawal=x.getPayTransaction()+moneyWithdrawal;
+				}
+			}
+			moneyRecharge = money+moneyWithdrawal;
+			txtDetailRecharge.setText(String.format("%,d", (long) moneyRecharge)+" VNĐ");
+			txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     	}
     };
 	
     ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
+		}
+    };
+    
+    ActionListener eventUpdate = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			arrCtmAll = CustomerDB.getCustomersList();
+			updateArrCtm();
+			printListCus();
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
     
@@ -497,6 +548,8 @@ public class LayoutReportCus extends JPanel{
 		txtDetailStreets.setText("");
 		txtDetailDistricts.setText("");
 		txtDetailWards.setText("");	
+		txtDetailRecharge.setText("");
+		txtWithdrawal.setText("");
 		tbl.clearSelection();
 		btnClearInfor.setEnabled(false);
     }
@@ -575,7 +628,8 @@ public class LayoutReportCus extends JPanel{
 				String[] row = {x.getCodeCus(), x.getFullnameCus(), phone,x.getEmailCus(),x.getCardnumberCus(),String.format("%,d", (long) x.getAmountCus())+" VNĐ"};
 				list.addRow(row);			
 			}			
-		}												
+		}
+		
 	}
 	
 	private void changeFullname() {

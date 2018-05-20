@@ -2,43 +2,23 @@ package ffse1703020.qltv.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
+
 
 import ffse1703020.qltv.main.MyApp;
 import ffse1703020.qltv.model.CheckLogin;
-import ffse1703020.qltv.model.ComboItem;
-import ffse1703020.qltv.model.PlaceholderTextField;
-import ffse1703020.qltv.model.SachModel;
 
 public class QuanLiThuVienUI extends JFrame {
     /**
@@ -46,15 +26,12 @@ public class QuanLiThuVienUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JButton docgia;
-	private JPanel quanlydocgia;
+	private JPanel quanlydocgia, thongtingiaodich, thongkebaocao, quanlysach, quanlymuontra, logout;
 	private JButton capnhat;
-	private JPanel thongkebaocao;
 	private JButton sach;
-	private JPanel quanlysach;
-	private JButton muontrasach;
-	private JPanel quanlymuontra;
+	
+	private JButton muontrasach,giaodich;
 	private JButton thoat;
-	private JPanel logout;
 	
 
 	public void ShowWindow() {
@@ -134,22 +111,33 @@ public class QuanLiThuVienUI extends JFrame {
 		JLabel lblIconmuon = new JLabel(img3);
 		muontrasach.add(lblIconmuon);
 		icon2.add(muontrasach);
-//logout
+////quản lí giao dịch
 		JPanel icon3 = new JPanel();
 		icon3.setOpaque( false );
+		giaodich = new JButton(" Quản Lý Giao Dịch");
+		giaodich.setPreferredSize(new Dimension(190, 60));
+		ImageIcon img5 = new ImageIcon(
+				new ImageIcon("icons/bussiness.png").getImage().getScaledInstance(35, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconmuon1 = new JLabel(img5);
+		giaodich.add(lblIconmuon1);
+		icon3.add(giaodich);
+//logout
+		JPanel icon4 = new JPanel();
+		icon4.setOpaque( false );
 		thoat = new JButton(" Logout");
 		thoat.setPreferredSize(new Dimension(190, 60));
 		ImageIcon img4 = new ImageIcon(
 				new ImageIcon("icons/logout.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
 		JLabel lblIconlogout = new JLabel(img4);
 		thoat.add(lblIconlogout);
-		icon3.add(thoat);
+		icon4.add(thoat);
 
 		pnMain.add(iconb);
 		pnMain.add(icon);
 		pnMain.add(icon1);
 		pnMain.add(icon2);
 		pnMain.add(icon3);
+		pnMain.add(icon4);
 		con.add(pnMain, BorderLayout.LINE_END);
 				// Card Layout\
 		CardLayout t = new CardLayout();
@@ -171,22 +159,28 @@ public class QuanLiThuVienUI extends JFrame {
 		quanlymuontra = new JPanel();// giao dien mượn trả
 		JLabel txt3 = new JLabel("Quản Lý Mượn,Trả Sách");
 		quanlymuontra.add(txt3);
+		
+		thongtingiaodich = new JPanel();//giao diện thông tin giao dịch
+		JLabel txt4 = new JLabel("Thông Tin Giao Dịch");
+		thongtingiaodich.add(txt4);
 
 		logout = new JPanel();// giao dien logout
-		JLabel txt4 = new JLabel("Logout");
-		logout.add(txt4);
+		JLabel txt5 = new JLabel("Logout");
+		logout.add(txt5);
         
 		SachUI pnSach = new SachUI();
 		BanDocUI pnBanDoc = new BanDocUI();
 		ThongKeBaoCaoUI pnThongKeBaoCao = new ThongKeBaoCaoUI();
 		MuonTraSachUI pnMuonTraSach = new MuonTraSachUI();
+		QuanLiGiaoDichUI pnQuanLiGiaoDich = new QuanLiGiaoDichUI(); 
 		
 
 		cards.add(pnSach, "1");
 		cards.add(pnBanDoc, "2");
 		cards.add(pnThongKeBaoCao, "3");
 		cards.add(pnMuonTraSach, "4");
-		cards.add(logout, "5");
+		cards.add(pnQuanLiGiaoDich,"5");
+		cards.add(logout, "6");
 		getContentPane().add(cards);
 		setVisible(true);
 
@@ -224,7 +218,14 @@ public class QuanLiThuVienUI extends JFrame {
 			}
 
 		});
+		// thoat
+		giaodich.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				t.show(cards, "5");
+			}
 
+		});
 		// thoat
 		thoat.addActionListener(new ActionListener() {
 			@Override
@@ -235,6 +236,7 @@ public class QuanLiThuVienUI extends JFrame {
 			}
 
 		});
+	
 	}
 	private void addEvents() {
 		
