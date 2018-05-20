@@ -2,11 +2,9 @@ package ffse1703020.qltv.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;

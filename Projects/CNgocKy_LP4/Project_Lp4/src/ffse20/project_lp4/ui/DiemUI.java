@@ -1,7 +1,6 @@
 
 package ffse20.project_lp4.ui;
 
-
 import java.awt.BorderLayout;
 import ffse20.project_lp4.connect.*;
 import java.awt.Color;
@@ -49,21 +48,14 @@ public class DiemUI extends JPanel {
 	private JComboBox<String> maLopcomnoBoxDiem = new JComboBox<>();
 	private JComboBox<String> monHoccomnoBoxDiem = new JComboBox<>();
 
-
-	
 	private JComboBox<String> maSV5 = new JComboBox<>();
-
-
 
 	private ArrayList<QuanLyDiemModel> arrDiem = new ArrayList<QuanLyDiemModel>();
 
-	
 	public DiemUI() {
 		addControls();
 		addEvents();
 		maLopcomnoBoxDiem();
-		moHoccomnoBoxDiem();
-
 
 	}
 
@@ -80,7 +72,7 @@ public class DiemUI extends JPanel {
 		chonlop5.add(lblNhapLop5);
 		chonlop5.add(maLopcomnoBoxDiem);
 		this.add(chonlop5);
-		
+
 		JLabel lblNhapMhoc5 = new JLabel("Môn Học :");
 		JPanel chonMhoc5 = new JPanel();
 		chonMhoc5.add(lblNhapMhoc5);
@@ -92,8 +84,6 @@ public class DiemUI extends JPanel {
 		chonSV5.add(lblNhapSV5);
 		chonSV5.add(maSV5);
 		this.add(chonSV5);
-
-
 
 		JPanel nhapDiem5 = new JPanel();
 		nhapDiem = new JTextField(12);
@@ -117,23 +107,24 @@ public class DiemUI extends JPanel {
 		dmDiem.addColumn("Mã Môn Học");
 		dmDiem.addColumn("Sinh Viên");
 		dmDiem.addColumn("Điểm");
-		
-		 Connection con3 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-		 try {
-		 Statement statement = con3.createStatement();
-		 ResultSet result = statement.executeQuery("SELECT * FROM table_diem");
-		 while (result.next()) {
-		 arrDiem.add(new QuanLyDiemModel(result.getString("maLop"),result.getString("ma_monHoc"),result.getString("tenSV"),result.getString("diem")));
 
-		 }
-		 } catch (Exception e) {
-		 e.printStackTrace();
-		 }
-		
-		 for (QuanLyDiemModel x : arrDiem) {
-		 String[] row = { x.getMaLop(), x.getMaMonHoc(), x.getSinhVien(), x.getDiem()};
-		 dmDiem.addRow(row);
-		 }
+		Connection con3 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			Statement statement = con3.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM table_diem");
+			while (result.next()) {
+				arrDiem.add(new QuanLyDiemModel(result.getString("maLop"), result.getString("ma_monHoc"),
+						result.getString("tenSV"), result.getString("diem")));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		for (QuanLyDiemModel x : arrDiem) {
+			String[] row = { x.getMaLop(), x.getMaMonHoc(), x.getSinhVien(), x.getDiem() };
+			dmDiem.addRow(row);
+		}
 
 		tblDiem = new JTable(dmDiem);
 		scDiem = new JScrollPane(tblDiem);
@@ -147,12 +138,8 @@ public class DiemUI extends JPanel {
 		pnTable5.setBorder(borderTitle7);
 		this.add(pnTable5);
 
-
 	}
 
-
-
-	
 	public void maLopcomnoBoxDiem() {
 		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 		try {
@@ -168,40 +155,22 @@ public class DiemUI extends JPanel {
 		}
 
 	}
-	
-	public void moHoccomnoBoxDiem() {
-		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-		try {
 
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
-			while (result.next()) {
-				monHoccomnoBoxDiem.addItem(new String(result.getString("ma_monHoc")));
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	public void addEvents() {
 
 		tblDiem.addMouseListener(eventTableDiem);
-		
 
-		
 		btnThemDiem.addActionListener(eventAddDiem);
 		btnSuaDiem.addActionListener(eventEditDiem);
+		btnNhapDiem.addActionListener(eventReset_Diem);
 
 		maLopcomnoBoxDiem.addActionListener(eventChooseSVien);
+		maLopcomnoBoxDiem.addActionListener(eventChooseMaMH);
 
+	}
 
-}
-	
-	
-	
-	ActionListener eventChooseSVien= new ActionListener() {
+	ActionListener eventChooseSVien = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -223,12 +192,33 @@ public class DiemUI extends JPanel {
 
 		}
 	};
+	ActionListener eventChooseMaMH = new ActionListener() {
 
-	
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			monHoccomnoBoxDiem.removeAllItems();
+
+			String chonSV1 = (String) maLopcomnoBoxDiem.getSelectedItem();
+			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+			try {
+				Statement statement = conn.createStatement();
+				ResultSet result = statement.executeQuery(
+						"SELECT table_monhoc_lop.maMonHoc FROM table_monhoc_lop INNER JOIN tabel_lop WHERE tabel_lop.maLop=table_monhoc_lop.maLop AND tabel_lop.maLop ='"
+								+ chonSV1 + "'");
+				while (result.next()) {
+					monHoccomnoBoxDiem.addItem(result.getString("table_monhoc_lop.maMonHoc"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	};
+
 	/////////////////////////
-	////////////////EVENT-QUANLYDIEM//////////////
+	//////////////// EVENT-QUANLYDIEM//////////////
 	/////////////////////////
-	
+
 	MouseAdapter eventTableDiem = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			int row = tblDiem.getSelectedRow();
@@ -237,7 +227,7 @@ public class DiemUI extends JPanel {
 			col[1] = (String) tblDiem.getValueAt(row, 1);
 			col[2] = (String) tblDiem.getValueAt(row, 2);
 			col[3] = (String) tblDiem.getValueAt(row, 3);
-			
+
 			maLopcomnoBoxDiem.setSelectedItem(col[0]);
 			monHoccomnoBoxDiem.setSelectedItem(col[1]);
 			maSV5.setSelectedItem(col[2]);
@@ -245,7 +235,7 @@ public class DiemUI extends JPanel {
 
 		}
 	};
-	
+
 	ActionListener eventAddDiem = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -253,33 +243,40 @@ public class DiemUI extends JPanel {
 			String maMH = (String) monHoccomnoBoxDiem.getSelectedItem();
 			String sinhVien = (String) maSV5.getSelectedItem();
 			String diem = nhapDiem.getText();
-
-
-
-			try {
-				if (diem.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-				dmDiem.addRow(new String[] { maLp, maMH, sinhVien, diem});
-					Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-					try {
-						String sql = "INSERT INTO table_diem(ma_monHoc, tenSV,diem, maLop) VALUES('"
-								+ maMH + "','" + sinhVien + "','" + diem + "','" + maLp + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin điểm");
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
+			int i = 0;
+			for (QuanLyDiemModel y : arrDiem) {
+				if (maMH.equals(y.getMaMonHoc()) && sinhVien.equals(y.getSinhVien())) {
+					i = 1;
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Trùng thông tin !!!");
+			} else {
+				try {
+					if (diem.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+						dmDiem.addRow(new String[] { maLp, maMH, sinhVien, diem });
+						Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+						try {
+							String sql = "INSERT INTO table_diem(ma_monHoc, tenSV,diem, maLop) VALUES('" + maMH + "','"
+									+ sinhVien + "','" + diem + "','" + maLp + "')";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin điểm");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+				}
 			}
 		}
 	};
-	
+
 	ActionListener eventEditDiem = new ActionListener() {
 
 		@Override
@@ -287,17 +284,18 @@ public class DiemUI extends JPanel {
 			for (QuanLyDiemModel x : arrDiem) {
 				if ((maLopcomnoBoxDiem.getSelectedItem()).equals(x.getMaLop())) {
 					x.setMaLop((String) maLopcomnoBoxDiem.getSelectedItem());
-					x.setMaMonHoc((String)monHoccomnoBoxDiem.getSelectedItem());
+					x.setMaMonHoc((String) monHoccomnoBoxDiem.getSelectedItem());
 					x.setSinhVien((String) maSV5.getSelectedItem());
-					x.setDiem( nhapDiem.getText());
+					x.setDiem(nhapDiem.getText());
 					break;
 				}
 			}
 			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 			try {
-				String sql = "UPDATE table_diem SET ma_monHoc='" + monHoccomnoBoxDiem.getSelectedItem() + "',tenSV='" + maSV5.getSelectedItem()
-						+ "',diem='" + nhapDiem.getText() + "',maLop='" + maLopcomnoBoxDiem.getSelectedItem()+ "' WHERE ma_monHoc = '" + monHoccomnoBoxDiem.getSelectedItem() +"'  AND  tenSV ='" + maSV5.getSelectedItem() + "'";
-				System.out.print(sql);
+				String sql = "UPDATE table_diem SET ma_monHoc='" + monHoccomnoBoxDiem.getSelectedItem() + "',tenSV='"
+						+ maSV5.getSelectedItem() + "',diem='" + nhapDiem.getText() + "',maLop='"
+						+ maLopcomnoBoxDiem.getSelectedItem() + "' WHERE ma_monHoc = '"
+						+ monHoccomnoBoxDiem.getSelectedItem() + "'  AND  tenSV ='" + maSV5.getSelectedItem() + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
@@ -316,7 +314,13 @@ public class DiemUI extends JPanel {
 		}
 
 	};
+	ActionListener eventReset_Diem = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			nhapDiem.setText("");
+
+		}
+	};
 
 }
-
-

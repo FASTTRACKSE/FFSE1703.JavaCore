@@ -19,16 +19,7 @@ public class AccountModel {
 			e.printStackTrace();
 		}
 	}
-
-	public int addAccount(CreateAccount acc) throws SQLException {
-		sql = "INSERT INTO account (username, password, role, ma_ban_doc) VALUES (?,?,'bandoc',?)";
-		ps = (PreparedStatement) conn.prepareStatement(sql);
-		ps.setString(1, acc.getUsername());
-		ps.setString(2, acc.getPassword());
-		ps.setString(3, String.format("%05d", acc.getId()));
-		return ps.executeUpdate();
-	}
-
+	
 	@SuppressWarnings("resource")
 	public boolean checkLogin(String username, String password) throws SQLException {
 		sql = "SELECT role, ma_ban_doc FROM account WHERE username = ? AND password = ?";

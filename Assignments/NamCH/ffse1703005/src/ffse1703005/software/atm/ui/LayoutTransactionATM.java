@@ -54,7 +54,7 @@ public class LayoutTransactionATM extends JPanel{
 	private JYearChooser  jycYear;
 	private JButton btnSearch,btnCancel,btnSearchMonth,btnCancelMonth,btnClearList;
 	private JComboBox<String> cboDistricts,cboWards;
-	private JTextField txtCodeATM,txtStreets;
+	private JTextField txtCodeATM,txtStreets,txtWithdrawal;
 	private DefaultTableModel list=new DefaultTableModel();
 	private final JTable tbl=new JTable(list);		
 	private ArrayList<ATMTransaction> arrAtmTss = new ArrayList<>();
@@ -100,7 +100,7 @@ public class LayoutTransactionATM extends JPanel{
 		titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH GIAO DỊCH",
 		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
 		pnList.setBorder(titleBorderList);
-		pnList.setPreferredSize(new Dimension(700,400));
+		pnList.setPreferredSize(new Dimension(700,350));
 		pnList.setMaximumSize(pnList.getPreferredSize() );
 		
 		list.addColumn("Mã Máy ATM");
@@ -114,6 +114,34 @@ public class LayoutTransactionATM extends JPanel{
 		pnList.setLayout(new BorderLayout());
 		pnList.add(sc,BorderLayout.CENTER);
 		pnCenter.add(pnList);
+		
+		JPanel pnSumAll = new JPanel();
+		pnSumAll.setLayout(new BoxLayout(pnSumAll, BoxLayout.X_AXIS));
+		Border titleBorderSum;
+		Border blueBorderSum = BorderFactory.createLineBorder(Color.BLACK,2);
+		titleBorderSum = BorderFactory.createTitledBorder(blueBorderSum,"",
+		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+		pnSumAll.setBorder(titleBorderSum);
+		pnSumAll.setPreferredSize(new Dimension(700,50));
+		pnSumAll.setMaximumSize(pnSumAll.getPreferredSize() );
+		pnSumAll.setBackground(Color.white);
+		JPanel pnRecharge = new JPanel();
+		pnRecharge.setPreferredSize(new Dimension(350,50));
+		pnRecharge.setMaximumSize(pnRecharge.getPreferredSize() );
+				
+		
+		JPanel pnWithdrawal = new JPanel();
+		JLabel lblWithdrawal = new JLabel("Tổng tiền Đã Rút :");
+		txtWithdrawal = new JTextField(20);
+		txtWithdrawal.setEditable(false);
+		
+		pnWithdrawal.add(lblWithdrawal);
+		pnWithdrawal.add(txtWithdrawal);
+		
+		pnSumAll.add(pnRecharge);
+		pnSumAll.add(pnWithdrawal);
+		
+		pnCenter.add(pnSumAll);
 		
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
@@ -538,6 +566,7 @@ public class LayoutTransactionATM extends JPanel{
     	dayTo.set(dayTo.get(Calendar.YEAR), dayTo.get(Calendar.MONTH), dayTo.get(Calendar.DATE), 23, 59);
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
+		int moneyWithdrawal=0;
     	for(ATMTransaction tss : arrAtmTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
@@ -545,14 +574,16 @@ public class LayoutTransactionATM extends JPanel{
 			Calendar calendar2 = Calendar.getInstance();
 		    calendar2.setTime(ts);
 		    
-    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    		if(tss.getCodeATM().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
     				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
     				calendar2.getTime().after(dayFrom.getTime()) && calendar2.getTime().before(dayTo.getTime())) {    			
     			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
     			list.addRow(row);
     			btnClearList.setEnabled(true);
+    			moneyWithdrawal=tss.getPayTransaction()+moneyWithdrawal;
     		}
     	}
+    	txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     }
     
     ActionListener eventSearchMonth = new ActionListener() {
@@ -619,6 +650,7 @@ public class LayoutTransactionATM extends JPanel{
     	DateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		Date dateChoose = new Date();
+		int moneyWithdrawal=0;
     	for(ATMTransaction tss : arrAtmTss) {
     		Timestamp ts = tss.getTimeTransaction();
 			date.setTime(ts.getTime());
@@ -627,14 +659,16 @@ public class LayoutTransactionATM extends JPanel{
 		    calendar2.setTime(ts);
 		    dateChoose.setTime(tss.getTimeTransaction().getTime());
 			String timeChoose = dateFormatChoose.format(dateChoose);
-    		if(tss.getCodeCus().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
+    		if(tss.getCodeATM().indexOf(codeTss)>-1&&tss.getStreets().indexOf(streetTss)>-1&&
     				tss.getDistricts().indexOf(districts)>-1&&tss.getWards().indexOf(wards)>-1&&
     				timeChoose.indexOf(resuiltChoose)>-1) {    			
     			String[] row = {tss.getCodeATM(), tss.getAdressATM(),tss.getCodeCus() ,tss.getCodeTransaction(),time,String.format("%,d", (long) tss.getPayTransaction())+" VNĐ"};
     			list.addRow(row);
     			btnClearList.setEnabled(true);
+    			moneyWithdrawal=tss.getPayTransaction()+moneyWithdrawal;
     		}
     	}
+    	txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     }
     
     
@@ -642,7 +676,8 @@ public class LayoutTransactionATM extends JPanel{
     private ActionListener eventClearList = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			list.setRowCount(0);		
+			list.setRowCount(0);	
+			txtWithdrawal.setText("");
 			btnClearList.setEnabled(false);
 		}
 	};

@@ -36,7 +36,7 @@ import ffse1703005.software.atm.model.TransactionsDb;
 
 public class LayoutRechargeCus extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JButton btnClearInfor,btnRecharge;
+	private JButton btnClearInfor,btnRecharge,btnUpdate;
 	private JTextField txtFullname,txtPhone,txtEmail,txtCode,txtRecharge;
 	private JTextField txtDetailFullname,txtDetailPhone,txtDetailEmail,txtDetailDistricts,txtDetailWards,
 	txtDetailStreets,txtDetailCode,txtDetailAccNumber,txtDetailBalance;
@@ -361,6 +361,12 @@ public class LayoutRechargeCus extends JPanel{
 			);
 											
 			pnAction.add(pnInformation);
+			JPanel pnUpdate = new JPanel();
+			pnUpdate.setOpaque(false);
+			btnUpdate = new JButton("Cập Nhập");
+			pnUpdate.add(btnUpdate);
+			
+			pnAction.add(pnUpdate);
 			
 			pnMain.add(pnAction);
 			this.add(pnMain);
@@ -378,7 +384,17 @@ public class LayoutRechargeCus extends JPanel{
 		txtCode.getDocument().addDocumentListener(eventSearchCode);	
 		btnClearInfor.addActionListener(eventClearInfor);
 		btnRecharge.addActionListener(eventRecharge);
+		btnUpdate.addActionListener(eventUpdate);
 	}
+	
+	ActionListener eventUpdate = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			arrCtmAll = CustomerDB.getCustomersList();
+			updateArrCtm();
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
+		}
+    };
 	
 	MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {

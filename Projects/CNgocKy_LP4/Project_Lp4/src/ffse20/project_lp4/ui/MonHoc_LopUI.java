@@ -181,10 +181,15 @@ public class MonHoc_LopUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			String maLp = (String) maLopcomnoBoxMHocLop.getSelectedItem();
 			String maMH = (String) monHoccomnoBoxMHLop.getSelectedItem();
-
-
-
-
+			int i =0;
+			for (QuanLyMonHocLopModel y : arrMHLop) {
+				if (maMH.equals(y.getMaMonHoc()) && maLp.equals(y.getMaLop())) {
+					i = 1;
+			}
+			}
+			if(i>0) {
+				JOptionPane.showMessageDialog(null, "Trùng thông tin !!!");
+			}else {
 			try {
 
 					dmMHLop.addRow(new String[] { maLp, maMH});
@@ -204,6 +209,7 @@ public class MonHoc_LopUI extends JPanel {
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
 			}
+		}
 		}
 	};
 	

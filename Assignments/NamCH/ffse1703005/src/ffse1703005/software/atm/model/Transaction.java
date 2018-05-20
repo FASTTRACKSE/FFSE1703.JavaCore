@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class Transaction {
 	private String codeTransaction;
-	private float payTransaction;
+	private int payTransaction;
 	private Timestamp timeTransaction;
 	
 	public Transaction() {
 		
 	}
 	
-	public Transaction(String codeTransaction,Timestamp timeTransaction,float payTransaction) {
+	public Transaction(String codeTransaction,Timestamp timeTransaction,int payTransaction) {
 		this.codeTransaction = codeTransaction;
 		this.timeTransaction = timeTransaction;
 		this.payTransaction = payTransaction;
@@ -33,11 +33,11 @@ public class Transaction {
 		this.timeTransaction = timeTransaction;
 	}
 
-	public float getPayTransaction() {
+	public int getPayTransaction() {
 		return payTransaction;
 	}
 
-	public void setPayTransaction(float payTransaction) {
+	public void setPayTransaction(int payTransaction) {
 		this.payTransaction = payTransaction;
 	}
 	
