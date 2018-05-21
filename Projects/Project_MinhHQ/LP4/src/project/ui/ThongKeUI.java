@@ -99,13 +99,13 @@ public class ThongKeUI extends JPanel {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(
 					"SELECT MaSV,\r\n" + "    SUM(CASE WHEN MaMH = '#Lp0' THEN Diem ELSE 0 END) AS Lp0,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp1' THEN Diem ELSE 0 END) AS Lp1,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp2' THEN Diem ELSE 0 END) AS Lp2,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp3' THEN Diem ELSE 0 END) AS Lp3,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp4' THEN Diem ELSE 0 END) AS Lp4,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp5' THEN Diem ELSE 0 END) AS Lp5,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#Lp6' THEN Diem ELSE 0 END) AS Lp6,\r\n"
-							+ "    SUM(CASE WHEN MaMH = '#LpE' THEN Diem ELSE 0 END) AS LpE\r\n" + "FROM diem\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp1' THEN Diem END) AS Lp1,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp2' THEN Diem END) AS Lp2,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp3' THEN Diem END) AS Lp3,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp4' THEN Diem END) AS Lp4,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp5' THEN Diem END) AS Lp5,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#Lp6' THEN Diem END) AS Lp6,\r\n"
+							+ "    SUM(CASE WHEN MaMH = '#LpE' THEN Diem END) AS LpE\r\n" + "FROM diem\r\n"
 							+ "GROUP BY MaSV");
 			while (result.next()) {
 				Statement stt = conn.createStatement();
@@ -114,7 +114,36 @@ public class ThongKeUI extends JPanel {
 				String[] row = { result.getString("MaSV"),query.getString("sinhvien.TenSV"), result.getString("Lp0"), result.getString("Lp1"),
 						result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
 						result.getString("Lp5"), result.getString("Lp6"), result.getString("LpE") };
-				dm_ThongkeDiem.addRow(row);
+				int t= 0;
+				int n = 0;
+				int y = 0;
+				for (int i=2;i<row.length;i++) {
+					if(row[i] != null) {
+					y = Integer.parseInt(row[i]);
+					n =  n + y;
+					t++;
+					}
+					}
+				    float tbc=(float)n/t;
+				    
+				    String xeploai ;
+				    if (tbc <= 4.9) {
+				    	xeploai = "Yếu";
+					} else if (tbc <= 6.4) {
+						xeploai = "Trung Bình";
+					} else if (tbc <= 7.9) {
+						xeploai = "Khá";
+					} else {
+						xeploai = "Giỏi";
+					}
+				    
+				    
+				    
+				    String TBM = Float.toString(tbc);
+				    String[] dm = { result.getString("MaSV"),query.getString("sinhvien.TenSV"), result.getString("Lp0"), result.getString("Lp1"),
+							result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
+							result.getString("Lp5"), result.getString("Lp6"), result.getString("LpE"),TBM,xeploai };
+				dm_ThongkeDiem.addRow(dm);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
