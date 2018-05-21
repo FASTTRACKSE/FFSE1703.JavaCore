@@ -1,4 +1,5 @@
 package ffse20.project_lp4.ui;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -24,18 +25,17 @@ public class QuanLySinhVienUI extends JFrame {
 	private JButton btnQld;
 	private JButton btnTk;
 	private JButton btnMHLop;
-	
+
 	CardLayout cardlayout = new CardLayout();
 	JPanel ttSV = new JPanel();
-	
-	
+
 	private SinhVienUI sinhVienUI;
 	private LopUI lopHocUI;
 	private MonHocUI monHocUI;
 	private MonHoc_LopUI monHocLopUI;
 	private DiemUI nhapDiemUI;
 	private ThongKeUI thongKeUI;
-	
+
 	public QuanLySinhVienUI(String title) {
 		super(title);
 		addControls();
@@ -46,7 +46,7 @@ public class QuanLySinhVienUI extends JFrame {
 	public void addControls() {
 		this.setResizable(false);
 		Container con = getContentPane();
-		
+
 		ttSV.setLayout(cardlayout);
 
 		JPanel pnTitle = new JPanel();
@@ -90,7 +90,7 @@ public class QuanLySinhVienUI extends JFrame {
 		btnQlmh = new JButton("QUẢN LÝ MÔN HỌC", newIcon2);
 		pnAction2.add(btnQlmh);
 		pnGroup1.add(pnAction2);
-		
+
 		JPanel pnAction5 = new JPanel();
 		ImageIcon iconView5 = new ImageIcon("image/1a.jpg");
 		Image getIconView5 = iconView5.getImage();
@@ -130,8 +130,7 @@ public class QuanLySinhVienUI extends JFrame {
 		Luachon.add(btnMHLop);
 		Luachon.add(btnQld);
 		Luachon.add(btnTk);
-		
-		
+
 		lopHocUI = new LopUI();
 		ttSV.add(lopHocUI, "1");
 
@@ -147,9 +146,7 @@ public class QuanLySinhVienUI extends JFrame {
 
 	}
 
-
 	public void addEvents() {
-
 
 		btnQllh.addActionListener(new ActionListener() {
 
@@ -199,7 +196,7 @@ public class QuanLySinhVienUI extends JFrame {
 				cardlayout.show(ttSV, "5");
 			}
 		});
-		
+
 		btnTk.addActionListener(new ActionListener() {
 
 			@Override
@@ -210,7 +207,6 @@ public class QuanLySinhVienUI extends JFrame {
 			}
 		});
 	}
-	
 
 	public void showWindow() {
 		this.setSize(1350, 750);
@@ -219,4 +215,3 @@ public class QuanLySinhVienUI extends JFrame {
 		this.setVisible(true);
 	}
 }
-

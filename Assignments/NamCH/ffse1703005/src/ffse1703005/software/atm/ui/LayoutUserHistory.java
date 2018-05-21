@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -131,6 +132,10 @@ public class LayoutUserHistory extends JPanel{
 		JScrollPane sc=new JScrollPane(tbl);		
 		pnList.setLayout(new BorderLayout());
 		pnList.add(sc,BorderLayout.CENTER);
+		
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+		tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 		
 		pnAllList.add(pnList);
 		

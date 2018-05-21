@@ -41,7 +41,7 @@ public class LayoutCustomerManage extends JPanel{
 	private NumberFormat balanceFormat;
 	private JComboBox<String> cboWards,cboDistricts;
 	private JTextField txtSeacher,txtFullname,txtPhone,txtEmail,txtStreets,txtCode,txtAccountNumber,txtBalance;
-	private JButton btnAddCus,btnEditCus,btnDeleteCus,btnCancelCus;
+	private JButton btnAddCus,btnEditCus,btnDeleteCus,btnCancelCus,btnUpdate;
 	private JPanel pnList = new JPanel();;
 	private DefaultTableModel list =new DefaultTableModel();;
 	private final JTable tbl=new JTable(list);
@@ -275,9 +275,12 @@ public class LayoutCustomerManage extends JPanel{
 
 		
 		
-		JLabel lblBalance = new JLabel("Số Dư :");
+		JLabel lblBalance = new JLabel("Số Dư :");		
 		balanceFormat = NumberFormat.getNumberInstance();
 		txtBalance = new JFormattedTextField(balanceFormat);
+//		txtBalance.setText(String.format("%,d", (long) 50000));
+		((JFormattedTextField) txtBalance).setValue(new Float("50000"));
+		txtBalance.setEditable(false);
 
 		GroupLayout accountLayout = new GroupLayout(pnAccount);
 		pnAccount.setLayout(accountLayout);
@@ -325,10 +328,16 @@ public class LayoutCustomerManage extends JPanel{
 		pnMethod.add(btnDeleteCus);
 		pnMethod.add(btnCancelCus);
 		
+		JPanel pnUpdate = new JPanel();
+		pnUpdate.setOpaque(false);
+		btnUpdate = new JButton("Cập Nhập Dữ Liệu");
+		pnUpdate.add(btnUpdate);
+		
 		pnAction.add(pnInformation);
 		pnAction.add(pnAdress);
 		pnAction.add(pnAccount);
 		pnAction.add(pnMethod);
+		pnAction.add(pnUpdate);
 		
 		pnMain.add(pnAction);
 		this.add(pnMain);
@@ -343,8 +352,18 @@ public class LayoutCustomerManage extends JPanel{
 		btnDeleteCus.addActionListener(eventDeleteCus);
 		btnCancelCus.addActionListener(eventCancelCus);
 		txtSeacher.getDocument().addDocumentListener(eventSearch);
-		
+		btnUpdate.addActionListener(eventUpdate);
 	}
+	
+	ActionListener eventUpdate = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			arrCtm = CustomerDB.getCustomersList();
+			arrCtmAll = CustomerDB.getCustomersList();
+			printListCus();
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
+		}
+    };
 	
 	ActionListener eventCancelCus = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
@@ -402,6 +421,7 @@ public class LayoutCustomerManage extends JPanel{
 									+"\nMã Pin Mặc Định Của Khách Là : 123456";
 						JOptionPane.showMessageDialog(null, msg, "Thêm Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
 					}
+					arrCtmAll = CustomerDB.getCustomersList();
 					updateArrCtm();
 					printListCus();
 					resetAll();
@@ -449,7 +469,8 @@ public class LayoutCustomerManage extends JPanel{
 							}
 						}
 					}
-				}												
+				}
+				arrCtmAll = CustomerDB.getCustomersList();
 				resetAll();
 				updateArrCtm();
 				printListCus();
@@ -470,6 +491,7 @@ public class LayoutCustomerManage extends JPanel{
 				if(check>-1) {
 					String msgXoa = "Xóa Thành Công Khách Hàng : "+txtFullname.getText();
 					JOptionPane.showMessageDialog(null, msgXoa, "Xóa Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
+					arrCtmAll = CustomerDB.getCustomersList();
 					updateArrCtm();
 					printListCus();
 					resetAll();
@@ -480,6 +502,7 @@ public class LayoutCustomerManage extends JPanel{
     
     MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {
+    		txtBalance.setEditable(true);
     		txtCode.setEditable(false);
     		txtAccountNumber.setEditable(false);
     		int col = tbl.getSelectedRow();
@@ -618,7 +641,8 @@ public class LayoutCustomerManage extends JPanel{
 		txtEmail.setText("");
 		txtStreets.setText("");
 		txtCode.setText("");
-		txtBalance.setText("");
+		((JFormattedTextField) txtBalance).setValue(new Float("50000"));
+		txtBalance.setEditable(false);
 		txtAccountNumber.setText("");	
 		cboDistricts.setSelectedIndex(0);
 		txtAccountNumber.setText("");
