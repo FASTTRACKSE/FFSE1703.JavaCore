@@ -11,7 +11,7 @@ public class Phuong {
 	public static ArrayList<String> getList(String quan) {
 	Connection conn=(Connection) ConnectDB.getConnect();
 	String sql="select * from gsovn_xaphuongthitran inner join gsovn_quanhuyen where gsovn_quanhuyen.maqh=gsovn_xaphuongthitran.maqh and gsovn_quanhuyen.name=?";
-	ArrayList<String> arr=new ArrayList<>();
+	ArrayList<String> arr = new ArrayList<>();
 	try {
 		PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 		

@@ -3,6 +3,7 @@ package ffse1703020.qltv.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,16 +28,18 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import ffse1703020.qltv.model.ConnectDB;
-import ffse1703020.qltv.model.Quan;
-import ffse1703020.qltv.model.ThanhPho;
 import ffse1703020.qltv.model.SachModel;
 
 public class ThongKeBaoCaoUI extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ConnectDB cn = new ConnectDB();
 	Connection conn = (Connection) ConnectDB.getConnect();
-	private JComboBox comboBoxBDoc, comboBoxNXB, comboBoxTheLoai, comboBoxTacGia;
-	private JTextField txtTKBD, txtTKSach, txttonKho, txttongKho;
-	private JButton jbTKBD, jbTKSach,jbThoat;
+	private JComboBox<Object> comboBoxBDoc, comboBoxNXB, comboBoxTheLoai;
+	private JTextField txtTKBD, txttonKho, txttongKho;
+	private JButton jbTKBD, jbTKSach, jbThoat;
 	// tabel Ban doc
 	JScrollPane scrollPaneBD = new JScrollPane();
 	JTable tbListBD = new JTable();
@@ -47,6 +50,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 	JTable tbListSach = new JTable();
 	private String tbSach[] = { "Mã Sách", "Tên Sách", "Tác Giả", "Sách Tồn Kho", "Tổng Sách" };
 	DefaultTableModel mdTableSach = new DefaultTableModel(tbSach, 0);
+
 	ActionListener evTimKiem = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -65,19 +69,19 @@ public class ThongKeBaoCaoUI extends JPanel {
 
 	public ThongKeBaoCaoUI() {
 		controls();
-    	KhoSach();
+		KhoSach();
 		events();
 		comboboxThanhPho();
 		comboboxNXB();
 		comboboxTheLoai();
-		comboboxTacGia();
-		
+
 	}
-    //layout thống kê báo cáo
+
+	// layout thống kê báo cáo
 	private void controls() {
 		JPanel pnMain = new JPanel();
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
-        // Main 2
+		// Main 2
 		JPanel pnMain1 = new JPanel();
 		pnMain1.setLayout(new BoxLayout(pnMain1, BoxLayout.Y_AXIS));
 		JPanel pnTittle = new JPanel();
@@ -89,9 +93,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 		JPanel pnTimKiemBD = new JPanel();
 		JLabel lbBD = new JLabel("Thành Phố:");
 		lbBD.setFont(new Font("Arial", Font.PLAIN, 15));
-		comboBoxBDoc = new JComboBox();
+		comboBoxBDoc = new JComboBox<Object>();
 		comboBoxBDoc.setPreferredSize(new Dimension(150, 20));
-
 		comboBoxBDoc.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBoxBDoc.setToolTipText("");
 		pnTimKiemBD.add(lbBD);
@@ -103,7 +106,6 @@ public class ThongKeBaoCaoUI extends JPanel {
 		txtTKBD.setFont(fTk);
 		jbTKBD = new JButton("Tìm kiếm");
 		jbTKBD.setPreferredSize(new Dimension(100, 20));
-		Font fTK = new Font("arial", Font.PLAIN, 12);
 		pnTimKiemBD.add(txtTKBD);
 		pnTimKiemBD.add(jbTKBD);
 
@@ -145,7 +147,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 
 		JLabel lbSach1 = new JLabel("Thể Loại:");
 		lbSach1.setFont(new Font("Arial", Font.PLAIN, 15));
-		comboBoxTheLoai = new JComboBox();
+		comboBoxTheLoai = new JComboBox<Object>();
 		comboBoxTheLoai.setPreferredSize(new Dimension(110, 20));
 		ArrayList<String> arr = SachModel.getListtheloai();
 		comboBoxTheLoai = new JComboBox<Object>(arr.toArray());
@@ -154,36 +156,23 @@ public class ThongKeBaoCaoUI extends JPanel {
 		pnTimKiemSach.add(lbSach1);
 		pnTimKiemSach.add(comboBoxTheLoai);
 
-		JLabel lbSach2 = new JLabel("Tác Giả:");
-		lbSach2.setFont(new Font("Arial", Font.PLAIN, 15));
-		comboBoxTacGia = new JComboBox();
-		comboBoxTacGia.setPreferredSize(new Dimension(110, 20));
-		comboBoxTacGia.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboBoxTacGia.setToolTipText("");
-		pnTimKiemSach.add(lbSach2);
-		pnTimKiemSach.add(comboBoxTacGia);
-
-		Font fTkSach = new Font("arial", Font.PLAIN, 15);
-
 		jbTKSach = new JButton("Tìm kiếm");
 		jbTKSach.setPreferredSize(new Dimension(100, 20));
-		Font fTKSach = new Font("arial", Font.PLAIN, 12);
-
 		pnTimKiemSach.add(jbTKSach);
 
 		JPanel pnKho = new JPanel();
-		JLabel lbkho = new JLabel("Sách tồn kho");
+		JLabel lbkho = new JLabel("Sách Tồn Kho:");
 		lbkho.setFont(new Font("Arial", Font.PLAIN, 15));
 		txttonKho = new JTextField();
-		txttonKho.setColumns(5);
+		txttonKho.setColumns(9);
 		txttonKho.setEditable(false);
 		Font fkho = new Font("arial", Font.PLAIN, 15);
 		txttonKho.setFont(fkho);
 
-		JLabel lbkho1 = new JLabel("Tổng Sách");
+		JLabel lbkho1 = new JLabel("Tổng Sách:");
 		lbkho1.setFont(new Font("Arial", Font.PLAIN, 15));
 		txttongKho = new JTextField();
-		txttongKho.setColumns(5);
+		txttongKho.setColumns(20);
 		txttongKho.setEditable(false);
 		Font fkho1 = new Font("arial", Font.PLAIN, 15);
 		txttongKho.setFont(fkho1);
@@ -210,21 +199,27 @@ public class ThongKeBaoCaoUI extends JPanel {
 
 		JPanel pnThoat = new JPanel();
 		jbThoat = new JButton("Quay lại");
-		jbThoat.setPreferredSize(new Dimension(100, 20));
+		jbThoat.setPreferredSize(new Dimension(140, 45));
+		ImageIcon back = new ImageIcon(
+				new ImageIcon("icons/Undo.png").getImage().getScaledInstance(25, 30, Image.SCALE_SMOOTH));
+		JLabel lblIconBack = new JLabel(back);
+		jbThoat.add(lblIconBack);
 		jbThoat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				mdTableBD.setRowCount(0);
 				mdTableSach.setRowCount(0);
+				txtTKBD.setText("");
+				KhoSach();
 			}
 		});
 		pnThoat.add(jbThoat);
-		
+
 		pnMain.add(pnMain1);
 		pnMain.add(pnMain2);
 		pnMain.add(pnThoat);
-		
+
 		this.add(pnMain);
 
 	}
@@ -233,29 +228,51 @@ public class ThongKeBaoCaoUI extends JPanel {
 		jbTKBD.addActionListener(evTimKiem);
 		jbTKSach.addActionListener(evTimKiemSach);
 	}
-//tìm kiếm bạn đọc
+
+	// tìm kiếm bạn đọc
 	public void TimKiemBDoc() {
 		if (conn != null) {
 			// System.out.print(txtTKS.getText());
 			String sql = "SELECT * FROM Ban_Doc WHERE thanh_pho LIKE '%" + comboBoxBDoc.getSelectedItem().toString()
 					+ "%' and ma_ban_doc LIKE '%" + txtTKBD.getText() + "%'";
 
+			String sql1 = "SELECT * FROM Ban_Doc WHERE ma_ban_doc LIKE '%" + txtTKBD.getText() + "%'";
+
 			try {
-				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
-				// khởi tạo resultset
+				if (comboBoxBDoc.getSelectedItem().toString().equals("Tất Cả")) {
+					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql1);
+					// khởi tạo resultset
 
-				ResultSet rs = ptmt.executeQuery();
-				mdTableBD.setRowCount(0);
-				// mdTableSach.getDataVector().removeAllElements();
-				while (rs.next()) {
-					String rows[] = new String[4];
+					ResultSet rs = ptmt.executeQuery();
+					mdTableBD.setRowCount(0);
+					// mdTableSach.getDataVector().removeAllElements();
+					while (rs.next()) {
+						String rows[] = new String[4];
 
-					rows[0] = rs.getString(2);
-					rows[1] = rs.getString(3);
-					rows[2] = rs.getString(7);
-					rows[3] = rs.getString(10);
+						rows[0] = rs.getString(2);
+						rows[1] = rs.getString(3);
+						rows[2] = rs.getString(7);
+						rows[3] = rs.getString(10);
 
-					mdTableBD.addRow(rows);
+						mdTableBD.addRow(rows);
+					}
+				} else {
+					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
+					// khởi tạo resultset
+
+					ResultSet rs = ptmt.executeQuery();
+					mdTableBD.setRowCount(0);
+					// mdTableSach.getDataVector().removeAllElements();
+					while (rs.next()) {
+						String rows[] = new String[4];
+
+						rows[0] = rs.getString(2);
+						rows[1] = rs.getString(3);
+						rows[2] = rs.getString(7);
+						rows[3] = rs.getString(10);
+
+						mdTableBD.addRow(rows);
+					}
 				}
 			} catch (SQLException e) {
 				System.out.println("loi  " + e.getMessage());
@@ -264,7 +281,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select thành phố
+
+	// select thành phố
 	public void comboboxThanhPho() {
 		if (conn != null) {
 			String sql = "select * from gsovn_tinhthanhpho";
@@ -272,7 +290,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset
 				ResultSet rs = ptmt.executeQuery();
-
+				comboBoxBDoc.addItem("Tất Cả");
 				while (rs.next()) {
 					String tpho = rs.getString("name");
 					comboBoxBDoc.addItem(tpho);
@@ -284,12 +302,13 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//tìm kiếm sách
+
+	// tìm kiếm sách
 	public void TimKiemSach() {
 		if (conn != null) {
 			String sql = "SELECT * FROM sach WHERE nha_xuat_ban LIKE '%" + comboBoxNXB.getSelectedItem().toString()
-					+ "%' and the_loai LIKE '%" + comboBoxTheLoai.getSelectedItem().toString() + "%'and tac_gia LIKE '%"
-					+ comboBoxTacGia.getSelectedItem().toString() + "%'";
+					+ "%' and the_loai LIKE '%" + comboBoxTheLoai.getSelectedItem().toString() + "%'";
+
 			try {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset
@@ -313,7 +332,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select nhà xuất bản
+
+	// select nhà xuất bản
 	public void comboboxNXB() {
 		if (conn != null) {
 			String sql = "select distinct nha_xuat_ban from sach";
@@ -321,6 +341,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset
 				ResultSet rs = ptmt.executeQuery();
+				comboBoxNXB.addItem("Tất Cả");
 				while (rs.next()) {
 					String nxb = rs.getString("nha_xuat_ban");
 					comboBoxNXB.addItem(nxb);
@@ -332,7 +353,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select thể loại
+
+	// select thể loại
 	public void comboboxTheLoai() {
 		if (conn != null) {
 			String sql = "select * from the_loai";
@@ -351,26 +373,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-//select tác giả
-	public void comboboxTacGia() {
-		if (conn != null) {
-			String sql = "select  distinct tac_gia from sach";
-			try {
-				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
-				// khởi tạo resultset
-				ResultSet rs = ptmt.executeQuery();
-				while (rs.next()) {
-					String tg = rs.getString("tac_gia");
-					comboBoxTacGia.addItem(tg);
-				}
-			} catch (SQLException e) {
-				System.out.println("loi  " + e.getMessage());
-			}
-		} else {
-			System.out.println("Kết nối MYSQL thất bại");
-		}
-	}
-//kho sách
+
+	// kho sách
 	public void KhoSach() {
 		if (conn != null) {
 			String sql = "SELECT SUM(so_luong_tong), SUM(ton_kho) FROM sach";

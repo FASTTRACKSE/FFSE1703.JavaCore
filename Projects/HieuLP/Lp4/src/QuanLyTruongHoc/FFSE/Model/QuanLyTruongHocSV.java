@@ -76,7 +76,7 @@ public class QuanLyTruongHocSV {
 		}
 
 		public void setTp(String tp) {
-		this.TP = TP;
+		this.TP = tp;
 		}
 
 		public String getEmail() {

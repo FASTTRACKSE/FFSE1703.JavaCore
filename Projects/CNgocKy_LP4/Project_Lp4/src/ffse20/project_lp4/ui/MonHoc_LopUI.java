@@ -43,13 +43,12 @@ public class MonHoc_LopUI extends JPanel {
 
 	private JComboBox<String> monHoccomnoBoxMHLop = new JComboBox<>();
 
-
 	private ArrayList<QuanLyMonHocLopModel> arrMHLop = new ArrayList<QuanLyMonHocLopModel>();
 
 	public MonHoc_LopUI() {
 		addControls();
 		addEvents();
-		maLopcomnoBoxMHocLop();
+		maLopcomnoBoxMHocLop(maLopcomnoBoxMHocLop);
 		moHoccomnoBoxMHLop();
 
 	}
@@ -57,7 +56,6 @@ public class MonHoc_LopUI extends JPanel {
 	public void addControls() {
 
 		this.setLayout(new FlowLayout());
-
 
 		Border border8 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle8 = BorderFactory.createTitledBorder(border8, "NHẬP THÔNG TIN");
@@ -112,15 +110,15 @@ public class MonHoc_LopUI extends JPanel {
 		VT6.setPreferredSize(new Dimension(1000, 410));
 		pnTable6.add(VT6, BorderLayout.CENTER);
 
-
 		Border border9 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle9 = BorderFactory.createTitledBorder(border9, "Danh sách");
 		pnTable6.setBorder(borderTitle9);
 		this.add(pnTable6);
 
-
 	}
-	public void maLopcomnoBoxMHocLop() {
+
+	public void maLopcomnoBoxMHocLop(JComboBox<String> x) {
+		x.addItem("Tất Cả");
 		Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 		try {
 
@@ -152,15 +150,15 @@ public class MonHoc_LopUI extends JPanel {
 
 	}
 
-
 	public void addEvents() {
 		btnThemMHLop.addActionListener(eventAddMHLop);
 		btnXoaMHLop.addActionListener(eventDelMHLop);
-		
+		maLopcomnoBoxMHocLop.addActionListener(eventChooseClass);
+
 		tblMHLop.addMouseListener(eventTableMHLop);
 
 	}
-	
+
 	MouseAdapter eventTableMHLop = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			int row = tblMHLop.getSelectedRow();
@@ -168,30 +166,33 @@ public class MonHoc_LopUI extends JPanel {
 			col[0] = (String) tblMHLop.getValueAt(row, 0);
 			col[1] = (String) tblMHLop.getValueAt(row, 1);
 
-			
 			maLopcomnoBoxMHocLop.setSelectedItem(col[0]);
 			monHoccomnoBoxMHLop.setSelectedItem(col[1]);
 
-
 		}
 	};
-	
+
 	ActionListener eventAddMHLop = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String maLp = (String) maLopcomnoBoxMHocLop.getSelectedItem();
 			String maMH = (String) monHoccomnoBoxMHLop.getSelectedItem();
+			int i = 0;
+			for (QuanLyMonHocLopModel y : arrMHLop) {
+				if (maMH.equals(y.getMaMonHoc()) && maLp.equals(y.getMaLop())) {
+					i = 1;
+				}
+			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Trùng thông tin !!!");
+			} else {
+				try {
 
-
-
-
-			try {
-
-					dmMHLop.addRow(new String[] { maLp, maMH});
+					dmMHLop.addRow(new String[] { maLp, maMH });
 					Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 					try {
-						String sql = "INSERT INTO table_monhoc_lop(maLop, maMonHoc) VALUES('"
-								+ maLp + "','" + maMH + "')";
+						String sql = "INSERT INTO table_monhoc_lop(maLop, maMonHoc) VALUES('" + maLp + "','" + maMH
+								+ "')";
 						Statement statement = conn.createStatement();
 						int x = statement.executeUpdate(sql);
 						if (x > 0) {
@@ -200,26 +201,29 @@ public class MonHoc_LopUI extends JPanel {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-				
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
+				}
 			}
 		}
 	};
-	
+
 	ActionListener eventDelMHLop = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			for (QuanLyMonHocLopModel x : arrMHLop) {
-				if (maLopcomnoBoxMHocLop.getSelectedItem().equals(x.getMaLop()) && monHoccomnoBoxMHLop.getSelectedItem().equals(x.getMaMonHoc())) {
+				if (maLopcomnoBoxMHocLop.getSelectedItem().equals(x.getMaLop())
+						&& monHoccomnoBoxMHLop.getSelectedItem().equals(x.getMaMonHoc())) {
 					arrMHLop.remove(x);
 					break;
 				}
 			}
 			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 			try {
-				String sql = "DELETE FROM table_monhoc_lop WHERE maLop = '" + maLopcomnoBoxMHocLop.getSelectedItem() + "'AND maMonHoc='"+ monHoccomnoBoxMHLop.getSelectedItem() +"'";
+				String sql = "DELETE FROM table_monhoc_lop WHERE maLop = '" + maLopcomnoBoxMHocLop.getSelectedItem()
+						+ "'AND maMonHoc='" + monHoccomnoBoxMHLop.getSelectedItem() + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
@@ -232,6 +236,30 @@ public class MonHoc_LopUI extends JPanel {
 			for (QuanLyMonHocLopModel x : arrMHLop) {
 				String[] row = { x.getMaLop(), x.getMaMonHoc() };
 				dmMHLop.addRow(row);
+			}
+		}
+
+	};
+	ActionListener eventChooseClass = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String chonLop = (String) maLopcomnoBoxMHocLop.getSelectedItem();
+			dmMHLop.setRowCount(0);
+			if (chonLop == "Tất Cả") {
+
+				for (QuanLyMonHocLopModel x : arrMHLop) {
+					String[] row = { x.getMaLop(), x.getMaMonHoc() };
+					dmMHLop.addRow(row);
+				}
+
+			} else {
+				for (QuanLyMonHocLopModel x : arrMHLop) {
+					if (chonLop.equals(x.getMaLop())) {
+						String[] row = { x.getMaLop(), x.getMaMonHoc() };
+						dmMHLop.addRow(row);
+					}
+				}
 			}
 		}
 

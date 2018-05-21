@@ -2,7 +2,6 @@ package ffse1703020.qltv.model;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -96,30 +95,6 @@ public class MyException extends Exception {
 	}
 	return true;
 }
-	public static boolean ChekMPM(String str) throws MyException {
-		try {
-		String sql = "select ma_muon_tra from muon_tra_sach ";
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(sql);
-		while (result.next()) {
-			if (str.equals(result.getString(1))) {
-				JOptionPane.showMessageDialog(null, "Mã giao dịch đã tồn tại!");
-				return false;
-			}
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	return true;
-}
-	
-	public static boolean ChekNgay(Date date) {
-		if(date==null) {
-			JOptionPane.showMessageDialog(null, "Không được để trống!");
-			return false;
-		}
-		return true;
-	}
 	public static boolean ChekTraSach(String str) throws MyException {
 		try {
 		String sql = "select tinh_trang from muon_tra_sach ";

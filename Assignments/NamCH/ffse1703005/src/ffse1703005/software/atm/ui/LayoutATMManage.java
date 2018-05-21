@@ -310,7 +310,8 @@ public class LayoutATMManage extends JPanel{
 				int check =MachineATMDb.addAtm(atm);
 				if (check>-1) {
 					System.out.println("Thành công");
-				}				
+				}	
+				arrAtmAll = MachineATMDb.getAtmList();
 				updateArrAtm();
 				printListAtm();
 				resetAll();
@@ -353,7 +354,7 @@ public class LayoutATMManage extends JPanel{
 							}
 						}
 					}
-								
+					arrAtmAll = MachineATMDb.getAtmList();		
 					updateArrAtm();
 					printListAtm();
 					resetAll();
@@ -380,6 +381,7 @@ public class LayoutATMManage extends JPanel{
 					+"\nPhường : "+cboWards.getSelectedItem()
 					+"\nĐường : "+txtStreets.getText();
 					JOptionPane.showMessageDialog(null, msgXoa, "Xóa Máy ATM!!!", JOptionPane.INFORMATION_MESSAGE);
+					arrAtmAll = MachineATMDb.getAtmList();
 					updateArrAtm();
 					printListAtm();
 					resetAll();
