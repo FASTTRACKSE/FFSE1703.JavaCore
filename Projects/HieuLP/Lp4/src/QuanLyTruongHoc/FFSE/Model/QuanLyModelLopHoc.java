@@ -6,24 +6,14 @@ package QuanLyTruongHoc.FFSE.Model;
 		private String MaLop;
 		private String MoTa;
 		private String NamHoc;
-		private String TenLop;
+		
 		
 		public QuanLyModelLopHoc( String MaLop, String MoTa, String NamHoc) {
 			this.MaLop = MaLop;
 			this.MoTa = MoTa;
 			this.NamHoc = NamHoc;
-			//this.TenLop = TenLop;
 			
 			}
-		
-		public String getTenLop() {
-			return TenLop;
-		}
-
-		public void setTenLop(String tenLop) {
-			TenLop = tenLop;
-		}
-
 		public QuanLyModelLopHoc() {
 
 		}

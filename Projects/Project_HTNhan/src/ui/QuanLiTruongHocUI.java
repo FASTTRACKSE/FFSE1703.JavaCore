@@ -43,13 +43,13 @@ public class QuanLiTruongHocUI extends JFrame {
 		ThongKeSinhVienUI thongKeSinhVienUi= new ThongKeSinhVienUI();
 		myTabled.add("Thống Kê Sinh Viên", thongKeSinhVienUi);
 		ThongKeLopHocUI thongKeLopHocUi= new ThongKeLopHocUI();
-		myTabled.add("Thống Kê Sinh Viên", thongKeLopHocUi);
+		myTabled.add("Thống Kê Lớp Học", thongKeLopHocUi);
 		
 		con.add(myTabled);
 		
 	}
 	public void showWindow() {
-		this.setSize(1000, 700);
+		this.setSize(1200, 700);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);

@@ -2,6 +2,7 @@ package model;
 
 public class QuanLiLopHocModel {
 	private String maLop,tenLop,namHoc;
+	
 	public QuanLiLopHocModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -28,5 +29,7 @@ public class QuanLiLopHocModel {
 	public void setNamHoc(String namHoc) {
 		this.namHoc = namHoc;
 	}
-	
+	public String toString () {
+		return this.maLop;
+	}
 }

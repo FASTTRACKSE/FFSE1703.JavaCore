@@ -1,7 +1,10 @@
 package model;
 
 public class QuanLiSinhVienModel {
-	private String maSv,hoTenSv,diaChiSv,xa,huyen,tinh,dienThoaiSv,email,maLop;
+
+	private String maSv, hoTenSv, diaChiSv, xa, huyen, tinh, dienThoaiSv, email, maLop;
+
+
 	public QuanLiSinhVienModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -90,5 +93,6 @@ public class QuanLiSinhVienModel {
 	public void setMaLop(String maLop) {
 		this.maLop = maLop;
 	}
+
 	
 }
