@@ -176,10 +176,9 @@ public class QuanLyLopHocUI extends JPanel{
 			}
 			tbl_lophoc = new JTable(dm_lophoc);
 			JScrollPane sc2 = new JScrollPane(tbl_lophoc);
-			JScrollPane VT2 = new JScrollPane(sc2, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			VT2.setPreferredSize(new Dimension(1170, 520));
-			pnTable2.add(VT2, BorderLayout.CENTER);
+			
+			sc2.setPreferredSize(new Dimension(1170, 520));
+			pnTable2.add(sc2, BorderLayout.CENTER);
 			
 
 			Border border2 = BorderFactory.createLineBorder(Color.blue);

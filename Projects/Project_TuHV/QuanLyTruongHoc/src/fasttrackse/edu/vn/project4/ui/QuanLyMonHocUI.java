@@ -162,10 +162,9 @@ public class QuanLyMonHocUI extends JPanel {
 
 			tbl_monhoc = new JTable(dm_monhoc);
 			JScrollPane sc3 = new JScrollPane(tbl_monhoc);
-			JScrollPane VT3 = new JScrollPane(sc3, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			VT3.setPreferredSize(new Dimension(1170, 520));
-			pnTable3.add(VT3, BorderLayout.CENTER);
+			
+			sc3.setPreferredSize(new Dimension(1170, 520));
+			pnTable3.add(sc3, BorderLayout.CENTER);
 			pnCenter3.add(pnTable3);
 
 			Border border3 = BorderFactory.createLineBorder(Color.blue);
