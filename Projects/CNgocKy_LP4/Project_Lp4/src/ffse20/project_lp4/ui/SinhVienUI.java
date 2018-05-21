@@ -397,7 +397,6 @@ public class SinhVienUI extends JPanel {
 
 	ActionListener eventAddSinhVien = new ActionListener() {
 
-
 		public void actionPerformed(ActionEvent arg0) {
 			String maLp = (String) maLopcomnoBox.getSelectedItem();
 
@@ -409,41 +408,56 @@ public class SinhVienUI extends JPanel {
 			String tp_SinhVien = (String) cboTinh.getSelectedItem();
 			String quan_SinhVien = (String) cboQuan.getSelectedItem();
 			String phuong_SinhVien = (String) cboPhuong.getSelectedItem();
-			int i =0;
+			int i = 0;
 			for (QuanLySinhVienModel y : arrSV) {
 				if (maSV.equals(y.getMaSV())) {
 					i = 1;
-			}
-			}
-			if(i>0) {
-				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên");
-			}else {
-			try {
-				if (maSV.equals("") || ten.equals("") || nam.equals("") || email.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					arrSV.add(new QuanLySinhVienModel(maSV, ten, maLp, nam, phuong_SinhVien, quan_SinhVien, tp_SinhVien,
-							email, sdt));
-					dmSV.addRow(new String[] { maLp, maSV, ten, nam, sdt, email, phuong_SinhVien, quan_SinhVien,
-							tp_SinhVien });
-					Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-					try {
-						String sql = "INSERT INTO tabel_sinhvien(ma_SV, tenSV, maLop , ngaysinh, phuong, quan, thanhPho, email, phone) VALUES('"
-								+ maSV + "','" + ten + "','" + maLp + "','" + nam + "','" + phuong_SinhVien + "','"
-								+ quan_SinhVien + "','" + tp_SinhVien + "','" + email + "','" + sdt + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
-		}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên");
+			} else {
+				try {
+					if (maSV.equals("") || ten.equals("") || nam.equals("") || email.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+						arrSV.add(new QuanLySinhVienModel(maSV, ten, maLp, nam, phuong_SinhVien, quan_SinhVien,
+								tp_SinhVien, email, sdt));
+						dmSV.addRow(new String[] { maLp, maSV, ten, nam, sdt, email, phuong_SinhVien, quan_SinhVien,
+								tp_SinhVien });
+						Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+						try {
+							String sql = "INSERT INTO tabel_sinhvien(ma_SV, tenSV, maLop , ngaysinh, phuong, quan, thanhPho, email, phone) VALUES('"
+									+ maSV + "','" + ten + "','" + maLp + "','" + nam + "','" + phuong_SinhVien + "','"
+									+ quan_SinhVien + "','" + tp_SinhVien + "','" + email + "','" + sdt + "')";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+						
+						try {
+							Statement statement = conn.createStatement();
+							ResultSet result = statement
+									.executeQuery("SELECT * FROM table_monhoc_lop WHERE maLop ='" + maLp + "'");
+							while (result.next()) {		
+								String query = "INSERT INTO table_diem( maLop,tenSV,ma_monHoc,diem) VALUES ('"+maLp+"','"+ten+"','"+result.getString("maMonHoc")+"','"+"0"+"')";
+								Statement sttm = conn.createStatement();
+								sttm.executeUpdate(query);
+
+							
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+				}
+			}
 		}
 	};
 
@@ -452,16 +466,14 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			if (seach.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				
+
 			} else {
 				Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 				try {
-//					 String timkiem = (String) seach.getText();
+					// String timkiem = (String) seach.getText();
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery(
-							"SELECT * FROM tabel_sinhvien WHERE ma_SV LIKE'" + "%" +  seach.getText()
-									+ "%'" + " OR tenSV LIKE'" + "%" + seach.getText() + "%'");
-
+					ResultSet result = statement.executeQuery("SELECT * FROM tabel_sinhvien WHERE ma_SV LIKE'" + "%"
+							+ seach.getText() + "%'" + " OR tenSV LIKE'" + "%" + seach.getText() + "%'");
 
 					dmSV.setRowCount(0);
 

@@ -23,6 +23,7 @@ public class QuanLySinhVienUI extends JFrame {
 	private MonHocUI monHocUI;
 	private MonHocLopUI monHocLopUI;
 	private NhapDiemUI nhapDiemUI;
+	private ThongKeUI thongKeUI;
 
 	public QuanLySinhVienUI(String tieude) {
 		super(tieude);
@@ -111,6 +112,16 @@ public class QuanLySinhVienUI extends JFrame {
 				nhapDiemUI = new NhapDiemUI();
 				ttSV.add(nhapDiemUI, "5");
 				cardlayout.show(ttSV, "5");
+			}
+		});
+		
+		Thongke.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				thongKeUI = new ThongKeUI();
+				ttSV.add(thongKeUI, "6");
+				cardlayout.show(ttSV, "6");
 			}
 		});
 	}

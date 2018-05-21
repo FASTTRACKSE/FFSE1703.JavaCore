@@ -31,9 +31,6 @@ public class MonHocLopUI extends JPanel {
 	private JTable table_MonHoc_lop;
 	private JScrollPane sp_MonHoc_lop;
 
-	CardLayout cardlayout = new CardLayout();
-	JPanel ttSV = new JPanel();
-
 	public MonHocLopUI() {
 		lop(selectMonHoc);
 		monhoc();

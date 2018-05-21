@@ -24,6 +24,7 @@ public class SinhVienUI extends JPanel {
 	private JTextField Diachi = new JTextField();
 	private JTextField Email = new JTextField();
 	private JTextField SDT = new JTextField();
+	private JTextField seach = new JTextField();
 
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 
@@ -31,13 +32,13 @@ public class SinhVienUI extends JPanel {
 	private JButton xoaSinhVien = new JButton("Xóa");
 	private JButton suaSinhVien = new JButton("Sửa");
 	private JButton nhapSinhVien = new JButton("Nhập");
-
+	private JButton timkiemSV = new JButton("Tìm Kiếm");
+	
 	private JComboBox<String> selectSinhVien = new JComboBox<>();
 	private JComboBox<String> selectMaSV = new JComboBox<>();
 	private JComboBox<String> tp = new JComboBox<>();
 	private JComboBox<String> quan = new JComboBox<>();
 	private JComboBox<String> phuong = new JComboBox<>();
-	// private JComboBox<String> TenMHLop = new JComboBox<>();
 
 	private DefaultTableModel dm_SinhVien;
 	private JTable table_SinhVien;
@@ -149,7 +150,15 @@ public class SinhVienUI extends JPanel {
 		Nhap.add(pnSinhVien);
 		Nhap.add(pnRight_SinhVien);
 
+		JPanel timKiem = new JPanel();
+		timKiem.setLayout(new FlowLayout());
+		JLabel lbltimkiem = new JLabel("Tìm kiếm :     ");
+		seach = new JTextField(20);
+		timKiem.add(lbltimkiem);
+		timKiem.add(seach);
+		timKiem.add(timkiemSV);
 		this.add(Nhap);
+		this.add(timKiem);
 
 		JPanel Table_SinhVien = new JPanel();
 		Table_SinhVien.setLayout(new BorderLayout());

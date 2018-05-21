@@ -1,7 +1,6 @@
 
 package ffse20.project_lp4.ui;
 
-
 import java.awt.BorderLayout;
 import ffse20.project_lp4.connect.*;
 import java.awt.Color;
@@ -33,7 +32,6 @@ import javax.swing.JButton;
 public class MonHocUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-
 	private JButton btnThemMon = new JButton("Thêm");
 	private JButton btnSuaMon = new JButton("Sửa");
 	private JButton btnXoaMon = new JButton("Xóa");
@@ -42,14 +40,11 @@ public class MonHocUI extends JPanel {
 	private JScrollPane scMonHoc;
 	private JTable tblMonHoc;
 
-
-
 	private JTextField maMhoc = new JTextField(), tenMhoc = new JTextField(), soTinChi = new JTextField(),
 			gioHoc = new JTextField();// monHoc
 
 	private ArrayList<QuanLyMonHocModel> arrMH = new ArrayList<QuanLyMonHocModel>();
 
-	
 	public MonHocUI() {
 		addControls();
 		addEvents();
@@ -63,7 +58,6 @@ public class MonHocUI extends JPanel {
 		Border border4 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle4 = BorderFactory.createTitledBorder(border4, "NHẬP THÔNG TIN");
 		this.setBorder(borderTitle4);
-
 
 		JPanel nhapMaMhoc4 = new JPanel();
 		maMhoc = new JTextField(12);
@@ -102,7 +96,6 @@ public class MonHocUI extends JPanel {
 		chucNang4.add(btnSuaMon);
 		chucNang4.add(btnXoaMon);
 		chucNang4.add(btnNhapMon);
-		
 
 		this.add(chucNang4);
 
@@ -110,28 +103,28 @@ public class MonHocUI extends JPanel {
 
 		dmMhoc = new DefaultTableModel();
 
-
 		dmMhoc.addColumn("Mã Môn Học");
 		dmMhoc.addColumn("Tên Môn Học");
 		dmMhoc.addColumn("Số Tín Chỉ");
 		dmMhoc.addColumn("Giờ Học");
 
-		 Connection con2 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-		 try {
-		 Statement statement = con2.createStatement();
-		 ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
-		 while (result.next()) {
-		 arrMH.add(new QuanLyMonHocModel(result.getString("ma_monhoc"),result.getString("ten_monhoc"),result.getString("soTinChi"),result.getString("gioHoc")));
+		Connection con2 = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+		try {
+			Statement statement = con2.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
+			while (result.next()) {
+				arrMH.add(new QuanLyMonHocModel(result.getString("ma_monhoc"), result.getString("ten_monhoc"),
+						result.getString("soTinChi"), result.getString("gioHoc")));
 
-		 }
-		 } catch (Exception e) {
-		 e.printStackTrace();
-		 }
-		
-		 for (QuanLyMonHocModel x : arrMH) {
-		 String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), x.getSoTinChi(), x.getGioHoc()};
-		 dmMhoc.addRow(row);
-		 }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		for (QuanLyMonHocModel x : arrMH) {
+			String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), x.getSoTinChi(), x.getGioHoc() };
+			dmMhoc.addRow(row);
+		}
 
 		tblMonHoc = new JTable(dmMhoc);
 		scMonHoc = new JScrollPane(tblMonHoc);
@@ -140,26 +133,22 @@ public class MonHocUI extends JPanel {
 		VT2.setPreferredSize(new Dimension(1300, 370));
 		pnTable2.add(VT2, BorderLayout.CENTER);
 
-
 		Border border5 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle5 = BorderFactory.createTitledBorder(border5, "Danh sách");
 		pnTable2.setBorder(borderTitle5);
 		this.add(pnTable2);
-
 
 	}
 
 	public void addEvents() {
 
 		tblMonHoc.addMouseListener(eventTableMH);
-		btnThemMon.addActionListener(eventAddMonHoc);	
+		btnThemMon.addActionListener(eventAddMonHoc);
 		btnSuaMon.addActionListener(eventEditMonHoc);
 		btnNhapMon.addActionListener(eventReset_MonHoc);
 		btnXoaMon.addActionListener(eventDelMonHoc);
-		
 
-}
-
+	}
 
 	MouseAdapter eventTableMH = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
@@ -170,18 +159,15 @@ public class MonHocUI extends JPanel {
 			col[2] = (String) tblMonHoc.getValueAt(row, 2);
 			col[3] = (String) tblMonHoc.getValueAt(row, 3);
 
-
-
 			maMhoc.setEditable(false);
 			maMhoc.setText(col[0]);
 			tenMhoc.setText(col[1]);
 			soTinChi.setText(col[2]);
 			gioHoc.setText(col[3]);
 
-
 		}
 	};
-	
+
 	ActionListener eventAddMonHoc = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -189,39 +175,38 @@ public class MonHocUI extends JPanel {
 			String tenMH = tenMhoc.getText();
 			String tinchi = soTinChi.getText();
 			String giohoc = gioHoc.getText();
-			int i =0;
+			int i = 0;
 			for (QuanLyMonHocModel y : arrMH) {
 				if (maMH.equals(y.getMaMonHoc())) {
 					i = 1;
-			}
-			}
-			if(i>0) {
-				JOptionPane.showMessageDialog(null, "Trùng mã môn học");
-			}else {
-
-			try {
-				if (maMH.equals("") || tenMH.equals("") || tinchi.equals("") || giohoc.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					arrMH.add(new QuanLyMonHocModel( maMH, tenMH, tinchi, giohoc));
-					dmMhoc.addRow(new String[] {  maMH, tenMH, tinchi, giohoc});
-					Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
-					try {
-						String sql = "INSERT INTO table_monhoc(ma_monHoc, ten_monHoc , soTinChi, gioHoc) VALUES('"
-								+ maMH + "','" + tenMH + "','" + tinchi + "','"
-								+ giohoc + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin môn học");
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
 			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã môn học");
+			} else {
+
+				try {
+					if (maMH.equals("") || tenMH.equals("") || tinchi.equals("") || giohoc.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+						arrMH.add(new QuanLyMonHocModel(maMH, tenMH, tinchi, giohoc));
+						dmMhoc.addRow(new String[] { maMH, tenMH, tinchi, giohoc });
+						Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+						try {
+							String sql = "INSERT INTO table_monhoc(ma_monHoc, ten_monHoc , soTinChi, gioHoc) VALUES('"
+									+ maMH + "','" + tenMH + "','" + tinchi + "','" + giohoc + "')";
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sql);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin môn học");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+				}
 			}
 		}
 	};
@@ -232,17 +217,17 @@ public class MonHocUI extends JPanel {
 			for (QuanLyMonHocModel x : arrMH) {
 				if ((maMhoc.getText()).equals(x.getMaMonHoc())) {
 					x.setMaMonHoc(maMhoc.getText());
-					x.setTenMonHoc( tenMhoc.getText());
-					x.setSoTinChi( soTinChi.getText());
+					x.setTenMonHoc(tenMhoc.getText());
+					x.setSoTinChi(soTinChi.getText());
 					x.setGioHoc(gioHoc.getText());
 					break;
 				}
 			}
 			Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
 			try {
-				String sql = "UPDATE table_monhoc SET ma_monHoc='" + maMhoc.getText() + "',ten_monHoc='" + tenMhoc.getText()
-						 + "',soTinChi='" + soTinChi.getText()
-						+ "',gioHoc='" + gioHoc.getText() + "' WHERE ma_monHoc = '" + maMhoc.getText() +"'";
+				String sql = "UPDATE table_monhoc SET ma_monHoc='" + maMhoc.getText() + "',ten_monHoc='"
+						+ tenMhoc.getText() + "',soTinChi='" + soTinChi.getText() + "',gioHoc='" + gioHoc.getText()
+						+ "' WHERE ma_monHoc = '" + maMhoc.getText() + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
@@ -290,7 +275,7 @@ public class MonHocUI extends JPanel {
 		}
 
 	};
-	
+
 	ActionListener eventReset_MonHoc = new ActionListener() {
 
 		@Override
@@ -301,9 +286,7 @@ public class MonHocUI extends JPanel {
 			soTinChi.setText("");
 			gioHoc.setText("");
 
-
 		}
 	};
-	
-}
 
+}
