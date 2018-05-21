@@ -22,9 +22,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class QuanLi extends JFrame {
+	JTabbedPane myTab;
+	QuanLiSinhVien tabQuanLiSinhVien;
+	QuanLiMonHoc tabQuanLiMonHoc;
+	QuanLiLopHoc tabQuanLiLopHoc;
+	QuanLiDiem tabQuanLiDiem;
+	ThongKeLopHoc tabThongKeLopHoc;
+	ThongKeSinhVien tabThongKeSinhVien;
 	public QuanLi() {
 		super();
 	}
@@ -32,6 +41,7 @@ public class QuanLi extends JFrame {
 	public QuanLi(String title) {
 		super(title);
 		addControls();
+		addEvents();
 	}
 	
 	public void addControls() {
@@ -42,13 +52,13 @@ public class QuanLi extends JFrame {
 		
 
 		
-		JTabbedPane myTab = new JTabbedPane();
-		QuanLiSinhVien tabQuanLiSinhVien = new QuanLiSinhVien();
-		QuanLiMonHoc tabQuanLiMonHoc = new QuanLiMonHoc();
-		QuanLiLopHoc tabQuanLiLopHoc = new QuanLiLopHoc();
-		QuanLiDiem tabQuanLiDiem = new QuanLiDiem();
-		ThongKeLopHoc tabThongKeLopHoc = new ThongKeLopHoc();
-		ThongKeSinhVien tabThongKeSinhVien = new ThongKeSinhVien();
+		myTab = new JTabbedPane();
+		tabQuanLiSinhVien = new QuanLiSinhVien();
+		tabQuanLiMonHoc = new QuanLiMonHoc();
+		tabQuanLiLopHoc = new QuanLiLopHoc();
+		tabQuanLiDiem = new QuanLiDiem();
+		tabThongKeLopHoc = new ThongKeLopHoc();
+		tabThongKeSinhVien = new ThongKeSinhVien();
 		
 		myTab.add("Quản lí sinh viên", tabQuanLiSinhVien);
 		myTab.add("Quản lí môn học", tabQuanLiMonHoc);
@@ -59,6 +69,12 @@ public class QuanLi extends JFrame {
 		boxMain.add(myTab);
 		
 		con.add(boxMain);
+		
+		
+	}
+	
+	public void addEvents() {
+		myTab.addChangeListener(new SelectedTab());
 	}
 	
 	public void showWindown() {
@@ -66,5 +82,41 @@ public class QuanLi extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+	}
+	
+	private class SelectedTab implements ChangeListener{
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			int choose = myTab.getSelectedIndex();
+			switch (choose) {
+			case 0:
+//				tabQuanLiSinhVien = new QuanLiSinhVien();
+//				myTab.setComponentAt(0, tabQuanLiSinhVien);
+//				break;
+				tabQuanLiSinhVien.addItemMaLop();
+				break;
+			case 2:
+//				tabQuanLiLopHoc = new QuanLiLopHoc();
+//				myTab.setComponentAt(2, tabQuanLiLopHoc);
+				tabQuanLiLopHoc.addItemMonHoc();
+				break;
+			case 3:
+//				tabQuanLiDiem = new QuanLiDiem();
+//				myTab.setComponentAt(3, tabQuanLiDiem);
+				tabQuanLiDiem.addItemMaLop();
+				break;
+			case 4:
+//				tabThongKeLopHoc = new ThongKeLopHoc();
+//				myTab.setComponentAt(4, tabThongKeLopHoc);
+				tabThongKeLopHoc.addItemNamHoc();
+				break;
+			case 5:
+//				tabThongKeSinhVien = new ThongKeSinhVien();
+//				myTab.setComponentAt(5, tabThongKeSinhVien);
+				tabThongKeSinhVien.addItemNamHoc();
+				break;
+			}
+		}
+		
 	}
 }

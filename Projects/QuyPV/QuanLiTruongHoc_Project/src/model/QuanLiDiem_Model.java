@@ -6,7 +6,6 @@ import connector.GetConnect;
 
 public class QuanLiDiem_Model {
 	private String maSv, maMon, diem;
-	final Connection conn= (new GetConnect()).getConnect("localhost", "Quan_li_truong_hoc", "phamquy481", "a0163763123");
 	public QuanLiDiem_Model() {
 		//
 	}
@@ -14,6 +13,10 @@ public class QuanLiDiem_Model {
 	public QuanLiDiem_Model(String maSv, String maMon, String diem) {
 		this.maSv = maSv;
 		this.maMon = maMon;
+		this.diem = diem;
+	}
+	
+	public QuanLiDiem_Model(String diem) {
 		this.diem = diem;
 	}
 
@@ -39,6 +42,11 @@ public class QuanLiDiem_Model {
 
 	public void setDiem(String diem) {
 		this.diem = diem;
+	}
+
+	@Override
+	public String toString() {
+		return this.maSv + this.maMon;
 	}
 	
 	

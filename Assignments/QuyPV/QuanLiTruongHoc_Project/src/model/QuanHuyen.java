@@ -8,13 +8,13 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import connector.GetConnect;
+import ui.QuanLiSinhVien;
 
 public class QuanHuyen {
 	private String name, districId;
 	private String selectDistrictId;
 	private PreparedStatement ps;
-	final Connection conn= (new GetConnect()).getConnect("localhost", "Quan_li_truong_hoc", "phamquy481", "a0163763123");
-	ArrayList<QuanHuyen> arrQuanHuyen = new ArrayList<>();
+	
 	public QuanHuyen() {
 		//
 	}
@@ -41,27 +41,7 @@ public class QuanHuyen {
 	}
 
 	
-	public ArrayList<QuanHuyen> selectQuanHuyen(String provinceId){
-		arrQuanHuyen.clear();
-		try {
-			String sql = "select * from Quan_huyen where provinceid =" + "'"+ provinceId +"'";
-			//Statement statement=conn.createStatement();
-			Statement statement=conn.createStatement();
-			ResultSet result=statement.executeQuery(sql);
-//			ps = (PreparedStatement) conn.prepareStatement(sql);
-//			ResultSet result=ps.executeQuery();
-			while(result.next())
-			{
-				 String name = result.getString("name");
-				 String districtId = result.getString("districtid");
-				 arrQuanHuyen.add(new QuanHuyen(name, districtId));
-				 //System.out.println(nameQuanHuyen);
-			}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		return arrQuanHuyen;
-	}
+	
 	
 //	public String selectDistrictId(String nameQuanHuyen) {
 //		try {
