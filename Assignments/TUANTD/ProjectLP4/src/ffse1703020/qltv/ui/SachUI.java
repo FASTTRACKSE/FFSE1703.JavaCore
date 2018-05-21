@@ -1,9 +1,9 @@
 package ffse1703020.qltv.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -46,7 +47,7 @@ public class SachUI extends JPanel {
 	private JButton jbThem, jbSua, jbXoa, jbThoat, jbTKS;
 	JScrollPane spListSach = new JScrollPane();
 	JTable tbListSach = new JTable();
-	private String tbSach[] = { "Mã Sách", "Tên Sách", "Tên Tác Giả", "Nhà Xuất Bản", "Năm Xuất Bản", "Số Lượng", "Thể Loại" };
+	private String tbSach[] = { "Mã Sách", "Tên Sách", "Tên Tác Giả", "Nhà Xuất Bản", "Năm Xuất Bản", "Số Lượng", "Thể Loại", "Tồn Kho" };
 	DefaultTableModel mdTableSach = new DefaultTableModel(tbSach, 0);
 
 	// sửa thông tin sách
@@ -103,8 +104,9 @@ public class SachUI extends JPanel {
 	// hiển thị danh sách
 	MouseAdapter eventselect = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
+			txtMS.setEditable(false);
 			int i = tbListSach.getSelectedRow();
-			String[] row = new String[7];
+			String[] row = new String[8];
 			for (int j = 0; j < row.length; j++) {
 				row[j] = (String) tbListSach.getValueAt(i, j);
 			}
@@ -115,6 +117,7 @@ public class SachUI extends JPanel {
 			txtNamXB.setText(row[4]);
 			txtSL.setText(row[5]);
 			comboBox.setSelectedItem(row[6]);
+			txtSL.setText(row[7]);
 		}
 	};
 
@@ -210,25 +213,42 @@ public class SachUI extends JPanel {
 
 		JPanel pnThem = new JPanel();
 		jbThem = new JButton("Thêm");
-		jbThem.setPreferredSize(new Dimension(100, 20));
+		jbThem.setPreferredSize(new Dimension(140, 45));
+		ImageIcon insert = new ImageIcon(
+				new ImageIcon("icons/insert.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconInsert = new JLabel(insert);
+		jbThem.add(lblIconInsert);
 		pnThem.add(jbThem);
 
 		JPanel pnSua = new JPanel();
 		jbSua = new JButton("Sửa");
-		jbSua.setPreferredSize(new Dimension(100, 20));
+		jbSua.setPreferredSize(new Dimension(140, 45));
+		ImageIcon edit = new ImageIcon(
+				new ImageIcon("icons/t.png").getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH));
+		JLabel lblIconEdit = new JLabel(edit);
+		jbSua.add(lblIconEdit);
 		pnSua.add(jbSua);
 
 		JPanel pnXoa = new JPanel();
 		jbXoa = new JButton("Xóa");
-		jbXoa.setPreferredSize(new Dimension(100, 20));
+		jbXoa.setPreferredSize(new Dimension(140, 45));
+		ImageIcon delete = new ImageIcon(
+				new ImageIcon("icons/delete book.png").getImage().getScaledInstance(35, 40, Image.SCALE_SMOOTH));
+		JLabel lblIconDelete = new JLabel(delete);
+		jbXoa.add(lblIconDelete);
 		pnXoa.add(jbXoa);
 
 		JPanel pnThoat = new JPanel();
 		jbThoat = new JButton("Quay lại");
-		jbThoat.setPreferredSize(new Dimension(100, 20));
+		jbThoat.setPreferredSize(new Dimension(140, 45));
+		ImageIcon back = new ImageIcon(
+				new ImageIcon("icons/Undo.png").getImage().getScaledInstance(25, 30, Image.SCALE_SMOOTH));
+		JLabel lblIconBack = new JLabel(back);
+		jbThoat.add(lblIconBack);
 		jbThoat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				txtMS.setEditable(true);
 				txtMS.setText("");
 				txtTS.setText("");
 				txtTG.setText("");
@@ -251,13 +271,19 @@ public class SachUI extends JPanel {
 		JPanel pnTableKH = new JPanel();
 
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTittle1 = BorderFactory.createTitledBorder(border, "Danh Sach");
+		TitledBorder borderTittle1 = BorderFactory.createTitledBorder(border, "Danh Sách");
 		spListSach.setBorder(borderTittle1);
 		tbListSach.setModel(mdTableSach);
 		tbListSach.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		tbListSach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		spListSach.setViewportView(tbListSach);
 		pnTableKH.add(spListSach);
+		
+		DefaultTableCellRenderer righttable = new DefaultTableCellRenderer();
+		righttable.setHorizontalAlignment(JLabel.RIGHT);
+		tbListSach.getColumnModel().getColumn(4).setCellRenderer(righttable);
+		tbListSach.getColumnModel().getColumn(5).setCellRenderer(righttable);
+		tbListSach.getColumnModel().getColumn(7).setCellRenderer(righttable);
 
 		JPanel pnTheLoai = new JPanel();
 		JLabel lbTL = new JLabel("Thể loại");
@@ -298,7 +324,7 @@ public class SachUI extends JPanel {
 				mdTableSach.setRowCount(0);
 				// mdTableSach.getDataVector().removeAllElements();
 				while (rs.next()) {
-					String rows[] = new String[7];
+					String rows[] = new String[8];
 					rows[0] = rs.getString(2);
 					rows[1] = rs.getString(3);
 					rows[2] = rs.getString(4);
@@ -306,7 +332,7 @@ public class SachUI extends JPanel {
 					rows[4] = rs.getString(6);
 					rows[5] = rs.getString(7);
 					rows[6] = rs.getString(8);
-
+					rows[6] = rs.getString(9);
 					mdTableSach.addRow(rows);
 				}
 			} catch (SQLException e) {
@@ -482,7 +508,7 @@ public class SachUI extends JPanel {
 		}
 	}
 	// phần sự kiện
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ })
 	public void addEvents() {
 		tbListSach.addMouseListener(eventselect);
 		jbSua.addActionListener(evUpdate);

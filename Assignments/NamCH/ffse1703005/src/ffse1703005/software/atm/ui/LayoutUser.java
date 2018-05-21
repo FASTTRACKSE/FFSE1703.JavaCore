@@ -8,9 +8,13 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import ffse1703005.software.atm.model.CusTransaction;
 import ffse1703005.software.atm.model.Customer;
 import ffse1703005.software.atm.model.CustomerDB;
 import ffse1703005.software.atm.model.MachineATM;
@@ -44,6 +49,7 @@ public class LayoutUser extends JPanel {
 	private JTextField txtCodeUser,txtAccountNumber,txtDistrictsUser,txtWardsUser,txtStreetUser;
 	private ArrayList<Customer> arrCheckCtm;
 	private ArrayList<MachineATM> arrCheckAtm;
+	private ArrayList<CusTransaction> arrCheckTss;
 	private StamentAdress adress = new StamentAdress();
 	public JButton getBtnLogoutUser() {
 		return btnLogoutUser;
@@ -61,6 +67,7 @@ public class LayoutUser extends JPanel {
 		this.codeCus = codeCus;
 		this.codeATM = codeATM;
 		arrCheckCtm = CustomerDB.searchCode(codeCus);
+		arrCheckTss = TransactionsDb.getSearchCusList(codeCus);
 		addControlls();
 		addEvents();
 	}
@@ -392,48 +399,71 @@ public class LayoutUser extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			try {
-				String money = layoutWithdrawal.getTxtMoney().getText();				
-				int moneyWithdrawal = Integer.parseInt(money);
-				if(moneyWithdrawal>2000000||moneyWithdrawal<0) {
-					String msg = "Mỗi Lần Rút Không Quá 2.000.000 VNĐ!!!\nSố Tiền Phải Lớn Hơn 0";
-					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					if(moneyWithdrawal % 10000 == 0) {
-						int balanceCus = (arrCheckCtm.get(0).getAmountCus()-moneyWithdrawal);
-						if(balanceCus<0) {
-							String msg = "Số Dư Trong Tài Khoản Không Đủ";
-							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
-						}else {
-							int checkCus = CustomerDB.editMoney(balanceCus,codeCus);
-							if(checkCus >-1) {
-								arrCheckAtm = MachineATMDb.searchCode(codeATM);
-								int balanceAtm = (arrCheckAtm.get(0).getAmountATM()-moneyWithdrawal);
-								int checkAtm = MachineATMDb.editMoney(balanceAtm,codeATM) ;
-								layoutWithdrawal.getTxtMoney().setText("");
-								if(checkAtm>-1) {
-								    LocalTime localTime=LocalTime.now();
-								    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-								    String formattedTime=localTime.format(formatter);
-								    
-								    Time t = Time.valueOf(formattedTime);
-								    System.out.println(formattedTime);
-								    long int_transactions = t.getTime();	
-								    String code_transactions = "MGD" + int_transactions;
-									int checkTss = TransactionsDb.addTransactions(codeCus, codeATM, code_transactions , moneyWithdrawal ,"Rút Tiền");
-									if(checkTss>-1) {
-										String msg = "Rút Thành Công\n"+ String.format("%,d", (long) moneyWithdrawal)+" VNĐ"+
-												" Từ Tài Khoản\n"+"Số Tiền Còn Lại Trong Tài Khoản Của Bạn Là "
-												+String.format("%,d", (long) balanceCus)+" VNĐ";
-										JOptionPane.showMessageDialog(null, msg, "Rút Tiền!!!", JOptionPane.INFORMATION_MESSAGE);									
-									}											
-								}				
-							}
-						}						
+				String money = layoutWithdrawal.getTxtMoney().getText();
+				DateFormat dateFormatChoose = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				Date dateChoose = new Date();
+				Calendar cldNowDay = Calendar.getInstance();
+				int i=0;String month=null;
+				for(CusTransaction x:arrCheckTss) {
+					dateChoose.setTime(x.getTimeTransaction().getTime());
+					String timeChoose = dateFormatChoose.format(dateChoose);
+					int nowMonth =(cldNowDay.get(Calendar.MONTH)+1);
+					if(cldNowDay.get(Calendar.MONTH)>10) {
+						month =String.valueOf(nowMonth);
 					}else {
-						String msg = "Số tiền mỗi lần rút là bội số của 10.000 VNĐ";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);						
+						month = "0"+(nowMonth);
 					}
-					
+					String nowDay = cldNowDay.get(Calendar.YEAR)+"-"+month+"-"+cldNowDay.get(Calendar.DATE);
+					if(timeChoose.indexOf(nowDay)>-1) {
+						i++;
+					}
+				}
+				int moneyWithdrawal = Integer.parseInt(money);
+				if(i>=3) {
+					String msg = "Bạn Đã Rút Hết Số Lần Trong Ngày!!!\nMỗi Ngày Được Rút Tối Đa 3 Lần";
+					JOptionPane.showMessageDialog(null, msg, "Rút Quá Giới Hạn!!!", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					if(moneyWithdrawal>5000000||moneyWithdrawal<0) {
+						String msg = "Mỗi Lần Rút Không Quá 5.000.000 VNĐ!!!\nSố Tiền Phải Lớn Hơn 0";
+						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						if(moneyWithdrawal % 10000 == 0) {
+							int balanceCus = (arrCheckCtm.get(0).getAmountCus()-moneyWithdrawal);
+							if(balanceCus<0) {
+								String msg = "Số Dư Trong Tài Khoản Không Đủ";
+								JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
+							}else {
+								int checkCus = CustomerDB.editMoney(balanceCus,codeCus);
+								if(checkCus >-1) {
+									arrCheckAtm = MachineATMDb.searchCode(codeATM);
+									int balanceAtm = (arrCheckAtm.get(0).getAmountATM()-moneyWithdrawal);
+									int checkAtm = MachineATMDb.editMoney(balanceAtm,codeATM) ;
+									layoutWithdrawal.getTxtMoney().setText("");
+									if(checkAtm>-1) {
+									    LocalTime localTime=LocalTime.now();
+									    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+									    String formattedTime=localTime.format(formatter);
+									    
+									    Time t = Time.valueOf(formattedTime);
+									    System.out.println(formattedTime);
+									    long int_transactions = t.getTime();	
+									    String code_transactions = "MGD" + int_transactions;
+										int checkTss = TransactionsDb.addTransactions(codeCus, codeATM, code_transactions , moneyWithdrawal ,"Rút Tiền");
+										if(checkTss>-1) {
+											arrCheckTss = TransactionsDb.getSearchCusList(codeCus);
+											String msg = "Rút Thành Công\n"+ String.format("%,d", (long) moneyWithdrawal)+" VNĐ"+
+													" Từ Tài Khoản\n"+"Số Tiền Còn Lại Trong Tài Khoản Của Bạn Là "
+													+String.format("%,d", (long) balanceCus)+" VNĐ";
+											JOptionPane.showMessageDialog(null, msg, "Rút Tiền!!!", JOptionPane.INFORMATION_MESSAGE);									
+										}											
+									}				
+								}
+							}						
+						}else {
+							String msg = "Số tiền mỗi lần rút là bội số của 10.000 VNĐ";
+							JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);						
+						}
+					}									
 				}
 				
 			}catch (Exception e) {

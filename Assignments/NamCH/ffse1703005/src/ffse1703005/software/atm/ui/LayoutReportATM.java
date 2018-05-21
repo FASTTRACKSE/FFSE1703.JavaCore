@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,7 +34,7 @@ import ffse1703005.software.atm.model.StamentAdress;
 
 public class LayoutReportATM extends JPanel{
 	private static final long serialVersionUID = 1L;
-	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor;
+	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor,btnUpdate;
 	private JTextField txtCodeATM,txtStreets;
 	private JTextField txtDetailCodeATM,txtDetailMoneyATM,txtDetailDistricts,txtDetailWards,txtDetailStreets;
 	private JComboBox<String> cboDistricts,cboWards;
@@ -274,9 +275,11 @@ public class LayoutReportATM extends JPanel{
 		pnSearchAdress.setOpaque(false);
 		btnSearchAdress = new JButton("Xem");										
 		btnCancelAdress = new JButton("Hủy");
+		btnUpdate = new JButton("Cập Nhập");
 		btnCancelAdress.setEnabled(false);
 		pnSearchAdress.add(btnSearchAdress);
 		pnSearchAdress.add(btnCancelAdress);
+		pnSearchAdress.add(btnUpdate);
 		
 		GroupLayout adressLayout = new GroupLayout(pnAdressMini);
 		pnAdressMini.setLayout(adressLayout);
@@ -330,7 +333,18 @@ public class LayoutReportATM extends JPanel{
 		btnSearchAdress.addActionListener(eventSearchDistricts);
 		btnCancelAdress.addActionListener(eventCancelAdress);
 		btnClearInfor.addActionListener(eventClearInfor);
+		btnUpdate.addActionListener(eventUpdate);
 	}
+	
+	ActionListener eventUpdate = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {			
+			arrAtmAll = MachineATMDb.getAtmList();
+			updateArrAtm();
+			printListAtm();
+			String msgXoa ="Cập Nhập Thành Công Dữ Liệu Mới Nhất !!!";
+			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
+		}
+    };
 	
 	ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {

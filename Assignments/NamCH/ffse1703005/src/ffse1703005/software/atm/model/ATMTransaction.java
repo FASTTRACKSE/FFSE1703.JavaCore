@@ -25,7 +25,7 @@ public class ATMTransaction extends Transaction {
 	public ATMTransaction() {
 		super();
 	}
-	public ATMTransaction(String codeTransaction,Timestamp timeTransaction,float payTransaction,
+	public ATMTransaction(String codeTransaction,Timestamp timeTransaction,int payTransaction,
 			String codeATM,String adressATM,String codeCus,String districts,String wards,String streets) {
 		super(codeTransaction,timeTransaction,payTransaction);
 		this.codeATM = codeATM;

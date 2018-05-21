@@ -24,6 +24,7 @@ public class SinhVienUI extends JPanel {
 	private JTextField Diachi = new JTextField();
 	private JTextField Email = new JTextField();
 	private JTextField SDT = new JTextField();
+	private JTextField seach = new JTextField();
 
 	private ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 
@@ -31,13 +32,13 @@ public class SinhVienUI extends JPanel {
 	private JButton xoaSinhVien = new JButton("Xóa");
 	private JButton suaSinhVien = new JButton("Sửa");
 	private JButton nhapSinhVien = new JButton("Nhập");
-
+	private JButton timkiemSV = new JButton("Tìm Kiếm");
+	
 	private JComboBox<String> selectSinhVien = new JComboBox<>();
 	private JComboBox<String> selectMaSV = new JComboBox<>();
 	private JComboBox<String> tp = new JComboBox<>();
 	private JComboBox<String> quan = new JComboBox<>();
 	private JComboBox<String> phuong = new JComboBox<>();
-	// private JComboBox<String> TenMHLop = new JComboBox<>();
 
 	private DefaultTableModel dm_SinhVien;
 	private JTable table_SinhVien;
@@ -149,7 +150,15 @@ public class SinhVienUI extends JPanel {
 		Nhap.add(pnSinhVien);
 		Nhap.add(pnRight_SinhVien);
 
+		JPanel timKiem = new JPanel();
+		timKiem.setLayout(new FlowLayout());
+		JLabel lbltimkiem = new JLabel("Tìm kiếm :     ");
+		seach = new JTextField(20);
+		timKiem.add(lbltimkiem);
+		timKiem.add(seach);
+		timKiem.add(timkiemSV);
 		this.add(Nhap);
+		this.add(timKiem);
 
 		JPanel Table_SinhVien = new JPanel();
 		Table_SinhVien.setLayout(new BorderLayout());
@@ -307,14 +316,14 @@ public class SinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String chonTinh = (String) quan.getSelectedItem();
+			String chonQuan = (String) quan.getSelectedItem();
 			phuong.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				Statement statement = conn.createStatement();
 				ResultSet result = statement.executeQuery(
 						"SELECT devvn_xaphuongthitran.name FROM devvn_xaphuongthitran INNER JOIN devvn_quanhuyen WHERE devvn_xaphuongthitran.maqh=devvn_quanhuyen.maqh AND devvn_quanhuyen.name ='"
-								+ chonTinh + "'");
+								+ chonQuan + "'");
 				while (result.next()) {
 					phuong.addItem(new String(result.getString("devvn_xaphuongthitran.name")));
 				}
@@ -360,7 +369,7 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			int i = 0;
 			String lop_SinhVien = (String) selectSinhVien.getSelectedItem();
-			String ma_SinhVien = lop_SinhVien + MaSV.getText();
+			String ma_SinhVien =  MaSV.getText();
 			String ten_SinhVien = TenSV.getText();
 			String diachi_SinhVien = Diachi.getText();
 			String tp_SinhVien = (String) tp.getSelectedItem();
@@ -378,8 +387,8 @@ public class SinhVienUI extends JPanel {
 				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
-					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("")
-							|| diachi_SinhVien.equals("") || email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
+					if (lop_SinhVien.equals("Tất Cả") || ma_SinhVien.isEmpty() || ten_SinhVien.isEmpty()
+							|| diachi_SinhVien.isEmpty() || email_SinhVien.isEmpty() || sdt_SinhVien.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên", null,
 								JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -397,6 +406,19 @@ public class SinhVienUI extends JPanel {
 							int x = statement.executeUpdate(sql);
 							if (x > 0) {
 								JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+						try {
+							Statement statement = conn.createStatement();
+							ResultSet result = statement
+									.executeQuery("SELECT * FROM monhoc WHERE TenLop ='" + lop_SinhVien + "'");
+							while (result.next()) {		
+								String query = "INSERT INTO diem( MaLop,MaSV,MaMH,Diem) VALUES ('"+lop_SinhVien+"','"+ma_SinhVien+"','"+result.getString("maMH")+"','"+"0"+"')";
+								Statement sttm = conn.createStatement();
+								sttm.executeUpdate(query);
+							
 							}
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -438,7 +460,9 @@ public class SinhVienUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				String sql = "DELETE FROM sinhvien WHERE MaSV = '" + MaSV.getText() + "'";
+				String query = "DELETE FROM diem WHERE MaSV = '" + MaSV.getText() + "'";
 				Statement statement = conn.createStatement();
+				statement.executeUpdate(query);
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
 					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
@@ -473,9 +497,9 @@ public class SinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 
 			try {
-				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().equals("")
-						|| TenSV.getText().equals("") || Diachi.getText().equals("") || Email.getText().equals("")
-						|| SDT.getText().equals("")) {
+				if (((String) selectSinhVien.getSelectedItem()).equals("Tất Cả") || MaSV.getText().isEmpty()
+						|| TenSV.getText().isEmpty() || Diachi.getText().isEmpty() || Email.getText().isEmpty()
+						|| SDT.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
 				} else {
 					for (SinhVien x : arrSV) {

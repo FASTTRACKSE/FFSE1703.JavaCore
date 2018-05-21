@@ -24,7 +24,6 @@ public class LopHocUI extends JPanel {
 	private JTextField NamHoc = new JTextField();
 
 	private ArrayList<LopHoc> arrLH = new ArrayList<LopHoc>();
-	private String[] nam = { "2018", "2017", "2016", "2015", "2014" };
 
 	private JButton themLopHoc = new JButton("Thêm");
 	private JButton xoaLopHoc = new JButton("Xóa");
@@ -85,7 +84,18 @@ public class LopHocUI extends JPanel {
 		JPanel chonNamHoc = new JPanel();
 		chonNamHoc.setLayout(new FlowLayout());
 		JLabel txtNamHoc = new JLabel("Năm học: ");
-		namhoc = new JComboBox<>(nam);
+		namhoc = new JComboBox<>();
+		namhoc.addItem("Chọn năm học");
+		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT DISTINCT NamHoc FROM lophoc");
+			while (result.next()) {
+				namhoc.addItem(result.getString("NamHoc"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		chonNamHoc.add(txtNamHoc);
 		chonNamHoc.add(namhoc);
 
@@ -103,7 +113,6 @@ public class LopHocUI extends JPanel {
 		dm_LopHoc.addColumn("Tên lớp học");
 		dm_LopHoc.addColumn("Năm học");
 
-		Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM lophoc");
@@ -138,9 +147,34 @@ public class LopHocUI extends JPanel {
 		xoaLopHoc.addActionListener(eventDel_LopHoc);
 		suaLopHoc.addActionListener(eventEdit_LopHoc);
 		nhapLopHoc.addActionListener(eventReset_LopHoc);
+		namhoc.addActionListener(eventChooseNH);
 
 	}
+	//Chọn năm học
+	ActionListener eventChooseNH = new ActionListener() {
 
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String chonNH = (String) namhoc.getSelectedItem();
+
+			dm_LopHoc.setRowCount(0);
+
+			for (LopHoc x : arrLH) {
+				if(chonNH.equals("Chọn năm học")) {
+				String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc() };
+				dm_LopHoc.addRow(row);
+				} else if(chonNH.equals(x.getNamHoc())) {
+					String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc() };
+					dm_LopHoc.addRow(row);
+					}
+			}
+		}
+	};
+	
+	
+	
+	//Kết thúc chọn năm học
+	
 	// CRUD Lớp Học
 
 	MouseAdapter eventTable_LopHoc = new MouseAdapter() {

@@ -29,7 +29,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-
 public class LopUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -40,10 +39,8 @@ public class LopUI extends JPanel {
 
 	private JLabel txtlop1 = new JLabel("Nhập Mã Lớp: ");
 
-
-	private DefaultTableModel  dmLhoc;
+	private DefaultTableModel dmLhoc;
 	private JTextField maLop1 = new JTextField(), tenLop1 = new JTextField(), namHoc1 = new JTextField();// LopHoc
-
 
 	/////// quanlylophoc////////
 	private JLabel lblNhapTenLop = new JLabel("Tên Lớp:");
@@ -53,7 +50,6 @@ public class LopUI extends JPanel {
 
 	private ArrayList<QuanLyLopHocModel> arrLH = new ArrayList<QuanLyLopHocModel>();
 
-	
 	public LopUI() {
 		addControls();
 		addEvents();
@@ -62,11 +58,8 @@ public class LopUI extends JPanel {
 
 	public void addControls() {
 
-
 		this.setLayout(new FlowLayout());
 
-
-		
 		Border border1 = BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle1 = BorderFactory.createTitledBorder(border1, "NHẬP THÔNG TIN");
 		this.setBorder(borderTitle1);
@@ -137,9 +130,6 @@ public class LopUI extends JPanel {
 
 	}
 
-
-
-
 	public void addEvents() {
 		tblLopHoc.addMouseListener(eventTableLop);
 		btnThemlp.addActionListener(eventAdd);
@@ -147,11 +137,7 @@ public class LopUI extends JPanel {
 		btnSualp.addActionListener(eventEdit);
 		btnNhaplp.addActionListener(eventReset_Lop);
 
-
-
-
-
-}
+	}
 
 	/////////////////
 	/////////////////// envent-QuanLyLop////////////////////
@@ -175,42 +161,42 @@ public class LopUI extends JPanel {
 	ActionListener eventAdd = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int i = 0;
 			String malop = maLop1.getText();
 			String tenlp = tenLop1.getText();
 			String nam = namHoc1.getText();
-
-			try {
-				if (malop.equals("") || tenlp.equals("") || nam.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					for (QuanLyLopHocModel y : arrLH) {
-						if (malop.equals(y.getMaLop())) {
-							JOptionPane.showMessageDialog(null, "Trùng mã lớp");
-						} else {
-
-							arrLH.add(new QuanLyLopHocModel(malop, tenlp, nam));
-							dmLhoc.addRow(new String[] { malop, tenlp, nam });
-							Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien",
-									"12345");
-							try {
-								String sqlLop = "INSERT INTO tabel_lop(maLop,tenLop,namHoc) VALUES (" + "'" + malop
-										+ "','" + tenlp + "','" + nam + "')";
-
-								Statement statement = conn.createStatement();
-								int x = statement.executeUpdate(sqlLop);
-								if (x > 0) {
-									JOptionPane.showMessageDialog(null, "Đã lưu thông tin lớp");
-								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-						break;
-					}
+			for (QuanLyLopHocModel y : arrLH) {
+				if (malop.equals(y.getMaLop())) {
+					i = 1;
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin lớp");
+			}
+			if (i > 0) {
+				JOptionPane.showMessageDialog(null, "Trùng mã lớp");
+			} else {
+				try {
+					if (malop.equals("") || tenlp.equals("") || nam.equals("")) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					} else {
+
+						arrLH.add(new QuanLyLopHocModel(malop, tenlp, nam));
+						dmLhoc.addRow(new String[] { malop, tenlp, nam });
+						Connection conn = Connect.getConnect("localhost", "quanlysinhvien", "quanlysinhvien", "12345");
+						try {
+							String sqlLop = "INSERT INTO tabel_lop(maLop,tenLop,namHoc) VALUES (" + "'" + malop + "','"
+									+ tenlp + "','" + nam + "')";
+
+							Statement statement = conn.createStatement();
+							int x = statement.executeUpdate(sqlLop);
+							if (x > 0) {
+								JOptionPane.showMessageDialog(null, "Đã lưu thông tin lớp");
+							}
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin lớp");
+				}
 			}
 		}
 	};
@@ -291,4 +277,3 @@ public class LopUI extends JPanel {
 	};
 
 }
-
