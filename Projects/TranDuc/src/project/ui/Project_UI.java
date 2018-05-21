@@ -52,7 +52,9 @@ public class Project_UI extends JFrame {
 	JPanel monhocQL = new JPanel();
 	JPanel thongke = new JPanel();
 	JPanel nhapdiem = new JPanel();
-	
+	ArrayList<LopHoc> arrLH = new ArrayList<LopHoc>();
+	ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
+	ArrayList<MonHoc> arrMH = new ArrayList<MonHoc>();
 	ImageIcon sinhvienAnh = new ImageIcon(new ImageIcon("sinhvien.jpg").
 			getImage().getScaledInstance(80,65,Image.SCALE_SMOOTH));
 	ImageIcon lopAnh = new ImageIcon(new ImageIcon("Classroom.jpeg").
@@ -66,7 +68,7 @@ public class Project_UI extends JFrame {
 	
 	JPanel actionLH = new JPanel();
 	JPanel settingLH = new JPanel();
-	JPanel buttonstLH = new JPanel();
+	JPanel btnstLH = new JPanel();
 	JPanel maLop, tenLop, namHoc, moTa;
 	JTextField textmaLop, texttenLop, textnamHoc, textmoTa;
 	JLabel titmaLop, tittenLop, titnamHoc, titmoTa;
@@ -85,8 +87,6 @@ public class Project_UI extends JFrame {
 	JLabel svLB;
 	JComboBox lopsvCBO;
 	
-	ArrayList<LopHoc> arrLH = new ArrayList<LopHoc>();
-	ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 	JButton themSV, suaSV, xoaSV, resetSV;
 	JTextField textmaSV, texttenSV, textdiachiSV, textsdtSV, textemailSV;
 	JLabel titmaSV, tittenSV, titdiachiSV, titphuongSV, titquanSV, 
@@ -94,10 +94,18 @@ public class Project_UI extends JFrame {
 	JLabel tittleSV = new JLabel("Chương trình quản lý sinh viên");
 	JPanel actionSV = new JPanel();
 	JPanel settingSV = new JPanel();
-	JPanel buttonstSV = new JPanel();
+	JPanel btnstSV = new JPanel();
 	DefaultTableModel defTableSV = new DefaultTableModel();
 	JTable tableSV = new JTable(defTableSV);
 	JScrollPane scrPaneSV = new JScrollPane(tableSV);
+	
+	JLabel tittleMH,titmaMH,tittenMH,tittinchiMH,tittimeMH;
+	JPanel actionMH,settingMH,btnstMH;
+	JTextField txtmaMH,txttenMH,txttinchiMH,txttimeMH;
+	JButton themMH,suaMH,xoaMH,resetMH;
+	DefaultTableModel defTableMH = new DefaultTableModel();
+	JTable tableMH = new JTable(defTableMH);
+	JScrollPane scrPaneMH = new JScrollPane(tableMH);
 	
 	public Project_UI(String tittle) {
 		super(tittle);
@@ -112,7 +120,6 @@ public class Project_UI extends JFrame {
 		thongke_UI();
 		thongkeEvent();
 		setDisplay();
-
 	}
 	public void connectDB() {
 		conn=ConnectDB.getConnect("Localhost",
@@ -168,7 +175,7 @@ public class Project_UI extends JFrame {
 	public void lophoc_UI() {
 		actionLH.setLayout(new BorderLayout());
 		settingLH.setLayout(new GridLayout(2, 2));
-		buttonstLH.setLayout(new FlowLayout());
+		btnstLH.setLayout(new FlowLayout());
 		themLop = new JButton();
 		xoaLop = new JButton();
 		suaLop = new JButton();
@@ -181,10 +188,10 @@ public class Project_UI extends JFrame {
 		xoaLop.setFont(new Font("Courier New", Font.BOLD, 18));
 		resetLop.setText("Reset");
 		resetLop.setFont(new Font("Courier New", Font.BOLD, 18));
-		buttonstLH.add(themLop);
-		buttonstLH.add(suaLop);
-		buttonstLH.add(xoaLop);
-		buttonstLH.add(resetLop);
+		btnstLH.add(themLop);
+		btnstLH.add(suaLop);
+		btnstLH.add(xoaLop);
+		btnstLH.add(resetLop);
 
 		titmaLop = new JLabel();
 		textmaLop = new JTextField(50);
@@ -229,7 +236,7 @@ public class Project_UI extends JFrame {
 		tittleLH.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tittleLH.setFont(new Font("Courier New", Font.PLAIN, 30));
 		actionLH.add(settingLH, BorderLayout.CENTER);
-		actionLH.add(buttonstLH, BorderLayout.SOUTH);
+		actionLH.add(btnstLH, BorderLayout.SOUTH);
 		lophocQL.add(tittleLH);
 
 		tableLH.setFont(new Font("Serif", 0, 20));
@@ -331,10 +338,10 @@ public class Project_UI extends JFrame {
 		resetSV.setText("Reset");
 		resetSV.setFont(new Font("Courier New", Font.BOLD, 18));
 		
-		buttonstSV.add(themSV);
-		buttonstSV.add(suaSV);
-		buttonstSV.add(xoaSV);
-		buttonstSV.add(resetSV);
+		btnstSV.add(themSV);
+		btnstSV.add(suaSV);
+		btnstSV.add(xoaSV);
+		btnstSV.add(resetSV);
 		
 		phuong = new JComboBox();
 		quan = new JComboBox();
@@ -405,9 +412,9 @@ public class Project_UI extends JFrame {
 		settingSV.add(lopSV);
 		actionSV.setLayout(new BorderLayout());
 		settingSV.setLayout(new GridLayout(3, 3));
-		buttonstSV.setLayout(new FlowLayout());
+		btnstSV.setLayout(new FlowLayout());
 		actionSV.add(settingSV, BorderLayout.CENTER);
-		actionSV.add(buttonstSV, BorderLayout.SOUTH);
+		actionSV.add(btnstSV, BorderLayout.SOUTH);
 		Border bor2 = BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE);
 		TitledBorder tittle = new TitledBorder(bor2, "Thông Tin Sinh Viên");
 		actionSV.setBorder(tittle);
@@ -453,7 +460,7 @@ public class Project_UI extends JFrame {
 	}
 	
 	public void monhoc_UI() {
-
+		
 	}
 
 	public void thongke_UI() {
