@@ -209,6 +209,7 @@ public class NhapDiemUI extends JPanel {
 	public void maLopcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maLopcomnoBox.addItem("CHỌN LỚP");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_lop");
 			while (result.next()) {
@@ -223,6 +224,7 @@ public class NhapDiemUI extends JPanel {
 	public void maSVcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maSVcomnoBox.addItem("CHỌN MÃ SV");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_sinhvien");
 			while (result.next()) {
@@ -237,6 +239,7 @@ public class NhapDiemUI extends JPanel {
 	public void maMonhoc() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maMonhoc.addItem("CHỌN MÔN");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
 			while (result.next()) {

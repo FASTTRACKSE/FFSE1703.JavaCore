@@ -163,6 +163,7 @@ public class MonCuaLopUI extends JPanel {
 	public void maLopcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maLopcomnoBox.addItem("CHỌN LỚP");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_lop");
 			while (result.next()) {
@@ -177,6 +178,7 @@ public class MonCuaLopUI extends JPanel {
 	public void maMonhoc() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maMonhoc.addItem("CHỌN MÔN");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
 			while (result.next()) {
@@ -259,19 +261,21 @@ public class MonCuaLopUI extends JPanel {
 	};
 
 	ActionListener eventDel_lop = new ActionListener() {
+		
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (MonCuaLop x : arrMoncholop) {
-				if (((String) maLopcomnoBox.getSelectedItem()).equals(x.getMaLop())) {
-					if (((String) maMonhoc.getSelectedItem()).equals(x.getMaMH())) {
-						arrMoncholop.remove(x);
-					}
-					break;
-				}
-			}
+
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
+				for (MonCuaLop x : arrMoncholop) {
+					if (((String) maLopcomnoBox.getSelectedItem()).equals(x.getMaLop())) {
+						if (((String) maMonhoc.getSelectedItem()).equals(x.getMaMH())) {
+							arrMoncholop.remove(x);
+						}
+						break;
+					}
+				}
 				String sql = "DELETE FROM table_monhoccholop WHERE MaLop = '" + (String) maLopcomnoBox.getSelectedItem()
 						+ "' AND MaMH ='" + (String) maMonhoc.getSelectedItem() + "'";
 				Statement statement = conn.createStatement();
@@ -286,6 +290,7 @@ public class MonCuaLopUI extends JPanel {
 			for (MonCuaLop x : arrMoncholop) {
 				String[] row = { x.getMaLop(), x.getMaMH(), x.getTen() };
 				dm_moncholop.addRow(row);
+
 			}
 		}
 

@@ -3,7 +3,6 @@ package fasttrackse.edu.vn.project4.ui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -84,7 +83,6 @@ public class QuanLySinhVienUI  extends JPanel{
 	private JButton btnNhapsv = new JButton("Reset");
 
 	
-@SuppressWarnings("unchecked")
 public void addControl() {
 	
 	
@@ -214,10 +212,8 @@ public void addControl() {
 
 		tbl_sinhvien = new JTable(dm_sinhvien);
 		JScrollPane sc = new JScrollPane(tbl_sinhvien);
-		JScrollPane VT = new JScrollPane(sc, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		VT.setPreferredSize(new Dimension(1170, 520));
-		pnTable.add(VT, BorderLayout.CENTER);
+		pnTable.setLayout(new BorderLayout());
+		pnTable.add(sc, BorderLayout.CENTER);
 
 		Border border = BorderFactory.createLineBorder(Color.blue);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách sinh viên");
@@ -309,7 +305,6 @@ public void addControl() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonTinh = (String) cbo2.getSelectedItem();
-			dm_sinhvien.setRowCount(0);
 			cbo3.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			System.out.println(chonTinh);
@@ -335,7 +330,6 @@ public void addControl() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonTinh = (String) cbo3.getSelectedItem();
-			dm_sinhvien.setRowCount(0);
 			cbo4.removeAllItems();
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			System.out.println(chonTinh);
@@ -456,6 +450,17 @@ public void addControl() {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
+				try {
+					Statement statement = conn.createStatement();
+					ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
+					while (result.next()) {		
+						String query = "INSERT INTO quan_ly_diem( ma_lop_hoc,ma_sinh_vien,ma_mon_hoc,diem) VALUES ('"+chonLop+"','"+ma+"','"+result.getString("ma_mon_hoc")+"','"+"0"+"')";
+						Statement sttm = conn.createStatement();
+						sttm.executeUpdate(query);
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -481,6 +486,8 @@ public void addControl() {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				try {
 					String sql = "DELETE FROM Quan_ly_sinh_vien WHERE ma_sinh_vien = '" + masv.getText() + "'";
+					@SuppressWarnings("unused")
+					String query = "DELETE FROM quan_ly_diem WHERE ma_sinh_vien = '" + masv.getText() + "'";
 					Statement statement = (Statement) conn.createStatement();
 					int x = statement.executeUpdate(sql);
 					if (x >= 0) {
@@ -501,8 +508,14 @@ public void addControl() {
 						x.getDiaChi(), x.getEmail(), x.getSdt(), x.getTuoi() };
 				dm_sinhvien.addRow(row);
 			}
-
+			ten.setText("");
+			email.setText("");
+			sdt.setText("");
+			diachi.setText("");
+			masv.setText("");
+			tuoisv.setText("");
 		}
+		
 	};
 	// sửa sinh viên
 	ActionListener eventEditSV = new ActionListener() {
@@ -549,6 +562,12 @@ public void addControl() {
 						x.getDiaChi(), x.getEmail(), x.getSdt(), x.getTuoi() };
 				dm_sinhvien.addRow(row);
 			}
+			ten.setText("");
+			email.setText("");
+			sdt.setText("");
+			diachi.setText("");
+			masv.setText("");
+			tuoisv.setText("");
 
 		}
 

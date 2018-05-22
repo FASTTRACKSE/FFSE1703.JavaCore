@@ -6,7 +6,7 @@ import connector.GetConnect;
 
 public class QuanLiMonHoc_Model {
 	private String maMon, tenMon, soTinChi, thoiLuong;
-	final Connection conn= (new GetConnect()).getConnect("localhost", "Quan_li_truong_hoc", "phamquy481", "a0163763123");
+	
 	public QuanLiMonHoc_Model() {
 		//
 	}
@@ -16,6 +16,12 @@ public class QuanLiMonHoc_Model {
 		this.tenMon = tenMon;
 		this.soTinChi = soTinChi;
 		this.thoiLuong = thoiLuong;
+	}
+	
+	public QuanLiMonHoc_Model(String tenMon, String maMon) {
+		this.tenMon = tenMon;
+		this.maMon = maMon;
+		
 	}
 
 	public String getMaMon() {
@@ -49,5 +55,12 @@ public class QuanLiMonHoc_Model {
 	public void setThoiLuong(String thoiLuong) {
 		this.thoiLuong = thoiLuong;
 	}
+
+	@Override
+	public String toString() {
+		return this.tenMon;
+	}
+	
+	
 	
 }
