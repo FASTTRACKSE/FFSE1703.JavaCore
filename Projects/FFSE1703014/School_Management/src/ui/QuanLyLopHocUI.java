@@ -358,22 +358,43 @@ public class QuanLyLopHocUI extends JPanel {
 					try {
 						Statement statement =  connection.createStatement();
 						ResultSet result = statement.executeQuery(
-								"select * from monhoctheolop where MaLH ='" + maLop + "' and MaMH = '"+ maMH +"'");
+								"select * from monhoctheolop where MaLH ='" + maLop + "' and MaMH = '"+ maMH +"' and status =''");
 						if (result.next() == true) {
 							JOptionPane.showMessageDialog(null, "Môn học đã tồn tại trong lớp học này!");
 						} else {
 							try {
-								String sql = "insert into monhoctheolop value(null,'" + maLop + "','" + maMH + "')";
-								Statement statements = (Statement) connection.createStatement();
-								int y = statements.executeUpdate(sql);
-								if (y > 0) {
-									cbMonHoc.setSelectedItem("Chọn môn học");
-									JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Thêm môn học học thất bại!");
+								Statement statement2 =  connection.createStatement();
+								ResultSet result2 = statement.executeQuery(
+										"select * from monhoctheolop where MaLH ='" + maLop + "' and MaMH = '"+ maMH +"' and status ='deleted'");
+								if (result2.next() == true) {
+									try {
+										String sql = "update monhoctheolop set status = '' where MaLH ='" + maLop + "' and MaMH = '"+ maMH +"'";
+										Statement statements = (Statement) connection.createStatement();
+										int x = statements.executeUpdate(sql);
+										if (x > 0) {
+											cbMonHoc.setSelectedItem("Chọn môn học");
+											JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+										} else {
+											try {
+												String sql2 = "insert into monhoctheolop value(null,'" + maLop + "','" + maMH + "')";
+												Statement statement3 = (Statement) connection.createStatement();
+												int y = statement3.executeUpdate(sql2);
+												if (y > 0) {
+													cbMonHoc.setSelectedItem("Chọn môn học");
+													JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+												} else {
+													JOptionPane.showMessageDialog(null, "Thêm môn học học thất bại!");
+												}
+											} catch (Exception ex) {
+												ex.printStackTrace();
+											}
+										}
+									} catch (Exception ex) {
+										ex.printStackTrace();
+									}
 								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
+							} catch (Exception e2) {
+								// TODO: handle exception
 							}
 						}
 					} catch (Exception e1) {
@@ -433,7 +454,7 @@ public class QuanLyLopHocUI extends JPanel {
 		arrMHL.removeAll(arrMHL);
 		try {
 			Statement statement =  connection.createStatement();
-			ResultSet result = statement.executeQuery("SELECT monhoctheolop.MaLH, monhoctheolop.MaMH, monhoc.TenMH FROM monhoctheolop INNER JOIN monhoc ON monhoctheolop.MaMH = monhoc.MaMH WHERE MaLH = '"+ maLop +"' order by MaMH ASC");
+			ResultSet result = statement.executeQuery("SELECT monhoctheolop.MaLH, monhoctheolop.MaMH, monhoc.TenMH, monhoctheolop.status FROM monhoctheolop INNER JOIN monhoc ON monhoctheolop.MaMH = monhoc.MaMH WHERE MaLH = '"+ maLop +"' and monhoctheolop.status = '' order by MaMH ASC");
 			while (result.next()) {
 				arrMHL.add(new MonHocTheoLop(result.getString("MaMH"), result.getString("TenMH")));
 			}
@@ -447,7 +468,7 @@ public class QuanLyLopHocUI extends JPanel {
 	public void getMonHoc() {
 		try {
 			Statement statement =  connection.createStatement();
-			ResultSet result = statement.executeQuery("select * from monhoc order by MaMH ASC");
+			ResultSet result = statement.executeQuery("select * from monhoc where status = '' order by MaMH ASC");
 			while (result.next()) {
 				arrMH.add(new MonHoc(result.getString("MaMH"), result.getString("TenMH"), result.getString("TinChi"), result.getString("ThoiLuongHoc")));
 			}

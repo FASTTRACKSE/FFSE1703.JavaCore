@@ -180,14 +180,31 @@ public class QuanLyMonHocUI extends JPanel {
 							ResultSet result2 = statement2.executeQuery(
 									"select * from monhoc where MaMH ='" + maMH + "' and status ='deleted'");
 							if (result2.next()) {
-								String sql = "update monhoc set  TenMH ='" + tenMH + "',TinChi ='" + tinChi + "',ThoiLuongHoc ='"+ thoiLuong + "', status = '' where MaMH ='" + maMH + "'";
-								Statement statements = (Statement) connection.createStatement();
-								int y = statements.executeUpdate(sql);
-								if (y > 0) {
-									reset();
-									JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+								try {
+									String sql = "update monhoc set  TenMH ='" + tenMH + "',TinChi ='" + tinChi + "',ThoiLuongHoc ='"+ thoiLuong + "', status = '' where MaMH ='" + maMH + "'";
+									Statement statements = (Statement) connection.createStatement();
+									int y = statements.executeUpdate(sql);
+									if (y > 0) {
+										reset();
+										JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+									} else {
+										JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+									}	
+								} catch (Exception e2) {
+									e2.printStackTrace();
+								}
+								try {
+									String sql = "update monhoctheolop set status = '' where MaMH ='" + maMH + "'";
+									Statement statements = (Statement) connection.createStatement();
+									int y = statements.executeUpdate(sql);
+									if (y > 0) {
+										reset();
+										JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+									} else {
+										JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+									}
+								} catch (Exception e2) {
+									e2.printStackTrace();
 								}
 							} else {
 								try {
@@ -254,6 +271,24 @@ public class QuanLyMonHocUI extends JPanel {
 						Statement statements = (Statement) connection.createStatement();
 						int y = statements.executeUpdate(sql);
 						if (y > 0) {
+							try {
+								String sql2 = "delete from diemsinhvien where MaMH='" + maMH + "'";
+								Statement statement2 = (Statement) connection.createStatement();
+								int x = statement2.executeUpdate(sql2);
+								if (x > 0) {
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+							try {
+								String sql2 = "update monhoctheolop set status = 'deleted' where MaMH ='" + maMH + "'";
+								Statement statement2 = (Statement) connection.createStatement();
+								int x = statement2.executeUpdate(sql2);
+								if (x > 0) {
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
 							reset();
 							JOptionPane.showMessageDialog(null, "Xóa môn học thành công!");
 						} else {
