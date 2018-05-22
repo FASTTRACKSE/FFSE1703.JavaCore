@@ -171,10 +171,12 @@ public class QuanLyLopHocUI extends JPanel {
 		pnMain.add(pnMonHoc, BorderLayout.SOUTH);
 		
 		this.add(pnMain);
+		
+		resetButton();
 	}
 
 	private void addEvents() {
-		tableLH.addMouseListener(selectRowLH);
+		tableLH.addMouseListener(getSelectLH);
 		btnThem.addActionListener(themLH);
 		btnSua.addActionListener(suaLH);
 		btnXoa.addActionListener(xoaLH);
@@ -182,7 +184,7 @@ public class QuanLyLopHocUI extends JPanel {
 		btnThemMH.addActionListener(themMH);
 		btnXoaMH.addActionListener(xoaMH);
 	}
-	MouseListener selectRowLH = new MouseListener() {
+	MouseListener getSelectLH = new MouseListener() {
 		
 		@Override
 		public void mouseReleased(MouseEvent e) {
@@ -211,10 +213,10 @@ public class QuanLyLopHocUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = tableLH.getSelectedRow();
-			txtMaLH.setEnabled(false);
 			txtMaLH.setText(dmLH.getValueAt(row, 0).toString());
 			txtTenLH.setText(dmLH.getValueAt(row, 1).toString());
 			txtNamHoc.setText(dmLH.getValueAt(row, 2).toString());
+			disableButton();
 			getMonHocLop();
 		}
 	};
@@ -245,6 +247,7 @@ public class QuanLyLopHocUI extends JPanel {
 									Statement statements = (Statement) connection.createStatement();
 									int y = statements.executeUpdate(sql);
 									if (y > 0) {
+										resetButton();
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thành công!");
 									} else {
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thất bại!");
@@ -258,9 +261,7 @@ public class QuanLyLopHocUI extends JPanel {
 									Statement statements = (Statement) connection.createStatement();
 									int y = statements.executeUpdate(sql);
 									if (y > 0) {
-										txtMaLH.setText("");
-										txtTenLH.setText("");
-										txtNamHoc.setText("");
+										resetButton();
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thành công!");
 									} else {
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thất bại!");
@@ -293,9 +294,7 @@ public class QuanLyLopHocUI extends JPanel {
 				Statement statements = (Statement) connection.createStatement();
 				int y = statements.executeUpdate(sql);
 				if (y > 0) {
-					txtMaLH.setText("");
-					txtTenLH.setText("");
-					txtNamHoc.setText("");
+					resetButton();
 					JOptionPane.showMessageDialog(null, "Cập nhật lớp học thành công!");
 				} else {
 					JOptionPane.showMessageDialog(null, "Cập nhật lớp học thất bại!");
@@ -320,9 +319,7 @@ public class QuanLyLopHocUI extends JPanel {
 						Statement statements = (Statement) connection.createStatement();
 						int y = statements.executeUpdate(sql);
 						if (y > 0) {
-							txtMaLH.setText("");
-							txtTenLH.setText("");
-							txtNamHoc.setText("");
+							resetButton();
 							JOptionPane.showMessageDialog(null, "Xóa lớp học thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Xóa lớp học thất bại!");
@@ -335,58 +332,11 @@ public class QuanLyLopHocUI extends JPanel {
 			getLopHoc();
 		}
 	};
-	ActionListener xoaLH2 = new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int row = tableLH.getSelectedRow();
-			if (row<0) {	
-			} else {
-				int count = 0;
-				try {
-					String sql = "select count(*) from sinhvien where LopHoc='" + dmLH.getValueAt(row, 0) + "'";
-					Statement statement = (Statement) connection.createStatement();
-					ResultSet result = statement.executeQuery(sql);
-					while (result.next()) {
-						count = result.getInt("COUNT(*)");
-					}
-					if (count > 0) {
-						JOptionPane.showMessageDialog(null, "Bạn không thể xóa lớp học này!", "Message", 0);
-					} else {
-						int kt = JOptionPane.showConfirmDialog(null, "Bạn có thực sự muốn xóa lớp học này?", "Xóa lớp học", JOptionPane.YES_NO_OPTION);
-						if (kt == JOptionPane.YES_OPTION) {
-							try {
-								String sql2 = "delete from lophoc where MaLop='" + dmLH.getValueAt(row, 0) + "'";
-								Statement statement2 = (Statement) connection.createStatement();
-								int x = statement2.executeUpdate(sql);
-								if (x > 0) {
-									txtMaLH.setText("");
-									txtTenLH.setText("");
-									txtNamHoc.setText("");
-									JOptionPane.showMessageDialog(null, "Xóa lớp học thành công!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Xóa lớp học thất bại!");
-								}
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
-						}
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-			getLopHoc();
-		}
-	};
 	ActionListener huy = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			txtMaLH.setEnabled(true);
-			txtMaLH.setText("");
-			txtNamHoc.setText("");
-			txtTenLH.setText("");
+			resetButton();
 		}
 	};
 	ActionListener themMH = new ActionListener() {
@@ -509,6 +459,23 @@ public class QuanLyLopHocUI extends JPanel {
 		for (MonHoc x : arrMH) {
 			cbMonHoc.addItem(x.tenSub);
 		}
+	}
+	public void disableButton() {
+		txtMaLH.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
+		btnThem.setEnabled(false);
+	}
+	public void resetButton() {
+		txtMaLH.setEnabled(true);
+		txtMaLH.setText("");
+		txtTenLH.setText("");
+		txtNamHoc.setText("");
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
+		btnThem.setEnabled(true);
 	}
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;

@@ -128,6 +128,8 @@ public class QuanLyMonHocUI extends JPanel {
 		pnMain.add(pnCRUD);
 		pnMain.add(pnTable);
 		
+		reset();
+		
 		this.add(pnMain);
 		
 		
@@ -252,10 +254,7 @@ public class QuanLyMonHocUI extends JPanel {
 						Statement statements = (Statement) connection.createStatement();
 						int y = statements.executeUpdate(sql);
 						if (y > 0) {
-							txtMaMH.setText("");
-							txtTenMH.setText("");
-							txtTinChi.setText("");
-							txtThoiLuong.setText("");
+							reset();
 							JOptionPane.showMessageDialog(null, "Xóa môn học thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Xóa môn học thất bại!");
@@ -302,11 +301,11 @@ public class QuanLyMonHocUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = tableMH.getSelectedRow();
-			txtMaMH.setEnabled(false);
 			txtMaMH.setText(dm.getValueAt(row, 0).toString());
 			txtTenMH.setText(dm.getValueAt(row, 1).toString());
 			txtTinChi.setText(dm.getValueAt(row, 2).toString());
 			txtThoiLuong.setText(dm.getValueAt(row, 3).toString());
+			disableEnable();
 		}
 	};
 
@@ -326,8 +325,19 @@ public class QuanLyMonHocUI extends JPanel {
 			dm.addRow(new String[] {x.getMaSub(),x.getTenSub(),x.getTinChi(), x.getThoiLuong()});
 		}
 	}
+	public void disableEnable() {
+		txtMaMH.setEnabled(false);
+		btnThem.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
+	}
 	public void reset() {
 		txtMaMH.setEnabled(true);
+		btnThem.setEnabled(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
 		txtMaMH.setText("");
 		txtTenMH.setText("");
 		txtTinChi.setText("");

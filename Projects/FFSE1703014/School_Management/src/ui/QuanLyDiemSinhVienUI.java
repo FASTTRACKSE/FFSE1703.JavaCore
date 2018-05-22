@@ -104,7 +104,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 		pnDiem.setLayout(new GridLayout(1, 2, -80, -80));
 		
 		JPanel pnButton = new JPanel();
-		pnButton.setLayout(new GridLayout(1, 3, 10, 10));
+		pnButton.setLayout(new GridLayout(1, 4, 5, 5));
 		
 		JPanel pnTableDiem = new JPanel();
 		pnTableDiem.setLayout(new BorderLayout());
@@ -141,6 +141,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 		pnButton.add(btnThem);
 		pnButton.add(btnSua);
 		pnButton.add(btnXoa);
+		pnButton.add(btnHuy);
 		
 		pnInput.add(pnCbMonHoc);
 		pnInput.add(pnDiem);
@@ -158,11 +159,14 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 		pnMain.add(pnDiemMon, BorderLayout.CENTER);
 		
 		this.add(pnMain);
+		
+		reset();
 	}
 	private void addEvents() {
 		btnThem.addActionListener(ThemDiemSV);
 		btnSua.addActionListener(SuaDiemSV);
 		btnXoa.addActionListener(XoaDiemSV);
+		btnHuy.addActionListener(huy);
 		CbLop.addActionListener(getSV);
 		tableSV.addMouseListener(getSelectSV);
 		tableDiem.addMouseListener(getSelectDiemSV);
@@ -211,6 +215,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 			for (DiemSinhVIen x : arrDiem) {
 				dmDiem.addRow(new String[] {x.maMH,x.diemMH});
 			}
+			reset();
 			getMonHoc();
 		}
 	};
@@ -246,6 +251,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 			int row = tableDiem.getSelectedRow();
 			CbMon.setSelectedItem(dmDiem.getValueAt(row, 0).toString());
 			txtDiem.setText(dmDiem.getValueAt(row, 1).toString());
+			disableEnable();
 		}
 	};
 	ActionListener ThemDiemSV = new ActionListener() {
@@ -277,8 +283,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 									Statement statements = (Statement) connection.createStatement();
 									int y = statements.executeUpdate(sql);
 									if (y > 0) {
-										txtDiem.setText("");
-										CbMon.setSelectedItem("Chọn môn học");
+										reset();
 										JOptionPane.showMessageDialog(null, "Nhập điểm môn học thành công!");
 									} else {
 										JOptionPane.showMessageDialog(null, "Nhập điểm môn học học thất bại!");
@@ -316,8 +321,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 						Statement statements = (Statement) connection.createStatement();
 						int y = statements.executeUpdate(sql);
 						if (y > 0) {
-							CbMon.setSelectedItem("Chọn môn học");
-							txtDiem.setText("");
+							reset();
 							JOptionPane.showMessageDialog(null, "Cập nhật điểm thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Cập nhật điểm thất bại!");
@@ -336,7 +340,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			int row1 = tableSV.getSelectedRow();
-			if (row1 == -1) {
+			if (row1 < 0) {
 			} else {
 				maSV = dmSV.getValueAt(row1, 0).toString();
 				int row2 = tableDiem.getSelectedRow();
@@ -350,8 +354,7 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 							Statement statement = (Statement) connection.createStatement();
 							int x = statement.executeUpdate(sql);
 							if (x > 0) {
-								CbMon.setSelectedItem("Chọn môn học");
-								txtDiem.setText("");
+								reset();
 								JOptionPane.showMessageDialog(null, "Xóa điểm môn học thành công!");
 							} else {
 								JOptionPane.showMessageDialog(null, "Xóa điểm thất bại!");
@@ -363,6 +366,13 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 				}
 				getDiemSV();
 			}
+		}
+	};
+	ActionListener huy = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			reset();
 		}
 	};
 	ActionListener getSV = new ActionListener() {
@@ -460,6 +470,22 @@ public class QuanLyDiemSinhVienUI extends JPanel {
 		for (DiemSinhVIen x : arrDiem) {
 			dmDiem.addRow(new String[] {x.maMH,x.diemMH});
 		}
+	}
+	public void reset() {
+		CbMon.setSelectedItem("Chọn môn học");
+		CbMon.setEnabled(true);
+		txtDiem.setText("");
+		btnThem.setEnabled(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
+	}
+	public void disableEnable() {
+		CbMon.setEnabled(false);
+		btnThem.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
 	}
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;

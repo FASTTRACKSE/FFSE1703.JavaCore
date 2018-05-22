@@ -123,7 +123,6 @@ public class QuanLySinhVienUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = tableSV.getSelectedRow();
-			txtMaSV.setEnabled(false);
 			txtMaSV.setText(dm.getValueAt(row, 0).toString());
 			txtTenSV.setText(dm.getValueAt(row, 1).toString());
 			txtDiaChi.setText(dm.getValueAt(row, 2).toString());
@@ -133,6 +132,7 @@ public class QuanLySinhVienUI extends JPanel {
 			cbHuyen.setSelectedItem(dm.getValueAt(row, 4).toString());
 			cbXa.setSelectedItem(dm.getValueAt(row, 3).toString());
 			cbLop.setSelectedItem(dm.getValueAt(row, 8).toString());
+			disableEnable();
 		}
 	};
 	ActionListener getSelectSV = new ActionListener() {
@@ -296,6 +296,7 @@ public class QuanLySinhVienUI extends JPanel {
 						Statement statement = (Statement) connection.createStatement();
 						int x = statement.executeUpdate(sql);
 						if (x > 0) {
+							reset();
 							JOptionPane.showMessageDialog(null, "Xóa sinh viên thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Xóa sinh viên thất bại!");
@@ -422,6 +423,8 @@ public class QuanLySinhVienUI extends JPanel {
 		pnMain.add(pnCRUD);
 		pnMain.add(pnTable);
 		this.add(pnMain);
+		
+		reset();
 	}
 	public void getRowTable() {
 		dm.setRowCount(0);
@@ -441,6 +444,10 @@ public class QuanLySinhVienUI extends JPanel {
 	}
 	public void reset() {
 		txtMaSV.setEnabled(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
+		btnThem.setEnabled(true);
 		txtMaSV.setText("");
 		txtTenSV.setText("");
 		txtDiaChi.setText("");
@@ -450,6 +457,13 @@ public class QuanLySinhVienUI extends JPanel {
 		txtSDT.setText("");
 		txtEmail.setText("");
 		cbLop.setSelectedItem("Chọn lớp");
+	}
+	public void disableEnable() {
+		txtMaSV.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
+		btnThem.setEnabled(false);
 	}
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
