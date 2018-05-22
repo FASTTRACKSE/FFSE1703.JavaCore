@@ -134,6 +134,7 @@ public class ThongKeUI extends JPanel {
 		JLabel xemlop = new JLabel("Chọn năm");
 	
 		try {
+			selectNamDiem.addItem("Chọn năm học");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT DISTINCT NamHoc FROM table_lop");
 			while (result.next()) {
@@ -144,7 +145,6 @@ public class ThongKeUI extends JPanel {
 		}
 		flow.add(xemlop);
 		flow.add(selectNamDiem);
-		selectLopDiem = new JComboBox<>();
 		JLabel chonlop = new JLabel("Chọn lớp");
 		flow.add(chonlop);
 		flow.add(selectLopDiem);
@@ -188,6 +188,17 @@ public class ThongKeUI extends JPanel {
 		JPanel flow1 = new JPanel();
 		flow1.setLayout(new FlowLayout());
 		selectNamSV = new JComboBox<>();
+		
+		try {
+			selectNamSV.addItem("Chọn năm học");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT DISTINCT NamHoc FROM table_lop");
+			while (result.next()) {
+				selectNamSV.addItem(result.getString("NamHoc"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		JLabel xemlop1 = new JLabel("Chọn năm");
 		flow1.add(xemlop1);
 		flow1.add(selectNamSV);
@@ -229,7 +240,7 @@ public class ThongKeUI extends JPanel {
 				try {
 					Statement statement = conn.createStatement();
 					ResultSet result = statement.executeQuery(
-							"SELECT *,(SELECT Count(*) FROM sinhvien WHERE sinhvien.MaLop = lophoc.MaLop) as Tong FROM lophoc");
+							"SELECT *,(SELECT Count(*) FROM table_sinhvien WHERE table_sinhvien.MaLop = table_lop.MaLop) as Tong FROM table_lop");
 					while (result.next()) {
 						String[] row = { result.getString("lophoc.MaLop"), result.getString("TenLop"),
 								result.getString("Tong"), result.getString("NamHoc") };
@@ -245,10 +256,10 @@ public class ThongKeUI extends JPanel {
 				try {
 					Statement statement = conn.createStatement();
 					ResultSet result = statement.executeQuery(
-							"SELECT *,(SELECT Count(*) FROM sinhvien WHERE sinhvien.MaLop = lophoc.MaLop) as Tong FROM lophoc WHERE lophoc.NamHoc='"
+							"SELECT *,(SELECT Count(*) FROM table_sinhvien WHERE table_sinhvien.MaLop = table_lop.MaLop) as Tong FROM table_lop WHERE table_lop.NamHoc='"
 									+ chonNamHoc + "'");
 					while (result.next()) {
-						String[] row = { result.getString("lophoc.MaLop"), result.getString("TenLop"),
+						String[] row = { result.getString("table_lop.MaLop"), result.getString("MoTa"),
 								result.getString("Tong"), result.getString("NamHoc") };
 						dm_nhapdiem1.addRow(row);
 					}
@@ -270,7 +281,7 @@ public class ThongKeUI extends JPanel {
 				Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 				try {
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery("SELECT * FROM lophoc");
+					ResultSet result = statement.executeQuery("SELECT * FROM table_lop");
 					while (result.next()) {
 						selectLopDiem.addItem(new String(result.getString("MaLop")));
 					}
@@ -283,7 +294,7 @@ public class ThongKeUI extends JPanel {
 				try {
 					Statement statement = conn.createStatement();
 					ResultSet result = statement
-							.executeQuery("SELECT * FROM lophoc WHERE NamHoc ='" + chonNamHoc + "'");
+							.executeQuery("SELECT * FROM table_lop WHERE NamHoc ='" + chonNamHoc + "'");
 					while (result.next()) {
 						selectLopDiem.addItem(new String(result.getString("MaLop")));
 					}
