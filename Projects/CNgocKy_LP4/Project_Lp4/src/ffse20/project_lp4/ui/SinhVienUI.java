@@ -26,6 +26,8 @@ import ffse20.project_lp4.model.*;
 import com.mysql.jdbc.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -399,7 +401,6 @@ public class SinhVienUI extends JPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			String maLp = (String) maLopcomnoBox.getSelectedItem();
-
 			String maSV = masv.getText();
 			String ten = tenSV.getText();
 			String nam = ngaySinh.getText();
@@ -409,6 +410,8 @@ public class SinhVienUI extends JPanel {
 			String quan_SinhVien = (String) cboQuan.getSelectedItem();
 			String phuong_SinhVien = (String) cboPhuong.getSelectedItem();
 			int i = 0;
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher(email);
 			for (QuanLySinhVienModel y : arrSV) {
 				if (maSV.equals(y.getMaSV())) {
 					i = 1;
@@ -416,6 +419,11 @@ public class SinhVienUI extends JPanel {
 			}
 			if (i > 0) {
 				JOptionPane.showMessageDialog(null, "Trùng mã sinh viên");
+				
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+			} else if (sdt.length() > 0 && (sdt.length() < 10 || sdt.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
 					if (maSV.equals("") || ten.equals("") || nam.equals("") || email.equals("")) {
@@ -560,6 +568,24 @@ public class SinhVienUI extends JPanel {
 						x.getPhuong(), x.getQuan(), x.getThanhPho() };
 				dmSV.addRow(row);
 			}
+			try {
+					String query = "DELETE FROM  `quanlysinhvien`.`table_diem` WHERE  `table_diem`.`maLop` =  '"+ maLopcomnoBox.getSelectedItem() +"' AND  `table_diem`.`tenSV` =  '"+ tenSV.getText()+"'";
+					Statement sttm = conn.createStatement();
+					sttm.executeUpdate(query);
+					System.out.print(query);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+//			try {
+//				String query = "DELETE FROM  `quanlysinhvien`.`table_diem` WHERE  `table_diem`.`maLop` =  '"+ maLopcomnoBox.getSelectedItem() +"' AND  `table_diem`.`tenSV` =  '"+ tenSV.getText()+"'";
+//				Statement sttm = conn.createStatement();
+//				sttm.executeUpdate(query);
+//				System.out.print(query);
+//
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
 		}
 
 	};

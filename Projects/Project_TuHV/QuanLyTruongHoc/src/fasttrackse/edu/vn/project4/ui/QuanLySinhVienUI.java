@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -32,7 +34,7 @@ import fasttrackse.edu.vn.project4.model.Connect;
 
 import fasttrackse.edu.vn.project4.model.SinhVien;
 
-public class QuanLySinhVienUI  extends JPanel{
+public class QuanLySinhVienUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public QuanLySinhVienUI() {
@@ -44,7 +46,6 @@ public class QuanLySinhVienUI  extends JPanel{
 		addEvent();
 
 	}
-
 
 	// sinh vien
 	private JTextField ten = new JTextField(15);
@@ -73,8 +74,6 @@ public class QuanLySinhVienUI  extends JPanel{
 
 	CardLayout cardlayout;
 
-	
-
 	private JPanel pnBorder = new JPanel();
 
 	private JButton btnThemsv = new JButton("Thêm");
@@ -82,15 +81,9 @@ public class QuanLySinhVienUI  extends JPanel{
 	private JButton btnXoasv = new JButton("Xoá");
 	private JButton btnNhapsv = new JButton("Reset");
 
-	
-public void addControl() {
-	
-	
-
-	
+	public void addControl() {
 
 		// quan ly sinh vien
-	
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JLabel lbl = new JLabel("Chương Trình Quản Lý Sinh Viên");
@@ -100,7 +93,6 @@ public void addControl() {
 		pnSouth.setBackground(Color.blue);
 		pnSouth.add(lbl);
 		this.add(pnSouth, BorderLayout.SOUTH);
-		
 
 		JPanel pnbutton = new JPanel();
 		pnbutton.setLayout(new FlowLayout());
@@ -114,7 +106,7 @@ public void addControl() {
 		pnCombo.setLayout(new FlowLayout());
 		JLabel lblContent1 = new JLabel("Chọn Lớp : ");
 		// JComboBox cbo=new JComboBox();
-		
+
 		pnCombo.add(lblContent1);
 		pnCombo.add(cbo);
 
@@ -220,9 +212,10 @@ public void addControl() {
 		pnTable.setBorder(borderTitle);
 		this.add(pnTable);
 		pnBorder.add(this, BorderLayout.CENTER);
-//		getContentPane().add(pnBorder);
+		// getContentPane().add(pnBorder);
 
-}
+	}
+
 	@SuppressWarnings("unchecked")
 	public void tinh() {
 		Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
@@ -267,6 +260,7 @@ public void addControl() {
 		}
 
 	}
+
 	@SuppressWarnings("unchecked")
 	public void lopSinhVien() {
 		Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
@@ -287,7 +281,7 @@ public void addControl() {
 		cbo2.addActionListener(eventChooseTp);
 		cbo3.addActionListener(eventChooseQuan);
 		cbo.addActionListener(eventChooseClass);
-		
+
 		// sinh viên
 		tbl_sinhvien.addMouseListener(eventTable_sinhvien);
 		btnThemsv.addActionListener(AddSV);
@@ -295,7 +289,6 @@ public void addControl() {
 		btnSuasv.addActionListener(eventEditSV);
 		btnNhapsv.addActionListener(Reset_SV);
 
-		
 	}
 
 	// chọn TP, huyện, xã
@@ -416,6 +409,8 @@ public void addControl() {
 	ActionListener AddSV = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int ktTonTai = 0;
+			int KT2 = 0;
 			String chonLop = (String) cbo.getSelectedItem();
 			String tinh = (String) cbo2.getSelectedItem();
 			String quan = (String) cbo3.getSelectedItem();
@@ -431,10 +426,41 @@ public void addControl() {
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
 				try {
+					Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+					Matcher mail1 = checkmail.matcher(emailsv);
+					try {
+						Integer.parseInt(sdtsv);
+					} catch (NumberFormatException ex) {
+						KT2 = 1;
+
+					}
+
+					for (int i = 0; i < arrSV.size(); i++) {
+						if (ma.equals(arrSV.get(i).getMaSV())) {
+							ktTonTai = 1;
+						}
+					}
 					if (chonLop.equals("Tất Cả") || tensv.equals("") || emailsv.equals("") || sdtsv.equals("")
 							|| diachisv.equals("") || ma.equals("") || tuoi.equals("")) {
 						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
-					} else {
+					} else if (chonLop == "TẤT CẢ") {
+						JOptionPane.showMessageDialog(null, "HÃY CHỌN LỚP", null, JOptionPane.WARNING_MESSAGE);
+
+					} else if (ktTonTai > 0) {
+						JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
+
+					} else if (!mail1.find()) {
+						JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+					} else if (KT2 > 0) {
+						JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+					} else if (sdtsv.length() > 0 && (sdtsv.length() < 10 || sdtsv.length() > 11)) {
+						JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+					}else 
+
+					 {
 						arrSV.add(new SinhVien(chonLop, ma, tensv, tinh, quan, xa, diachisv, emailsv, sdtsv, tuoi));
 						dm_sinhvien.addRow(
 								new String[] { chonLop, ma, tensv, tinh, quan, xa, diachisv, emailsv, sdtsv, tuoi });
@@ -452,9 +478,11 @@ public void addControl() {
 				}
 				try {
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
-					while (result.next()) {		
-						String query = "INSERT INTO quan_ly_diem( ma_lop_hoc,ma_sinh_vien,ma_mon_hoc,diem) VALUES ('"+chonLop+"','"+ma+"','"+result.getString("ma_mon_hoc")+"','"+"0"+"')";
+					ResultSet result = statement
+							.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
+					while (result.next()) {
+						String query = "INSERT INTO quan_ly_diem( ma_lop_hoc,ma_sinh_vien,ma_mon_hoc,diem) VALUES ('"
+								+ chonLop + "','" + ma + "','" + result.getString("ma_mon_hoc") + "','" + "0" + "')";
 						Statement sttm = conn.createStatement();
 						sttm.executeUpdate(query);
 					}
@@ -479,10 +507,32 @@ public void addControl() {
 	ActionListener DelSV = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
-			try {
-
-				arrSV.remove(stt);
-
+			@SuppressWarnings("unused")
+			int kt = 0;
+			String ma = masv.getText();
+			String tensv = ten.getText();
+			String tuoi = tuoisv.getText();
+			String diachisv = diachi.getText();
+			String emailsv = email.getText();
+			String sdtsv = sdt.getText();
+			for (SinhVien y : arrSV) {
+				if (masv.getText().equals(y.getMaSV())) {
+					kt = 2;
+					arrSV.remove(y);
+					break;
+				}
+				if (ma.isEmpty() || tensv.isEmpty() || tuoi.isEmpty() || diachisv.isEmpty() || emailsv.isEmpty()
+						|| sdtsv.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY CHỌN SINH VIÊN TRƯỚC KHI XÓA!", null,
+						JOptionPane.WARNING_MESSAGE);
+				
+				ten.setText("");
+				email.setText("");
+				sdt.setText("");
+				diachi.setText("");
+				masv.setText("");
+				tuoisv.setText("");
+			}else {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				try {
 					String sql = "DELETE FROM Quan_ly_sinh_vien WHERE ma_sinh_vien = '" + masv.getText() + "'";
@@ -497,9 +547,9 @@ public void addControl() {
 					ex.printStackTrace();
 
 				}
-			}
+			
 
-			catch (Exception e) {
+			
 
 			}
 			dm_sinhvien.setRowCount(0);
@@ -515,12 +565,31 @@ public void addControl() {
 			masv.setText("");
 			tuoisv.setText("");
 		}
-		
+			}
+			
 	};
 	// sửa sinh viên
 	ActionListener eventEditSV = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int ktTonTai = 0;
+			int KT2 = 0;
+			String ma = masv.getText();
+			String tensv = ten.getText();
+			String tuoi = tuoisv.getText();
+			String diachisv = diachi.getText();
+			String emailsv = email.getText();
+			String sdtsv = sdt.getText();
+			try {
+				Integer.parseInt(sdtsv);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher(emailsv);
+
 
 			for (SinhVien x : arrSV) {
 				if (masv.getText().equals(x.getMaSV())) {
@@ -537,6 +606,34 @@ public void addControl() {
 					break;
 				}
 			}
+			for (int i = 0; i < arrSV.size(); i++) {
+				if (ma.equals(arrSV.get(i).getMaSV())) {
+					ktTonTai = 1;
+				}
+			}
+			if (ma.isEmpty() || tensv.isEmpty() || tuoi.isEmpty() || diachisv.isEmpty() || emailsv.isEmpty()
+					|| sdtsv.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			} else if (ktTonTai < 1) {
+				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN KHÔNG ĐƯỢC SỮA,HÃY THÊM MỚI SINH VIÊN", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ VÀ KHÔNG ĐƯỢC NHIỀU HOẶC ÍT HƠN 11 KÝ TỰ ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (sdtsv.length() > 0 && (sdtsv.length() < 10 || sdtsv.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+				ten.setText("");
+				email.setText("");
+				sdt.setText("");
+				diachi.setText("");
+				masv.setText("");
+				tuoisv.setText("");
+			}else {
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
 				String sql = "UPDATE Quan_ly_sinh_vien SET dia_chi ='" + diachi.getText() + "',phuong ='"
@@ -568,7 +665,7 @@ public void addControl() {
 			diachi.setText("");
 			masv.setText("");
 			tuoisv.setText("");
-
+			}
 		}
 
 	};
@@ -586,7 +683,5 @@ public void addControl() {
 			tuoisv.setText("");
 		}
 	};
-
-
 
 }
