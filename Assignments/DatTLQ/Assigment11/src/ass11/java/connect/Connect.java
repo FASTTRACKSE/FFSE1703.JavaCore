@@ -17,8 +17,10 @@ public class Connect {
 			com.mysql.jdbc.Driver driver = new Driver();
 			conn = (Connection) driver.connect(strConnect, pro);
 		} catch (SQLException ex) {
+			System.out.println("Kết nối MYSQL thất bại");
 			ex.printStackTrace();
 		}
+		System.out.println("Kết nối MYSQL thành công");
 		return conn;
 	}
 }
