@@ -1,4 +1,4 @@
-package fasttrackse.edu.vn.project4.ui;
+	package fasttrackse.edu.vn.project4.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -507,34 +507,26 @@ public class QuanLySinhVienUI extends JPanel {
 	ActionListener DelSV = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
-			@SuppressWarnings("unused")
-			int kt = 0;
+		
 			String ma = masv.getText();
 			String tensv = ten.getText();
 			String tuoi = tuoisv.getText();
 			String diachisv = diachi.getText();
 			String emailsv = email.getText();
 			String sdtsv = sdt.getText();
-			for (SinhVien y : arrSV) {
-				if (masv.getText().equals(y.getMaSV())) {
-					kt = 2;
-					arrSV.remove(y);
-					break;
-				}
+			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+			try {
 				if (ma.isEmpty() || tensv.isEmpty() || tuoi.isEmpty() || diachisv.isEmpty() || emailsv.isEmpty()
-						|| sdtsv.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "XIN HÃY CHỌN SINH VIÊN TRƯỚC KHI XÓA!", null,
-						JOptionPane.WARNING_MESSAGE);
-				
-				ten.setText("");
-				email.setText("");
-				sdt.setText("");
-				diachi.setText("");
-				masv.setText("");
-				tuoisv.setText("");
-			}else {
-				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
-				try {
+						|| sdtsv.isEmpty()	) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa có thông tin sinh viên cần xóa", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					for (SinhVien x : arrSV) {
+						if (masv.getText().equals(x.getMaSV())) {
+							arrSV.remove(x);
+							break;
+						}
+					}
 					String sql = "DELETE FROM Quan_ly_sinh_vien WHERE ma_sinh_vien = '" + masv.getText() + "'";
 					@SuppressWarnings("unused")
 					String query = "DELETE FROM quan_ly_diem WHERE ma_sinh_vien = '" + masv.getText() + "'";
@@ -543,29 +535,29 @@ public class QuanLySinhVienUI extends JPanel {
 					if (x >= 0) {
 						JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-
 				}
-			
-
-			
-
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			dm_sinhvien.setRowCount(0);
+			String chonLop = (String) cbo.getSelectedItem();
 			for (SinhVien x : arrSV) {
-				String[] row = { x.getLop(), x.getMaSV(), x.getTenSV(), x.getTp(), x.getPhuong(), x.getQuan(),
-						x.getDiaChi(), x.getEmail(), x.getSdt(), x.getTuoi() };
-				dm_sinhvien.addRow(row);
+				if (chonLop.equals(x.getLop())) {
+					String[] row = { x.getLop(), x.getMaSV(), x.getTenSV(), x.getTp(), x.getPhuong(), x.getQuan(),
+							x.getDiaChi(), x.getEmail(), x.getSdt(), x.getTuoi() };
+					dm_sinhvien.addRow(row);
+				}
 			}
+
 			ten.setText("");
 			email.setText("");
 			sdt.setText("");
 			diachi.setText("");
 			masv.setText("");
 			tuoisv.setText("");
+
 		}
-			}
+			
 			
 	};
 	// sửa sinh viên
