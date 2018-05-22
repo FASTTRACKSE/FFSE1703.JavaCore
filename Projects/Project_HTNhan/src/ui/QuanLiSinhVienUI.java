@@ -43,8 +43,9 @@ public class QuanLiSinhVienUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtMaSv, txtTenSv, txtdiaChi, txtdienThoai, txtemail;
 	private String provinceId, districtId;
-	private JComboBox cboThanhPho, cboQuan, cboPhuong, cbomaLop;
-	private JButton btnThemMoi, btnThem, btnSua, btnXoa, btnThoat;
+	@SuppressWarnings("rawtypes")
+	public JComboBox cboThanhPho, cboQuan, cboPhuong, cbomaLop;
+	private JButton btnThemMoi, btnThem, btnSua, btnXoa;
 	private ArrayList<QuanLiSinhVienModel> arrQlSinhVien = new ArrayList<>();
 	private ArrayList<ProvinceModel> arrProvince = new ArrayList<>();
 	private ArrayList<DistrictModel> arrDistrict = new ArrayList<>();
@@ -63,15 +64,17 @@ public class QuanLiSinhVienUI extends JPanel {
 		addControls();
 		addEvent();
 		comboBox();
+		cboLop();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addControls() {
 		JPanel pnl = new JPanel();
 		pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
 		JPanel pnlSinhVienInput = new JPanel();
 		JPanel pnlSinhVienTable = new JPanel();
 
-		Border border = BorderFactory.createLineBorder(Color.RED);
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Nhập Thông Tin Sinh Viên");
 		pnlSinhVienInput.setBorder(borderTitle);
 
@@ -155,12 +158,8 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel maLop = new JPanel();
 		JLabel lblmaLop = new JLabel("Chọn Lớp ");
 		cbomaLop = new JComboBox();
-		cbomaLop.addItem("");
-		quanLiLopHocSQL.selectLop();
-		arrMaLop = quanLiLopHocSQL.selectLop();
-		for (QuanLiLopHocModel x : arrMaLop) {
-			cbomaLop.addItem(x.getMaLop());
-		}
+
+		
 		cbomaLop.setPreferredSize(new Dimension(170, 20));
 		lblmaLop.setPreferredSize(new Dimension(150, 50));
 		maLop.add(lblmaLop);
@@ -179,9 +178,6 @@ public class QuanLiSinhVienUI extends JPanel {
 		btnXoa = new JButton("Xóa");
 		btnXoa.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnXoa);
-		btnThoat = new JButton("Thoát");
-		btnThoat.setPreferredSize(new Dimension(70, 30));
-		btn.add(btnThoat);
 		btnThemMoi = new JButton("Thêm Mới");
 		btnThemMoi.setPreferredSize(new Dimension(95, 30));
 		btn.add(btnThemMoi);
@@ -189,7 +185,7 @@ public class QuanLiSinhVienUI extends JPanel {
 
 		// TABLE
 
-		Border border1 = BorderFactory.createLineBorder(Color.RED);
+		Border border1 = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle1 = BorderFactory.createTitledBorder(border1, "Danh Sách Sinh Viên");
 		pnlSinhVienTable.setBorder(borderTitle1);
 
@@ -249,6 +245,7 @@ public class QuanLiSinhVienUI extends JPanel {
 					//
 					//
 					txtMaSv.setEditable(false);
+					btnThem.setEnabled(false);
 					int row = tbl.getSelectedRow();
 					String value = tbl.getValueAt(row, 0).toString();
 					for (QuanLiSinhVienModel x : arrQlSinhVien) {
@@ -262,7 +259,6 @@ public class QuanLiSinhVienUI extends JPanel {
 							String tinh = x.getTinh();
 							String huyen = x.getHuyen();
 							String xa = x.getXa();
-							String maLop = x.getMaLop();
 							for (ProvinceModel y : arrProvince) {
 								if (tinh.equals(y.getName())) {
 									cboThanhPho.setSelectedItem(y);
@@ -289,7 +285,6 @@ public class QuanLiSinhVienUI extends JPanel {
 	}
 
 	public void addEvent() {
-		btnThoat.addActionListener(eventThoat);
 		cboThanhPho.addActionListener(eventCboThanhPho);
 		cboQuan.addActionListener(eventCboQuan);
 		btnThemMoi.addActionListener(eventThemMoi);
@@ -301,6 +296,7 @@ public class QuanLiSinhVienUI extends JPanel {
 
 	ActionListener eventCboThanhPho = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -323,9 +319,9 @@ public class QuanLiSinhVienUI extends JPanel {
 
 	ActionListener eventCboQuan = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			cboPhuong.removeAllItems();
 			cboQuan.addItem(new DistrictModel(null, "Chọn Quận/Huyện"));
 			for (DistrictModel x : arrDistrict) {
@@ -346,14 +342,6 @@ public class QuanLiSinhVienUI extends JPanel {
 		}
 	};
 
-	ActionListener eventThoat = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-
-		}
-	};
 	ActionListener eventThemMoi = new ActionListener() {
 
 		@Override
@@ -366,7 +354,7 @@ public class QuanLiSinhVienUI extends JPanel {
 			txtemail.setText("");
 			cboThanhPho.setSelectedIndex(0);
 			cbomaLop.setSelectedItem("");
-
+			btnThem.setEnabled(true);
 		}
 	};
 	ActionListener eventThem = new ActionListener() {
@@ -530,22 +518,37 @@ public class QuanLiSinhVienUI extends JPanel {
 
 	public void comboBox() {
 		arrQlSinhVien = quanLiSinhVienSQL.selectAll();
-		String comBox = cbomaLop.getSelectedItem().toString();
-		if (comBox == "") {
-			for (QuanLiSinhVienModel x : arrQlSinhVien) {
-				String row[] = { x.getMaSv(), x.getHoTenSv(), x.getDiaChiSv(), x.getXa(), x.getHuyen(), x.getTinh(),
-						x.getDienThoaiSv(), x.getEmail(), x.getMaLop() };
-				dm.addRow(row);
-			}
-		} else {
-			for (QuanLiSinhVienModel x : arrQlSinhVien) {
-				if (comBox.equals(x.getMaLop())) {
+		Object maLop = cbomaLop.getSelectedItem();
+		if(maLop !=null) {
+			String comBox = cbomaLop.getSelectedItem().toString();
+			if (comBox == "") {
+				for (QuanLiSinhVienModel x : arrQlSinhVien) {
 					String row[] = { x.getMaSv(), x.getHoTenSv(), x.getDiaChiSv(), x.getXa(), x.getHuyen(), x.getTinh(),
 							x.getDienThoaiSv(), x.getEmail(), x.getMaLop() };
 					dm.addRow(row);
 				}
-			}
+			} else {
+				for (QuanLiSinhVienModel x : arrQlSinhVien) {
+					if (comBox.equals(x.getMaLop())) {
+						String row[] = { x.getMaSv(), x.getHoTenSv(), x.getDiaChiSv(), x.getXa(), x.getHuyen(), x.getTinh(),
+								x.getDienThoaiSv(), x.getEmail(), x.getMaLop() };
+						dm.addRow(row);
+					}
+				}
 
+			}
+		}
+		
+		
+	}
+	@SuppressWarnings("unchecked")
+	public void cboLop() {
+		cbomaLop.removeAllItems();
+		cbomaLop.addItem("");
+		quanLiLopHocSQL.selectLop();
+		arrMaLop = quanLiLopHocSQL.selectLop();
+		for (QuanLiLopHocModel x : arrMaLop) {
+			cbomaLop.addItem(x.getMaLop());
 		}
 	}
 

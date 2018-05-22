@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import QuanLyTruongHoc.FFSE.Model.*;
 
 public class SinhVienUI extends JPanel {
@@ -34,6 +37,7 @@ public class SinhVienUI extends JPanel {
 	private Button ThemSV = new Button("Thêm");
 	private Button SuaSV = new Button("Sửa");
 	private Button XoaSV = new Button("Xóa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 	private Button Timkiem = new Button("Tìm kiếm");
 
 	public SinhVienUI() {
@@ -229,6 +233,7 @@ public class SinhVienUI extends JPanel {
 		pnSinhvienbutton.add(ThemSV);
 		pnSinhvienbutton.add(SuaSV);
 		pnSinhvienbutton.add(XoaSV);
+		pnSinhvienbutton.add(nhapSinhVien);
 
 		pnSinhvienbutton.add(chucnangSV);
 		pnSinhvien.add(pnLeft1);
@@ -316,6 +321,7 @@ public class SinhVienUI extends JPanel {
 		SuaSV.addActionListener(eventEdit_SV);
 		comBoboxlop.addActionListener(eventchoseLop);
 		Timkiem.addActionListener(eventTim);
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
 
 	}
 
@@ -363,6 +369,8 @@ public class SinhVienUI extends JPanel {
 			col[7] = (String) table_sv.getValueAt(row, 7);
 			col[8] = (String) table_sv.getValueAt(row, 8);
 			maSV.setText(col[0]);
+			maSV.setEditable(false);
+			ThemSV.setEnabled(false);
 			hoTen.setText(col[1]);
 			maLopcomnoBox.setSelectedItem(col[2]);
 			DiaChi.setText(col[3]);
@@ -378,6 +386,9 @@ public class SinhVienUI extends JPanel {
 	ActionListener eventAdd_SV = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+
+			int ktTonTai = 0;
+			int KT2 = 0;
 			String lop_SinhVien = (String) maLopcomnoBox.getSelectedItem();
 			String ma_SinhVien = lop_SinhVien + maSV.getText();
 			String ten_SinhVien = hoTen.getText();
@@ -387,12 +398,43 @@ public class SinhVienUI extends JPanel {
 			String phuong_SinhVien = (String) phuong.getSelectedItem();
 			String email_SinhVien = Email.getText();
 			String sdt_SinhVien = DT.getText();
-
+			
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher((CharSequence) email_SinhVien);
 			try {
-				if (ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("") || diachi_SinhVien.equals("")
-						|| email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
+				Integer.parseInt(sdt_SinhVien);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+
+			for (int i = 0; i < arrSV.size(); i++) {
+				if (maSV.equals(arrSV.get(i).getMaSV())) {
+					ktTonTai = 1;
+				}
+			}
+			if (ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("") || diachi_SinhVien.equals("")
+					|| email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+
+			} else if (lop_SinhVien == "TẤT CẢ") {
+				JOptionPane.showMessageDialog(null, "HÃY CHỌN LỚP", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (ktTonTai > 0) {
+				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (sdt_SinhVien.length() > 0 && (sdt_SinhVien.length() < 10 || sdt_SinhVien.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			}
+
+			else {
 					arrSV.add(new QuanLyTruongHocSV(ma_SinhVien, ten_SinhVien, lop_SinhVien, diachi_SinhVien,
 							phuong_SinhVien, quan_SinhVien, tp_SinhVien, email_SinhVien, sdt_SinhVien));
 					dm_sv.addRow(new String[] { ma_SinhVien, ten_SinhVien, lop_SinhVien, diachi_SinhVien,
@@ -412,10 +454,7 @@ public class SinhVienUI extends JPanel {
 						ex.printStackTrace();
 					}
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
-			}
-
+			
 			dm_sv.setRowCount(0);
 			for (QuanLyTruongHocSV x : arrSV) {
 				if (lop_SinhVien.equals(x.getLop())) {
@@ -437,23 +476,42 @@ public class SinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int kt = 0;
+			String lop_SinhVien = (String) maLopcomnoBox.getSelectedItem();
+			String ma_SinhVien = lop_SinhVien + maSV.getText();
+			String ten_SinhVien = hoTen.getText();
+			String diachi_SinhVien = DiaChi.getText();
+			String email_SinhVien = Email.getText();
+			String sdt_SinhVien = DT.getText();
 			for (QuanLyTruongHocSV x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
+					kt = 1;	
 					arrSV.remove(x);
 					break;
 				}
 			}
+			if (ma_SinhVien.isEmpty() || ten_SinhVien.isEmpty() || diachi_SinhVien.isEmpty() || email_SinhVien.isEmpty() || sdt_SinhVien.isEmpty()
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+				
+			} else if (kt < 1) {
+				JOptionPane.showMessageDialog(null, "KHÔNG TÌM THẤY SINH VIÊN CẦN XÓA", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
 				String sql = "DELETE FROM table_sinhvien WHERE MaSV = '" + maSV.getText() + "'";
+				String query = "DELETE FROM table_diem WHERE MaSV = '" + maSV.getText() + "'";
 				Statement statement = conn.createStatement();
+				statement.executeUpdate(query);
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
 					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
+			}
 			}
 			dm_sv.setRowCount(0);
 			String chonLop = (String) maLopcomnoBox.getSelectedItem();
@@ -472,6 +530,23 @@ public class SinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int KT2 = 0;
+
+			String lop_SinhVien = (String) maLopcomnoBox.getSelectedItem();
+			String ma_SinhVien = lop_SinhVien + maSV.getText();
+			String ten_SinhVien = hoTen.getText();
+			String diachi_SinhVien = DiaChi.getText();
+			String email_SinhVien = Email.getText();
+			String sdt_SinhVien = DT.getText();
+			try {
+				Integer.parseInt(sdt_SinhVien);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher(email_SinhVien);
 			for (QuanLyTruongHocSV x : arrSV) {
 				if (maSV.getText().equals(x.getMaSV())) {
 					x.setTen(hoTen.getText());
@@ -485,6 +560,27 @@ public class SinhVienUI extends JPanel {
 					break;
 				}
 			}
+			if (ma_SinhVien.isEmpty() || ten_SinhVien.isEmpty() || diachi_SinhVien.isEmpty() || email_SinhVien.isEmpty() || sdt_SinhVien.isEmpty()
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (sdt_SinhVien.length() > 0 && (sdt_SinhVien.length() < 10 || sdt_SinhVien.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+				
+				maSV.setText("");
+				hoTen.setText("");
+				DiaChi.setText("");
+				Email.setText("");
+				DT.setText("");
+
+			} else {
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
 				String sql = "UPDATE table_sinhvien SET Ten ='" + hoTen.getText() + "',MaLop='"
@@ -510,12 +606,15 @@ public class SinhVienUI extends JPanel {
 				}
 			}
 		}
+	}
 	};
 
 	ActionListener eventReset_SinhVien = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			maSV.setEditable(true);
+			ThemSV.setEnabled(true);
 			maSV.setText("");
 			hoTen.setText("");
 			DiaChi.setText("");

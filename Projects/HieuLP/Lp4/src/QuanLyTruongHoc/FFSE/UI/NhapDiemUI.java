@@ -209,6 +209,7 @@ public class NhapDiemUI extends JPanel {
 	public void maLopcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maLopcomnoBox.addItem("CHỌN LỚP");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_lop");
 			while (result.next()) {
@@ -223,6 +224,7 @@ public class NhapDiemUI extends JPanel {
 	public void maSVcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maSVcomnoBox.addItem("CHỌN MÃ SV");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_sinhvien");
 			while (result.next()) {
@@ -237,6 +239,7 @@ public class NhapDiemUI extends JPanel {
 	public void maMonhoc() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maMonhoc.addItem("CHỌN MÔN");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
 			while (result.next()) {
@@ -295,12 +298,23 @@ public class NhapDiemUI extends JPanel {
 	ActionListener eventAdd_lop = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int kt = 0;
 			String maLp = (String) maLopcomnoBox.getSelectedItem();
 			String maMH = (String) maMonhoc.getSelectedItem();
 			String sinhVien = (String) maSVcomnoBox.getSelectedItem();
 			String diem = nhapDiemsv.getText();
+			for (NhapDiem x : arrNhapdiem ) {
+				if (maLp.equals(x.getMaLop()) && maMH.equals(x.getMaMH())&& sinhVien.equals(x.getMaSV())) {
+					kt = 3;
+					break;
+				}
+			}
 
 			try {
+				if (kt == 3) {
+					JOptionPane.showMessageDialog(null, "ĐIỂM ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
+
+				} else {	
 				if (diem.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
 				} else {
@@ -317,6 +331,7 @@ public class NhapDiemUI extends JPanel {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
+				}
 				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");

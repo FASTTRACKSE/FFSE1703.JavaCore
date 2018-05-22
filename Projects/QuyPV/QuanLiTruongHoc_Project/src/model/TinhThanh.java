@@ -13,8 +13,7 @@ public class TinhThanh {
 	private String name, provinceId;
 	private String selectProvinceId;
 	private PreparedStatement ps;
-	final Connection conn= (new GetConnect()).getConnect("localhost", "Quan_li_truong_hoc", "phamquy481", "a0163763123");
-	ArrayList<TinhThanh> arrTinhThanh = new ArrayList<>();
+	
 
 	public TinhThanh() {
 		//
@@ -41,24 +40,7 @@ public class TinhThanh {
 		this.provinceId = provinceId;
 	}
 
-	public ArrayList<TinhThanh> selectAll() {
-		try {
-			//ps = (PreparedStatement) conn.prepareStatement("select * from Tinh_thanh");
-			//ResultSet result = ps.executeQuery();
-			String sql = "select * from Tinh_thanh";
-			Statement statement=conn.createStatement();
-			ResultSet result=statement.executeQuery(sql);
-			while (result.next()) {
-				String provinceId = result.getString("provinceid");
-				String name = result.getString("name");
-				arrTinhThanh.add(new TinhThanh(provinceId, name));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return arrTinhThanh;
-	}
-
+	
 //	public String selectProvinceId(String name) {
 //		try {
 //

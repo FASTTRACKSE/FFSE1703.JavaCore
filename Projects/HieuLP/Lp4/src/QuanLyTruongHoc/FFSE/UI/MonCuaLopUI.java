@@ -26,6 +26,7 @@ public class MonCuaLopUI extends JPanel {
 	private JComboBox<String> comBoboxlop = new JComboBox<>();
 	private Button ThemMoncholop = new Button("Thêm");
 	private Button XoaMoncholop = new Button("Xóa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 
 	public MonCuaLopUI() {
 		maLopcomnoBox();
@@ -137,6 +138,7 @@ public class MonCuaLopUI extends JPanel {
 		pnMoncholopbutton.setPreferredSize(new Dimension(200, 100));
 		pnMoncholopbutton.add(ThemMoncholop);
 		pnMoncholopbutton.add(XoaMoncholop);
+		pnMoncholopbutton.add(nhapSinhVien);
 
 		pnMoncholop.add(pnLeft);
 		pnMoncholopbutton.add(chucnang);
@@ -163,6 +165,7 @@ public class MonCuaLopUI extends JPanel {
 	public void maLopcomnoBox() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maLopcomnoBox.addItem("CHỌN LỚP");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_lop");
 			while (result.next()) {
@@ -177,6 +180,7 @@ public class MonCuaLopUI extends JPanel {
 	public void maMonhoc() {
 		Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 		try {
+			maMonhoc.addItem("CHỌN MÔN");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM table_monhoc");
 			while (result.next()) {
@@ -213,25 +217,36 @@ public class MonCuaLopUI extends JPanel {
 			col[1] = (String) table_moncholop.getValueAt(row, 1);
 			maLopcomnoBox.setSelectedItem(col[0]);
 			maMonhoc.setSelectedItem(col[1]);
-
+			ThemMoncholop.setEnabled(false);
 		}
 	};
 
 	ActionListener eventAdd_lop = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int kt = 0;
 			String lop_SinhVien = (String) maLopcomnoBox.getSelectedItem();
 			String maMhoc_SinhVien = (String) maMonhoc.getSelectedItem();
+			for (MonCuaLop x : arrMoncholop ) {
+				if (lop_SinhVien.equals(x.getMaLop()) && maMhoc_SinhVien.equals(x.getMaMH())) {
+					kt = 2;
+					break;
+				}
+			}
 
 			try {
+				if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "MÔN HỌC ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
+
+				} else {	
+				
 				Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 				Statement statement = conn.createStatement();
 				ResultSet result = statement.executeQuery(
 						"SELECT table_lop.MaLop,table_monhoc.MaMH,table_monhoc.Ten FROM table_lop INNER JOIN table_monhoc WHERE MaLop= '"
 								+ lop_SinhVien + "' AND table_monhoc.MaMH='" + maMhoc_SinhVien + "'");
 
-				// while (result.next()) {
+			
 				result.next();
 				arrMoncholop.add(
 						new MonCuaLop(result.getString("MaLop"), result.getString("MaMH"), result.getString("Ten")));
@@ -241,7 +256,7 @@ public class MonCuaLopUI extends JPanel {
 						+ result.getString("MaLop") + "','" + result.getString("MaMH") + "','" + result.getString("Ten")
 						+ "')";
 				statement.executeUpdate(sql);
-
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -259,19 +274,21 @@ public class MonCuaLopUI extends JPanel {
 	};
 
 	ActionListener eventDel_lop = new ActionListener() {
+		
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (MonCuaLop x : arrMoncholop) {
-				if (((String) maLopcomnoBox.getSelectedItem()).equals(x.getMaLop())) {
-					if (((String) maMonhoc.getSelectedItem()).equals(x.getMaMH())) {
-						arrMoncholop.remove(x);
-					}
-					break;
-				}
-			}
+
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
+				for (MonCuaLop x : arrMoncholop) {
+					if (((String) maLopcomnoBox.getSelectedItem()).equals(x.getMaLop())) {
+						if (((String) maMonhoc.getSelectedItem()).equals(x.getMaMH())) {
+							arrMoncholop.remove(x);
+						}
+						break;
+					}
+				}
 				String sql = "DELETE FROM table_monhoccholop WHERE MaLop = '" + (String) maLopcomnoBox.getSelectedItem()
 						+ "' AND MaMH ='" + (String) maMonhoc.getSelectedItem() + "'";
 				Statement statement = conn.createStatement();
@@ -286,9 +303,22 @@ public class MonCuaLopUI extends JPanel {
 			for (MonCuaLop x : arrMoncholop) {
 				String[] row = { x.getMaLop(), x.getMaMH(), x.getTen() };
 				dm_moncholop.addRow(row);
+
 			}
 		}
 
+	};
+	ActionListener eventReset_SinhVien = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			ThemMoncholop.setEnabled(true);
+			maLopcomnoBox.setSelectedItem("");
+			maMonhoc.setSelectedItem("");
+			
+			
+		}
 	};
 
 }

@@ -2,6 +2,9 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,11 +18,28 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import model.QuanLiLopHocModel;
+import model.ThongKeLopHocSQL;
+
 public class ThongKeLopHocUI extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
+	public JComboBox cboChonNam;
+	private DefaultTableModel dm;
+	private JTable tbl;
+	private ThongKeLopHocSQL thongKeLopHocSQL = new ThongKeLopHocSQL();
+	private ArrayList<String> arrNamHoc = new ArrayList<>();
+	private ArrayList<QuanLiLopHocModel> arrThongKeSinhVien = new ArrayList<>();
 	public ThongKeLopHocUI() {
 		addControls();
+		addEvents();
+		cboNam();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void addControls() {
 		JPanel pnl = new JPanel();
 		pnl.setLayout(new BoxLayout(pnl, BoxLayout.Y_AXIS));
@@ -29,25 +49,27 @@ public class ThongKeLopHocUI extends JPanel {
 		pnlThongKeLopCbo.setLayout(new BoxLayout(pnlThongKeLopCbo, BoxLayout.X_AXIS));
 		JPanel cbo = new JPanel();
 		JLabel lblChonNam = new JLabel("Chọn Năm");
-		JComboBox cboChonNam = new JComboBox();
-		cboChonNam.addItem("itemmmmm");
+		cboChonNam = new JComboBox();
+
 		cbo.add(lblChonNam);
 		cbo.add(cboChonNam);
 		pnlThongKeLopCbo.add(cbo);
 
-		Border border = BorderFactory.createLineBorder(Color.RED);
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Thống Kê Lóp Học");
 		pnlThongKeLopTable.setBorder(borderTitle);
 
-		DefaultTableModel dm = new DefaultTableModel();
+		dm = new DefaultTableModel();
 		dm.addColumn("Mã Lớp");
 		dm.addColumn("Tên Lớp");
 		dm.addColumn("Tổng Sô Sinh Viên");
 
-		JTable tbl = new JTable(dm);
-		dm.addRow(new String[] { "112", "Ngô văn Bắp", "21" });
-		dm.addRow(new String[] { "113", "Nguyễn Thị Tý", "18" });
-		dm.addRow(new String[] { "114", "Trần Văn Tèo", "22" });
+		tbl = new JTable(dm);
+		arrThongKeSinhVien = thongKeLopHocSQL.thongkeLop();
+		for (QuanLiLopHocModel x : arrThongKeSinhVien) {
+			String row[] = { x.getMaLop(), x.getTenLop(), thongKeLopHocSQL.countSvLop(x.getMaLop()) };
+			dm.addRow(row);
+		}
 		// setColum
 		TableColumnModel columnModel = tbl.getColumnModel();
 		columnModel.getColumn(1).setPreferredWidth(110);
@@ -61,5 +83,44 @@ public class ThongKeLopHocUI extends JPanel {
 		pnl.add(pnlThongKeLopTable);
 		this.setLayout(new BorderLayout());
 		this.add(pnl);
+	}
+
+	public void addEvents() {
+		cboChonNam.addActionListener(eventChonNam);
+	}
+
+	ActionListener eventChonNam = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			arrThongKeSinhVien = thongKeLopHocSQL.thongkeLop();
+			Object cboNam = cboChonNam.getSelectedItem();
+			if (cboNam != null && !cboNam.toString().equals("Chọn Năm")) {
+				String chonNam = cboChonNam.getSelectedItem().toString();
+				dm.setRowCount(0);
+				if (chonNam == ("Chọn Năm")) {
+					for (QuanLiLopHocModel x : arrThongKeSinhVien) {
+						String row[] = { x.getMaLop(), x.getTenLop(), thongKeLopHocSQL.countSvLop(x.getMaLop()) };
+						dm.addRow(row);
+					}
+				} else {
+					for (QuanLiLopHocModel x : arrThongKeSinhVien) {
+						if (chonNam.equals(x.getNamHoc())) {
+							String row[] = { x.getMaLop(), x.getTenLop(), thongKeLopHocSQL.countSvLop(x.getMaLop()) };
+							dm.addRow(row);
+						}
+					}
+				}
+			}
+		}
+	};
+	@SuppressWarnings("unchecked")
+	public void cboNam() {
+		cboChonNam.removeAllItems();
+		cboChonNam.addItem("Chọn Năm");
+		arrNamHoc = thongKeLopHocSQL.selectNam();
+		for (String x : arrNamHoc) {
+			cboChonNam.addItem(x);
+		}
 	}
 }

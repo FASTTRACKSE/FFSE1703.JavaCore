@@ -52,13 +52,6 @@ public class NhapDiemUI extends JPanel {
 		chonlop_NhapDiem.add(selectNhapDiem);
 		pnLeft_NhapDiem.add(chonlop_NhapDiem);
 
-		JPanel chon_NhapDiem = new JPanel();
-		chon_NhapDiem.setLayout(new FlowLayout());
-		JLabel txt_NhapDiem = new JLabel("Mã môn học: ");
-		chon_NhapDiem.add(txt_NhapDiem);
-		chon_NhapDiem.add(selectMaMH);
-		pnLeft_NhapDiem.add(chon_NhapDiem);
-
 		JPanel pnLop_NhapDiem = new JPanel();
 		pnLop_NhapDiem.setLayout(new FlowLayout());
 		JLabel txtLop_NhapDiem = new JLabel("Mã sinh viên: ");
@@ -66,6 +59,13 @@ public class NhapDiemUI extends JPanel {
 		selectMaSV.addItem("Chọn sinh viên");
 		pnLop_NhapDiem.add(selectMaSV);
 		pnLeft_NhapDiem.add(pnLop_NhapDiem);
+		
+		JPanel chon_NhapDiem = new JPanel();
+		chon_NhapDiem.setLayout(new FlowLayout());
+		JLabel txt_NhapDiem = new JLabel("Mã môn học: ");
+		chon_NhapDiem.add(txt_NhapDiem);
+		chon_NhapDiem.add(selectMaMH);
+		pnLeft_NhapDiem.add(chon_NhapDiem);
 
 		JPanel nhapDiem = new JPanel();
 		nhapDiem.setLayout(new FlowLayout());
@@ -178,63 +178,18 @@ public class NhapDiemUI extends JPanel {
 				}
 			}
 
-			selectMaMH.removeAllItems();
-			selectMaMH.addItem("Chọn môn");
+			selectMaSV.removeAllItems();
+			selectMaSV.addItem("Chọn sinh viên");
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery("SELECT * FROM monhoc WHERE TenLop ='" + chonLop + "'");
+				ResultSet result = statement.executeQuery(
+						"SELECT DISTINCT MaSV FROM diem WHERE MaLop ='" + chonLop + "'");
 				while (result.next()) {
-					selectMaMH.addItem(new String(result.getString("MaMH")));
+					selectMaSV.addItem(new String(result.getString("MaSV")));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		}
-	};
-
-	ActionListener eventChooseMonHoc = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			int i = selectMaMH.getSelectedIndex();
-			if (i >= 0) {
-				String chonLop = (String) selectNhapDiem.getSelectedItem();
-				String chonMH = (String) selectMaMH.getSelectedItem();
-				selectMaSV.removeAllItems();
-				selectMaSV.addItem("Chọn sinh viên");
-				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-				try {
-					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery(
-							"SELECT * FROM diem WHERE MaLop ='" + chonLop + "' AND MaMH ='" + chonMH + "'");
-					while (result.next()) {
-						selectMaSV.addItem(new String(result.getString("MaSV")));
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				dm_NhapDiem.setRowCount(0);
-				if (chonMH.equals("Chọn môn")) {
-					for (Diem x : arrDiem) {
-						if (chonLop.equals("Tất cả")) {
-							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
-							dm_NhapDiem.addRow(row);
-
-						} else if (chonLop.equals(x.getLop())) {
-							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
-							dm_NhapDiem.addRow(row);
-
-						}
-					}
-				} else {
-					for (Diem x : arrDiem) {
-						if (chonLop.equals(x.getLop()) && chonMH.equals(x.getMaMH())) {
-							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
-							dm_NhapDiem.addRow(row);
-						}
-					}
-				}
 			}
 		}
 	};
@@ -245,20 +200,37 @@ public class NhapDiemUI extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			int i = selectMaSV.getSelectedIndex();
 			if (i >= 0) {
+				String chonLop = (String) selectNhapDiem.getSelectedItem();
 				String chonSV = (String) selectMaSV.getSelectedItem();
-				dm_NhapDiem.setRowCount(0);
+				
+				selectMaMH.removeAllItems();
+				selectMaMH.addItem("Chọn môn");
+				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+				try {
+					Statement statement = conn.createStatement();
+					ResultSet result = statement.executeQuery("SELECT DISTINCT MaMH FROM diem WHERE MaLop ='" + chonLop + "' AND MaSV ='"+ chonSV +"'");
+					while (result.next()) {
+						selectMaMH.addItem(new String(result.getString("MaMH")));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				if (i == 0) {
+					dm_NhapDiem.setRowCount(0);
 					for (Diem x : arrDiem) {
-						if (selectNhapDiem.getSelectedItem().equals(x.getLop())
-								&& selectMaMH.getSelectedItem().equals(x.getMaMH())) {
+						if (selectNhapDiem.getSelectedItem().equals("Tất cả")) {
+							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+							dm_NhapDiem.addRow(row);
+						} else if (selectNhapDiem.getSelectedItem().equals(x.getLop())) {
 							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
 							dm_NhapDiem.addRow(row);
 						}
 					}
 				} else {
+					dm_NhapDiem.setRowCount(0);
 					for (Diem x : arrDiem) {
 						if (selectNhapDiem.getSelectedItem().equals(x.getLop())
-								&& selectMaMH.getSelectedItem().equals(x.getMaMH()) && chonSV.equals(x.getMaSV())) {
+							&& chonSV.equals(x.getMaSV())) {
 							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
 							dm_NhapDiem.addRow(row);
 						}
@@ -267,6 +239,44 @@ public class NhapDiemUI extends JPanel {
 			}
 		}
 	};
+	
+	ActionListener eventChooseMonHoc = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			int i = selectMaMH.getSelectedIndex();
+			if (i >= 0) {
+				String chonLop = (String) selectNhapDiem.getSelectedItem();
+				String chonMH = (String) selectMaMH.getSelectedItem();
+				String chonSV = (String) selectMaSV.getSelectedItem();
+				
+				if (chonMH.equals("Chọn môn")) {
+					dm_NhapDiem.setRowCount(0);
+					for (Diem x : arrDiem) {
+						if (chonLop.equals("Tất cả") && chonSV.equals("Chọn sinh viên")) {
+							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+							dm_NhapDiem.addRow(row);
+
+						} else if (chonLop.equals(x.getLop()) && chonSV.equals(x.getMaSV())) {
+							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+							dm_NhapDiem.addRow(row);
+
+						}
+					}
+				} else {
+					dm_NhapDiem.setRowCount(0);
+					for (Diem x : arrDiem) {
+						if (chonLop.equals(x.getLop()) && chonSV.equals(x.getMaSV()) && chonMH.equals(x.getMaMH())) {
+							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
+							dm_NhapDiem.addRow(row);
+						}
+					}
+				}
+			}
+		}
+	};
+
+	
 	// kết thúc Chọn lớp -> mã môn học -> sinh viên
 
 	// CRUD nhập điểm
@@ -314,7 +324,8 @@ public class NhapDiemUI extends JPanel {
 			dm_NhapDiem.setRowCount(0);
 			for (Diem x : arrDiem) {
 				if (selectNhapDiem.getSelectedItem().equals(x.getLop())
-						&& selectMaMH.getSelectedItem().equals(x.getMaMH())) {
+						&& selectMaMH.getSelectedItem().equals(x.getMaMH())
+						&& selectMaSV.getSelectedItem().equals(x.getMaSV())) {
 					String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
 					dm_NhapDiem.addRow(row);
 				}
