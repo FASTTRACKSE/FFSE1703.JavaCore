@@ -1,11 +1,11 @@
-package Assignment_list.assignment10.io;
+package ffse1703.io;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import Assignment_list.assignment10.model.*;
+import ffse1703.model.*;
 public class SerializeFileFactory {	
 	public static boolean saveFile(ArrayList<SinhVien> arrSv,String path) {
 		try {

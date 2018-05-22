@@ -11,15 +11,16 @@ import com.mysql.jdbc.Driver;
 public class MyApp {
 
 	public static void main(String[] args) {
-		java.sql.Connection conn = getConnect("localhost", "appjavacuatoi", "appjavacuatoi", "appjavacuatoi");
+		java.sql.Connection conn = getConnect("localhost", "qlsv2018", "qlsv2018", "qlsv2018");
 		if (conn != null) {
 			System.out.println("Kết nối MYSQL thành công");
 
 			try {
 				Statement statement = (Statement) conn.createStatement();
-				ResultSet result = statement.executeQuery("SELECT user_name FROM lms_users");
+				String myQuery = "SELECT * FROM lms_users";
+				ResultSet result = statement.executeQuery(myQuery);
 				while (result.next()) {
-					System.out.println(result.getString("user_name"));
+					System.out.println(result.getInt(10));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

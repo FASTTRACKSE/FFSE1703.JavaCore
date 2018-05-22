@@ -29,12 +29,15 @@ public class StatementDb {
 		}
 	}
 	public ArrayList<SinhVien> SeclectDb() {
+//		ArrayList<SinhVien> arrSv=new ArrayList<SinhVien>();
 		try {
+			
 			Statement statement=conn.createStatement();
 			ResultSet result=statement.executeQuery
 			("select * from danhsachsv");
 			while(result.next())
 			{
+				
 				arrSv.add(new SinhVien(result.getString("code"),result.getString("name")
 						,result.getString("age"),result.getString("class")));
 			}

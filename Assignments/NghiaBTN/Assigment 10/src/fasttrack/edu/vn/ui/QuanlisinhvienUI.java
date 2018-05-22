@@ -1,171 +1,278 @@
 package fasttrack.edu.vn.ui;
-import fasttrack.edu.vn.model.*;
+
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.event.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import fasttrack.edu.vn.model.*;
+import fasttrack.edu.vn.io.TextFileFactory;
+
 public class QuanlisinhvienUI extends JFrame {
 
-	private JTextField txtMaSV = new JTextField(15);
-	private JTextField txtTenSV = new JTextField(15);
-	private JTextField txtTuoiSV = new JTextField(15);
-	private JButton btnThem = new JButton("Thêm");
-	private JButton btnSua = new JButton("Sửa");
-	private JButton btnXoa = new JButton("Xóa");
-	private JButton btnThoat = new JButton("Thoát");
-	private JButton btnNhap = new JButton("Nhập");
-	JScrollPane sp;
-	DefaultTableModel dm;
-	JTable table;
-	JComboBox select;
-	String[] arr = { "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
+	private JScrollPane sp;
+	private DefaultTableModel dm;
+	private JTable table;
+	private JComboBox select;
+	private int n;
+	private JTextField tenSV = new JTextField(), maSV = new JTextField(), tuoiSV = new JTextField();
+	private ArrayList<SinhVienModel> arrSV = new ArrayList<SinhVienModel>();
+	private String[] lop = { "Tất Cả", "FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704" };
 
-	public QuanlisinhvienUI(String title) {
-		super(title);
+	private JButton them = new JButton("Thêm"), xoa = new JButton("Xóa"), sua = new JButton("Sửa"),
+			thoat = new JButton("Thoát"), nhap = new JButton("Nhập");
+
+	public QuanlisinhvienUI(String tieude) {
+		super(tieude);
 		addControls();
-		addEvents();
+		addEvent();
 	}
 
 	public void addControls() {
 		Container con = getContentPane();
+		con.setLayout(new FlowLayout());
 		JPanel main = new JPanel();
 
 		main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
-		JLabel lbl = new JLabel("Chương Trình Quản Lí Sinh Viên");
-		lbl.setForeground(Color.BLUE);
-		Font font = new Font("Arial", Font.BOLD, 20);
+		JPanel Title = new JPanel();
+		JLabel lbl = new JLabel("Chương trình quản lý sinh viên ");
+		Font font = new Font("Arial", Font.BOLD, 14);
 		lbl.setFont(font);
-		JPanel pnMainTitle = new JPanel();
-		pnMainTitle.add(lbl);
-		main.add(pnMainTitle);
+		Title.setPreferredSize(new Dimension(0, 30));
+		Title.add(lbl);
+		main.add(Title, BorderLayout.NORTH);
 
 		JPanel chonlop = new JPanel();
 		JLabel txtlop = new JLabel("Chọn lớp: ");
-		select = new JComboBox(arr);
+		select = new JComboBox(lop);
 		chonlop.add(txtlop);
 		chonlop.add(select);
 		main.add(chonlop);
 
-		JPanel pnMainContent1 = new JPanel();
-		pnMainContent1.setLayout(new FlowLayout());
-		JLabel lblContent1 = new JLabel(" Mã Sinh viên:  ");
-		pnMainContent1.add(lblContent1);
-		pnMainContent1.add(txtMaSV);
-		main.add(pnMainContent1);
+		JPanel nhapMaSV = new JPanel();
+		nhapMaSV.setLayout(new FlowLayout());
+		JLabel lblNhapMaSV = new JLabel("Mã sinh viên:");
+		maSV = new JTextField(20);
+		nhapMaSV.add(lblNhapMaSV);
+		nhapMaSV.add(maSV);
+		main.add(nhapMaSV);
 
-		JPanel pnMainContent2 = new JPanel();
-		pnMainContent2.setLayout(new FlowLayout());
-		JLabel lblContent2 = new JLabel("Tên Sinh Viên: ");
-		pnMainContent2.add(lblContent2);
-		pnMainContent2.add(txtTenSV);
-		main.add(pnMainContent2);
+		JPanel nhapTen = new JPanel();
+		nhapTen.setLayout(new FlowLayout());
+		JLabel lblNhapTen = new JLabel("Tên sinh viên:");
+		tenSV = new JTextField(20);
+		nhapTen.add(lblNhapTen);
+		nhapTen.add(tenSV);
+		main.add(nhapTen);
 
-		JPanel pnMainContent3 = new JPanel();
-		pnMainContent3.setLayout(new FlowLayout());
-		JLabel lblContent3 = new JLabel("        Tuổi:          ");
-		pnMainContent3.add(lblContent3);
-		pnMainContent3.add(txtTuoiSV);
-		main.add(pnMainContent3);
+		JPanel nhapTuoi = new JPanel();
+		nhapTuoi.setLayout(new FlowLayout());
+		JLabel lblNhapTuoi = new JLabel("Tuổi sinh viên:");
+		tuoiSV = new JTextField(20);
+		nhapTuoi.add(lblNhapTuoi);
+		nhapTuoi.add(tuoiSV);
+		main.add(nhapTuoi);
 
-		JPanel pnMainContent4 = new JPanel();
-		pnMainContent4.setLayout(new FlowLayout());
-		pnMainContent4.add(btnThem);
-		pnMainContent4.add(btnSua);
-		pnMainContent4.add(btnXoa);
-		pnMainContent4.add(btnThoat);
-		pnMainContent4.add(btnNhap);
-		main.add(pnMainContent4);
+		JPanel button = new JPanel();
+		button.add(them);
+		button.add(sua);
+		button.add(xoa);
+		button.add(thoat);
+		button.add(nhap);
+		main.add(button);
 
 		JPanel center = new JPanel();
+		center.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.BLUE);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		center.setBorder(borderTitle);
+
 		dm = new DefaultTableModel();
 
 		dm.addColumn("Mã");
 		dm.addColumn("Tên");
 		dm.addColumn("Tuổi");
-
-		dm.addRow(new String[] {});
-		dm.addRow(new String[] {});
-		dm.addRow(new String[] {});
+		dm.addColumn("Lớp");
+		docFile();
+		for (SinhVienModel x : arrSV) {
+			String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+			dm.addRow(row);
+		}
 
 		table = new JTable(dm);
-		sp = new JScrollPane(table);
 		table.setLayout(new BorderLayout());
-		center.setBorder(borderTitle);
-		center.add(sp, BorderLayout.CENTER);
+		sp = new JScrollPane(table);
+		JScrollPane sc = new JScrollPane(sp, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sc.setPreferredSize(new Dimension(470, 180));
+		center.add(sc, BorderLayout.CENTER);
 		main.add(center);
 
 		con.add(main);
 
 	}
 
-	public void addEvents() {
+	public void addEvent() {
 		table.addMouseListener(eventTable);
 		select.addActionListener(eventChooseClass);
-		btnThoat.addActionListener(evThoat);
-		btnThem.addActionListener(evThem);
-		btnXoa.addActionListener(evXoa);
+		thoat.addActionListener(eventExit);
+		them.addActionListener(eventAdd);
+		xoa.addActionListener(eventDel);
+		sua.addActionListener(eventEdit);
+
 	}
-		MouseListener eventTable = new MouseListener() {
 
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
+	MouseAdapter eventTable = new MouseAdapter() {
+		public void mouseClicked(MouseEvent e) {
+			int col = table.getSelectedRow();
+			String[] row = new String[3];
+			row[0] = (String) table.getValueAt(col, 0);
+			row[1] = (String) table.getValueAt(col, 1);
+			row[2] = (String) table.getValueAt(col, 2);
+			maSV.setText(row[0]);
+			tenSV.setText(row[1]);
+			tuoiSV.setText(row[2]);
+		}
+	};
 
-			}
+	ActionListener eventChooseClass = new ActionListener() {
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				for (int i = table.getSelectedRow(); i <= table.getSelectedRow(); i++) {
-					for (int y = 0; y < table.getColumnCount(); y++) {
-						String value = (String) table.getValueAt(i, y);
-						if (y == 0) {
-							maSV.setText(value);
-						}
-						if (y == 1) {
-							tenSV.setText(value);
-						}
-						if (y == 2) {
-							tuoiSV.setText(value);
-						}
-						if (y == (table.getColumnCount() - 1)) {
-							select.setSelectedItem(value);
-						}
-
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			docFile();
+			String chonLop = (String) select.getSelectedItem();
+			dm.setRowCount(0);
+			if (chonLop == "Tất Cả") {
+				for (SinhVienModel x : arrSV) {
+					String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+					dm.addRow(row);
+				}
+			} else {
+				for (SinhVienModel x : arrSV) {
+					if (chonLop.equals(x.getLopSV())) {
+						String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+						dm.addRow(row);
 					}
 				}
-
 			}
-		};
-		
-				
-	
+			maSV.setText("");
+			tenSV.setText("");
+			tuoiSV.setText("");
+		}
+
+	};
+
+	ActionListener eventExit = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+
+		}
+
+	};
+
+	ActionListener eventAdd = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String chonLop = (String) select.getSelectedItem();
+			String ma = chonLop + maSV.getText();
+			String ten = tenSV.getText();
+			String tuoi = tuoiSV.getText();
+
+			maSV.setText("");
+			tenSV.setText("");
+			tuoiSV.setText("");
+			docFile();
+			try {
+				arrSV.add(new SinhVienModel(ma, ten, tuoi, chonLop));
+				luuFile();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Bạn đã nhập sai vui lòng nhập lại!", "Title",
+						JOptionPane.WARNING_MESSAGE);
+			}
+			dm.addRow(new String[] { ma, ten, tuoi });
+			dm.setRowCount(0);
+			for (SinhVienModel x : arrSV) {
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+				dm.addRow(row);
+			}
+		}
+	};
+
+	ActionListener eventDel = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			docFile();
+			for (SinhVienModel x : arrSV) {
+				if (maSV.getText().equals(x.getMaSV())) {
+					arrSV.remove(x);
+					luuFile();
+					break;
+				}
+			}
+			dm.setRowCount(0);
+			for (SinhVienModel x : arrSV) {
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+				dm.addRow(row);
+			}
+		}
+
+	};
+
+	ActionListener eventEdit = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			docFile();
+			for (SinhVienModel x : arrSV) {
+				if (maSV.getText().equals(x.getMaSV())) {
+					x.setTenSV(tenSV.getText());
+					x.setTuoiSV(tuoiSV.getText());
+					luuFile();
+					break;
+				}
+			}
+			dm.setRowCount(0);
+			for (SinhVienModel x : arrSV) {
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getTuoiSV(), x.getLopSV() };
+				dm.addRow(row);
+			}
+
+		}
+
+	};
+
+	public void docFile() {
+		Path path = Paths.get("dulieu.txt");
+		if (Files.exists(path)) {
+			arrSV = TextFileFactory.docFile("dulieu.txt");
+		} else {
+			arrSV = new ArrayList<SinhVienModel>();
+		}
+	}
+
+	public void luuFile() {
+		boolean checked = TextFileFactory.luuFile(arrSV, "dulieu.txt");
+		if (checked == true) {
+			JOptionPane.showMessageDialog(null, "Đã lưu thông tin của sinh viên", "Title", JOptionPane.WARNING_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Lưu thất bại", "Title", JOptionPane.WARNING_MESSAGE);
+		}
+
+	}
+
 	public void showWindow() {
-		this.setSize(500, 350);
+		this.setSize(500, 440);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
