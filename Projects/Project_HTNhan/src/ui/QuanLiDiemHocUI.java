@@ -123,8 +123,10 @@ public class QuanLiDiemHocUI extends JPanel {
 
 		JPanel btn = new JPanel();
 		btnNhap = new JButton("Nhập");
+		btnNhap.setBackground(Color.GRAY);
 		btnNhap.setPreferredSize(new Dimension(90, 30));
 		btnSua = new JButton("Sửa");
+		btnSua.setBackground(Color.GRAY);
 		btnSua.setPreferredSize(new Dimension(90, 30));
 
 		btn.add(btnNhap);
@@ -234,7 +236,6 @@ public class QuanLiDiemHocUI extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (cbochonMon.getSelectedIndex() != -1) {
-				// TODO Auto-generated method stub
 				arrDiemHoc = quanLiDiemHocSQL.selectDiem();
 				String cboMH = cbochonMon.getSelectedItem().toString();
 				String maSv = txtmaSv.getText();
