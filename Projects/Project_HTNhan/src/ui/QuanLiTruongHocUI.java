@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
 
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -75,7 +74,13 @@ public class QuanLiTruongHocUI extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
+		double wid = (myTabled.getSize().width) / (myTabled.getTabCount() + 2.28);
+		for (int i = 0; i < myTabled.getTabCount(); i++) {
+			String name = myTabled.getTitleAt(i);
+			myTabled.setTitleAt(i, "<html><div style='width: " + wid
+					+ "px; height: 20px; font-size: 10px; text-align: center'><p style='vertical-align: middle; margin-top: 4px'>"
+					+ name + "</p></div></html>");
+		}
 	}
 
 	private class SelectedTab implements ChangeListener {

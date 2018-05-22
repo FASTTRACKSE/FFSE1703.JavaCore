@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -55,7 +56,7 @@ public class LoginUI extends JFrame {
 		JPanel pnUser = new JPanel();
 
 		JLabel lblUser = new JLabel("User");
-		txtUser = new JTextField(15);
+		txtUser = new JTextField(20);
 		txtUser.setPreferredSize(new Dimension(220, 25));
 		lblUser.setPreferredSize(new Dimension(80, 25));
 		pnUser.add(lblUser);
@@ -63,7 +64,7 @@ public class LoginUI extends JFrame {
 
 		JPanel pnPass = new JPanel();
 		JLabel lblPass = new JLabel("PassWord");
-		txtPass = new JPasswordField(15);
+		txtPass = new JPasswordField(20);
 		txtPass.setPreferredSize(new Dimension(220, 25));
 		lblPass.setPreferredSize(new Dimension(80, 25));
 		pnPass.add(lblPass);
@@ -72,6 +73,7 @@ public class LoginUI extends JFrame {
 		JPanel pnButtonLogin = new JPanel();
 		JLabel lblDangNhap = new JLabel("");
 		btnLogin = new JButton("Đăng nhập");
+		btnLogin.setBackground(Color.GRAY);
 		btnLogin.setPreferredSize(new Dimension(170, 25));
 		lblDangNhap.setPreferredSize(new Dimension(80, 25));
 		pnButtonLogin.add(lblDangNhap);
@@ -92,6 +94,7 @@ public class LoginUI extends JFrame {
 	}
 
 	ActionListener eventLogin = new ActionListener() {
+		@SuppressWarnings("deprecation")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String user = txtUser.getText();
@@ -108,6 +111,7 @@ public class LoginUI extends JFrame {
 		}
 	};
 
+	@SuppressWarnings("deprecation")
 	public boolean login() {
 		if (LoginSQL.checkLogin(txtUser.getText(), txtPass.getText())) {
 			return true;
