@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 public class QuanLiSinhVienSQL {
 	final Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
 	private ArrayList<QuanLiSinhVienModel> arrQlSinhVien = new ArrayList<>();
+	private ArrayList<QuanLiSinhVienModel> arrMalop = new ArrayList<>();
 
 	public ArrayList<QuanLiSinhVienModel> selectAll() {
 		arrQlSinhVien.clear();
@@ -37,7 +38,30 @@ public class QuanLiSinhVienSQL {
 		}
 		return arrQlSinhVien;
 	}
+	public ArrayList<QuanLiSinhVienModel> selectMalop(String maLop) {
+		arrMalop.clear();
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("select * from QLSinhVien where Malop = '"+maLop+"'");
+			while (result.next()) {
+				String maSv = result.getString("MaSv");
+				String tenSv = result.getString("HoTenSv");
+				String diaChiSv = result.getString("DiaChiSv");
+				String xa = result.getString("Xa");
+				String huyen = result.getString("Huyen");
+				String tinh = result.getString("Tinh");
+				String dienThoaiSv = result.getString("DienThoaiSv");
+				String email = result.getString("Email");
+				String ma = result.getString("Malop");
 
+				arrMalop.add(
+						new QuanLiSinhVienModel(maSv, tenSv, diaChiSv, xa, huyen, tinh, dienThoaiSv, email, ma));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return arrMalop;
+	}
 	public void insert(String maSv, String hoTenSv, String diaChiSv, String xa, String huyen, String tinh,
 			String dienThoaiSv, String email, String maLop) {
 		try {
@@ -95,7 +119,8 @@ public class QuanLiSinhVienSQL {
 		try {
 			Statement statement = conn.createStatement();
 			String sql = "delete from QLSinhVien where MaSv= '" + maSv + "' ";
-
+			String sql1 = "delete from QLDiem where MaSv= '" + maSv +"'";
+			statement.executeUpdate(sql1);
 			int x = statement.executeUpdate(sql);
 			if (x > 0) {
 				JOptionPane.showMessageDialog(null, "Xóa Thành Công !!");
