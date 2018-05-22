@@ -3,13 +3,12 @@ package main;
 import com.mysql.jdbc.Connection;
 
 import model.GetConnectDB;
-import ui.QuanLiTruongHocUI;
+import ui.LoginUI;
 
 public class QuanLiTruongHoc {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		QuanLiTruongHocUI myUI = new QuanLiTruongHocUI ("Quản Lí Trường Học");
+		LoginUI myUI = new LoginUI ("Quản Lí Trường Học");
 		myUI.showWindow();
 		Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
 		if (conn != null) {
