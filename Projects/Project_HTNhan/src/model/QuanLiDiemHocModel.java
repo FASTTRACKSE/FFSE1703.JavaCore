@@ -10,6 +10,9 @@ public class QuanLiDiemHocModel {
 		this.maMH = maMH;
 		this.diemMH = diemMH;
 	}
+	public QuanLiDiemHocModel(String diemMH) {
+		this.diemMH = diemMH;
+	}
 	public String getMaSv() {
 		return maSv;
 	}

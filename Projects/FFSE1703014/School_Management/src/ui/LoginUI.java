@@ -92,10 +92,15 @@ public class LoginUI extends JFrame {
 				try {
 					Statement statement = (Statement) connection.createStatement();
 					ResultSet result = statement.executeQuery("select * from user where username = '"+ username +"' and password = '"+ password +"'");
-					while (result.next()) {
+					if (result.next()) {
 						HomeUI myUI = new HomeUI("Chương trình quản lý trường học");
 						myUI.showWindow();
 						hideWindow();
+						JOptionPane.showMessageDialog(null, "Hi,"+username+"\n Chào mừng đến với chương trình quản lý trường học");
+					} else {
+						txtUsername.setText("");
+						txtPassword.setText("");
+						JOptionPane.showMessageDialog(null, "Username hoặc password bạn đã nhập chưa đúng!", "Đăng nhập thất bại", 0);
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();

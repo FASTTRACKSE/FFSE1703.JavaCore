@@ -51,7 +51,7 @@ public class ConnectDb {
 		try
 		{
 		
-		String sql="UPDATE ConnectSQL SET tenSV='"+tenSV+"',tuoiSV='"+tuoi+"' where maSV='"+maSinhVien+"'";
+		String sql="UPDATE ConnectSQL SET tenSV="+tenSV+",tuoiSV="+tuoi+" where maSV="+maSinhVien+"";
 		Statement statement=(Statement)conn.createStatement();
 		int x=statement.executeUpdate(sql);
 		if(x>0)

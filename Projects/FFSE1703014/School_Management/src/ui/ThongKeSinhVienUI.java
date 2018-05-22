@@ -83,6 +83,8 @@ public class ThongKeSinhVienUI extends JPanel {
 		pnTable.setBorder(tilleBorder);
 		pnTable.add(sc, BorderLayout.CENTER);
 		
+		btnSort.setPreferredSize(new Dimension(100, 27));
+		
 		pnCbNamHoc.add(labelNamHoc);
 		pnCbNamHoc.add(cbNamHoc);
 		
