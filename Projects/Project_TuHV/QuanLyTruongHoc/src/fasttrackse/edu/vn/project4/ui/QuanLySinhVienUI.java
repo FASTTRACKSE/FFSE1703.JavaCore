@@ -507,6 +507,7 @@ public class QuanLySinhVienUI extends JPanel {
 	ActionListener DelSV = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			@SuppressWarnings("unused")
 			int kt = 0;
 			String ma = masv.getText();
 			String tensv = ten.getText();
