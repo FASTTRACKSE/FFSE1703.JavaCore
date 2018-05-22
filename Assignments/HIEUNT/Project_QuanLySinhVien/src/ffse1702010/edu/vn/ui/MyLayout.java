@@ -1,6 +1,8 @@
 package ffse1702010.edu.vn.ui;
 
 import java.awt.BorderLayout;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,6 +13,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,6 +22,7 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -169,7 +173,7 @@ public class MyLayout extends JFrame {
 	// JCOMBOX MON HOC CUA LOP
 	private JComboBox<String> cboChonLopMonHoc = new JComboBox<>();
 	private JComboBox<String> cboChonMaMonHoc = new JComboBox<>();
-	//private JComboBox<String> cboXemLop = new JComboBox<>();
+	// private JComboBox<String> cboXemLop = new JComboBox<>();
 
 	// tablesv
 	private DefaultTableModel dm;
@@ -207,6 +211,9 @@ public class MyLayout extends JFrame {
 	private ArrayList<Diem> arrDiem = new ArrayList<Diem>();
 	private ArrayList<MonHocCuaTungLop> arrMonHocCuaTungLop = new ArrayList<MonHocCuaTungLop>();
 
+	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 	public MyLayout(String title) {
 
 		this.setTitle(title);
@@ -219,9 +226,15 @@ public class MyLayout extends JFrame {
 		addEvent();
 		chonLopDiem();
 		// chonLopSinhVien();
-
+		chonNam();
 		chonLopSinhVienPrint();
+		chonNam1();
+		chonLopThongKe();
 
+	}
+
+	public void EmailValidator() {
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 	}
 
 	public void addLayout() {
@@ -614,14 +627,16 @@ public class MyLayout extends JFrame {
 		pnThongKe.setLayout(new BoxLayout(pnThongKe, BoxLayout.Y_AXIS));
 		JPanel pnFolowThongKe = new JPanel();
 		pnFolowThongKe.setLayout(new FlowLayout());
-		pnFolowThongKe.setBackground(Color.PINK);
-		thongKeSinhVien= new JComboBox();
+		pnFolowThongKe.setBackground(Color.WHITE);
+		Border bor17 = BorderFactory.createMatteBorder(1, 1, 5, 5, Color.PINK);
+		TitledBorder titlebor17 = new TitledBorder(bor17, "CHỌN NĂM CẦN XEM");
+		pnFolowThongKe.setBorder(titlebor17);
+		thongKeSinhVien = new JComboBox<String>();
+		JLabel chonNamThongKe1 = new JLabel("CHỌN NĂM");
+		pnFolowThongKe.add(chonNamThongKe1);
 		pnFolowThongKe.add(thongKeSinhVien);
-		
-		pnThongKe.add(pnFolowThongKe);
-		
 
-		
+		pnThongKe.add(pnFolowThongKe);
 
 		JPanel pnNorthThongKe = new JPanel();
 		pnNorthThongKe.setLayout(new BorderLayout());
@@ -650,16 +665,73 @@ public class MyLayout extends JFrame {
 
 		dm5 = new DefaultTableModel();
 		tbl5 = new JTable(dm5);
-		dm5.addColumn("LP#0");
-		dm5.addColumn("LP#1");
-		dm5.addColumn("LP#2");
-		dm5.addColumn("LP#3");
-		dm5.addColumn("LP#4");
-		dm5.addColumn("LP#5");
-		dm5.addColumn("LP#6");
-		dm5.addColumn("E4IT");
+
+		dm5.addColumn("Mã sinh viên");
+		dm5.addColumn("Tên sinh viên");
+		try {
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM MonHoc");
+			while (result.next()) {
+				dm5.addColumn(new String(result.getString("MaMonHoc")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		dm5.addColumn("AVG");
 		dm5.addColumn("XẾP LOẠI");
+
+		try {
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(
+					"SELECT MaSV,\r\n" + "    SUM(CASE WHEN MaMonHoc = 'LP#0' THEN Diem  END) AS Lp0,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#1' THEN Diem END) AS Lp1,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#2' THEN Diem END) AS Lp2,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#3' THEN Diem END) AS Lp3,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#4' THEN Diem END) AS Lp4,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#5' THEN Diem END) AS Lp5,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#6' THEN Diem END) AS Lp6,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'E4IT' THEN Diem END) AS E4IT\r\n" + "FROM Diem\r\n"
+							+ "GROUP BY MaSV");
+			while (result.next()) {
+				Statement stt = conn.createStatement();
+				ResultSet query = stt.executeQuery("SELECT * FROM Sinhvien WHERE Sinhvien.MaSV = '"+result.getString("MaSV")+"'");
+				query.next();
+				String[] row = { result.getString("MaSV"),query.getString("Sinhvien.TenSinhVien"), result.getString("Lp0"), result.getString("Lp1"),
+						result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
+						result.getString("Lp5"), result.getString("Lp6"), result.getString("E4IT") };
+				int t= 0;
+				int n = 0;
+				int y = 0;
+				for (int i=2;i<row.length;i++) {
+					if(row[i] != null) {
+					y = Integer.parseInt(row[i]);
+					n =  n + y;
+					t++;
+					}
+					}
+				    float tbc=(float)n/t;
+				    String xeploai ;
+				    if (tbc <= 4.9) {
+				    	xeploai = "Yếu";
+					} else if (tbc <= 6.4) {
+						xeploai = "Trung Bình";
+					} else if (tbc <= 7.9) {
+						xeploai = "Khá";
+					} else {
+						xeploai = "Giỏi";
+					}
+				    String TBM = Float.toString(tbc);
+				    String[] dm = { result.getString("MaSV"),query.getString("Sinhvien.TenSinhVien"), result.getString("Lp0"), result.getString("Lp1"),
+							result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
+							result.getString("Lp5"), result.getString("Lp6"), result.getString("E4IT"),TBM,xeploai };
+				    dm5.addRow(dm);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		sc5 = new JScrollPane(tbl5);
 
 		JPanel pnSouth5 = new JPanel();
@@ -671,18 +743,19 @@ public class MyLayout extends JFrame {
 
 		JPanel pnfolowThongKe = new JPanel();
 		pnfolowThongKe.setLayout(new FlowLayout());
-		pnfolowThongKe.setBackground(Color.PINK);
+		pnfolowThongKe.setBackground(Color.WHITE);
 		JLabel chonLopThongKe = new JLabel("CHỌN LỚP");
 		JLabel chonNamThongKe = new JLabel("CHỌN NĂM");
-		pnfolowThongKe.add(chonLopThongKe);
-		pnfolowThongKe.add(cbochonLop);
 		pnfolowThongKe.add(chonNamThongKe);
 		pnfolowThongKe.add(cbochonNamThongKe);
+		pnfolowThongKe.add(chonLopThongKe);
+		pnfolowThongKe.add(cbochonLop);
+
 		pnSouth5.add(pnfolowThongKe);
 
 		pnThongKe.add(pnSouth5, BorderLayout.SOUTH);
 		pnCenter5.add(sc5);
-	
+
 		pnThongKe.add(pnCenter5);
 		// layoutmonhoccualop
 
@@ -848,6 +921,47 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
+	// select chon lop thong ke
+	public void chonLopThongKe() {
+		String chonNamDuoi = (String) cbochonNamThongKe.getSelectedItem();
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("select * from Lop WHERE Nam='" + chonNamDuoi + "'");
+			while (result.next()) {
+				cbochonLop.addItem(result.getString("MaLop"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// selectlopthongke
+	public void thongKePrint() {
+		String chonNam = (String) thongKeSinhVien.getSelectedItem();
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(
+					"SELECT * ,(SELECT Count(*) FROM SinhVien WHERE SinhVien.Lop=MaLop)  AS TongSinhVien FROM Lop WHERE Nam='"
+							+ chonNam + "'");
+
+			while (result.next()) {
+
+				String[] row = { result.getString("MaLop"), result.getString("MoTa"),
+						result.getString("TongSinhVien") };
+
+				dm7.addRow(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	// select lop
 
 	public void chonLop() {
@@ -859,6 +973,54 @@ public class MyLayout extends JFrame {
 			ResultSet result = statement.executeQuery("select * from Lop");
 			while (result.next()) {
 				cboChonLopMonHoc.addItem(result.getString("MaLop"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// select nam
+
+	public void chonNam() {
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT DISTINCT Nam FROM Lop");
+			while (result.next()) {
+				thongKeSinhVien.addItem(result.getString("Nam"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// select nam
+
+	public void chonNam1() {
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT DISTINCT Nam FROM Lop");
+			while (result.next()) {
+				cbochonNamThongKe.addItem(result.getString("Nam"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// select nam
+
+	public void chonLopThongKe1() {
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT DISTINCT Nam FROM Lop");
+			while (result.next()) {
+				cbochonNamThongKe.addItem(result.getString("Nam"));
 
 			}
 		} catch (Exception e) {
@@ -900,27 +1062,7 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	// select lop của masinhvien
 
-	// public void chonLopSinhVien() {
-	// Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien",
-	// "QuanLySinhVien", "QuanLySinhVien");
-	// cboLop.addItem("TẤT CẢ");
-	//
-	// try {
-	// Statement statement = conn.createStatement();
-	// ResultSet result = statement.executeQuery("select * from Lop");
-	// while (result.next()) {
-	// cboLop.addItem(result.getString("MaLop"));
-	//
-	//
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-
-	// select ma sinh vie
 	public void chonMaSinhVien() {
 
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
@@ -949,6 +1091,29 @@ public class MyLayout extends JFrame {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void resetDiem() {
+		arrDiem.clear();
+
+		try {
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM Diem");
+			while (result.next()) {
+				arrDiem.add(new Diem(result.getString("MaLop"), result.getString("MaSV"), result.getString("MaMonHoc"),
+						result.getString("Diem")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		dm4.setRowCount(0);
+		for (Diem x : arrDiem) {
+			String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
+			dm4.addRow(row);
+
 		}
 	}
 	// select devvn_quanhuyen
@@ -1008,34 +1173,30 @@ public class MyLayout extends JFrame {
 				dm.addRow(row);
 			}
 
-			 } else {
-			 Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien",
-			 "QuanLySinhVien", "QuanLySinhVien");
-			 try {
-			
-			 Statement statement = conn.createStatement();
-			 ResultSet result = statement.executeQuery("SELECT * FROM SinhVien WHERE Lop='" + chonLop + "'");
+		} else {
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+			try {
+
+				Statement statement = conn.createStatement();
+				ResultSet result = statement.executeQuery("SELECT * FROM SinhVien WHERE Lop='" + chonLop + "'");
 				arrSV.clear();
 
-			 while (result.next()) {
-			 arrSV.add(new ThongTinSinhVien(result.getString("MaSV"),
-			 result.getString("TenSinhVien"),
-			 result.getString("NgaySinh"), result.getString("DiaChi"),
-			 result.getString("Email"),
-			 result.getString("SDT"), result.getString("Lop"), result.getString("Phuong"),
-			 result.getString("Quan"), result.getString("Tinh")));
-			 }
-			 } catch (Exception e) {
-			 e.printStackTrace();
-			 }
-			 dm.setRowCount(0);
-			 for (ThongTinSinhVien x : arrSV) {
-			 String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(),
-			 x.getEmail(), x.getsDT(),
-			 x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-			 dm.addRow(row);
-			 }
-			
+				while (result.next()) {
+					arrSV.add(new ThongTinSinhVien(result.getString("MaSV"), result.getString("TenSinhVien"),
+							result.getString("NgaySinh"), result.getString("DiaChi"), result.getString("Email"),
+							result.getString("SDT"), result.getString("Lop"), result.getString("Phuong"),
+							result.getString("Quan"), result.getString("Tinh")));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dm.setRowCount(0);
+			for (ThongTinSinhVien x : arrSV) {
+				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
+						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
+				dm.addRow(row);
+			}
+
 		}
 
 	}
@@ -1111,7 +1272,6 @@ public class MyLayout extends JFrame {
 		suaMonHoc.addActionListener(eventEditMonHoc);
 		xoaMonHoc.addActionListener(eventDelMonHoc);
 		tbl2.addMouseListener(eventTableMonHoc);
-		// eventthongke
 		// tìm kiếm
 		btnTimKiem.addActionListener(eventTimKiem);
 		// eventmonhoccuatunglop
@@ -1125,8 +1285,34 @@ public class MyLayout extends JFrame {
 		xoaDiem.addActionListener(eventXoaDiem);
 		suaDiem.addActionListener(eventsuaDiem);
 		tbl4.addMouseListener(eventTableDiem);
+		// event thong ke
+		thongKeSinhVien.addActionListener(eventPrintLop);
+		cbochonNamThongKe.addActionListener(eventChonLopThongKe);
 
 	}
+
+	// eventchonlopthongke
+	ActionListener eventChonLopThongKe = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			cbochonLop.removeAllItems();
+
+			chonLopThongKe();
+
+		}
+	};
+
+	// thongke
+	ActionListener eventPrintLop = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			dm7.setRowCount(0);
+
+			thongKePrint();
+		}
+	};
 
 	ActionListener eventsuaDiem = new ActionListener() {
 
@@ -1266,17 +1452,26 @@ public class MyLayout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int KT1 = 0;
+			int KT2 = 0;
+
 			String chonLopHocDiem = (String) maLopHocDiem.getSelectedItem();
 			String chonMonHocDiem = (String) maMonHocDiem.getSelectedItem();
 			String chonMaSinhVienDiem = (String) maSinhVienDiem.getSelectedItem();
 			String nhapDiem1 = nhapDiem.getText();
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+
 			for (Diem x : arrDiem) {
 				if (chonLopHocDiem.equals(x.getMaLop()) && chonMonHocDiem.equals(x.getMaMonHoc())
 						&& chonMaSinhVienDiem.equals(x.getMaSinhVien())) {
 					KT1 = 2;
 					break;
 				}
+			}
+			try {
+				Integer.parseInt(nhapDiem1);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
 			}
 			try {
 				if (nhapDiem1.isEmpty()) {
@@ -1287,7 +1482,12 @@ public class MyLayout extends JFrame {
 							JOptionPane.WARNING_MESSAGE);
 					nhapDiem.setText("");
 
+				} else if (KT2 > 0) {
+					JOptionPane.showMessageDialog(null, "HÃY NHẬP KIỂU SỐ!", null, JOptionPane.WARNING_MESSAGE);
+					nhapDiem.setText("");
+
 				} else {
+
 					arrDiem.add(new Diem(chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1));
 					dm4.addRow(new String[] { chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1 });
 					try {
@@ -1307,6 +1507,7 @@ public class MyLayout extends JFrame {
 				}
 			} catch (Exception ex) {
 			}
+			nhapDiem.setText("");
 
 			dm4.setRowCount(0);
 			for (Diem x : arrDiem) {
@@ -1347,28 +1548,30 @@ public class MyLayout extends JFrame {
 				if (((String) cboChonLopMonHoc.getSelectedItem()).equals(x.getLopMonHocCuaTungLop())) {
 					if (((String) cboChonMaMonHoc.getSelectedItem()).equals(x.getMaMonHocCuaTungLop())) {
 						arrMonHocCuaTungLop.remove(x);
+						break;
 					}
-					break;
 				}
 			}
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 			try {
 				String sql = "DELETE  FROM MonHocCuaTungLop WHERE Lop = '" + (String) cboChonLopMonHoc.getSelectedItem()
 						+ "' AND MaMonHoc ='" + (String) cboChonMaMonHoc.getSelectedItem() + "'";
-				System.out.println(sql);
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x > 0) {
 					JOptionPane.showMessageDialog(null, "XÓA THÀNH CÔNG");
+
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+
 			dm6.setRowCount(0);
-			for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
-				String[] row = { x.getLopMonHocCuaTungLop(), x.getMaMonHocCuaTungLop(), x.getTenMonHocCuaTungLop() };
+			for (MonHocCuaTungLop x1 : arrMonHocCuaTungLop) {
+				String[] row = { x1.getLopMonHocCuaTungLop(), x1.getMaMonHocCuaTungLop(), x1.getTenMonHocCuaTungLop() };
 				dm6.addRow(row);
 			}
+
 		}
 	};
 
@@ -1412,6 +1615,8 @@ public class MyLayout extends JFrame {
 							+ result.getString("MaLop") + "','" + result.getString("MaMonHoc") + "','"
 							+ result.getString("TenMonHoc") + "')";
 					statement.executeUpdate(sql);
+					JOptionPane.showMessageDialog(null, "THÊM THÀNH CÔNG");
+
 				}
 
 			} catch (Exception ex) {
@@ -1509,6 +1714,13 @@ public class MyLayout extends JFrame {
 			pnQuanLyDiem.setVisible(false);
 			pnMonHocCuaLop.setVisible(false);
 			pnThongKe.setVisible(true);
+			thongKeSinhVien.removeAllItems();
+			cbochonNamThongKe.removeAllItems();
+			cbochonLop.removeAllItems();
+
+			chonNam();
+			chonNam1();
+
 		}
 	};
 
@@ -1526,6 +1738,7 @@ public class MyLayout extends JFrame {
 			chonLopDiem();
 			chonMaSinhVien();
 			chonMon();
+			resetDiem();
 
 		}
 	};
@@ -1538,7 +1751,7 @@ public class MyLayout extends JFrame {
 			int ktTonTai = 0;
 			int kt = 0;
 
-			String maMonHoc = nhapMaMonHoc.getText();
+			
 			String tenMonHoc = nhapTenMonHoc.getText();
 			String thoiLuongHoc = nhapThoiLuongHoc.getText();
 			Integer tinChi1 = Integer.valueOf(nhapSoTinChi.getText());
@@ -1640,9 +1853,12 @@ public class MyLayout extends JFrame {
 			} else {
 				Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien",
 						"QuanLySinhVien");
+				
 				try {
 					String sql = "DELETE FROM MonHoc WHERE MaMonHoc = '" + nhapMaMonHoc.getText() + "'";
+
 					Statement statement = conn.createStatement();
+
 					int x = statement.executeUpdate(sql);
 					if (x >= 0 && kt > 1) {
 						JOptionPane.showMessageDialog(null, "ĐÃ XÓA THÔNG TIN MÔN HỌC");
@@ -1769,8 +1985,7 @@ public class MyLayout extends JFrame {
 			String mota = nhapMoTa.getText();
 			String chonNam = (String) cboLop1.getSelectedItem();
 			for (Lop x : arrLop) {
-				if (nhapMaLop.getText().equals(x.getMaLop()) && mota.equals(x.getMoTa())
-						&& chonNam.equals(x.getNam())) {
+				if (nhapMaLop.getText().equals(x.getMaLop()) && mota.equals(x.getMoTa())) {
 					kt = 2;
 					break;
 				}
@@ -1824,7 +2039,6 @@ public class MyLayout extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			int ktTonTai = 0;
 			int kt = 0;
-			String lop = nhapMaLop.getText();
 			String mota = nhapMoTa.getText();
 			String chonNam = (String) cboLop1.getSelectedItem();
 			for (int i = 0; i < arrLop.size(); i++) {
@@ -2085,12 +2299,23 @@ public class MyLayout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int ktTonTai = 0;
+			int KT2 = 0;
+
 			String ma = nhapMaSinhVien.getText();
 			String ten = nhapTenSinhVien.getText();
 			String ngaySinh = nhapNgaySinh.getText();
 			String diaChi = nhapDiaChi.getText();
 			String email = nhapEmail.getText();
 			String sDT = nhapSDT.getText();
+			try {
+				Integer.parseInt(sDT);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher(email);
 			for (ThongTinSinhVien x : arrSV) {
 				if (ma.equals(x.getMaSV())) {
 					x.setMaSV(ma);
@@ -2115,15 +2340,25 @@ public class MyLayout extends JFrame {
 					|| sDT.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
 						JOptionPane.WARNING_MESSAGE);
+
+			} else if (ktTonTai < 1) {
+				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN KHÔNG ĐƯỢC SỮA,HÃY THÊM MỚI SINH VIÊN", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (sDT.length() > 0 && (sDT.length() < 10 || sDT.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
 				nhapNgaySinh.setText("");
 				nhapMaSinhVien.setText("");
 				nhapTenSinhVien.setText("");
 				nhapDiaChi.setText("");
 				nhapEmail.setText("");
 				nhapSDT.setText("");
-			} else if (ktTonTai < 1) {
-				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN KHÔNG ĐƯỢC SỮA,HÃY THÊM MỚI SINH VIÊN", null,
-						JOptionPane.WARNING_MESSAGE);
+
 			} else {
 
 				Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien",
@@ -2166,7 +2401,7 @@ public class MyLayout extends JFrame {
 
 	};
 
-	// xoa
+	// xoasinhvien
 	ActionListener eventDel = new ActionListener() {
 
 		@Override
@@ -2203,7 +2438,9 @@ public class MyLayout extends JFrame {
 						"QuanLySinhVien");
 				try {
 					String sql = "DELETE FROM SinhVien WHERE MaSV = '" + nhapMaSinhVien.getText() + "'";
+					String query = "DELETE FROM Diem WHERE MaSV = '" + nhapMaSinhVien.getText() + "'";
 					Statement statement = conn.createStatement();
+					statement.executeUpdate(query);
 					int x = statement.executeUpdate(sql);
 					if (x >= 0 && kt > 1) {
 						JOptionPane.showMessageDialog(null, "XÓA THÀNH CÔNG");
@@ -2223,7 +2460,6 @@ public class MyLayout extends JFrame {
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
 				dm.addRow(row);
-				setLop();
 			}
 
 		}
@@ -2234,7 +2470,10 @@ public class MyLayout extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+
 			int ktTonTai = 0;
+			int KT2 = 0;
+
 			String ma = nhapMaSinhVien.getText();
 			String ten = nhapTenSinhVien.getText();
 			String ngaySinh = nhapNgaySinh.getText();
@@ -2245,6 +2484,16 @@ public class MyLayout extends JFrame {
 			String chonTinh = (String) cboTinh.getSelectedItem();
 			String chonQuan = (String) cboQuan.getSelectedItem();
 			String chonPhuong = (String) cboPhuong.getSelectedItem();
+
+			Pattern checkmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+			Matcher mail1 = checkmail.matcher(email);
+			try {
+				Integer.parseInt(sDT);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+
 			for (int i = 0; i < arrSV.size(); i++) {
 				if (ma.equals(arrSV.get(i).getMaSV())) {
 					ktTonTai = 1;
@@ -2261,7 +2510,18 @@ public class MyLayout extends JFrame {
 			} else if (ktTonTai > 0) {
 				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
 
-			} else {
+			} else if (!mail1.find()) {
+				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			} else if (sDT.length() > 0 && (sDT.length() < 10 || sDT.length() > 11)) {
+				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			}
+
+			else {
 
 				dm.addRow(new String[] { ma, ten, ngaySinh, diaChi, email, sDT, chonLop, chonPhuong, chonQuan,
 						chonTinh });

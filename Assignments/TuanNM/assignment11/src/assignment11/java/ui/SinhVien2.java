@@ -20,14 +20,11 @@ import javax.sql.StatementEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -41,11 +38,17 @@ import assignment11.java.connect.Connect;
 import assignment11.java.connect.ConnectDb;
 import assignment11.java.model.SinhVien;
 
+@SuppressWarnings("unused")
 public class SinhVien2 extends JFrame {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField nameSV, maSV, ageSV;
 	private JButton creat, edit, delete, exit, refresh;
+	@SuppressWarnings("rawtypes")
 	private JComboBox classSV;
 	public static ArrayList<SinhVien> arrSv = new ArrayList<SinhVien>();
 	DefaultTableModel modle;
@@ -63,6 +66,7 @@ public class SinhVien2 extends JFrame {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addControls() {
 		Container con = getContentPane();
 		JPanel pnBox = new JPanel();
@@ -160,7 +164,6 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			maSV.setText("");
 			nameSV.setText("");
 			ageSV.setText("");
@@ -260,7 +263,6 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String maSv = maSV.getText();
 			String tenSv = nameSV.getText();
 			String tuoiSv = ageSV.getText();
@@ -289,7 +291,6 @@ public class SinhVien2 extends JFrame {
 						ageSV.setText("");
 						maSV.requestFocus();
 						lop = classSV.getSelectedItem().toString();
-
 						modle.setRowCount(0);
 						if (lop == "All") {
 							for (SinhVien sv : arrSv) {
@@ -341,7 +342,6 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			try {
 				String maSv = maSV.getText();
 				String tenSv = nameSV.getText();

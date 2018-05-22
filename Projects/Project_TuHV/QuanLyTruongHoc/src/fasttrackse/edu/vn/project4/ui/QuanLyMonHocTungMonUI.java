@@ -137,10 +137,9 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 		}
 		tbl_monhoc_lop = new JTable(dm_monhoc_lop);
 		JScrollPane sc5 = new JScrollPane(tbl_monhoc_lop);
-		JScrollPane VT5 = new JScrollPane(sc5, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		VT5.setPreferredSize(new Dimension(1170, 520));
-		pnTable5.add(VT5, BorderLayout.CENTER);
+		
+		sc5.setPreferredSize(new Dimension(1170, 520));
+		pnTable5.add(sc5, BorderLayout.CENTER);
 		pnCenter5.add(pnTable5);
 
 		Border border5 = BorderFactory.createLineBorder(Color.blue);

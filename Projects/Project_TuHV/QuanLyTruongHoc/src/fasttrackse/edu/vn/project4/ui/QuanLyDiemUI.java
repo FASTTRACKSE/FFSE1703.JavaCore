@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,6 +22,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,7 +33,6 @@ import javax.swing.table.DefaultTableModel;
 
 import fasttrackse.edu.vn.project4.model.Connect;
 import fasttrackse.edu.vn.project4.model.Diem;
-import fasttrackse.edu.vn.project4.model.MonCuaTungLop;
 
 public class QuanLyDiemUI extends JPanel {
 
@@ -62,12 +64,11 @@ public class QuanLyDiemUI extends JPanel {
 
 	private JPanel pnCenter1 = new JPanel();
 
-	@SuppressWarnings("unused")
-	private JButton btnThemdiem = new JButton("Tìm");
+	
+	
 	private JButton btnSuadiem = new JButton("Sửa");
+
 	@SuppressWarnings("unused")
-	private JButton btnXoadiem = new JButton("Xoá");
-	private JButton btnNhapdiem = new JButton("Reset");
 
 	public void addControl() {
 
@@ -92,11 +93,8 @@ public class QuanLyDiemUI extends JPanel {
 		JPanel pnbutton1 = new JPanel();
 		pnbutton1.setLayout(new FlowLayout());
 
-		pnbutton1.add(btnSuadiem);
-
-		pnbutton1.add(btnNhapdiem);
-
-		pnbutton1.add(btnThemdiem);
+//		pnbutton1.add(btnThemdiem);
+//		pnbutton1.add(btnSuadiem);
 		pnCenter1.add(pnbutton1);
 
 		JPanel pnCombo1 = new JPanel();
@@ -124,8 +122,8 @@ public class QuanLyDiemUI extends JPanel {
 		pnCombo1.add(lbl6diem);
 		pnCombo1.add(diem);
 
-		pnbutton1.add(btnThemdiem);
-		pnCombo1.add(btnThemdiem);
+		pnbutton1.add(btnSuadiem);
+		pnCombo1.add(btnSuadiem);
 
 		pnCenter1.setBackground(Color.white);
 		this.add(pnCenter1, BorderLayout.CENTER);
@@ -143,24 +141,23 @@ public class QuanLyDiemUI extends JPanel {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM Quan_ly_diem");
 			while (result.next()) {
-				arrDiem.add(new Diem(result.getString("ma_lop_hoc"), result.getString("ma_mon_hoc"),
-						result.getString("ma_sinh_vien"), result.getString("diem")));
+				arrDiem.add(new Diem(result.getString("ma_mon_hoc"), result.getString("ma_sinh_vien"),
+						result.getString("diem"),result.getString("ma_lop_hoc")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		for (Diem x : arrDiem) {
-			String[] row = { x.getMaMH(), x.getMaSV(), x.getDiem(), x.getMalophoc() };
+			String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
 			dm_diem.addRow(row);
 		}
 
 		tbl_diem = new JTable(dm_diem);
 		JScrollPane sc1 = new JScrollPane(tbl_diem);
-		JScrollPane VT1 = new JScrollPane(sc1, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		VT1.setPreferredSize(new Dimension(1170, 520));
-		pnTable1.add(VT1, BorderLayout.CENTER);
+		
+		sc1.setPreferredSize(new Dimension(1170, 520));
+		pnTable1.add(sc1, BorderLayout.CENTER);
 		pnCenter1.add(pnTable1);
 
 		Border border1 = BorderFactory.createLineBorder(Color.blue);
@@ -172,9 +169,9 @@ public class QuanLyDiemUI extends JPanel {
 	public void addEvent() {
 		// chọn mã MH, tên MH..
 		maLopHoc.addActionListener(eventChooseLop);
-//		maMonHoc.addActionListener(eventChooseMaSV);
-		diem.addActionListener(AddDiem);
-
+		 maMonHoc.addActionListener(eventChooseMonHoc);
+		tbl_diem.addMouseListener(eventTable_NhapDiem);
+		btnSuadiem.addActionListener(eventEdit_NhapDiem);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -191,77 +188,132 @@ public class QuanLyDiemUI extends JPanel {
 		}
 
 	}
-	//nhap diem
-	ActionListener AddDiem = new ActionListener() {
+
+	// nhap diem
+	MouseAdapter eventTable_NhapDiem = new MouseAdapter() {
+		public void mouseClicked(MouseEvent e) {
+			int row = tbl_diem.getSelectedRow();
+			String[] col = new String[4];
+			col[0] = (String) tbl_diem.getValueAt(row, 0);
+			col[1] = (String) tbl_diem.getValueAt(row, 1);
+			col[2] = (String) tbl_diem.getValueAt(row, 2);
+			col[3] = (String) tbl_diem.getValueAt(row, 3);
+			maLopHoc.setSelectedItem(col[0]);
+			maMonHoc.setSelectedItem(col[1]);
+			maSV.setSelectedItem(col[2]);
+			diem.setText(col[3]);
+		}
+	};
+
+	ActionListener eventEdit_NhapDiem = new ActionListener() {
+
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
-			String nhapDiem = (String) diem.getSelectedText();
 			
-
-
+			for (Diem x : arrDiem) {
+				if (((String)maSV.getSelectedItem()).equals(x.getMaSV()) && ((String)maMonHoc.getSelectedItem()).equals(x.getMaMH())) {
+					x.setMalophoc((String) maLopHoc.getSelectedItem());
+					x.setDiem(diem.getText());
+					break;
+				}
+			}
+			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
-				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+				String sql = "UPDATE quan_ly_diem SET diem ='" + diem.getText() + "',ma_lop_hoc ='"
+						+((String) maLopHoc.getSelectedItem()) + "' WHERE ma_mon_hoc = '" + ((String)maMonHoc.getSelectedItem())
+						+ "' AND ma_sinh_vien ='" + ((String)maSV.getSelectedItem()) + "'";
 				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery(
-						"SELECT Quan_ly_mon_hoc_cho_lop.ma_l,Quan_ly_mon_hoc.ma_mon_hoc,Quan_ly_mon_hoc.ten FROM Quan_ly_lop_hoc INNER JOIN Quan_ly_mon_hoc WHERE ma_lop= '"
-								+ nhapDiem + "'");
-
-				// while (result.next()) {
-				result.next();
-				arrDiem.add(new Diem(result.getString("maMH"),result.getString("maSV"),result.getString("diem"),result.getString("malophoc")));
-				
-				dm_diem.addRow(new String[] { result.getString("diem") });
-				String sql = "INSERT INTO Quan_ly_mon_hoc_cho_lop (ma_lop, ma_mon_hoc,ten) VALUES (" + "'"
-						+ result.getString("diem") +  "')";
-				statement.executeUpdate(sql);
-				
+				int x = statement.executeUpdate(sql);
+				if (x >= 0) {
+					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 			dm_diem.setRowCount(0);
+			
 			for (Diem x : arrDiem) {
-				String[] row = { x.getMaMH(),x.getMaSV(),x.getDiem(), x.getMalophoc() };
+				String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
 				dm_diem.addRow(row);
 			}
-
-		
-
+			diem.setText("");
 		}
 	};
+
 	ActionListener eventChooseLop = new ActionListener() {
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-		String chonLop = (String) maLopHoc.getSelectedItem();
-		maMonHoc.removeAllItems();
-		Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
-		try {
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(
-		"SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='"
-		+ chonLop + "'");
-		while (result.next()) {
-			maMonHoc.addItem(new String(result.getString("ma_mon_hoc")));
+			
+			String chonLop = (String) maLopHoc.getSelectedItem();
+			System.out.println(chonLop);
+			dm_diem.setRowCount(0);
+			
+			for (Diem x : arrDiem) {
+				if (chonLop.equals(x.getMalophoc())) {
+					String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
+					dm_diem.addRow(row);
+				}
+			}
+			maMonHoc.removeAllItems();
+			maMonHoc.addItem("Chọn môn");
+			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+			try {
+				Statement statement = conn.createStatement();
+				ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
+				while (result.next()) {
+					maMonHoc.addItem(new String(result.getString("ma_mon_hoc")));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		maSV.removeAllItems();
-		try {
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(
-		"SELECT * FROM quan_ly_sinh_vien WHERE ma_lop ='"
-		+ chonLop + "'");
-		while (result.next()) {
-		maSV.addItem(new String(result.getString("ma_sinh_vien")));
-		}
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
-		}
-		};
+	};
+	// kết thúc Chọn lớp -> mã môn học -> sinh viên
 
+	// chọn lớp và môn cho table Nhập điểm
 
+	ActionListener eventChooseMonHoc = new ActionListener() {
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			int i = maMonHoc.getSelectedIndex();
+			if (i >= 0) {
+				String chonLop = (String) maLopHoc.getSelectedItem();
+				String chonMH = (String) maMonHoc.getSelectedItem();
+				dm_diem.setRowCount(0);
+				maSV.removeAllItems();
+				maSV.addItem("Chọn Sinh Viên");
+				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+				try {
+					Statement statement = conn.createStatement();
+					ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_diem WHERE ma_lop_hoc ='" + chonLop + "'AND ma_mon_hoc = '"+chonMH+"'");
+					while (result.next()) {
+						maSV.addItem(new String(result.getString("ma_sinh_vien")));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (chonMH.equals("Chọn môn")) {
+					for (Diem x : arrDiem) {
+						if (chonLop.equals(x.getMalophoc())) {
+							String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
+							dm_diem.addRow(row);
+						}
+					}
+				} else {
+					for (Diem x : arrDiem) {
+						if (chonLop.equals(x.getMalophoc()) && chonMH.equals(x.getMaMH())) {
+							String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
+							dm_diem.addRow(row);
+						}
+					}
+				}
+			}
+		}
+	};
 }
