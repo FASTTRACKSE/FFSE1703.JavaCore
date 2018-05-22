@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -224,6 +225,8 @@ public class QuanLySinhVienUI extends JPanel {
 			lop = cbLop.getSelectedItem().toString();
 			if (maSV.isEmpty() || tenSV.isEmpty() || diaChi.isEmpty() || tinhTP == "Chọn tỉnh/thành phố" || quanHuyen == "Chọn quận/huyện" || xaPhuong == "Chọn xã/phường" || sdt.isEmpty() || email.isEmpty() || lop == "Chon lop") {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+			} else if (isValid(email) == false) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập lại địa chỉ email");
 			} else {
 				try {
 					Statement statement =  connection.createStatement();
@@ -266,20 +269,24 @@ public class QuanLySinhVienUI extends JPanel {
 			sdt = txtSDT.getText();
 			email = txtEmail.getText();
 			lop = cbLop.getSelectedItem().toString();
-			try {
-				String sql = "update sinhvien set TenSV ='" + tenSV + "',DiaChi ='" + diaChi + "',XaPhuong ='"+ xaPhuong + "',QuanHuyen ='"+quanHuyen+ "',TinhTP ='"+tinhTP+ "',Phone ='"+sdt+ "',Email ='"+email+ "',LopHoc ='"+lop+ "' where MaSV ='" + maSV + "'";
-				Statement statements = (Statement) connection.createStatement();
-				int y = statements.executeUpdate(sql);
-				if (y > 0) {
-					reset();
-					JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thành công!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thất bại!");
+			if (isValid(email) == false) {
+					JOptionPane.showMessageDialog(null, "Vui lòng nhập lại địa chỉ email");
+			} else {
+				try {
+					String sql = "update sinhvien set TenSV ='" + tenSV + "',DiaChi ='" + diaChi + "',XaPhuong ='"+ xaPhuong + "',QuanHuyen ='"+quanHuyen+ "',TinhTP ='"+tinhTP+ "',Phone ='"+sdt+ "',Email ='"+email+ "',LopHoc ='"+lop+ "' where MaSV ='" + maSV + "'";
+					Statement statements = (Statement) connection.createStatement();
+					int y = statements.executeUpdate(sql);
+					if (y > 0) {
+						reset();
+						JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thành công!");
+					} else {
+						JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thất bại!");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				getRowTable();
 			}
-			getRowTable();
 		}
 	};
 	ActionListener XoaSV = new ActionListener() {
@@ -465,6 +472,14 @@ public class QuanLySinhVienUI extends JPanel {
 		btnHuy.setEnabled(true);
 		btnThem.setEnabled(false);
 	}
+	public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@" +"(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";                      
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
 		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase+"?useUnicode=true&characterEncoding=UTF-8";
