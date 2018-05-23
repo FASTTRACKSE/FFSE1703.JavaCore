@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -134,27 +134,7 @@ public class QuanLiLopHocUI extends JPanel {
 		pnlLopHocTable.setLayout(new BorderLayout());
 		pnlLopHocTable.add(sc);
 
-		tblLopHoc.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
+		tblLopHoc.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -331,7 +311,6 @@ public class QuanLiLopHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			maLop = txtmaLop.getText();
 			monHoc = cboChonMon.getSelectedItem().toString();
 			if (maLop.isEmpty()) {

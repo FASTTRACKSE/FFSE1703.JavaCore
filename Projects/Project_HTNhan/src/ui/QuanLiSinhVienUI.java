@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -83,7 +83,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel maSv = new JPanel();
 		JLabel lblMaSv = new JLabel("Nhập Mã Sinh Viên ");
 		lblMaSv.setPreferredSize(new Dimension(150, 30));
-		txtMaSv = new JTextField(15);
+		txtMaSv = new JTextField(20);
 		maSv.add(lblMaSv);
 		maSv.add(txtMaSv);
 		pnlSinhVienInput.add(maSv);
@@ -91,7 +91,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel tenSv = new JPanel();
 		JLabel lblTenSv = new JLabel("Nhập tên Sinh Viên ");
 		lblTenSv.setPreferredSize(new Dimension(150, 30));
-		txtTenSv = new JTextField(15);
+		txtTenSv = new JTextField(20);
 		tenSv.add(lblTenSv);
 		tenSv.add(txtTenSv);
 		pnlSinhVienInput.add(tenSv);
@@ -99,7 +99,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel diaChi = new JPanel();
 		JLabel lbldiaChi = new JLabel("Nhập Địa Chỉ Nhà ");
 		lbldiaChi.setPreferredSize(new Dimension(150, 30));
-		txtdiaChi = new JTextField(15);
+		txtdiaChi = new JTextField(20);
 		diaChi.add(lbldiaChi);
 		diaChi.add(txtdiaChi);
 		pnlSinhVienInput.add(diaChi);
@@ -107,7 +107,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel dienThoai = new JPanel();
 		JLabel lbldienThoai = new JLabel("Nhập Số Điện Thoại ");
 		lbldienThoai.setPreferredSize(new Dimension(150, 30));
-		txtdienThoai = new JTextField(15);
+		txtdienThoai = new JTextField(20);
 		dienThoai.add(lbldienThoai);
 		dienThoai.add(txtdienThoai);
 		pnlSinhVienInput.add(dienThoai);
@@ -115,7 +115,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		JPanel email = new JPanel();
 		JLabel lblemail = new JLabel("Nhập Số Email ");
 		lblemail.setPreferredSize(new Dimension(150, 30));
-		txtemail = new JTextField(15);
+		txtemail = new JTextField(20);
 		email.add(lblemail);
 		email.add(txtemail);
 		pnlSinhVienInput.add(email);
@@ -221,27 +221,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(pnl);
 
-		tbl.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
+		tbl.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -305,7 +285,7 @@ public class QuanLiSinhVienUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			try {
 
-				// lấy tên tỉnh/tp của combobox
+				// lấy tên và id tỉnh/tp của combobox
 				ProvinceModel item = (ProvinceModel) cboThanhPho.getSelectedItem();
 				provinceId = item.getProvinceid();
 				arrDistrict = districtSQL.selectDistrict(provinceId);
@@ -332,7 +312,8 @@ public class QuanLiSinhVienUI extends JPanel {
 				cboQuan.addItem(x);
 			}
 			try {
-				DistrictModel item = (DistrictModel) cboQuan.getSelectedItem();
+				// lấy tên và id Quận/Huyện của combobox
+				DistrictModel item =  (DistrictModel) cboQuan.getSelectedItem();
 				districtId = item.getDistrictid();
 				arrWard = wardSQL.selectWard(districtId);
 			} catch (Exception ex) {
@@ -365,7 +346,6 @@ public class QuanLiSinhVienUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			if (txtMaSv.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Mã Sinh Viên !!!");
 			} else if (txtTenSv.getText().equals("")) {
@@ -542,8 +522,6 @@ public class QuanLiSinhVienUI extends JPanel {
 
 			}
 		}
-		
-		
 	}
 	@SuppressWarnings("unchecked")
 	public void cboLop() {

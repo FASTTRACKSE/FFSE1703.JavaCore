@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -88,7 +88,7 @@ public class QuanLiDiemHocUI extends JPanel {
 
 		JPanel maSv = new JPanel();
 		JLabel lblmaSv = new JLabel("Mã Sinh Viên");
-		txtmaSv = new JTextField(15);
+		txtmaSv = new JTextField(20);
 		lblmaSv.setPreferredSize(new Dimension(90, 20));
 		maSv.add(lblmaSv);
 		maSv.add(txtmaSv);
@@ -96,7 +96,7 @@ public class QuanLiDiemHocUI extends JPanel {
 
 		JPanel tenSv = new JPanel();
 		JLabel lbltenSv = new JLabel("Tên Sinh Viên");
-		txttenSv = new JTextField(15);
+		txttenSv = new JTextField(20);
 		lbltenSv.setPreferredSize(new Dimension(90, 20));
 		tenSv.add(lbltenSv);
 		tenSv.add(txttenSv);
@@ -114,7 +114,7 @@ public class QuanLiDiemHocUI extends JPanel {
 		//
 		JPanel diemSv = new JPanel();
 		JLabel lbldiemSv = new JLabel("Nhập Điểm");
-		txtdiemSv = new JTextField(15);
+		txtdiemSv = new JTextField(20);
 		lbldiemSv.setPreferredSize(new Dimension(90, 20));
 		diemSv.add(lbldiemSv);
 		diemSv.add(txtdiemSv);
@@ -154,28 +154,8 @@ public class QuanLiDiemHocUI extends JPanel {
 		JScrollPane sc = new JScrollPane(tbl);
 		pnlDiemHocTable.setLayout(new BorderLayout());
 		pnlDiemHocTable.add(sc);
-		tbl.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
+		tbl.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -228,7 +208,6 @@ public class QuanLiDiemHocUI extends JPanel {
 			for (QuanLiMonHocCuaLopModel x : arrMonvaLop) {
 				cbochonMon.addItem(x.getMaMh());
 			}
-
 		}
 	};
 	ActionListener eventcboMon = new ActionListener() {
@@ -281,7 +260,6 @@ public class QuanLiDiemHocUI extends JPanel {
 					quanLiDiemHocSQL.insert(maSv, maMH, diemMH);
 					txtdiemSv.setText("");
 				}
-
 			}
 		}
 	};

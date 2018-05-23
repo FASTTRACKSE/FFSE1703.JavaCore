@@ -3,10 +3,8 @@ package model;
 public class QuanLiMonHocCuaLopModel {
 	private String maLop,maMh;
 	public QuanLiMonHocCuaLopModel() {
-		// TODO Auto-generated constructor stub
 	}
 	public QuanLiMonHocCuaLopModel(String maLop,String maMh) {
-		// TODO Auto-generated constructor stub
 		this.maLop = maLop;
 		this.maMh = maMh;
 	}

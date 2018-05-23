@@ -5,7 +5,7 @@ public class DistrictModel {
 	
 
 	public DistrictModel() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	public DistrictModel(String districtid,String name) {
 		this.districtid = districtid;

@@ -3,7 +3,6 @@ package model;
 public class QuanLiMonHocModel {
 	private String maMH,tenMH,tinChiMH,thoiGianMH;
 	public QuanLiMonHocModel() {
-		// TODO Auto-generated constructor stub
 	}
 	public QuanLiMonHocModel(String maMH ,String tenMH,String tinChiMH,String thoiGianMH) {
 		this.maMH = maMH;

@@ -6,7 +6,6 @@ public class QuanLiSinhVienModel {
 
 
 	public QuanLiSinhVienModel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public QuanLiSinhVienModel(String maSv, String hoTenSv, String diaChiSv, String xa, String huyen, String tinh,
