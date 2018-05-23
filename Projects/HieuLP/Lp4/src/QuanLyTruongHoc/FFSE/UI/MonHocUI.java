@@ -21,9 +21,9 @@ public class MonHocUI extends JPanel {
 	private JTextField maMonhoc = new JTextField(), Ten = new JTextField(), soTinhChi = new JTextField(),
 			Thoiluonghoc = new JTextField();
 	private ArrayList<QuanLyTruonghocMonhoc> arrMH = new ArrayList<QuanLyTruonghocMonhoc>();
-	private Button ThemMon = new Button("Thêm");
-	private Button SuaMon = new Button("Sửa");
-	private Button XoaMon = new Button("Xóa");
+	private JButton ThemMon = new JButton("Thêm");
+	private JButton SuaMon = new JButton("Sửa");
+	private JButton XoaMon = new JButton("Xóa");
 	private JButton nhapSinhVien = new JButton("Nhập");
 	public MonHocUI() {
 		addControls();
@@ -34,7 +34,7 @@ public class MonHocUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border bordermonhoc = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitlemonhoc = BorderFactory.createTitledBorder(bordermonhoc, "Danh sách");
+		TitledBorder borderTitlemonhoc = BorderFactory.createTitledBorder(bordermonhoc, "Danh sách môn học");
 		this.setBorder(borderTitlemonhoc);
 		dm_monhoc = new DefaultTableModel();
 		dm_monhoc.addColumn("Mã môn học");
@@ -78,6 +78,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapmaMonhoc = new JPanel();
 		JLabel lblNhapmaMonhoc = new JLabel("Mã môn học:");
+		lblNhapmaMonhoc.setPreferredSize(new Dimension(100, 30));
 		maMonhoc = new JTextField(20);
 		nhapmaMonhoc.add(lblNhapmaMonhoc);
 		nhapmaMonhoc.add(maMonhoc);
@@ -85,6 +86,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhaptenMonhoc = new JPanel();
 		JLabel lblNhaptenMonhoc = new JLabel("Tên môn học:");
+		lblNhaptenMonhoc.setPreferredSize(new Dimension(100, 30));
 		Ten = new JTextField(20);
 		nhaptenMonhoc.add(lblNhaptenMonhoc);
 		nhaptenMonhoc.add(Ten);
@@ -92,6 +94,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapSotinhchi = new JPanel();
 		JLabel lblSotinhchi = new JLabel("Số tính chỉ:");
+		lblSotinhchi.setPreferredSize(new Dimension(100, 30));
 		soTinhChi = new JTextField(20);
 		nhapSotinhchi.add(lblSotinhchi);
 		nhapSotinhchi.add(soTinhChi);
@@ -99,6 +102,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapThoiluonghoc = new JPanel();
 		JLabel lblNhapthoiluonghoc = new JLabel("Thời lượng học:");
+		lblNhapthoiluonghoc.setPreferredSize(new Dimension(100, 30));
 		Thoiluonghoc = new JTextField(20);
 		nhapThoiluonghoc.add(lblNhapthoiluonghoc);
 		nhapThoiluonghoc.add(Thoiluonghoc);
@@ -110,7 +114,7 @@ public class MonHocUI extends JPanel {
 		pnMonhocbutton.setBorder(borderTitle4monhoc);
 		pnMonhocbutton.setLayout(new FlowLayout());
 		JPanel chucnangmonhoc = new JPanel();
-		chucnangmonhoc.setLayout(new BoxLayout(chucnangmonhoc, BoxLayout.X_AXIS));
+		chucnangmonhoc.setLayout(new BoxLayout(chucnangmonhoc, BoxLayout.Y_AXIS));
 		pnMonhocbutton.setPreferredSize(new Dimension(200, 100));
 		pnMonhocbutton.add(ThemMon);
 		pnMonhocbutton.add(SuaMon);

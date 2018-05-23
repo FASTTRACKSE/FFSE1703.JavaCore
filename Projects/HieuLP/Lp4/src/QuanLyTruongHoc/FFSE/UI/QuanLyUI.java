@@ -1,8 +1,11 @@
 package QuanLyTruongHoc.FFSE.UI;
 
 import java.awt.*;
+
+
 import javax.swing.*;
 import java.awt.event.*;
+
 
 public class QuanLyUI extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -43,10 +46,14 @@ public class QuanLyUI extends JFrame {
 		pnNorth.add(pnTitle);
 		pnBorder.add(pnNorth, BorderLayout.NORTH);
 		pnNorth.setLayout(new BoxLayout(pnNorth, BoxLayout.Y_AXIS));
+		
+	
+		
 
 		// Icon Button
 		JPanel pnWest = new JPanel();
 		pnWest.setLayout(new BoxLayout(pnWest, BoxLayout.Y_AXIS));
+		
 
 		JPanel pnQuanLyLopHoc = new JPanel();
 		ImageIcon iconView = new ImageIcon("image/qlLophoc.png");
@@ -80,7 +87,7 @@ public class QuanLyUI extends JFrame {
 		Image getIconView2cholop = iconView2cholop.getImage();
 		Image newIconView2cholop = getIconView2cholop.getScaledInstance(85, 70, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon2cholop = new ImageIcon(newIconView2cholop);
-		qlmonhoccholop = new JButton("MÔN HỌC CỦA LỚP", newIcon2cholop);
+		qlmonhoccholop = new JButton("MÔN HỌC CỦA LỚP   ", newIcon2cholop);
 		qlmonhoccholop.setFocusPainted(false);
 		pnQuanlymonhoccholop.add(qlmonhoccholop);
 

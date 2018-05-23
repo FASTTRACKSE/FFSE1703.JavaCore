@@ -26,8 +26,9 @@ public class NhapDiemUI extends JPanel {
 	private JComboBox<String> maSVcomnoBox = new JComboBox<>();
 	private JComboBox<String> maMonhoc = new JComboBox<>();
 	private JComboBox<String> comBoboxlop = new JComboBox<>();
-	private Button ThemDiem = new Button("Thêm");
-	private Button SuaDiem = new Button("Sửa");
+	private JButton ThemDiem = new JButton("Thêm");
+	private JButton SuaDiem = new JButton("Sửa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 	public NhapDiemUI() {
 		maLopcomnoBox();
 		maMonhoc();
@@ -93,7 +94,7 @@ public class NhapDiemUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách điểm của sinh viên");
 		this.setBorder(borderTitle);
 		dm_nhapdiem = new DefaultTableModel();
 		dm_nhapdiem.addColumn("Mã lớp học");
@@ -148,6 +149,8 @@ public class NhapDiemUI extends JPanel {
 		JPanel chonlop = new JPanel();
 		chonlop.setLayout(new FlowLayout());
 		JLabel txtlop = new JLabel("Mã lớp:  ");
+		txtlop.setPreferredSize(new Dimension(70, 30));
+		maLopcomnoBox.setPreferredSize(new Dimension(220, 20));
 		chonlop.add(txtlop);
 		chonlop.add(maLopcomnoBox);
 		pnLeft.add(chonlop);
@@ -155,6 +158,8 @@ public class NhapDiemUI extends JPanel {
 		JPanel chonmasv = new JPanel();
 		chonmasv.setLayout(new FlowLayout());
 		JLabel txtsv = new JLabel("Mã SV:  ");
+		txtsv.setPreferredSize(new Dimension(70, 30));
+		maSVcomnoBox.setPreferredSize(new Dimension(220, 20));
 		chonmasv.add(txtsv);
 		chonmasv.add(maSVcomnoBox);
 		pnLeft.add(chonmasv);
@@ -162,6 +167,8 @@ public class NhapDiemUI extends JPanel {
 		JPanel chonma = new JPanel();
 		chonma.setLayout(new FlowLayout());
 		JLabel txtma = new JLabel("Mã môn:  ");
+		txtma.setPreferredSize(new Dimension(70, 30));
+		maMonhoc.setPreferredSize(new Dimension(220, 20));
 		chonma.add(txtma);
 		chonma.add(maMonhoc);
 		pnLeft.add(chonma);
@@ -169,6 +176,7 @@ public class NhapDiemUI extends JPanel {
 		JPanel nhapdiemsv = new JPanel();
 		nhapdiemsv.setLayout(new FlowLayout());
 		JLabel lblHoTenSV = new JLabel("Nhập điểm:");
+		lblHoTenSV.setPreferredSize(new Dimension(70, 30));
 		nhapDiemsv = new JTextField(20);
 		nhapdiemsv.add(lblHoTenSV);
 		nhapdiemsv.add(nhapDiemsv);
@@ -184,6 +192,7 @@ public class NhapDiemUI extends JPanel {
 		pnNhapdiembutton.setPreferredSize(new Dimension(200, 100));
 		pnNhapdiembutton.add(ThemDiem);
 		pnNhapdiembutton.add(SuaDiem);
+		pnNhapdiembutton.add(nhapSinhVien);
 
 		pnNhapdiem.add(pnLeft);
 		pnNhapdiembutton.add(chucnang);
@@ -257,6 +266,7 @@ public class NhapDiemUI extends JPanel {
 		ThemDiem.addActionListener(eventAdd_lop);
 		SuaDiem.addActionListener(eventEDit_lop);
 		comBoboxlop.addActionListener(eventchoseLop);
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
 		maLopcomnoBox.addItemListener(new ItemListener() {
 
 			@Override
@@ -291,6 +301,7 @@ public class NhapDiemUI extends JPanel {
 			maSVcomnoBox.setSelectedItem(col[1]);
 			maMonhoc.setSelectedItem(col[2]);
 			nhapDiemsv.setText(col[3]);
+			ThemDiem.setEnabled(false);
 
 		}
 	};
@@ -303,39 +314,41 @@ public class NhapDiemUI extends JPanel {
 			String maMH = (String) maMonhoc.getSelectedItem();
 			String sinhVien = (String) maSVcomnoBox.getSelectedItem();
 			String diem = nhapDiemsv.getText();
-			for (NhapDiem x : arrNhapdiem ) {
-				if (maLp.equals(x.getMaLop()) && maMH.equals(x.getMaMH())&& sinhVien.equals(x.getMaSV())) {
-					kt = 3;
-					break;
-				}
-			}
+			
 
 			try {
-				if (kt == 3) {
+				for (NhapDiem x : arrNhapdiem ) {
+					if (maLp.equals(x.getMaLop()) && maMH.equals(x.getMaMH())&& sinhVien.equals(x.getMaSV())) {
+						kt = 1;
+					}
+				}
+				if (kt == 1) {
 					JOptionPane.showMessageDialog(null, "ĐIỂM ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
 
 				} else {	
-				if (diem.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
-				} else {
-					dm_nhapdiem.addRow(new String[] { maLp, maMH, sinhVien, diem });
-					Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
-					try {
-						String sql = "INSERT INTO table_diem (MaLop, MaMH,MaSV, Diem) VALUES('" + maLp + "','" + maMH
-								+ "','" + sinhVien + "','" + diem + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin điểm");
+						if (diem.equals("")) {
+							JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+						} else {
+							arrNhapdiem.add(new NhapDiem(maLp, maMH, sinhVien, diem));
+							dm_nhapdiem.addRow(new String[] { maLp, sinhVien, maMH, diem });
+							Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
+							try {
+								String sql = "INSERT INTO table_diem (MaLop, MaMH,MaSV, Diem) VALUES('" + maLp + "','" + maMH
+										+ "','" + sinhVien + "','" + diem + "')";
+								Statement statement = conn.createStatement();
+								int x = statement.executeUpdate(sql);
+								if (x > 0) {
+									JOptionPane.showMessageDialog(null, "Đã lưu thông tin điểm");
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
 						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
 				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin");
 			}
+			
 		}
 	};
 
@@ -402,6 +415,20 @@ public class NhapDiemUI extends JPanel {
 
 		}
 
+	};
+	ActionListener eventReset_SinhVien = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			ThemDiem.setEnabled(true);
+			maLopcomnoBox.setSelectedItem("");
+			maSVcomnoBox.setSelectedItem("");
+			maMonhoc.setSelectedItem("");
+			nhapDiemsv.setText("");
+			
+			
+		}
 	};
 
 }

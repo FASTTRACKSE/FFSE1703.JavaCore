@@ -59,7 +59,7 @@ public class NhapDiemUI extends JPanel {
 		selectMaSV.addItem("Chọn sinh viên");
 		pnLop_NhapDiem.add(selectMaSV);
 		pnLeft_NhapDiem.add(pnLop_NhapDiem);
-		
+
 		JPanel chon_NhapDiem = new JPanel();
 		chon_NhapDiem.setLayout(new FlowLayout());
 		JLabel txt_NhapDiem = new JLabel("Mã môn học: ");
@@ -183,8 +183,8 @@ public class NhapDiemUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 			try {
 				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery(
-						"SELECT DISTINCT MaSV FROM diem WHERE MaLop ='" + chonLop + "'");
+				ResultSet result = statement
+						.executeQuery("SELECT DISTINCT MaSV FROM diem WHERE MaLop ='" + chonLop + "'");
 				while (result.next()) {
 					selectMaSV.addItem(new String(result.getString("MaSV")));
 				}
@@ -202,13 +202,14 @@ public class NhapDiemUI extends JPanel {
 			if (i >= 0) {
 				String chonLop = (String) selectNhapDiem.getSelectedItem();
 				String chonSV = (String) selectMaSV.getSelectedItem();
-				
+
 				selectMaMH.removeAllItems();
 				selectMaMH.addItem("Chọn môn");
 				Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
 				try {
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery("SELECT DISTINCT MaMH FROM diem WHERE MaLop ='" + chonLop + "' AND MaSV ='"+ chonSV +"'");
+					ResultSet result = statement.executeQuery(
+							"SELECT DISTINCT MaMH FROM diem WHERE MaLop ='" + chonLop + "' AND MaSV ='" + chonSV + "'");
 					while (result.next()) {
 						selectMaMH.addItem(new String(result.getString("MaMH")));
 					}
@@ -229,8 +230,7 @@ public class NhapDiemUI extends JPanel {
 				} else {
 					dm_NhapDiem.setRowCount(0);
 					for (Diem x : arrDiem) {
-						if (selectNhapDiem.getSelectedItem().equals(x.getLop())
-							&& chonSV.equals(x.getMaSV())) {
+						if (selectNhapDiem.getSelectedItem().equals(x.getLop()) && chonSV.equals(x.getMaSV())) {
 							String[] row = { x.getLop(), x.getMaSV(), x.getMaMH(), x.getDiem() };
 							dm_NhapDiem.addRow(row);
 						}
@@ -239,7 +239,7 @@ public class NhapDiemUI extends JPanel {
 			}
 		}
 	};
-	
+
 	ActionListener eventChooseMonHoc = new ActionListener() {
 
 		@Override
@@ -249,7 +249,7 @@ public class NhapDiemUI extends JPanel {
 				String chonLop = (String) selectNhapDiem.getSelectedItem();
 				String chonMH = (String) selectMaMH.getSelectedItem();
 				String chonSV = (String) selectMaSV.getSelectedItem();
-				
+
 				if (chonMH.equals("Chọn môn")) {
 					dm_NhapDiem.setRowCount(0);
 					for (Diem x : arrDiem) {
@@ -276,7 +276,6 @@ public class NhapDiemUI extends JPanel {
 		}
 	};
 
-	
 	// kết thúc Chọn lớp -> mã môn học -> sinh viên
 
 	// CRUD nhập điểm
@@ -300,26 +299,42 @@ public class NhapDiemUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (Diem x : arrDiem) {
-				if (selectMaSV.getSelectedItem().equals(x.getMaSV())
-						&& selectMaMH.getSelectedItem().equals(x.getMaMH())) {
-					x.setLop((String) selectNhapDiem.getSelectedItem());
-					x.setDiem(DiemSV.getText());
-					break;
-				}
-			}
-			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+			int KT = 0;
 			try {
-				String sql = "UPDATE diem SET Diem ='" + DiemSV.getText() + "',MaLop ='"
-						+ selectNhapDiem.getSelectedItem() + "' WHERE MaMH = '" + selectMaMH.getSelectedItem()
-						+ "' AND MaSV ='" + selectMaSV.getSelectedItem() + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+				Double.parseDouble(DiemSV.getText());
+			} catch (NumberFormatException ex) {
+				KT = 1;
+			}
+			
+			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
+			if (KT == 1) {
+				JOptionPane.showMessageDialog(null, "Bạn nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if ((Double.parseDouble(DiemSV.getText())) > 10 || (Double.parseDouble(DiemSV.getText())) < 0) {
+				JOptionPane.showMessageDialog(null, "Nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+
+				try {
+					for (Diem x : arrDiem) {
+						if (selectMaSV.getSelectedItem().equals(x.getMaSV())
+								&& selectMaMH.getSelectedItem().equals(x.getMaMH())) {
+							x.setLop((String) selectNhapDiem.getSelectedItem());
+							x.setDiem(DiemSV.getText());
+							break;
+						}
+					}
+					String sql = "UPDATE diem SET Diem ='" + DiemSV.getText() + "',MaLop ='"
+							+ selectNhapDiem.getSelectedItem() + "' WHERE MaMH = '" + selectMaMH.getSelectedItem()
+							+ "' AND MaSV ='" + selectMaSV.getSelectedItem() + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 			dm_NhapDiem.setRowCount(0);
 			for (Diem x : arrDiem) {

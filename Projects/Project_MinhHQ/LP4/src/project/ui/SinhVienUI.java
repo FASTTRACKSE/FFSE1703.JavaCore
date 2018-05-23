@@ -423,13 +423,13 @@ public class SinhVienUI extends JPanel {
 			if (i > 0) {
 				JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!", null, JOptionPane.WARNING_MESSAGE);
 			} else if (!mail1.find()) {
-				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "email không hợp lệ", null, JOptionPane.WARNING_MESSAGE);
 
 			} else if (KT2 > 0) {
-				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "số điện thoại chỉ bao gồm số", null, JOptionPane.WARNING_MESSAGE);
 
 			} else if (sdt_SinhVien.length() > 0 && (sdt_SinhVien.length() < 10 || sdt_SinhVien.length() > 11)) {
-				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ TỪ 10-11 SỐ", null, JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "số điện thoại phải từ 10-11 số", null, JOptionPane.WARNING_MESSAGE);
 
 			} else {
 				try {
