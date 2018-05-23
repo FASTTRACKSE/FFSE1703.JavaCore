@@ -15,22 +15,18 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MyQuanLyTruongHoc extends JFrame {
 
-	
 	CardLayout cardlayout;
 
 	private JPanel pnCenter = new JPanel();
 
-
 	private JPanel pnBorder = new JPanel();
 
-	
 	private Button btn1 = new Button("QUẢN LÝ SINH VIÊN");
 	private Button btn2 = new Button("QUẢN LÝ ĐIỂM");
 	private Button btn3 = new Button("QUẢN LÝ LỚP HỌC");
 	private Button btn4 = new Button("QUẢN LÝ MÔN HỌC");
 	private Button btn5 = new Button("THỐNG KÊ BÁO CÁO");
 	private Button btn6 = new Button("QLMH CHO TỪNG LỚP");
-	
 
 	private QuanLyDiemUI nhapDiem;
 	private QuanLySinhVienUI sinhVien;
@@ -62,8 +58,6 @@ public class MyQuanLyTruongHoc extends JFrame {
 		pnWest.add(btn6);
 		pnWest.add(btn5);
 		pnBorder.add(pnWest, BorderLayout.WEST);
-
-		
 
 		sinhVien = new QuanLySinhVienUI();
 		pnCenter.setLayout(cardlayout);

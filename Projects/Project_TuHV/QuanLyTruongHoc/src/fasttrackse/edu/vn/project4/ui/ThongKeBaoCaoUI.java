@@ -22,7 +22,6 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-
 import fasttrackse.edu.vn.project4.model.Connect;
 
 public class ThongKeBaoCaoUI extends JPanel {
@@ -117,43 +116,46 @@ public class ThongKeBaoCaoUI extends JPanel {
 
 		try {
 			Statement statement = conn.createStatement();
-			String sSQLAllStudents = "" + 
-					"SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n" + 
-					"							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE " +
-					"							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n" + 
-					"							GROUP BY ma_sinh_vien";
-			
+			String sSQLAllStudents = ""
+					+ "SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n"
+					+ "							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE "
+					+ "							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n"
+					+ "							GROUP BY ma_sinh_vien";
+
 			ResultSet result = statement.executeQuery(sSQLAllStudents);
 			while (result.next()) {
 				Statement stt = conn.createStatement();
-				String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '" + result.getString("quan_ly_sinh_vien.ma_sinh_vien") + "'";
+				String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '"
+						+ result.getString("quan_ly_sinh_vien.ma_sinh_vien") + "'";
 				ResultSet query = stt.executeQuery(sSQL);
 				if (!query.wasNull()) {
-				query.next();
-				String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-						result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-						result.getString("LP5"), result.getString("LP6"), result.getString("LPE") };
-				int t= 0;
-				int n = 0;
-				int y = 0;
-				for (int i=2;i<row.length;i++) {
-					if(row[i] != null) {
-					y = Integer.parseInt(row[i]);
-					n =  n + y;
-					t++;
+					query.next();
+					String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+							query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+							result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+							result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+							result.getString("LPE") };
+					int t = 0;
+					int n = 0;
+					int y = 0;
+					for (int i = 2; i < row.length; i++) {
+						if (row[i] != null) {
+							y = Integer.parseInt(row[i]);
+							n = n + y;
+							t++;
+						}
 					}
-					}
-				    float tbc=(float)n/t;
-				    
-				    String xeploai ;
-				    if (tbc <= 4.9) {
-				    	xeploai = "Yếu";
+					float tbc = (float) n / t;
+
+					String xeploai;
+					if (tbc <= 4.9) {
+						xeploai = "Yếu";
 					} else if (tbc <= 6.4) {
 						xeploai = "Trung Bình";
 					} else if (tbc <= 7.9) {
@@ -161,15 +163,15 @@ public class ThongKeBaoCaoUI extends JPanel {
 					} else {
 						xeploai = "Giỏi";
 					}
-				    
-				    
-				    
-				    String TBM = Float.toString(tbc);
-				    @SuppressWarnings("unused")
-					String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-							result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-							result.getString("LP5"), result.getString("LP6"), result.getString("LPE"),TBM,xeploai };
-				dm_ThongkeDiem.addRow(dm);
+
+					String TBM = Float.toString(tbc);
+					@SuppressWarnings("unused")
+					String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+							query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+							result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+							result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+							result.getString("LPE"), TBM, xeploai };
+					dm_ThongkeDiem.addRow(dm);
 				}
 			}
 		} catch (Exception e) {
@@ -230,8 +232,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 			ResultSet result = statement.executeQuery(
 					"SELECT *,(SELECT Count(*) FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_lop = quan_ly_lop_hoc.ma_lop) as Tong FROM quan_ly_lop_hoc");
 			while (result.next()) {
-				String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"), result.getString("Tong"),
-						result.getString("nam_hoc") };
+				String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"),
+						result.getString("Tong"), result.getString("nam_hoc") };
 				dm_ThongkeSV.addRow(row);
 			}
 		} catch (Exception e) {
@@ -273,6 +275,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 		namDiem.addActionListener(eventChooseNamDiem);
 		lopDiem.addActionListener(eventChooseLopDiem);
 	}
+
 	ActionListener eventChooseNamSV = new ActionListener() {
 
 		@Override
@@ -286,8 +289,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 					ResultSet result = statement.executeQuery(
 							"SELECT *,(SELECT Count(*) FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_lop = quan_ly_lop_hoc.ma_lop) as Tong FROM quan_ly_lop_hoc");
 					while (result.next()) {
-						String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"), result.getString("Tong"),
-								result.getString("nam_hoc") };
+						String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"),
+								result.getString("Tong"), result.getString("nam_hoc") };
 						dm_ThongkeSV.addRow(row);
 					}
 				} catch (Exception e) {
@@ -303,8 +306,8 @@ public class ThongKeBaoCaoUI extends JPanel {
 							"SELECT *,(SELECT Count(*) FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_lop = quan_ly_lop_hoc.ma_lop) as Tong FROM quan_ly_lop_hoc WHERE quan_ly_lop_hoc.nam_hoc='"
 									+ chonNamHoc + "'");
 					while (result.next()) {
-						String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"), result.getString("Tong"),
-								result.getString("nam_hoc") };
+						String[] row = { result.getString("quan_ly_lop_hoc.ma_lop"), result.getString("mo_ta"),
+								result.getString("Tong"), result.getString("nam_hoc") };
 						dm_ThongkeSV.addRow(row);
 					}
 				} catch (Exception e) {
@@ -361,43 +364,46 @@ public class ThongKeBaoCaoUI extends JPanel {
 					Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 					try {
 						Statement statement = conn.createStatement();
-						String sSQLAllStudents = "" + 
-								"SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE " +
-								"							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n" + 
-								"							GROUP BY ma_sinh_vien";
-						
+						String sSQLAllStudents = ""
+								+ "SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE "
+								+ "							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n"
+								+ "							GROUP BY ma_sinh_vien";
+
 						ResultSet result = statement.executeQuery(sSQLAllStudents);
 						while (result.next()) {
 							Statement stt = conn.createStatement();
-							String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '" + result.getString("quan_ly_sinh_vien.ma_sinh_vien") + "'";
+							String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '"
+									+ result.getString("quan_ly_sinh_vien.ma_sinh_vien") + "'";
 							ResultSet query = stt.executeQuery(sSQL);
 							if (!query.wasNull()) {
-							query.next();
-							String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-									result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-									result.getString("LP5"), result.getString("LP6"), result.getString("LPE") };
-							int t= 0;
-							int n = 0;
-							int y = 0;
-							for (int i=2;i<row.length;i++) {
-								if(row[i] != null) {
-								y = Integer.parseInt(row[i]);
-								n =  n + y;
-								t++;
+								query.next();
+								String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+										query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+										result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+										result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+										result.getString("LPE") };
+								int t = 0;
+								int n = 0;
+								int y = 0;
+								for (int i = 2; i < row.length; i++) {
+									if (row[i] != null) {
+										y = Integer.parseInt(row[i]);
+										n = n + y;
+										t++;
+									}
 								}
-								}
-							    float tbc=(float)n/t;
-							    
-							    String xeploai ;
-							    if (tbc <= 4.9) {
-							    	xeploai = "Yếu";
+								float tbc = (float) n / t;
+
+								String xeploai;
+								if (tbc <= 4.9) {
+									xeploai = "Yếu";
 								} else if (tbc <= 6.4) {
 									xeploai = "Trung Bình";
 								} else if (tbc <= 7.9) {
@@ -405,15 +411,15 @@ public class ThongKeBaoCaoUI extends JPanel {
 								} else {
 									xeploai = "Giỏi";
 								}
-							    
-							    
-							    
-							    String TBM = Float.toString(tbc);
-							    @SuppressWarnings("unused")
-								String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-										result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-										result.getString("LP5"), result.getString("LP6"), result.getString("LPE"),TBM,xeploai };
-							dm_ThongkeDiem.addRow(dm);
+
+								String TBM = Float.toString(tbc);
+								@SuppressWarnings("unused")
+								String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+										query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+										result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+										result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+										result.getString("LPE"), TBM, xeploai };
+								dm_ThongkeDiem.addRow(dm);
 							}
 						}
 					} catch (Exception e) {
@@ -425,43 +431,47 @@ public class ThongKeBaoCaoUI extends JPanel {
 					Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 					try {
 						Statement statement = conn.createStatement();
-						String sSQLAllStudents = "" + 
-								"SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE " +
-								"							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n" + 
-								"							GROUP BY ma_sinh_vien";
-						
+						String sSQLAllStudents = ""
+								+ "SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LP6' THEN diem ELSE 0 END) AS LP6,\r\n"
+								+ "							   SUM(CASE WHEN ma_mon_hoc = 'LPE' THEN diem ELSE 0 END) AS LPE "
+								+ "							FROM quan_ly_sinh_vien INNER JOIN quan_ly_diem ON quan_ly_sinh_vien.ma_sinh_vien = quan_ly_diem.ma_sinh_vien \r\n"
+								+ "							GROUP BY ma_sinh_vien";
+
 						ResultSet result = statement.executeQuery(sSQLAllStudents);
 						while (result.next()) {
 							Statement stt = conn.createStatement();
-							String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '" + result.getString("quan_ly_sinh_vien.ma_sinh_vien") + "' AND quan_ly_sinh_vien.ma_lop = '" +chonLopHoc+"'";
+							String sSQL = "SELECT * FROM quan_ly_sinh_vien WHERE quan_ly_sinh_vien.ma_sinh_vien = '"
+									+ result.getString("quan_ly_sinh_vien.ma_sinh_vien")
+									+ "' AND quan_ly_sinh_vien.ma_lop = '" + chonLopHoc + "'";
 							ResultSet query = stt.executeQuery(sSQL);
 							while (query.next()) {
-						
-							String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-									result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-									result.getString("LP5"), result.getString("LP6"), result.getString("LPE") };
-							int t= 0;
-							int n = 0;
-							int y = 0;
-							for (int i=2;i<row.length;i++) {
-								if(row[i] != null) {
-								y = Integer.parseInt(row[i]);
-								n =  n + y;
-								t++;
+
+								String[] row = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+										query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+										result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+										result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+										result.getString("LPE") };
+								int t = 0;
+								int n = 0;
+								int y = 0;
+								for (int i = 2; i < row.length; i++) {
+									if (row[i] != null) {
+										y = Integer.parseInt(row[i]);
+										n = n + y;
+										t++;
+									}
 								}
-								}
-							    float tbc=(float)n/t;
-							    
-							    String xeploai ;
-							    if (tbc <= 4.9) {
-							    	xeploai = "Yếu";
+								float tbc = (float) n / t;
+
+								String xeploai;
+								if (tbc <= 4.9) {
+									xeploai = "Yếu";
 								} else if (tbc <= 6.4) {
 									xeploai = "Trung Bình";
 								} else if (tbc <= 7.9) {
@@ -469,15 +479,15 @@ public class ThongKeBaoCaoUI extends JPanel {
 								} else {
 									xeploai = "Giỏi";
 								}
-							    
-							    
-							    
-							    String TBM = Float.toString(tbc);
-							    @SuppressWarnings("unused")
-								String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"), result.getString("LP1"),
-										result.getString("LP2"), result.getString("LP3"), result.getString("LP4"),
-										result.getString("LP5"), result.getString("LP6"), result.getString("LPE"),TBM,xeploai };
-							dm_ThongkeDiem.addRow(dm);
+
+								String TBM = Float.toString(tbc);
+								@SuppressWarnings("unused")
+								String[] dm = { result.getString("quan_ly_sinh_vien.ma_sinh_vien"),
+										query.getString("quan_ly_sinh_vien.ten_sinh_vien"), result.getString("LP0"),
+										result.getString("LP1"), result.getString("LP2"), result.getString("LP3"),
+										result.getString("LP4"), result.getString("LP5"), result.getString("LP6"),
+										result.getString("LPE"), TBM, xeploai };
+								dm_ThongkeDiem.addRow(dm);
 							}
 						}
 					} catch (Exception e) {
