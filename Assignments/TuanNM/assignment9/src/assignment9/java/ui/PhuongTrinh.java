@@ -37,9 +37,7 @@ public class PhuongTrinh extends JFrame {
 		JPanel pnBox2 = new JPanel();
 		pnBox2.setBackground(Color.RED);
 		JLabel header = new JLabel(" Phương trình bậc nhất");
-		Font font = new Font("Arial", Font.BOLD | Font.ITALIC, 35);
-		header.setForeground(Color.BLUE);
-		header.setFont(font);
+		
 
 		pnBox2.add(header);
 		// jpanel 2

@@ -1,4 +1,4 @@
-package Assignment_list.assignment10.model;
+package ffse1703.model;
 
 import java.util.ArrayList;
 import java.io.Serializable;

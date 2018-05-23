@@ -23,10 +23,10 @@ import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 public class MyBorderLayout extends JFrame {
 
 	private JPanel pnBox;
-	JPanel heSoa;
-	JPanel heSob;
-	JPanel ketQua;
-	JPanel button;
+	private JPanel heSoa;
+	private JPanel heSob;
+	private JPanel ketQua;
+	private JPanel button;
 	
 	private Button btn1 = new Button("CALC");
 	private Button btn2 = new Button("EXIT");

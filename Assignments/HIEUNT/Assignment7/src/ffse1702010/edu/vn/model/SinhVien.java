@@ -1,6 +1,7 @@
 package ffse1702010.edu.vn.model;
+import java.io.Serializable;
 
-public class SinhVien {
+public class SinhVien implements Serializable{
 	private  String ten;
 	private  String ngaySinh;
 	private  int lp1;
@@ -8,9 +9,7 @@ public class SinhVien {
 	public double dtb;	
 	public static int tongSV = 0;
 
-	public SinhVien() {
-
-	}
+	
 	public SinhVien(String name, String day, int Lp1, int Lp2) {
 		this.ten=name;
 		this.ngaySinh=day;
@@ -66,5 +65,6 @@ public class SinhVien {
 	public double dtb() {
 		return ((this.lp1) + (this.lp2)) / 2;
 	}
+	
 
 }

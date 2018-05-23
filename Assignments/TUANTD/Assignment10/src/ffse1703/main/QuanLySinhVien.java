@@ -1,7 +1,7 @@
-package Assignment_list.assignment10.main;
+package ffse1703.main;
 
-import Assignment_list.assignment10.ui.*;
-import Assignment_list.assignment10.model.*;
+import ffse1703.ui.*;
+import ffse1703.model.*;
 import java.util.ArrayList;
 public class QuanLySinhVien {
 	

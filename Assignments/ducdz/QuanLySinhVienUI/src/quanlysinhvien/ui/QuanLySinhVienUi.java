@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class QuanLySinhVienUi extends JFrame {
+public class QuanLySinhVienUi extends JFrame implements ActionListener{
 	JTable table = new JTable();
 	JScrollPane scrPane = new JScrollPane();
 	DefaultTableModel dm;
@@ -88,11 +88,6 @@ public class QuanLySinhVienUi extends JFrame {
 		maSv.setText("");
 		tuoiSv.setText("");
 	}
-
-	public void actSave() {
-
-	}
-
 	public void actEndProgram() {
 		System.exit(0);
 	}
@@ -193,7 +188,7 @@ public class QuanLySinhVienUi extends JFrame {
 
 	public void addEvent() {
 		table.addMouseListener(eventTable);
-		them.addActionListener(eventCreate);
+//		them.addActionListener(eventCreate);
 		sua.addActionListener(eventUpdate);
 		xoa.addActionListener(eventDelete);
 		thoat.addActionListener(eventEndProgram);
@@ -234,11 +229,11 @@ public class QuanLySinhVienUi extends JFrame {
 			// TODO Auto-generated method stub
 		}
 	};
-	ActionListener eventCreate = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			actCreate();
-		}
-	};
+//	ActionListener eventCreate = new ActionListener() {
+//		public void actionPerformed(ActionEvent e) {
+//			actCreate();
+//		}
+//	};
 	ActionListener eventUpdate = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			actUpdate();
@@ -256,7 +251,14 @@ public class QuanLySinhVienUi extends JFrame {
 	};
 	ActionListener eventSave = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			actSave();
+			
 		}
 	};
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(them.equals(e.getActionCommand()))
+			JOptionPane.showMessageDialog(rootPane, "asd");
+	}
 }
