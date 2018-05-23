@@ -31,7 +31,7 @@ import com.toedter.calendar.JDateChooser;
 
 import ffse1703005.software.atm.model.CusTransaction;
 import ffse1703005.software.atm.model.TransactionsDb;
-
+/*tạo class LayoutUserHistory kế thừa JPanel*/
 public class LayoutUserHistory extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private String codeCus;
@@ -48,108 +48,115 @@ public class LayoutUserHistory extends JPanel{
 	}
 
 	private void addControlls(String codeATM) {
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		this.setOpaque(false);
-		JPanel pnMain = new JPanel();
-		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
-		pnMain.setPreferredSize(new Dimension(650, 587));
-		pnMain.setMaximumSize(pnMain.getPreferredSize() );
-		pnMain.setOpaque(false);
-		
-		JPanel pnTitle = new JPanel();		
-		pnTitle.setPreferredSize(new Dimension(650, 80));
-		pnTitle.setMaximumSize(pnTitle.getPreferredSize() );
-		pnTitle.setOpaque(false);
-		JLabel lblTitle = new JLabel("LỊCH SỬ GIAO DỊCH CỦA BẠN");
-		Font font=new Font("Arial", Font.BOLD,25);
-		lblTitle.setFont(font);
-		lblTitle.setForeground(Color.RED	);
-		pnTitle.add(lblTitle);		
-		JPanel pnNameATM = new JPanel();
-		pnNameATM.setPreferredSize(new Dimension(650, 20));
-		pnNameATM.setMaximumSize(pnNameATM.getPreferredSize() );
-		pnNameATM.setOpaque(false);
-		JLabel lblNameATM = new JLabel("Kiểm Tra Tại Máy : "+codeATM);
-		lblNameATM.setForeground(Color.BLUE	);
-		pnNameATM.add(lblNameATM);
-		pnTitle.add(pnNameATM);						
-		
-		JPanel pnSearch = new JPanel();
-		pnSearch.setPreferredSize(new Dimension(650, 50));
-		pnSearch.setMaximumSize(pnSearch.getPreferredSize() );
-		pnSearch.setBackground(Color.WHITE);
-		Border titleBorderAction;
-		Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnSearch.setBorder(titleBorderAction);
-		
-		JPanel pnFromDay = new JPanel();
-		pnFromDay.setOpaque(false);
-		JLabel lblFromDay= new JLabel("Từ Ngày");
-		jdcFromDay = new JDateChooser();
-		pnFromDay.add(lblFromDay);
-		pnFromDay.add(jdcFromDay);
-		pnSearch.add(pnFromDay);
-		
-		JPanel pnToDay = new JPanel();
-		pnToDay.setOpaque(false);
-		JLabel lblToDay= new JLabel("Từ Ngày");
-		jdcToDay = new JDateChooser();
-		pnToDay.add(lblToDay);
-		pnToDay.add(jdcToDay);
-		pnSearch.add(pnToDay);
-		
-		JPanel pnAction = new JPanel();
-		pnAction.setOpaque(false);
-		btnSearch = new JButton("Xem");
-		btnCancel = new JButton("Hủy");
-		btnUpdate = new JButton("Cập Nhập");
-		pnAction.add(btnSearch);
-		pnAction.add(btnCancel);
-		pnAction.add(btnUpdate);
-		pnSearch.add(pnAction);
-		
-		JPanel pnAllList = new JPanel();
-		pnAllList.setOpaque(false);
-		
-		JPanel pnList = new JPanel();
-		pnList.setPreferredSize(new Dimension(650, 250));
-		pnList.setMaximumSize(pnList.getPreferredSize() );
-		pnList.setBackground(Color.WHITE);
-		Border titleBorderActionList;
-		Border blueBorderActionList = BorderFactory.createLineBorder(Color.BLACK,0);
-		titleBorderActionList = BorderFactory.createTitledBorder(blueBorderActionList,"",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnList.setBorder(titleBorderActionList);
-		list.addColumn("Mã Giao Dịch");
-		list.addColumn("Thời Gian Giao Dịch");
-		list.addColumn("Số Tiền");
-		list.addColumn("Tình Trạng");
-		tbl.setOpaque(true);
-		tbl.setFillsViewportHeight(true);
-		tbl.setBackground(Color.WHITE);
-		JScrollPane sc=new JScrollPane(tbl);		
-		pnList.setLayout(new BorderLayout());
-		pnList.add(sc,BorderLayout.CENTER);
-		
-		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-		tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-		
-		pnAllList.add(pnList);
-		
-		JPanel pnClearList = new JPanel();
-		pnClearList.setOpaque(true);
-		btnClearList = new JButton("Xóa Danh Sách");
-		btnClearList.setEnabled(false);
-		pnClearList.add(btnClearList);
-		pnAllList.add(pnClearList);
-		
-		pnMain.add(pnTitle);
-		pnMain.add(pnSearch);
-		pnMain.add(pnAllList);
-		this.add(pnMain);
+		try {
+			/*set Boxlayout cho class*/
+			this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+			this.setOpaque(false);
+			JPanel pnMain = new JPanel();
+			/*set Boxlayout cho pnMain*/
+			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
+			pnMain.setPreferredSize(new Dimension(650, 587));
+			pnMain.setMaximumSize(pnMain.getPreferredSize() );
+			pnMain.setOpaque(false);
+			
+			JPanel pnTitle = new JPanel();		
+			pnTitle.setPreferredSize(new Dimension(650, 80));
+			pnTitle.setMaximumSize(pnTitle.getPreferredSize() );
+			pnTitle.setOpaque(false);
+			JLabel lblTitle = new JLabel("LỊCH SỬ GIAO DỊCH CỦA BẠN");
+			Font font=new Font("Arial", Font.BOLD,25);
+			lblTitle.setFont(font);
+			lblTitle.setForeground(Color.RED	);
+			pnTitle.add(lblTitle);		
+			JPanel pnNameATM = new JPanel();
+			pnNameATM.setPreferredSize(new Dimension(650, 20));
+			pnNameATM.setMaximumSize(pnNameATM.getPreferredSize() );
+			pnNameATM.setOpaque(false);
+			JLabel lblNameATM = new JLabel("Kiểm Tra Tại Máy : "+codeATM);
+			lblNameATM.setForeground(Color.BLUE	);
+			pnNameATM.add(lblNameATM);
+			pnTitle.add(pnNameATM);						
+			
+			JPanel pnSearch = new JPanel();
+			pnSearch.setPreferredSize(new Dimension(650, 50));
+			pnSearch.setMaximumSize(pnSearch.getPreferredSize() );
+			pnSearch.setBackground(Color.WHITE);
+			/*set Border cho pnSearch*/
+			Border titleBorderAction;
+			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnSearch.setBorder(titleBorderAction);
+			
+			JPanel pnFromDay = new JPanel();
+			pnFromDay.setOpaque(false);
+			JLabel lblFromDay= new JLabel("Từ Ngày");
+			jdcFromDay = new JDateChooser();
+			pnFromDay.add(lblFromDay);
+			pnFromDay.add(jdcFromDay);
+			pnSearch.add(pnFromDay);
+			
+			JPanel pnToDay = new JPanel();
+			pnToDay.setOpaque(false);
+			JLabel lblToDay= new JLabel("Từ Ngày");
+			jdcToDay = new JDateChooser();
+			pnToDay.add(lblToDay);
+			pnToDay.add(jdcToDay);
+			pnSearch.add(pnToDay);
+			
+			JPanel pnAction = new JPanel();
+			pnAction.setOpaque(false);
+			btnSearch = new JButton("Xem");
+			btnCancel = new JButton("Hủy");
+			btnUpdate = new JButton("Cập Nhập");
+			pnAction.add(btnSearch);
+			pnAction.add(btnCancel);
+			pnAction.add(btnUpdate);
+			pnSearch.add(pnAction);
+			
+			JPanel pnAllList = new JPanel();
+			pnAllList.setOpaque(false);
+			
+			JPanel pnList = new JPanel();
+			pnList.setPreferredSize(new Dimension(650, 250));
+			pnList.setMaximumSize(pnList.getPreferredSize() );
+			pnList.setBackground(Color.WHITE);
+			Border titleBorderActionList;
+			Border blueBorderActionList = BorderFactory.createLineBorder(Color.BLACK,0);
+			titleBorderActionList = BorderFactory.createTitledBorder(blueBorderActionList,"",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnList.setBorder(titleBorderActionList);
+			list.addColumn("Mã Giao Dịch");
+			list.addColumn("Thời Gian Giao Dịch");
+			list.addColumn("Số Tiền");
+			list.addColumn("Tình Trạng");
+			tbl.setOpaque(true);
+			tbl.setFillsViewportHeight(true);
+			tbl.setBackground(Color.WHITE);
+			JScrollPane sc=new JScrollPane(tbl);		
+			pnList.setLayout(new BorderLayout());
+			pnList.add(sc,BorderLayout.CENTER);
+			/*canh chỉnh cột về phải cho table*/
+			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+			
+			pnAllList.add(pnList);
+			
+			JPanel pnClearList = new JPanel();
+			pnClearList.setOpaque(true);
+			btnClearList = new JButton("Xóa Danh Sách");
+			btnClearList.setEnabled(false);
+			pnClearList.add(btnClearList);
+			pnAllList.add(pnClearList);
+			
+			pnMain.add(pnTitle);
+			pnMain.add(pnSearch);
+			pnMain.add(pnAllList);
+			this.add(pnMain);
+		}catch (Exception e) {
+			
+		}		
 	}
 
 	private void addEvents() {
@@ -158,7 +165,7 @@ public class LayoutUserHistory extends JPanel{
 		btnUpdate.addActionListener(eventUpdate);
 		btnClearList.addActionListener(eventClearList);
 	}
-	
+	/*cập nhập ArrayList*/
 	 ActionListener eventUpdate = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
 				arrCusTss = TransactionsDb.getSearchCusList(codeCus);
@@ -166,14 +173,14 @@ public class LayoutUserHistory extends JPanel{
 				JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 			}
 	    };
-	    
+	    /*Đưa các giá trị về trống*/
 	    ActionListener eventClearList = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
 				list.setRowCount(0);
 				btnClearList.setEnabled(false);
 			}
 	    };
-	
+	/*tìm kiếm theo ngày*/
 	ActionListener eventSearch = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {	
 			try {				
@@ -181,6 +188,7 @@ public class LayoutUserHistory extends JPanel{
 				long dayF = 0,dayT=0;
 				int checkDay=0;
 				try {
+					/*validate các giá trị ngày*/
 					dayFrom = jdcFromDay.getCalendar();
 					dayTo = jdcToDay.getCalendar();	
 					Calendar checkFrom = Calendar.getInstance();
@@ -243,7 +251,7 @@ public class LayoutUserHistory extends JPanel{
 			}													
 		}
     };
-    
+    /*Tìm kiếm theo ngày*/
     public void searchTss(Calendar dayFrom,Calendar dayTo) {
     	Calendar checkFrom = Calendar.getInstance();
 		Calendar checkTo = Calendar.getInstance();
@@ -265,7 +273,7 @@ public class LayoutUserHistory extends JPanel{
     	
     	
     }
-    
+    /*Duyệt ArrayList để tìm kiếm theo ngày*/
     public void getListSearch(Calendar dayFrom,Calendar dayTo){
     	btnClearList.setEnabled(false);
     	list.setRowCount(0);
@@ -286,7 +294,7 @@ public class LayoutUserHistory extends JPanel{
     		}
     	}    	
     }
-    
+    /*Đưa các giá trị về trống*/
     ActionListener eventCancel = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			jdcFromDay.setCalendar(null);

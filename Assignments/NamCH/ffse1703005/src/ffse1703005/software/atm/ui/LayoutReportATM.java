@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import ffse1703005.software.atm.model.MachineATM;
 import ffse1703005.software.atm.model.MachineATMDb;
 import ffse1703005.software.atm.model.StamentAdress;
-
+/*tạo class LayoutReportATM kế thừa JPanel*/
 public class LayoutReportATM extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor,btnUpdate;
@@ -47,6 +47,7 @@ public class LayoutReportATM extends JPanel{
 	public LayoutReportATM() {
 		addControlls();
 		addEvents();
+		/*Lấy giá trị quận truyền vào combobox từ phương thức SeclectDis của class StamentAdress*/
 		arrAdress = adress.SeclectDis();
 		for(String x:arrAdress) {
 			cboDistricts.addItem(x);
@@ -59,269 +60,285 @@ public class LayoutReportATM extends JPanel{
 	}
 
 	private void addControlls() {
-		this.setOpaque(false);		
-		
-		JPanel pnMain = new JPanel();
-		pnMain.setOpaque(false);	
-		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
-		pnMain.setPreferredSize(new Dimension(1050, 587));
-		pnMain.setMaximumSize(pnMain.getPreferredSize() );
-		
-		JPanel pnCenter = new JPanel();
-		pnCenter.setOpaque(false);		
-		
-		pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
-		pnCenter.setPreferredSize(new Dimension(700, 587));
-		pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
-		
-		JPanel pnSeacher = new JPanel();
-		pnSeacher.setOpaque(false);
-		pnSeacher.setPreferredSize(new Dimension(700, 35));
-		pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
-		pnCenter.add(pnSeacher);
-		
-		JPanel pnList = new JPanel();
-		Border titleBorderList;
-		Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
-		titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH MÁY ATM",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnList.setBorder(titleBorderList);
-		pnList.setPreferredSize(new Dimension(700,260));
-		pnList.setMaximumSize(pnList.getPreferredSize() );
-		
-		list.addColumn("Mã Máy ATM");
-		list.addColumn("Đường");
-		list.addColumn("Số Dư Trong Máy");
-					
-		JScrollPane sc=new JScrollPane(tbl);		
-		pnList.setLayout(new BorderLayout());
-		pnList.add(sc,BorderLayout.CENTER);
-		pnCenter.add(pnList);
-		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-		tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-		
-		JPanel pnDetail = new JPanel();
-		pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
-		Border titleBorderDetail;
-		Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
-		titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnDetail.setBorder(titleBorderDetail);
-		pnDetail.setPreferredSize(new Dimension(700,160));
-		pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
-		pnCenter.add(pnDetail);
-		
-		
-		JPanel pnAllInfor = new JPanel();
-		pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
-		
-		JPanel pnDetailInfor = new JPanel();
-		
-		JLabel lblDetailCAtm = new JLabel("Mã Máy ATM :");
-		txtDetailCodeATM = new JTextField(20);
-		txtDetailCodeATM.setEditable(false);
-		
-		JLabel lblDetailMoAtm = new JLabel("Số Dư Máy ATM :");
-		txtDetailMoneyATM = new JTextField(20);
-		txtDetailMoneyATM.setEditable(false);
-		
-		GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
-		pnDetailInfor.setLayout(infoDetailLayout);
-		infoDetailLayout.setAutoCreateGaps(true);
-		infoDetailLayout.setAutoCreateContainerGaps(true);
-		
-		infoDetailLayout.setHorizontalGroup(infoDetailLayout.createSequentialGroup()
-			.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblDetailCAtm, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblDetailMoAtm)
-			)
-			.addGroup(infoDetailLayout.createParallelGroup()
-				.addComponent(txtDetailCodeATM)
-				.addComponent(txtDetailMoneyATM)
-			)
-		);
-		
-		infoDetailLayout.setVerticalGroup(infoDetailLayout.createSequentialGroup()
-			.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblDetailCAtm)
-				.addComponent(txtDetailCodeATM)
-			)			
-			.addGroup(infoDetailLayout.createParallelGroup()
+		try {
+			this.setOpaque(false);		
+			
+			JPanel pnMain = new JPanel();
+			pnMain.setOpaque(false);	
+			/*set BoxLayout cho pnMain*/
+			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
+			pnMain.setPreferredSize(new Dimension(1050, 587));
+			pnMain.setMaximumSize(pnMain.getPreferredSize() );
+			
+			JPanel pnCenter = new JPanel();
+			pnCenter.setOpaque(false);		
+			/*set BoxLayout cho pnCenter*/
+			pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
+			pnCenter.setPreferredSize(new Dimension(700, 587));
+			pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
+			
+			JPanel pnSeacher = new JPanel();
+			pnSeacher.setOpaque(false);
+			pnSeacher.setPreferredSize(new Dimension(700, 35));
+			pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
+			pnCenter.add(pnSeacher);
+			
+			JPanel pnList = new JPanel();
+			/*set Border cho pnList*/
+			Border titleBorderList;
+			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
+			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH MÁY ATM",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnList.setBorder(titleBorderList);
+			pnList.setPreferredSize(new Dimension(700,260));
+			pnList.setMaximumSize(pnList.getPreferredSize() );
+			
+			list.addColumn("Mã Máy ATM");
+			list.addColumn("Đường");
+			list.addColumn("Số Dư Trong Máy");
+						
+			JScrollPane sc=new JScrollPane(tbl);		
+			pnList.setLayout(new BorderLayout());
+			pnList.add(sc,BorderLayout.CENTER);
+			pnCenter.add(pnList);
+			/*Cảnh chỉnh value cột nằm bên phải của table*/
+			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+			
+			JPanel pnDetail = new JPanel();
+			/*set BoxLayout cho pnDetail*/
+			pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
+			/*set Border cho pnDetail*/
+			Border titleBorderDetail;
+			Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
+			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnDetail.setBorder(titleBorderDetail);
+			pnDetail.setPreferredSize(new Dimension(700,160));
+			pnDetail.setMaximumSize(pnDetail.getPreferredSize() );
+			pnCenter.add(pnDetail);
+			
+			
+			JPanel pnAllInfor = new JPanel();
+			/*set BoxLayout cho pnAllInfor*/
+			pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
+			
+			JPanel pnDetailInfor = new JPanel();
+			
+			JLabel lblDetailCAtm = new JLabel("Mã Máy ATM :");
+			txtDetailCodeATM = new JTextField(20);
+			txtDetailCodeATM.setEditable(false);
+			
+			JLabel lblDetailMoAtm = new JLabel("Số Dư Máy ATM :");
+			txtDetailMoneyATM = new JTextField(20);
+			txtDetailMoneyATM.setEditable(false);
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
+			pnDetailInfor.setLayout(infoDetailLayout);
+			infoDetailLayout.setAutoCreateGaps(true);
+			infoDetailLayout.setAutoCreateContainerGaps(true);
+			
+			infoDetailLayout.setHorizontalGroup(infoDetailLayout.createSequentialGroup()
+				.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblDetailCAtm, 0, 100, Short.MAX_VALUE)
 					.addComponent(lblDetailMoAtm)
-					.addComponent(txtDetailMoneyATM)
-				)			
-		);
-		pnAllInfor.add(pnDetailInfor);
-		
-		JPanel pnDetailAdress = new JPanel();
-		JLabel lblDetailDis = new JLabel("Quận :");
-		txtDetailDistricts = new JTextField(20);
-		txtDetailDistricts.setEditable(false);
-		
-		JLabel lblDetailWa = new JLabel("Phường :");
-		txtDetailWards = new JTextField(20);
-		txtDetailWards.setEditable(false);		
-		
-		GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
-		pnDetailAdress.setLayout(adressDetailLayout);
-		adressDetailLayout.setAutoCreateGaps(true);
-		adressDetailLayout.setAutoCreateContainerGaps(true);
-		
-		adressDetailLayout.setHorizontalGroup(adressDetailLayout.createSequentialGroup()
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(lblDetailDis)
-				.addComponent(lblDetailWa)
-			)
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(txtDetailDistricts)
-				.addComponent(txtDetailWards)
-			)
-		);
-		
-		adressDetailLayout.setVerticalGroup(adressDetailLayout.createSequentialGroup()
-			.addGroup(adressDetailLayout.createParallelGroup()
-				.addComponent(lblDetailDis)
-				.addComponent(txtDetailDistricts)
-			)			
-			.addGroup(adressDetailLayout.createParallelGroup()
-					.addComponent(lblDetailWa)
-					.addComponent(txtDetailWards)
-				)			
-		);
-		pnAllInfor.add(pnDetailAdress);				
-		
-		JPanel pnStreet = new JPanel();
-		JLabel lblDetailSt = new JLabel("Đường :");
-		txtDetailStreets = new JTextField(20);
-		txtDetailStreets.setEditable(false);
-		pnStreet.add(lblDetailSt);
-		pnStreet.add(txtDetailStreets);
-		
-		JPanel pnClear = new JPanel();
-		btnClearInfor = new JButton("Clear Thông Tin");
-		pnClear.add(btnClearInfor);
-		
-		pnDetail.add(pnAllInfor);
-		pnDetail.add(pnStreet);
-		pnDetail.add(pnClear);
-		
-		pnMain.add(pnCenter);
-		
-		JPanel pnAction = new JPanel();
-		
-		pnAction.setPreferredSize(new Dimension(350, 587));
-		pnAction.setMaximumSize(pnAction.getPreferredSize() );
-		Border titleBorderAction;
-		Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAction.setBorder(titleBorderAction);
-		pnAction.setOpaque(false);
-		
-		JPanel pnBlank = new JPanel();
-		pnBlank.setPreferredSize(new Dimension(340,80));
-		pnBlank.setMaximumSize(pnBlank.getPreferredSize() );
-		pnBlank.setOpaque(false);
-		pnAction.add(pnBlank);
-		
-		JPanel pnInformation = new JPanel();
-		pnInformation.setPreferredSize(new Dimension(340,70));
-		pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
-		pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
-		pnInformation.setOpaque(false);
-		Border titleBorderInfor;
-		Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Mã Máy ATM",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnInformation.setBorder(titleBorderInfor);
-		pnInformation.setOpaque(false);
-		
-		JPanel pnCodeATM = new JPanel();
-		pnCodeATM.setOpaque(false);
-		JLabel lblCodeATM = new JLabel("Mã Máy ATM :");
-		txtCodeATM = new JTextField(20);
-		pnCodeATM.add(lblCodeATM);
-		pnCodeATM.add(txtCodeATM);
-		pnInformation.add(pnCodeATM);				
-				
-		JPanel pnAdress = new JPanel();
-		JPanel pnAdressMini = new JPanel();
-		pnAdressMini.setOpaque(false);
-		pnAdress.setPreferredSize(new Dimension(340,180));
-		pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
-		pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
-		pnAdress.setOpaque(false);
-		Border titleBorderAdress;
-		Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Vị Trí",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAdress.setBorder(titleBorderAdress);
-		pnAdress.setOpaque(false);
-		
-
-		JLabel lblDistricts = new JLabel("Quận :");
-		cboDistricts=new JComboBox<>();
-		cboDistricts.addItem("Tất Cả");
-		
-		JLabel lblWards = new JLabel("Phường :");
-		cboWards=new JComboBox<>();
-		cboWards.addItem("Tất Cả");
-		
-		JLabel lblStreets = new JLabel("Tên Đường :");
-		txtStreets = new JTextField(20);
-		
-		JPanel pnSearchAdress = new JPanel();
-		pnSearchAdress.setOpaque(false);
-		btnSearchAdress = new JButton("Xem");										
-		btnCancelAdress = new JButton("Hủy");
-		btnUpdate = new JButton("Cập Nhập");
-		btnCancelAdress.setEnabled(false);
-		pnSearchAdress.add(btnSearchAdress);
-		pnSearchAdress.add(btnCancelAdress);
-		pnSearchAdress.add(btnUpdate);
-		
-		GroupLayout adressLayout = new GroupLayout(pnAdressMini);
-		pnAdressMini.setLayout(adressLayout);
-		adressLayout.setAutoCreateGaps(true);
-		adressLayout.setAutoCreateContainerGaps(true);
-		
-		adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup()
-				.addComponent(lblDistricts)
-				.addComponent(lblWards)
-				.addComponent(lblStreets)
-			)
-			.addGroup(adressLayout.createParallelGroup()
-				.addComponent(cboDistricts)
-				.addComponent(cboWards)
-				.addComponent(txtStreets)
-			)
-		);
-		
-		adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup()
-				.addComponent(lblDistricts)
-				.addComponent(cboDistricts)
-			)
-			.addGroup(adressLayout.createParallelGroup()
-					.addComponent(lblWards)
-					.addComponent(cboWards)
 				)
-			.addGroup(adressLayout.createParallelGroup()
+				.addGroup(infoDetailLayout.createParallelGroup()
+					.addComponent(txtDetailCodeATM)
+					.addComponent(txtDetailMoneyATM)
+				)
+			);
+			
+			infoDetailLayout.setVerticalGroup(infoDetailLayout.createSequentialGroup()
+				.addGroup(infoDetailLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblDetailCAtm)
+					.addComponent(txtDetailCodeATM)
+				)			
+				.addGroup(infoDetailLayout.createParallelGroup()
+						.addComponent(lblDetailMoAtm)
+						.addComponent(txtDetailMoneyATM)
+					)			
+			);
+			pnAllInfor.add(pnDetailInfor);
+			
+			JPanel pnDetailAdress = new JPanel();
+			JLabel lblDetailDis = new JLabel("Quận :");
+			txtDetailDistricts = new JTextField(20);
+			txtDetailDistricts.setEditable(false);
+			
+			JLabel lblDetailWa = new JLabel("Phường :");
+			txtDetailWards = new JTextField(20);
+			txtDetailWards.setEditable(false);		
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
+			pnDetailAdress.setLayout(adressDetailLayout);
+			adressDetailLayout.setAutoCreateGaps(true);
+			adressDetailLayout.setAutoCreateContainerGaps(true);
+			
+			adressDetailLayout.setHorizontalGroup(adressDetailLayout.createSequentialGroup()
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(lblDetailDis)
+					.addComponent(lblDetailWa)
+				)
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(txtDetailDistricts)
+					.addComponent(txtDetailWards)
+				)
+			);
+			
+			adressDetailLayout.setVerticalGroup(adressDetailLayout.createSequentialGroup()
+				.addGroup(adressDetailLayout.createParallelGroup()
+					.addComponent(lblDetailDis)
+					.addComponent(txtDetailDistricts)
+				)			
+				.addGroup(adressDetailLayout.createParallelGroup()
+						.addComponent(lblDetailWa)
+						.addComponent(txtDetailWards)
+					)			
+			);
+			pnAllInfor.add(pnDetailAdress);				
+			
+			JPanel pnStreet = new JPanel();
+			JLabel lblDetailSt = new JLabel("Đường :");
+			txtDetailStreets = new JTextField(20);
+			txtDetailStreets.setEditable(false);
+			pnStreet.add(lblDetailSt);
+			pnStreet.add(txtDetailStreets);
+			
+			JPanel pnClear = new JPanel();
+			btnClearInfor = new JButton("Clear Thông Tin");
+			pnClear.add(btnClearInfor);
+			
+			pnDetail.add(pnAllInfor);
+			pnDetail.add(pnStreet);
+			pnDetail.add(pnClear);
+			
+			pnMain.add(pnCenter);
+			
+			JPanel pnAction = new JPanel();
+			
+			pnAction.setPreferredSize(new Dimension(350, 587));
+			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			/*set Border cho pnAction*/
+			Border titleBorderAction;
+			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAction.setBorder(titleBorderAction);
+			pnAction.setOpaque(false);
+			
+			JPanel pnBlank = new JPanel();
+			pnBlank.setPreferredSize(new Dimension(340,80));
+			pnBlank.setMaximumSize(pnBlank.getPreferredSize() );
+			pnBlank.setOpaque(false);
+			pnAction.add(pnBlank);
+			
+			JPanel pnInformation = new JPanel();
+			pnInformation.setPreferredSize(new Dimension(340,70));
+			pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
+			/*set BoxLayout cho pnInformation*/
+			pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
+			pnInformation.setOpaque(false);
+			/*set Border cho pnInformation*/
+			Border titleBorderInfor;
+			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Mã Máy ATM",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnInformation.setBorder(titleBorderInfor);
+			pnInformation.setOpaque(false);
+			
+			JPanel pnCodeATM = new JPanel();
+			pnCodeATM.setOpaque(false);
+			JLabel lblCodeATM = new JLabel("Mã Máy ATM :");
+			txtCodeATM = new JTextField(20);
+			pnCodeATM.add(lblCodeATM);
+			pnCodeATM.add(txtCodeATM);
+			pnInformation.add(pnCodeATM);				
+					
+			JPanel pnAdress = new JPanel();
+			JPanel pnAdressMini = new JPanel();
+			pnAdressMini.setOpaque(false);
+			pnAdress.setPreferredSize(new Dimension(340,180));
+			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
+			/*set BoxLayout cho pnAdress*/
+			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
+			pnAdress.setOpaque(false);
+			/*set Border cho pnAdress*/
+			Border titleBorderAdress;
+			Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Vị Trí",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAdress.setBorder(titleBorderAdress);
+			pnAdress.setOpaque(false);
+			
+
+			JLabel lblDistricts = new JLabel("Quận :");
+			cboDistricts=new JComboBox<>();
+			cboDistricts.addItem("Tất Cả");
+			
+			JLabel lblWards = new JLabel("Phường :");
+			cboWards=new JComboBox<>();
+			cboWards.addItem("Tất Cả");
+			
+			JLabel lblStreets = new JLabel("Tên Đường :");
+			txtStreets = new JTextField(20);
+			
+			JPanel pnSearchAdress = new JPanel();
+			pnSearchAdress.setOpaque(false);
+			btnSearchAdress = new JButton("Xem");										
+			btnCancelAdress = new JButton("Hủy");
+			btnUpdate = new JButton("Cập Nhập");
+			btnCancelAdress.setEnabled(false);
+			pnSearchAdress.add(btnSearchAdress);
+			pnSearchAdress.add(btnCancelAdress);
+			pnSearchAdress.add(btnUpdate);
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout adressLayout = new GroupLayout(pnAdressMini);
+			pnAdressMini.setLayout(adressLayout);
+			adressLayout.setAutoCreateGaps(true);
+			adressLayout.setAutoCreateContainerGaps(true);
+			
+			adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup()
+					.addComponent(lblDistricts)
+					.addComponent(lblWards)
 					.addComponent(lblStreets)
+				)
+				.addGroup(adressLayout.createParallelGroup()
+					.addComponent(cboDistricts)
+					.addComponent(cboWards)
 					.addComponent(txtStreets)
 				)
-		);
+			);
+			
+			adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup()
+					.addComponent(lblDistricts)
+					.addComponent(cboDistricts)
+				)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblWards)
+						.addComponent(cboWards)
+					)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblStreets)
+						.addComponent(txtStreets)
+					)
+			);
+			
+			pnAdress.add(pnAdressMini);
+			pnAdress.add(pnSearchAdress);
+			
+			pnAction.add(pnInformation);
+			pnAction.add(pnAdress);
+			
+			pnMain.add(pnAction);
+			this.add(pnMain);
+		}catch (Exception e) {
+			
+		}
 		
-		pnAdress.add(pnAdressMini);
-		pnAdress.add(pnSearchAdress);
-		
-		pnAction.add(pnInformation);
-		pnAction.add(pnAdress);
-		
-		pnMain.add(pnAction);
-		this.add(pnMain);
 		
 	}
 
@@ -335,7 +352,7 @@ public class LayoutReportATM extends JPanel{
 		btnClearInfor.addActionListener(eventClearInfor);
 		btnUpdate.addActionListener(eventUpdate);
 	}
-	
+	/*Cập nhập dữ liệu cho ArrayList*/
 	ActionListener eventUpdate = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			arrAtmAll = MachineATMDb.getAtmList();
@@ -345,13 +362,13 @@ public class LayoutReportATM extends JPanel{
 			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
-	
+    /*Xóa các thông tin từ phương thức clearInfor();*/
 	ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
 		}
     };
-    
+    /*set các giá trị về trống*/
     public void clearInfor() {
     	txtDetailCodeATM.setText("");
 		txtDetailStreets.setText("");
@@ -360,9 +377,10 @@ public class LayoutReportATM extends JPanel{
 		txtDetailWards.setText("");	
 		tbl.clearSelection();
     }
-	
+    /*Sự kiện khi click vào các dòng trong table*/
 	MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {
+    		/*Lấy index số dòng khi click*/
     		int col = tbl.getSelectedRow();
     		String[] row = new String[4];	    		
     		row[0] = (String) tbl.getValueAt(col, 0);
@@ -371,6 +389,7 @@ public class LayoutReportATM extends JPanel{
     		txtDetailCodeATM.setText(row[0]);
     		txtDetailStreets.setText(row[1]);
     		txtDetailMoneyATM.setText(row[2]);
+    		/*duyệt mảng ArrayList để lấy các giá trị đưa vào Ô textfield*/
 			for(int i=0;i<arrAtmAll.size();i++) {
 				if(row[0].equals(arrAtmAll.get(i).getCodeATM())) {
 					txtDetailDistricts.setText(arrAtmAll.get(i).getNameDistricts());
@@ -379,7 +398,7 @@ public class LayoutReportATM extends JPanel{
 			}			
     	}
     };
-	
+    /*set các giá trị về trống*/
 	ActionListener eventCancelAdress = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			txtStreets.setText("");
@@ -396,7 +415,7 @@ public class LayoutReportATM extends JPanel{
 			printListAtm();
 		}
     };
-	
+	/*Tìm kiếm theo mã*/
 	private DocumentListener eventSearchCode = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -417,7 +436,7 @@ public class LayoutReportATM extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt arraylist theo mã*/
 	private void searchCode() {
 		btnCancelAdress.setEnabled(true);
 		clearInfor();
@@ -430,7 +449,7 @@ public class LayoutReportATM extends JPanel{
 			}			
 		}			
 	}	
-    
+	/*Tìm kiếm theo đường*/
 	private DocumentListener eventSearchStreet = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -452,6 +471,7 @@ public class LayoutReportATM extends JPanel{
 			}
 		}
 	};
+	/*Duyệt Arraylist theo đường*/
 	private void searchStreets() {
 		btnCancelAdress.setEnabled(true);
 		clearInfor();
@@ -464,7 +484,7 @@ public class LayoutReportATM extends JPanel{
 			}			
 		}			
 	}
-	
+	/*Sự kiện khi chọn quận sẽ in các item vào cboWards*/
 	ActionListener eventChooseDistricts = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
@@ -486,7 +506,7 @@ public class LayoutReportATM extends JPanel{
 								
 		
     };
-	
+    /*Tìm kiếm theo Quận và phường*/
     ActionListener eventSearchDistricts = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {	
 			clearInfor();
@@ -509,7 +529,7 @@ public class LayoutReportATM extends JPanel{
 				}											
 		}
     };
-    
+    /*Duyệt Arraylisst theo quận và phường*/
     private void searchStreets(int keyDistricts,int keyWards) {
 		btnCancelAdress.setEnabled(true);
 		clearInfor();
@@ -521,7 +541,7 @@ public class LayoutReportATM extends JPanel{
 			}			
 		}			
 	}
-    
+    /*Tìm kiếm theo Quận*/
     private void searchStreetsWards(int keyDistricts) {
 		btnCancelAdress.setEnabled(true);
 		clearInfor();
@@ -533,11 +553,11 @@ public class LayoutReportATM extends JPanel{
 			}			
 		}			
 	}
-    
+    /*Cập nhập ArrayList*/
     private ArrayList<MachineATM> updateArrAtm() {    	
     	return arrAtm = arrAtmAll;
     }
-    
+    /*in giá trị vào bảng từ ArrayList*/
     private void printListAtm() {
     	list.setRowCount(0);
     	for (MachineATM atm : arrAtm) {    		

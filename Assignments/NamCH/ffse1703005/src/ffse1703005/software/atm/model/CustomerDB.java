@@ -11,6 +11,7 @@ import com.mysql.jdbc.Statement;
 public class CustomerDB {
 	static ConnectDB myDB = new ConnectDB();
 	private static Connection conn= myDB.getConnect("localhost", "ffse1703005", "hainam", "123456");
+	/*Thêm dữ liệu vào bảng atm_customer lên database*/
 	public static int addCustomer(Customer ctm) {
 		try {
 			String sql = "insert into atm_customer (code, fullname, code_districts, code_wards,"
@@ -33,6 +34,8 @@ public class CustomerDB {
 			return -1;
 		}
 	}
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> getCustomersList() {
 		ArrayList<Customer> arrCtm = new ArrayList<>();
 		try {
@@ -64,7 +67,7 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*sửa dữ liệu của bảng atm_customer từ database */
 	public static int editCustomer(Customer ctm) {
 		try {
 			String sql = "update atm_customer set fullname = ?, phone = ?, email = ?, "
@@ -84,7 +87,7 @@ public class CustomerDB {
 			return -1;
 		}
 	}
-	
+	/*Xóa suất dữ liệu của bảng atm_customer từ database */
 	public static int delCustomer(String code) {
 		try {
 			String sql = "delete from atm_customer where code = ?";
@@ -97,7 +100,8 @@ public class CustomerDB {
 			return -1;
 		}
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột name
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchName(String name) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -124,7 +128,8 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột phone
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchPhone(String phone) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -151,7 +156,8 @@ public class CustomerDB {
 		}
 		return arrCtm;		
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột email
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchEmail(String email) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -178,7 +184,8 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột code
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchCode(String code) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -205,7 +212,8 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột streets
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchStreets(String streets) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -232,7 +240,8 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột cardnumber
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchCardNumber(String cardNumber) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		try {
@@ -259,7 +268,9 @@ public class CustomerDB {
 		}
 		return arrCtm;
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_customer từ database vào ArrayList có điều kiện theo cột district 
+	 * và wards
+	có kiểu của đối tượng Customer*/
 	public static ArrayList<Customer> searchAdrees(int distrist,int wards) {
 		ArrayList<Customer> arrCtm = new ArrayList<Customer>();
 		if(wards == 0) {
@@ -313,7 +324,7 @@ public class CustomerDB {
 			return arrCtm;
 		}		
 	}
-	
+	/*phương thức kiểm tra đăng nhập khi login vào demo Rút tiền của khách hàng*/
 	public static String checkCustomer(String cardnumber,String password) {
 		String codeCtm = null;
 		try {
@@ -331,7 +342,7 @@ public class CustomerDB {
 		return codeCtm;
 		
 	}
-	
+	/*Sửa dữ liệu sau khi thực hiện lệnh rút tiền thành công.*/
 	public static int editMoney(int money,String code) {
 		try {
 			String sql = "update atm_customer set amount = ? where code = ?";
@@ -344,7 +355,7 @@ public class CustomerDB {
 			return -1;
 		}
 	}
-	
+	/*Sửa dữ liệu sau khi thực hiện lệnh thay đổi mật khẩu thành công.*/
 	public static int changePass(String code,String pass) {
 		try {
 			String sql = "update atm_customer set pin = ? where code = ?";

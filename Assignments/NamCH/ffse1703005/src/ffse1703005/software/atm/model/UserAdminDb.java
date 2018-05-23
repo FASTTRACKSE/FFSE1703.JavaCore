@@ -8,6 +8,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class UserAdminDb {
 	static ConnectDB myDB = new ConnectDB();
 	private static Connection conn= myDB.getConnect("localhost", "ffse1703005", "hainam", "123456");
+	/*Kiểm tra đăng nhập admin khi login vào UI LayoutAdmin*/
 	public static String checkUser(String username,String password) {
 		String user = null;
 		try {
@@ -24,7 +25,7 @@ public class UserAdminDb {
 		}
 		return user;		
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_user từ database vào ArrayList theo đối tượng UserAdmin*/
 	public static ArrayList<UserAdmin> getUser(String username,String password) {
 		ArrayList<UserAdmin> arrUser = new ArrayList<UserAdmin>();
 		try {
@@ -48,7 +49,9 @@ public class UserAdminDb {
 		}
 		return arrUser;
 	}	
-	
+	/*Truy suất dữ liệu của bảng atm_user từ database 
+	 * theo điều kiện cột username
+	 *  vào ArrayList theo đối tượng UserAdmin*/
 	public static ArrayList<UserAdmin> getUserList(String username) {
 		ArrayList<UserAdmin> arrUser = new ArrayList<UserAdmin>();
 		try {
@@ -71,7 +74,7 @@ public class UserAdminDb {
 		}
 		return arrUser;
 	}
-	
+	/*Sửa dữ liệu của bảng atm_user từ database khi thực hiện lênh changePass*/
 	public static int changePass(String username,String pass) {
 		try {
 			String sql = "update atm_user set password = ? where username = ?";

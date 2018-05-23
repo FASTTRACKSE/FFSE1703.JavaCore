@@ -34,7 +34,7 @@ import ffse1703005.software.atm.model.MachineATM;
 import ffse1703005.software.atm.model.MachineATMDb;
 import ffse1703005.software.atm.model.StamentAdress;
 import ffse1703005.software.atm.model.TransactionsDb;
-
+/*tạo class LayoutUser kế thừa JPanel*/
 public class LayoutUser extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel pnAction;
@@ -67,223 +67,237 @@ public class LayoutUser extends JPanel {
 		this.codeCus = codeCus;
 		this.codeATM = codeATM;
 		arrCheckCtm = CustomerDB.searchCode(codeCus);
+		/*lấy dữ liệu từ database đưa vào arraylist thông qua phương thức getSearchCusList của class TransactionsDb*/
 		arrCheckTss = TransactionsDb.getSearchCusList(codeCus);
 		addControlls();
 		addEvents();
 	}
 
 	private void addControlls() {
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		this.setOpaque(false);
-		
-		JPanel pnInfor = new JPanel();
-		pnInfor.setOpaque(false);
-		pnInfor.setLayout(new BoxLayout(pnInfor, BoxLayout.Y_AXIS));
-		pnInfor.setPreferredSize(new Dimension(250, 600));
-		pnInfor.setMaximumSize( pnInfor.getPreferredSize() );
-		
-		JPanel pnInforUser = new JPanel();
-		JPanel pnInforGroup = new JPanel();
-		pnInforGroup.setOpaque(false);
-		pnInforUser.setOpaque(false);
-		pnInforUser.setLayout(new BoxLayout(pnInforUser, BoxLayout.Y_AXIS));
-		pnInforUser.setPreferredSize(new Dimension(260, 235));
-		pnInforUser.setMaximumSize( pnInforUser.getPreferredSize() );
-		String nameUser = fullname ;
-		Border titleBorder;
-		Border blueBorder = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorder = BorderFactory.createTitledBorder(blueBorder, "Xin Chào : "+nameUser,
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);		
-		pnInforUser.setBorder(titleBorder);				
-		
-		JPanel pnHeader =new JPanel();
-		pnHeader.setOpaque(false);
-		JLabel lblHeader =new JLabel("Thông Tin Tài Khoảng");
-		lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		lblHeader.setForeground(Color.RED	);
-		pnHeader.add(lblHeader);
-		pnInforUser.add(pnHeader);
-		
+		try {
+			/*set Boxlayout cho class*/
+			this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+			this.setOpaque(false);
+			
+			JPanel pnInfor = new JPanel();
+			pnInfor.setOpaque(false);
+			/*set Boxlayout cho pnInfor*/
+			pnInfor.setLayout(new BoxLayout(pnInfor, BoxLayout.Y_AXIS));
+			pnInfor.setPreferredSize(new Dimension(250, 600));
+			pnInfor.setMaximumSize( pnInfor.getPreferredSize() );
+			
+			JPanel pnInforUser = new JPanel();
+			JPanel pnInforGroup = new JPanel();
+			pnInforGroup.setOpaque(false);
+			pnInforUser.setOpaque(false);
+			/*set Boxlayout cho pnInforUser*/
+			pnInforUser.setLayout(new BoxLayout(pnInforUser, BoxLayout.Y_AXIS));
+			pnInforUser.setPreferredSize(new Dimension(260, 235));
+			pnInforUser.setMaximumSize( pnInforUser.getPreferredSize() );
+			String nameUser = fullname ;
+			/*set Border cho pnInforUser*/
+			Border titleBorder;
+			Border blueBorder = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorder = BorderFactory.createTitledBorder(blueBorder, "Xin Chào : "+nameUser,
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);		
+			pnInforUser.setBorder(titleBorder);				
+			
+			JPanel pnHeader =new JPanel();
+			pnHeader.setOpaque(false);
+			JLabel lblHeader =new JLabel("Thông Tin Tài Khoảng");
+			lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 15));
+			lblHeader.setForeground(Color.RED	);
+			pnHeader.add(lblHeader);
+			pnInforUser.add(pnHeader);
+			
 
-		JLabel lblCodeUser =new JLabel("Mã Của Bạn:");
-		txtCodeUser = new JTextField(10);
-		txtCodeUser.setEditable(false);
-		
+			JLabel lblCodeUser =new JLabel("Mã Của Bạn:");
+			txtCodeUser = new JTextField(10);
+			txtCodeUser.setEditable(false);
+			
 
-		JLabel lblAccountNumber =new JLabel("Số Tài Khoảng:");
-		txtAccountNumber = new JTextField(10);
-		txtAccountNumber.setEditable(false);
+			JLabel lblAccountNumber =new JLabel("Số Tài Khoảng:");
+			txtAccountNumber = new JTextField(10);
+			txtAccountNumber.setEditable(false);
 
-		JLabel lblDistrictsUser =new JLabel("Quận: ");
-		txtDistrictsUser = new JTextField(10);
-		txtDistrictsUser.setEditable(false);
-		
-		JLabel lblWardsUser =new JLabel("Phường: ");
-		txtWardsUser = new JTextField(10);
-		txtWardsUser.setEditable(false);
+			JLabel lblDistrictsUser =new JLabel("Quận: ");
+			txtDistrictsUser = new JTextField(10);
+			txtDistrictsUser.setEditable(false);
+			
+			JLabel lblWardsUser =new JLabel("Phường: ");
+			txtWardsUser = new JTextField(10);
+			txtWardsUser.setEditable(false);
 
-		JLabel lblStreetUser =new JLabel("Đường: ");
-		txtStreetUser = new JTextField(10);
-		txtStreetUser.setEditable(false);
-				
-		txtCodeUser.setText("*********");
-		txtAccountNumber.setText("*********");			
-		txtDistrictsUser.setText("*********");			
-		txtDistrictsUser.setText("*********");
-		txtWardsUser.setText("*********");
-		txtStreetUser.setText("*********");
-		
-		GroupLayout infolayout = new GroupLayout(pnInforGroup);
-		pnInforGroup.setLayout(infolayout);
-		infolayout.setAutoCreateGaps(true);
-		infolayout.setAutoCreateContainerGaps(true);
-		
-		infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup()
-				.addComponent(lblCodeUser)
-				.addComponent(lblAccountNumber)
-				.addComponent(lblDistrictsUser)
-				.addComponent(lblWardsUser)
-				.addComponent(lblStreetUser)
-			)
-			.addGroup(infolayout.createParallelGroup()
-				.addComponent(txtCodeUser)
-				.addComponent(txtAccountNumber)
-				.addComponent(txtDistrictsUser)
-				.addComponent(txtWardsUser)
-				.addComponent(txtStreetUser)
-			)
-		);
-		
-		infolayout.setVerticalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup()
-				.addComponent(lblCodeUser)
-				.addComponent(txtCodeUser)
-			)			
-			.addGroup(infolayout.createParallelGroup()
+			JLabel lblStreetUser =new JLabel("Đường: ");
+			txtStreetUser = new JTextField(10);
+			txtStreetUser.setEditable(false);
+					
+			txtCodeUser.setText("*********");
+			txtAccountNumber.setText("*********");			
+			txtDistrictsUser.setText("*********");			
+			txtDistrictsUser.setText("*********");
+			txtWardsUser.setText("*********");
+			txtStreetUser.setText("*********");
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout infolayout = new GroupLayout(pnInforGroup);
+			pnInforGroup.setLayout(infolayout);
+			infolayout.setAutoCreateGaps(true);
+			infolayout.setAutoCreateContainerGaps(true);
+			
+			infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup()
+					.addComponent(lblCodeUser)
 					.addComponent(lblAccountNumber)
-					.addComponent(txtAccountNumber)
-				)
-			.addGroup(infolayout.createParallelGroup()
 					.addComponent(lblDistrictsUser)
-					.addComponent(txtDistrictsUser)
-				)
-			.addGroup(infolayout.createParallelGroup()
 					.addComponent(lblWardsUser)
-					.addComponent(txtWardsUser)
-				)
-			.addGroup(infolayout.createParallelGroup()
 					.addComponent(lblStreetUser)
+				)
+				.addGroup(infolayout.createParallelGroup()
+					.addComponent(txtCodeUser)
+					.addComponent(txtAccountNumber)
+					.addComponent(txtDistrictsUser)
+					.addComponent(txtWardsUser)
 					.addComponent(txtStreetUser)
 				)
-		);
-		pnInforUser.add(pnInforGroup);
+			);
+			
+			infolayout.setVerticalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup()
+					.addComponent(lblCodeUser)
+					.addComponent(txtCodeUser)
+				)			
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblAccountNumber)
+						.addComponent(txtAccountNumber)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblDistrictsUser)
+						.addComponent(txtDistrictsUser)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblWardsUser)
+						.addComponent(txtWardsUser)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblStreetUser)
+						.addComponent(txtStreetUser)
+					)
+			);
+			pnInforUser.add(pnInforGroup);
+			
+			JPanel pnLogoutUser = new JPanel();
+			pnLogoutUser.setOpaque(false);
+			btnLogoutUser = new JButton("Đăng Xuất");
+			btnShowUser = new JButton("Hiển Thị");		
+			btnHideUser = new JButton("Ẩn");
+			btnHideUser.setEnabled(false);
+			pnLogoutUser.add(btnShowUser);
+			pnLogoutUser.add(btnHideUser);
+			pnLogoutUser.add(btnLogoutUser);
+			pnInforUser.add(pnLogoutUser);
+			
+			JPanel pnInforAction = new JPanel();
+			pnInforAction.setOpaque(false);
+			/*set Boxlayout cho pnInforAction*/
+			pnInforAction.setLayout(new BoxLayout(pnInforAction, BoxLayout.Y_AXIS));
+			pnInforAction.setPreferredSize(new Dimension(250, 250));
+			pnInforAction.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE) );
+			/*set Border cho pnInforAction*/
+			Border titleBorderAc;
+			Border blueBorderAc = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAc = BorderFactory.createTitledBorder(blueBorderAc, "Chức Năng",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnInforAction.setBorder(titleBorderAc);
+			
+			JPanel pnWithdrawal = new JPanel();
+			pnWithdrawal.setOpaque(false);
+	        pnWithdrawal.setPreferredSize(new Dimension(250, 50));
+	        pnWithdrawal.setMaximumSize(pnWithdrawal.getPreferredSize() );
+			btnWithdrawal =new JButton("Rút Tiền");
+			btnWithdrawal.setBackground(Color.GREEN);				
+			btnWithdrawal.setMargin(new Insets(3,35,3,35));
+			pnWithdrawal.add(btnWithdrawal);
+			
+			pnInforAction.add(pnWithdrawal);
+			
+			JPanel pnBalance = new JPanel();
+			pnBalance.setOpaque(false);
+			pnBalance.setPreferredSize(new Dimension(250, 50));
+			pnBalance.setMaximumSize(pnBalance.getPreferredSize() );
+			btnBalance =new JButton("Xem Số Dư");
+			btnBalance.setSize(80, 20);
+			btnBalance.setMargin(new Insets(3,27,3,27));
+			pnBalance.add(btnBalance);
+			
+			pnInforAction.add(pnBalance);
+			
+			JPanel pnChangePass = new JPanel();
+			pnChangePass.setOpaque(false);
+			pnChangePass.setPreferredSize(new Dimension(250, 50));
+			pnChangePass.setMaximumSize(pnChangePass.getPreferredSize() );
+			
+			btnChangePass =new JButton("Đổi Mật Khẩu");
+			btnChangePass.setMargin(new Insets(3,23,3,23));
+			pnChangePass.add(btnChangePass);
+			
+			pnInforAction.add(pnChangePass);
+			
+			JPanel pnHistory = new JPanel();
+			pnHistory.setOpaque(false);
+			pnHistory.setPreferredSize(new Dimension(250, 50));
+			pnHistory.setMaximumSize(pnHistory.getPreferredSize() );
+			
+			btnHistory =new JButton("Lịch Sử Giao Dịch");
+			btnHistory.setMargin(new Insets(3,12,3,12));
+			pnHistory.add(btnHistory);
+			
+			pnInforAction.add(pnHistory);
+			
+			pnInfor.add(pnInforUser);				
+			pnInfor.add(pnInforAction);
+			
+			pnAction = new JPanel();
+			pnAction.setOpaque(false);
+			/*set BoxLayout cho pnAction*/
+			pnAction.setLayout(new BoxLayout(pnAction, BoxLayout.Y_AXIS));
+			pnAction.setPreferredSize(new Dimension(650, 587));
+			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			/*set Border cho pnAction*/
+			Border titleBorderAction;
+			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAction.setBorder(titleBorderAction);
+			cardLayoutAction = new CardLayout();
+			pnAction.setLayout(cardLayoutAction);
+			
+			JPanel pnActionWithdrawal=new JPanel();
+			pnActionWithdrawal.setOpaque(false);
+			layoutWithdrawal = new LayoutUserWithdrawal(codeATM);
+			pnActionWithdrawal.add(layoutWithdrawal);						
+			
+			JPanel pnActionChangePass=new JPanel();
+			pnActionChangePass.setOpaque(false);	
+			layoutChangePass = new LayoutUserChangePass(codeATM,codeCus);
+			pnActionChangePass.add(layoutChangePass);		
+			
+			JPanel pnActionHistory = new JPanel();
+			pnActionHistory.setOpaque(false);
+			layoutHistory = new LayoutUserHistory(codeCus,codeATM);
+			pnActionHistory.add(layoutHistory);
+			
+			pnAction.add(pnActionWithdrawal,"myCardWithdrawal");
+			
+			pnAction.add(pnActionChangePass,"myCardChangePass");
+			
+			pnAction.add(pnActionHistory,"myCardHistory");
+			
+			this.add(pnInfor);
+			this.add(pnAction);
+		}catch (Exception e) {
+			
+		}
 		
-		JPanel pnLogoutUser = new JPanel();
-		pnLogoutUser.setOpaque(false);
-		btnLogoutUser = new JButton("Đăng Xuất");
-		btnShowUser = new JButton("Hiển Thị");		
-		btnHideUser = new JButton("Ẩn");
-		btnHideUser.setEnabled(false);
-		pnLogoutUser.add(btnShowUser);
-		pnLogoutUser.add(btnHideUser);
-		pnLogoutUser.add(btnLogoutUser);
-		pnInforUser.add(pnLogoutUser);
-		
-		JPanel pnInforAction = new JPanel();
-		pnInforAction.setOpaque(false);
-		pnInforAction.setLayout(new BoxLayout(pnInforAction, BoxLayout.Y_AXIS));
-		pnInforAction.setPreferredSize(new Dimension(250, 250));
-		pnInforAction.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE) );
-		Border titleBorderAc;
-		Border blueBorderAc = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAc = BorderFactory.createTitledBorder(blueBorderAc, "Chức Năng",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnInforAction.setBorder(titleBorderAc);
-		
-		JPanel pnWithdrawal = new JPanel();
-		pnWithdrawal.setOpaque(false);
-        pnWithdrawal.setPreferredSize(new Dimension(250, 50));
-        pnWithdrawal.setMaximumSize(pnWithdrawal.getPreferredSize() );
-		btnWithdrawal =new JButton("Rút Tiền");
-		btnWithdrawal.setBackground(Color.GREEN);				
-		btnWithdrawal.setMargin(new Insets(3,35,3,35));
-		pnWithdrawal.add(btnWithdrawal);
-		
-		pnInforAction.add(pnWithdrawal);
-		
-		JPanel pnBalance = new JPanel();
-		pnBalance.setOpaque(false);
-		pnBalance.setPreferredSize(new Dimension(250, 50));
-		pnBalance.setMaximumSize(pnBalance.getPreferredSize() );
-		btnBalance =new JButton("Xem Số Dư");
-		btnBalance.setSize(80, 20);
-		btnBalance.setMargin(new Insets(3,27,3,27));
-		pnBalance.add(btnBalance);
-		
-		pnInforAction.add(pnBalance);
-		
-		JPanel pnChangePass = new JPanel();
-		pnChangePass.setOpaque(false);
-		pnChangePass.setPreferredSize(new Dimension(250, 50));
-		pnChangePass.setMaximumSize(pnChangePass.getPreferredSize() );
-		
-		btnChangePass =new JButton("Đổi Mật Khẩu");
-		btnChangePass.setMargin(new Insets(3,23,3,23));
-		pnChangePass.add(btnChangePass);
-		
-		pnInforAction.add(pnChangePass);
-		
-		JPanel pnHistory = new JPanel();
-		pnHistory.setOpaque(false);
-		pnHistory.setPreferredSize(new Dimension(250, 50));
-		pnHistory.setMaximumSize(pnHistory.getPreferredSize() );
-		
-		btnHistory =new JButton("Lịch Sử Giao Dịch");
-		btnHistory.setMargin(new Insets(3,12,3,12));
-		pnHistory.add(btnHistory);
-		
-		pnInforAction.add(pnHistory);
-		
-		pnInfor.add(pnInforUser);				
-		pnInfor.add(pnInforAction);
-		
-		pnAction = new JPanel();
-		pnAction.setOpaque(false);
-		pnAction.setLayout(new BoxLayout(pnAction, BoxLayout.Y_AXIS));
-		pnAction.setPreferredSize(new Dimension(650, 587));
-		pnAction.setMaximumSize(pnAction.getPreferredSize() );
-		Border titleBorderAction;
-		Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAction.setBorder(titleBorderAction);
-		cardLayoutAction = new CardLayout();
-		pnAction.setLayout(cardLayoutAction);
-		
-		JPanel pnActionWithdrawal=new JPanel();
-		pnActionWithdrawal.setOpaque(false);
-		layoutWithdrawal = new LayoutUserWithdrawal(codeATM);
-		pnActionWithdrawal.add(layoutWithdrawal);						
-		
-		JPanel pnActionChangePass=new JPanel();
-		pnActionChangePass.setOpaque(false);	
-		layoutChangePass = new LayoutUserChangePass(codeATM,codeCus);
-		pnActionChangePass.add(layoutChangePass);		
-		
-		JPanel pnActionHistory = new JPanel();
-		pnActionHistory.setOpaque(false);
-		layoutHistory = new LayoutUserHistory(codeCus,codeATM);
-		pnActionHistory.add(layoutHistory);
-		
-		pnAction.add(pnActionWithdrawal,"myCardWithdrawal");
-		
-		pnAction.add(pnActionChangePass,"myCardChangePass");
-		
-		pnAction.add(pnActionHistory,"myCardHistory");
-		
-		this.add(pnInfor);
-		this.add(pnAction);
 	}
 
 	private void addEvents() {
@@ -295,9 +309,8 @@ public class LayoutUser extends JPanel {
 		btnHideUser.addActionListener(eventHideUser);
 		layoutWithdrawal.getBtnSubmit().addActionListener(eventWithdrawal);
 	}
-	
-	ActionListener getLayoutHistory = new ActionListener() {
-		
+	/*Gọi layout myCardHistory*/
+	ActionListener getLayoutHistory = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
@@ -309,7 +322,7 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
-	
+	/*Gọi layout myCardWithdrawal*/
 	ActionListener getLayoutWithdrawal = new ActionListener() {
 		
 		@Override
@@ -322,6 +335,7 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
+	/*Gọi layout myCardBalance*/
 	ActionListener getLayoutBalance = new ActionListener() {
 		
 		@Override
@@ -346,7 +360,7 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
-	
+	/*Gọi layout myCardChangePass*/
 	ActionListener getLayoutChangePass = new ActionListener() {
 		
 		@Override
@@ -359,7 +373,7 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
-	
+	/*Hiện thị thông tin khách hàng*/
 	ActionListener eventShowUser = new ActionListener() {
 		
 		@Override
@@ -378,6 +392,7 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
+	/*Ẩn thông tin khách hàng*/
 	ActionListener eventHideUser = new ActionListener() {
 		
 		@Override
@@ -393,9 +408,8 @@ public class LayoutUser extends JPanel {
 		}
 		
 	};
-	
-	ActionListener eventWithdrawal = new ActionListener() {
-		
+	/*Sự kiện rút tiền */
+	ActionListener eventWithdrawal = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			try {
@@ -408,6 +422,7 @@ public class LayoutUser extends JPanel {
 					dateChoose.setTime(x.getTimeTransaction().getTime());
 					String timeChoose = dateFormatChoose.format(dateChoose);
 					int nowMonth =(cldNowDay.get(Calendar.MONTH)+1);
+					/*validate khi rút tiền*/
 					if(cldNowDay.get(Calendar.MONTH)>10) {
 						month =String.valueOf(nowMonth);
 					}else {
@@ -419,6 +434,7 @@ public class LayoutUser extends JPanel {
 					}
 				}
 				int moneyWithdrawal = Integer.parseInt(money);
+				/*kiểm tra số lần đã rút trong ngày có quá 3 lần chưa*/
 				if(i>=3) {
 					String msg = "Bạn Đã Rút Hết Số Lần Trong Ngày!!!\nMỗi Ngày Được Rút Tối Đa 3 Lần";
 					JOptionPane.showMessageDialog(null, msg, "Rút Quá Giới Hạn!!!", JOptionPane.INFORMATION_MESSAGE);
@@ -439,15 +455,16 @@ public class LayoutUser extends JPanel {
 									int balanceAtm = (arrCheckAtm.get(0).getAmountATM()-moneyWithdrawal);
 									int checkAtm = MachineATMDb.editMoney(balanceAtm,codeATM) ;
 									layoutWithdrawal.getTxtMoney().setText("");
-									if(checkAtm>-1) {
+									/*Kiểm tra đã rút tiền thành công chưa*/
+									if(checkAtm>-1) {										
 									    LocalTime localTime=LocalTime.now();
 									    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 									    String formattedTime=localTime.format(formatter);
 									    
 									    Time t = Time.valueOf(formattedTime);
 									    System.out.println(formattedTime);
-									    long int_transactions = t.getTime();	
-									    String code_transactions = "MGD" + int_transactions;
+									    long int_transactions = t.getTime()/1000;	
+									    String code_transactions = "MGD" + Math.abs(int_transactions);
 										int checkTss = TransactionsDb.addTransactions(codeCus, codeATM, code_transactions , moneyWithdrawal ,"Rút Tiền");
 										if(checkTss>-1) {
 											arrCheckTss = TransactionsDb.getSearchCusList(codeCus);
