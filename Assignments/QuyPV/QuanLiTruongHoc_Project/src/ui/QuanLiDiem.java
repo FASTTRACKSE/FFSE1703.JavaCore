@@ -261,7 +261,7 @@ public class QuanLiDiem extends JPanel {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn sinh viên");
 			} else if(maMon.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn mã môn");
-			} else if(check > 10) {
+			} else if(check > 10 || check < 0) {
 				JOptionPane.showMessageDialog(null, "Số  điểm nhập vào không hợp lệ. Vui lòng nhập lại");
 			}
 			else {
@@ -301,7 +301,7 @@ public class QuanLiDiem extends JPanel {
 			int check = Integer.parseInt(diem);
 			if(diem.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập điểm");
-			} else if(check > 10) {
+			} else if(check > 10 || check < 0) {
 				JOptionPane.showMessageDialog(null, "Số  điểm nhập vào không hợp lệ. Vui lòng nhập lại");
 			}
 			else {

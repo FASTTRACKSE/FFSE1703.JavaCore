@@ -5,12 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +24,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import model.ProvinceModel;
 import model.QuanLiLopHocModel;
 import model.QuanLiLopHocSQL;
 import model.QuanLiMonHocCuaLopModel;
@@ -33,8 +31,13 @@ import model.QuanLiMonHocModel;
 import model.QuanLiMonHocSQL;
 
 public class QuanLiLopHocUI extends JPanel {
-	private JComboBox cboChonMon;
-	private JButton btnThemMoi,btnThem, btnSua, btnXoa, btnThoat, btnThemMon, btnXoaMon;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
+	public JComboBox cboChonMon;
+	private JButton btnThemMoi,btnThem, btnSua, btnXoa, btnThemMon, btnXoaMon;
 	private String maLop, tenLop, namHoc, monHoc;
 	private JTextField txtmaLop, txttenLop, txtnamHoc;
 	private DefaultTableModel dm, dm1;
@@ -49,8 +52,11 @@ public class QuanLiLopHocUI extends JPanel {
 		addControls();
 		addEvents();
 		tableLop();
+		cboMon();
+
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void addControls() {
 		JPanel pnl = new JPanel();
 		pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
@@ -59,7 +65,7 @@ public class QuanLiLopHocUI extends JPanel {
 		JPanel pnlLopHocTable = new JPanel();
 		JPanel pnlLopHocTable1 = new JPanel();
 		// INPUT
-		Border border = BorderFactory.createLineBorder(Color.RED);
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Nhập Thông Tin Lớp Học");
 		pnlLopHocInput.setBorder(borderTitle);
 
@@ -90,21 +96,25 @@ public class QuanLiLopHocUI extends JPanel {
 
 		JPanel btn = new JPanel();
 		btnThem = new JButton("Thêm");
+		btnThem.setBackground(Color.GRAY);
 		btnThem.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThem);
 		btnSua = new JButton("Sửa");
+		btnSua.setBackground(Color.GRAY);
 		btnSua.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnSua);
 		btnXoa = new JButton("Xóa");
+		btnXoa.setBackground(Color.GRAY);
 		btnXoa.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnXoa);
-		btnThemMoi = new JButton("Thêm Mới");
+		btnThemMoi = new JButton("Hủy");
+		btnThemMoi.setBackground(Color.GRAY);
 		btnThemMoi.setPreferredSize(new Dimension(220, 30));
 		btn.add(btnThemMoi);
 		pnlLopHocInput.add(btn);
 
 		// TABLE
-		Border border1 = BorderFactory.createLineBorder(Color.RED);
+		Border border1 = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle1 = BorderFactory.createTitledBorder(border1, "Danh Sách Lớp Học");
 		pnlLopHocTable.setBorder(borderTitle1);
 
@@ -124,27 +134,7 @@ public class QuanLiLopHocUI extends JPanel {
 		pnlLopHocTable.setLayout(new BorderLayout());
 		pnlLopHocTable.add(sc);
 
-		tblLopHoc.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
+		tblLopHoc.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -152,6 +142,7 @@ public class QuanLiLopHocUI extends JPanel {
 					//
 					//
 					txtmaLop.setEditable(false);
+					btnThem.setEnabled(false);
 					int row = tblLopHoc.getSelectedRow();
 					String value = tblLopHoc.getValueAt(row, 0).toString();
 					for (QuanLiLopHocModel x : arrLopHoc) {
@@ -170,7 +161,7 @@ public class QuanLiLopHocUI extends JPanel {
 		});
 
 		// Chọn môn cho lớp
-		Border border2 = BorderFactory.createLineBorder(Color.RED);
+		Border border2 = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle2 = BorderFactory.createTitledBorder(border2, "Chọn Môn Cho Lớp");
 		pnlLopHocTable1.setBorder(borderTitle2);
 		pnlLopHocTable1.setLayout(new BoxLayout(pnlLopHocTable1, BoxLayout.Y_AXIS));
@@ -178,13 +169,11 @@ public class QuanLiLopHocUI extends JPanel {
 		JPanel chonMon = new JPanel();
 		JLabel lblchonMon = new JLabel("Chọn Môn");
 		cboChonMon = new JComboBox();
-		cboChonMon.addItem("Chọn Môn");
-		arrMonHoc = quanLiMonHocSQL.selectMonHoc();
-		for (QuanLiMonHocModel x : arrMonHoc) {
-			cboChonMon.addItem(x.getMaMH());
-		}
+
 		btnThemMon = new JButton("Thêm Môn");
+		btnThemMon.setBackground(Color.GRAY);
 		btnXoaMon = new JButton("Xóa Môn");
+		btnXoaMon.setBackground(Color.GRAY);
 		chonMon.add(lblchonMon);
 		chonMon.add(cboChonMon);
 		chonMon.add(btnThemMon);
@@ -196,9 +185,6 @@ public class QuanLiLopHocUI extends JPanel {
 		dm1.addColumn("Mã Môn");
 
 		tblMonCuaLop = new JTable(dm1);
-		// tableMonCuaLop
-		// setColum
-		TableColumnModel columnModel1 = tblMonCuaLop.getColumnModel();
 		tblMonCuaLop.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane sc1 = new JScrollPane(tblMonCuaLop);
 		// pnlLopHocTable1.setLayout(new BorderLayout());
@@ -303,6 +289,7 @@ public class QuanLiLopHocUI extends JPanel {
 					txtmaLop.setText("");
 					txttenLop.setText("");
 					txtnamHoc.setText("");
+					dm1.setRowCount(0);
 				}
 			}
 
@@ -314,6 +301,7 @@ public class QuanLiLopHocUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			
 			txtmaLop.setEditable(true);
+			btnThem.setEnabled(true);
 			txtmaLop.setText("");
 			txttenLop.setText("");
 			txtnamHoc.setText("");
@@ -323,7 +311,6 @@ public class QuanLiLopHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			maLop = txtmaLop.getText();
 			monHoc = cboChonMon.getSelectedItem().toString();
 			if (maLop.isEmpty()) {
@@ -379,6 +366,15 @@ public class QuanLiLopHocUI extends JPanel {
 		for (QuanLiMonHocCuaLopModel x : arrMonHocCuaLop) {
 			String row[] = { x.getMaMh()};
 			dm1.addRow(row);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public void cboMon() {
+		cboChonMon.removeAllItems();
+		cboChonMon.addItem("Chọn Môn");
+		arrMonHoc = quanLiMonHocSQL.selectMonHoc();
+		for (QuanLiMonHocModel x : arrMonHoc) {
+			cboChonMon.addItem(x.getMaMH());
 		}
 	}
 }

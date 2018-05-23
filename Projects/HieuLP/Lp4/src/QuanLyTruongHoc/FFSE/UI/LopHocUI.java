@@ -24,9 +24,10 @@ public class LopHocUI extends JPanel {
 					   moTa = new JTextField();
 	private ArrayList<QuanLyModelLopHoc> arrLop = new ArrayList<QuanLyModelLopHoc>();
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
-	private Button ThemLop = new Button("Thêm");
-	private Button SuaLop = new Button("Sửa");
-	private Button XoaLop = new Button("Xóa");
+	private JButton ThemLop = new JButton("Thêm");
+	private JButton SuaLop = new JButton("Sửa");
+	private JButton XoaLop = new JButton("Xóa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 	public LopHocUI() {
 		addControls();
 		addEvent();
@@ -35,7 +36,7 @@ public class LopHocUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách lớp học");
 		this.setBorder(borderTitle);
 		dm_lophoc = new DefaultTableModel();
 		dm_lophoc.addColumn("Mã lớp");
@@ -79,6 +80,7 @@ public class LopHocUI extends JPanel {
 		JPanel nhapmaLop = new JPanel();
 		nhapmaLop.setLayout(new FlowLayout());
 		JLabel lblNhapmaLop = new JLabel("Mã lớp:");
+		lblNhapmaLop.setPreferredSize(new Dimension(70, 30));
 		maLop = new JTextField(20);
 		nhapmaLop.add(lblNhapmaLop);
 		nhapmaLop.add(maLop);
@@ -88,6 +90,7 @@ public class LopHocUI extends JPanel {
 		JPanel nhapNamhoc = new JPanel();
 		nhapNamhoc.setLayout(new FlowLayout());
 		JLabel lblNhapNamhoc = new JLabel("Năm học:");
+		lblNhapNamhoc.setPreferredSize(new Dimension(70, 30));
 		namHoc = new JTextField(20);
 		nhapNamhoc.add(lblNhapNamhoc);
 		nhapNamhoc.add(namHoc);
@@ -95,7 +98,8 @@ public class LopHocUI extends JPanel {
 
 		JPanel nhapMota = new JPanel();
 		nhapMota.setLayout(new FlowLayout());
-		JLabel lblNhapMota = new JLabel("Mô tả      :");
+		JLabel lblNhapMota = new JLabel("Mô tả:");
+		lblNhapMota.setPreferredSize(new Dimension(70, 30));
 		moTa = new JTextField(20);
 		nhapMota.add(lblNhapMota);
 		nhapMota.add(moTa);
@@ -107,11 +111,12 @@ public class LopHocUI extends JPanel {
 		pnLophocbutton.setBorder(borderTitle4);
 		pnLophocbutton.setLayout(new FlowLayout());
 		JPanel chucnang = new JPanel();
-		chucnang.setLayout(new BoxLayout(chucnang, BoxLayout.X_AXIS));
+		chucnang.setLayout(new BoxLayout(chucnang, BoxLayout.Y_AXIS));
 		pnLophocbutton.setPreferredSize(new Dimension(200, 100));
 		pnLophocbutton.add(ThemLop);
 		pnLophocbutton.add(SuaLop);
 		pnLophocbutton.add(XoaLop);
+		pnLophocbutton.add(nhapSinhVien);
 
 		pnLophoc.add(pnLeft);
 		pnLophocbutton.add(chucnang);
@@ -140,6 +145,8 @@ public class LopHocUI extends JPanel {
 		ThemLop.addActionListener(eventAdd_lop);
 		XoaLop.addActionListener(eventDel_lop);
 		SuaLop.addActionListener(eventEdit_lop);
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
+
 
 	}
 
@@ -151,6 +158,8 @@ public class LopHocUI extends JPanel {
 			col[1] = (String) table_lophoc.getValueAt(row, 1);
 			col[2] = (String) table_lophoc.getValueAt(row, 2);
 			maLop.setText(col[0]);
+			maLop.setEditable(false);
+			ThemLop.setEnabled(false);
 			moTa.setText(col[1]);
 			namHoc.setText(col[2]);
 		}
@@ -158,60 +167,98 @@ public class LopHocUI extends JPanel {
 
 	ActionListener eventAdd_lop = new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-
+		public void actionPerformed(ActionEvent e) {
+			int kt = 0;
+			int KT2 = 0;
 			String lop = maLop.getText();
 			String mota = moTa.getText();
 			String nam = namHoc.getText();
 			
-				if (lop.isEmpty() || mota.isEmpty() || nam.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+			try {
+				Integer.parseInt(nam);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+			
+			for (QuanLyModelLopHoc x : arrLop) {
+				if (maLop.getText().equals(x.getMaLop())) {
+					kt = 2;
+					break;
 				}
-				else {
-				arrLop.add(new QuanLyModelLopHoc(lop, mota, nam));
-				dm_lophoc.addRow(new String[] { lop, mota, nam });
-				Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
-				try {
-					String sql = "INSERT INTO table_lop(maLop,moTa,namHoc) VALUES (" + "'" + lop + "','" + mota + "','"
-							+ nam + "')";
-					Statement statement = conn.createStatement();
-					int x = statement.executeUpdate(sql);
-					if (x > 0) {
-						JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+			}
+			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
+			try {
+
+				if (lop.isEmpty() || mota.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if (nam == "TẤT CẢ") {
+					JOptionPane.showMessageDialog(null, "HÃY CHỌN NĂM", null, JOptionPane.WARNING_MESSAGE);
+
+				} else if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
+
+				} 
+				else if (KT2 > 0) {
+					JOptionPane.showMessageDialog(null, "NĂM CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+				}else {
+
+					arrLop.add(new QuanLyModelLopHoc(lop, mota, nam));
+					dm_lophoc.addRow(new String[] { lop, mota, nam });
+					try {
+						String sql = "INSERT INTO table_lop(maLop,moTa,namHoc) VALUES (" + "'" + lop + "','" + mota + "','"
+								+ nam + "')";
+						Statement statement = conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "LƯU THÀNH CÔNG");
+
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+
 				}
-				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP THÔNG TIN");
+			}
 			dm_lophoc.setRowCount(0);
 			for (QuanLyModelLopHoc x : arrLop) {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNamHoc() };
 				dm_lophoc.addRow(row);
 			}
-
-			maLop.setText("");
-			moTa.setText("");
-			namHoc.setText("");
-			}
+		}
 	};
 
 	ActionListener eventDel_lop = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			String lop = maLop.getText();
+			String mota = moTa.getText();
+			String nam = namHoc.getText();
+			if (lop.isEmpty() || mota.isEmpty() || nam.isEmpty() 
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			}
+			else {
 			for (QuanLyModelLopHoc x : arrLop) {
 				if (maLop.getText().equals(x.getMaLop())) {
 					arrLop.remove(x);
 					break;
 				}
 			}
+			
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
 				String sql = "DELETE FROM table_lop WHERE maLop = '" + maLop.getText() + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin môn học");
+					JOptionPane.showMessageDialog(null, "Đã xóa");
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -221,14 +268,28 @@ public class LopHocUI extends JPanel {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNamHoc() };
 				dm_lophoc.addRow(row);
 			}
+			
 		}
+			}
 
 	};
+	
 
 	ActionListener eventEdit_lop = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int KT2 = 0;
+
+			String lop = maLop.getText();
+			String mota = moTa.getText();
+			String nam = namHoc.getText();
 			
+			try {
+				Integer.parseInt(nam);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
 			for (QuanLyModelLopHoc x : arrLop) {
 				if (maLop.getText().equals(x.getMaLop())) {
 					x.setMoTa(moTa.getText());
@@ -236,6 +297,23 @@ public class LopHocUI extends JPanel {
 					break;
 				}
 			}
+			
+			if (lop.isEmpty() || mota.isEmpty() || nam.isEmpty() 
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "NĂM CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			 
+				
+				maLop.setText("");
+				moTa.setText("");
+				namHoc.setText("");
+			
+
+			} else {
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
 				String sql = "UPDATE table_lop SET NamHoc ='" + namHoc.getText() + "',MoTa ='" + moTa.getText()
@@ -255,6 +333,19 @@ public class LopHocUI extends JPanel {
 			}
 
 		}
+			}
 
+	};
+	ActionListener eventReset_SinhVien = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			maLop.setEditable(true);
+			ThemLop.setEnabled(true);
+			maLop.setText("");
+			moTa.setText("");
+			namHoc.setText("");
+			
+		}
 	};
 }

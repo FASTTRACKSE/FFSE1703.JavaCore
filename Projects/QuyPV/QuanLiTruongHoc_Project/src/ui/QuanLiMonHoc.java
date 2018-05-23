@@ -6,8 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.TexturePaint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -90,7 +93,34 @@ public class QuanLiMonHoc extends JPanel {
 		thoiLuong.setFont(font);
 		thoiLuong.setPreferredSize(new Dimension(90, 30));
 		textThoiLuong = new JTextField(20);
+		textThoiLuong.setText("Đơn vị giờ");
+		textThoiLuong.setForeground(new Color(190, 190, 190));
 		textThoiLuong.setPreferredSize(new Dimension(90, 30));
+		textThoiLuong.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				String taiKhoan = textThoiLuong.getText();
+				
+				if(taiKhoan.equals("") || taiKhoan.equalsIgnoreCase("Đơn vị giờ")) {
+					//textMatKhau.setEchoChar('*');
+					textThoiLuong.setText("Đơn vị giờ");
+					textThoiLuong.setForeground(new Color(190, 190, 190));
+				}
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				String taiKhoan = textThoiLuong.getText();
+				
+				if(taiKhoan.equals("Đơn vị giờ")) {
+					textThoiLuong.setText("");
+					textThoiLuong.setForeground(new Color(0, 0, 0));
+				}
+				
+			}
+		});
 		hangNhap1.add(maMon);
 		hangNhap1.add(textMaMon);
 		hangNhap2.add(tenMon);
@@ -166,11 +196,13 @@ public class QuanLiMonHoc extends JPanel {
 				String value = tbSinhVien.getValueAt(row, 0).toString();
 				
 				for(QuanLiMonHoc_Model x : arrMonHoc) {
+					textThoiLuong.setForeground(new Color(0, 0, 0));
 					if(value.equals(x.getMaMon())) {
 						textMaMon.setText(x.getMaMon());
 						textTenMon.setText(x.getTenMon());
 						textSoTinChi.setText(x.getSoTinChi());
-						textThoiLuong.setText(x.getThoiLuong());
+						int endSubtring = x.getThoiLuong().length() - 4;
+						textThoiLuong.setText(x.getThoiLuong().substring(0, endSubtring));
 						btnSua.setEnabled(true);
 						btnXoa.setEnabled(true);
 						btnThem.setEnabled(false);
@@ -212,6 +244,7 @@ public class QuanLiMonHoc extends JPanel {
 			
 			String kt = "Không trùng";
 			int soChi = Integer.parseInt(soTinChi);
+			int thoiLuongHoc = Integer.parseInt(thoiLuong);
 			if(maMon.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập mã môn");
 			} else if(tenMon.isEmpty()) {
@@ -220,7 +253,11 @@ public class QuanLiMonHoc extends JPanel {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập số tín chỉ");
 			} else if(thoiLuong.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập thời lượng học");
-			} 
+			} else if(soChi < 0) {
+				JOptionPane.showMessageDialog(null, "Số tín chỉ không hợp lệ");
+			} else if(thoiLuongHoc < 0) {
+				JOptionPane.showMessageDialog(null, "Thời lượng học không hợp lệ");
+			}
 			else {
 				for(QuanLiMonHoc_Model x : arrMonHoc) {
 					if(maMon.equals(x.getMaMon())) {
@@ -232,14 +269,14 @@ public class QuanLiMonHoc extends JPanel {
 				}else {
 					quanLiMonHocStatement.insertMonHoc(maMon, tenMon, soTinChi, thoiLuong);
 					sellectAllMonHoc();
-					String row[] = {maMon, tenMon, soTinChi, thoiLuong};
+					String row[] = {maMon, tenMon, soTinChi, thoiLuong +" giờ"};
 					dm.addRow(row);
 					taoMoi();
 				}
 			}
 			
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "Số tín chỉ phải nhập đúng dạng");
+				JOptionPane.showMessageDialog(null, "Số tín chỉ và thời lượng phải nhập đúng dạng");
 			} 
 			catch (Exception ex) {
 				ex.printStackTrace();
@@ -257,6 +294,7 @@ public class QuanLiMonHoc extends JPanel {
 			String soTinChi = textSoTinChi.getText();
 			String thoiLuong = textThoiLuong.getText();
 			int soChi = Integer.parseInt(soTinChi);
+			int thoiLuongHoc = Integer.parseInt(thoiLuong);
 			if(maMon.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng chọn môn cần xóa");
 			} else if(tenMon.isEmpty()) {
@@ -265,6 +303,10 @@ public class QuanLiMonHoc extends JPanel {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập số tín chỉ");
 			} else if(thoiLuong.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập thời lượng");
+			} else if(soChi < 0) {
+				JOptionPane.showMessageDialog(null, "Số tín chỉ không hợp lệ");
+			}else if(thoiLuongHoc < 0) {
+				JOptionPane.showMessageDialog(null, "Thời lượng học không hợp lệ");
 			}
 			else {
 			
@@ -277,7 +319,7 @@ public class QuanLiMonHoc extends JPanel {
 				taoMoi();
 			}
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "Số tín chỉ phải nhập đúng dạng");
+				JOptionPane.showMessageDialog(null, "Số tín chỉ và thời lượng phải nhập đúng dạng");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -335,7 +377,8 @@ public class QuanLiMonHoc extends JPanel {
 		textMaMon.setText("");
 		textTenMon.setText("");
 		textSoTinChi.setText("");
-		textThoiLuong.setText("");
+		textThoiLuong.setText("Đơn vị giờ");
+		textThoiLuong.setForeground(new Color(190, 190, 190));
 		btnSua.setEnabled(false);
 		btnXoa.setEnabled(false);
 		btnThem.setEnabled(true);

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+
+
 public class QuanLiLopHocSQL {
 	final Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
 	private ArrayList<QuanLiLopHocModel> arrMaLop = new ArrayList<>();
@@ -85,7 +87,8 @@ public class QuanLiLopHocSQL {
 		try {
 			Statement statement = conn.createStatement();
 			String sql = "delete from QLLopHoc where MaLop= '" + maLop + "' ";
-
+			String sql1 = "delete from QLMonHocCuaLop where MaLop= '" + maLop + "' ";
+			statement.executeUpdate(sql1);
 			int x = statement.executeUpdate(sql);
 			if (x > 0) {
 				JOptionPane.showMessageDialog(null, "Xóa Thành Công !!");
@@ -128,5 +131,6 @@ public class QuanLiLopHocSQL {
 			ex.printStackTrace();
 		}
 	}
+	
 }
 

@@ -10,7 +10,6 @@ public class WardSQL {
 	final static Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
 
 	public WardSQL() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ArrayList<WardModel> selectWard(String districtId) {

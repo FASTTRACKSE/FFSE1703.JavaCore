@@ -191,7 +191,7 @@ public class QuanLiGiaoDichUI extends JPanel {
 	public void Display() {
 		if (conn != null) {
 
-			String sql = "SELECT * FROM muon_tra_sach WHERE tinh_trang = 'Đang mượn' ORDER BY ma_muon_tra ASC";
+			String sql = "SELECT * FROM muon_tra_sach ORDER BY ma_muon_tra ASC";
 			try {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				// khởi tạo resultset

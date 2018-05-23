@@ -4,7 +4,6 @@ public class QuanLiLopHocModel {
 	private String maLop,tenLop,namHoc;
 	
 	public QuanLiLopHocModel() {
-		// TODO Auto-generated constructor stub
 	}
 	public QuanLiLopHocModel(String maLop,String tenLop,String namHoc) {
 		this.maLop = maLop;
