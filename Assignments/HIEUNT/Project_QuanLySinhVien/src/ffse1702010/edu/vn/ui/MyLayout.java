@@ -3,9 +3,6 @@ package ffse1702010.edu.vn.ui;
 import java.awt.BorderLayout;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -13,7 +10,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,8 +18,6 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -52,112 +46,111 @@ public class MyLayout extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	private Container con;
-
+	// JPANNEL CHÍNH
 	private JPanel pnBorder;
-	private JPanel pnESL;
-	private JPanel pnMTD;
-	private JPanel pnJcombobox;
-	private JPanel pnCRUD;
-	private JPanel pnCRUDL;
-	private JPanel pnTMN;
-	// pn chinh
+	// JPANNEL SINH VIÊN
+	private JPanel pnFolowSinhVien1;
+	private JPanel pnFolowSinhVien2;
+	private JPanel pnFolowSinhVien3;
+	private JPanel pnFowlowTinhQuanHuyen;
+	private JPanel pnCRUDSinhVien;
+	private JPanel pnCRUDLop;
+	// JPANNEL CHÍNH
+	CardLayout card;
+	private JPanel pnLayout;
 	private JPanel pnQuanLySinhVien;
 	private JPanel pnQuanLyMonHoc;
 	private JPanel pnQuanLyLopHoc;
 	private JPanel pnQuanLyDiem;
 	private JPanel pnThongKe;
 	private JPanel pnMonHocCuaLop;
-
-	// pn mon hoc
-	private JPanel pnMaSo;
-	private JPanel pnThoiTen;
+	// PN MÔN HỌC
+	private JPanel pnFowlowMonHoc1;
+	private JPanel pnFowlowMonHoc2;
 	private JPanel pnCRUDMonHoc;
-
+	// BUTTON MENU
 	private Button btnQuanLySinhVien = new Button("QUẢN LÝ SINH VIÊN");
 	private Button btnQuanLyLopHoc = new Button("QUẢN LỚP HỌC");
 	private Button btnQuanLyMonHoc = new Button("QUẢN LÝ MÔN HỌC");
 	private Button btnQuanLyDiem = new Button("QUẢN LÝ ĐIỂM");
 	private Button btnThongKe = new Button("THỐNG KÊ BÁO CÁO");
 	private Button btnMonHocTungLop = new Button("MÔN HỌC CỦA TỪNG LỚP");
-
-	private Button them = new Button("THÊM");
-	private Button sua = new Button("SỬA");
-	private Button xoa = new Button("XÓA");
+	// BUTTON CRUD CỦA SINH VIÊN
+	private Button themSinhVien = new Button("THÊM");
+	private Button suaSinhVien = new Button("SỬA");
+	private Button xoaSinhVien = new Button("XÓA");
 	private Button refreshSV = new Button("REFRESH");
-
-	// buttonquanlydiem
-	private Button themL = new Button("THÊM");
-	private Button suaL = new Button("SỬA");
-	private Button xoaL = new Button("XÓA");
+	// BUTTON CRUD CỦA LỚP
+	private Button themLop = new Button("THÊM");
+	private Button suaLop = new Button("SỬA");
+	private Button xoaLop = new Button("XÓA");
 	private Button refreshLop = new Button("REFRESH");
-	// button mon hoc
+	// BUTTON CRUD CỦA MÔN HỌC
 	private Button themMonHoc = new Button("THÊM");
 	private Button suaMonHoc = new Button("SỬA");
 	private Button xoaMonHoc = new Button("XÓA");
 	private Button refreshMonHoc = new Button("REFRESH");
-	// button diem
+	// BUTTON ĐIỂM
 	private Button themDiem = new Button("THÊM");
 	private Button suaDiem = new Button("SỬA");
 	private Button xoaDiem = new Button("XÓA");
-	// button mon hoc cua lop nao
+	// BUTTON MÔN HỌC CỦA LỚP NÀO
 	private Button themMonHocCuaLop = new Button("THÊM");
 	private Button xoaMonHocCuaLop = new Button("XÓA");
-
-	// button tim
+	// BUTTON TÌM KIẾM
 	private Button btnTimKiem = new Button("TÌM");
-
+	// JTEXTFIELD SINH VIÊN
 	private JTextField nhapMaSinhVien = new JTextField(20);
 	private JTextField nhapTenSinhVien = new JTextField(20);
 	private JTextField nhapNgaySinh = new JTextField(20);
 	private JTextField nhapDiaChi = new JTextField(20);
 	private JTextField nhapEmail = new JTextField(20);
 	private JTextField nhapSDT = new JTextField(20);
-	// JTextField QUan ly điểm
+	// JTEXTFILE QUẢN LÝ ĐIỂM
 	private JTextField nhapMaLop = new JTextField(20);
 	private JTextField nhapMoTa = new JTextField(20);
-	// JtextField MonHoc
+	// JTEXTFILE MÔN HỌC
 	private JTextField nhapMaMonHoc = new JTextField(20);
 	private JTextField nhapSoTinChi = new JTextField(20);
 	private JTextField nhapThoiLuongHoc = new JTextField(20);
 	private JTextField nhapTenMonHoc = new JTextField(20);
-	// jtextField Diem
+	// JTEXTFILE ĐIỂM
 	private JTextField nhapDiem = new JTextField(20);
-	// JTEXTFIELDTIM
+	// JTEXTFIELD TÌM KIẾM
 	private JTextField timKiemJT = new JTextField(30);
+	// JLABEL SINH VIÊN
+	private JLabel jlmaSinhVien;
+	private JLabel jltenSinhVien;
+	private JLabel jlngaySinh;
+	private JLabel jldiaChi;
+	private JLabel jlemail;
+	private JLabel jlSDT;
+	private JLabel jlchonLop;
+	private JLabel jlChonPhuong;
+	private JLabel jlChonQuan;
+	private JLabel jlChonTinh;
+	// JLABEL QUẢN LÝ LỚP
+	private JLabel jlMaLop;
+	private JLabel jlMoTa;
+	private JLabel jlChonNam;
+	// JLABEL QUẢN LÝ MÔN HỌC
+	private JLabel jlMaMonHoc;
+	private JLabel jlSoTinChi;
+	private JLabel jlThoiLuongHoc;
+	private JLabel jlTenMonHoc;
+	// JLABEL QUẢN LÝ ĐIỂM
+	private JLabel jlDiem;
+	private JLabel jlMaLopHocDiem1;
+	private JLabel jlMaMonHocDiem1;
+	private JLabel jlMaSinhVien1;
+	private JLabel jlXemDiemCuaLop;
 
-	private JLabel maSinhVien;
-	private JLabel tenSinhVien;
-	private JLabel ngaySinh;
-	private JLabel diaChi;
-	private JLabel email;
-	private JLabel sDT;
-	private JLabel chonLop;
-	private JLabel chonPhuong;
-	private JLabel chonQuan;
-	private JLabel chonTinh;
-	// JLabel Quan ly Diem
-	private JLabel maLop;
-	private JLabel moTa;
-	private JLabel chonNam;
-	// JLabel Quan MonHoc
-	private JLabel maMonHoc;
-	private JLabel soTinChi;
-	private JLabel thoiLuongHoc;
-	private JLabel tenMonHoc;
-	// JLabel Diem
-	private JLabel diem;
-	private JLabel maLopHocDiem1;
-	private JLabel maMonHocDiem1;
-	private JLabel maSinhVien1;
-
-	final ObservableList<Object> options = FXCollections.observableArrayList();
-
-	private JComboBox<String> cboLop2 = new JComboBox<>();
+	// JCOMBOBOX PRINT SINH VIÊN
+	private JComboBox<String> cboLopSinhVienPrint = new JComboBox<>();
 	private JComboBox<String> cboLopPrint = new JComboBox<>();
-
-	private JComboBox<String> cboLop1 = new JComboBox<>();
+	// JCOMBOBOX PHƯỜNG QUẬN TỈNH
+	private JComboBox<String> cboChonNam = new JComboBox<>();
 	private JComboBox<String> cboPhuong = new JComboBox<>();
 	private JComboBox<String> cboQuan = new JComboBox<>();
 	private JComboBox<String> cboTinh = new JComboBox<>();
@@ -165,57 +158,51 @@ public class MyLayout extends JFrame {
 	private JComboBox<String> maLopHocDiem = new JComboBox<>();
 	private JComboBox<String> maMonHocDiem = new JComboBox<>();
 	private JComboBox<String> maSinhVienDiem = new JComboBox<>();
+	private JComboBox<String> cboXemDiemCuaLop = new JComboBox<>();
 	// JCOMBOX THONG KE
 	private JComboBox<String> cbochonLop = new JComboBox<>();
 	private JComboBox<String> cbochonNamThongKe = new JComboBox<>();
 	private JComboBox<String> thongKeSinhVien = new JComboBox<>();
-
 	// JCOMBOX MON HOC CUA LOP
 	private JComboBox<String> cboChonLopMonHoc = new JComboBox<>();
 	private JComboBox<String> cboChonMaMonHoc = new JComboBox<>();
-	// private JComboBox<String> cboXemLop = new JComboBox<>();
-
-	// tablesv
-	private DefaultTableModel dm;
-	private JTable tbl1;
+	// TABLE SINH VIÊN
+	private DefaultTableModel dmSinhVien;
+	private JTable tblSinhVien;
 	int stt = 0;
-	JScrollPane sc;
-	// tablelop
-	private DefaultTableModel dm2;
-	private JTable tbl2;
-	JScrollPane sc2;
-	// tablemonhoc
-	private DefaultTableModel dm3;
-	private JTable tbl3;
-	JScrollPane sc3;
-	// tablediem
-	private DefaultTableModel dm4;
-	private JTable tbl4;
-	JScrollPane sc4;
-	// tablethongke
-	private DefaultTableModel dm5;
-	private JTable tbl5;
-	JScrollPane sc5;
-	// tablethongke2
-	private DefaultTableModel dm7;
-	private JTable tbl7;
-	JScrollPane sc7;
-
-	private DefaultTableModel dm6;
-	private JTable tbl6;
-	JScrollPane sc6;
-
+	JScrollPane scSinhVien;
+	// TABLE LỚP
+	private DefaultTableModel dmLop;
+	private JTable tblLop;
+	JScrollPane scLop;
+	// TABLE MÔN HỌC
+	private DefaultTableModel dmMonHoc;
+	private JTable tblMonHoc;
+	JScrollPane scMonHoc;
+	// TABLE ĐIỂM
+	private DefaultTableModel dmDiem;
+	private JTable tblDiem;
+	JScrollPane scDiem;
+	// TABLE THỐNG KÊ
+	private DefaultTableModel dmThongKe;
+	private JTable tblThongKe;
+	JScrollPane scThongKe;
+	// TABLE THỐNG KÊ 2
+	private DefaultTableModel dmThongKe2;
+	private JTable tblThongKe2;
+	JScrollPane scThongKe2;
+	// TABLE MÔN HỌC CỦA TỪNG LỚP
+	private DefaultTableModel dmMonHocCuaTungLop;
+	private JTable tblMonHocCuaTungLop;
+	JScrollPane scMonHocCuaTungLop;
+	// ARRAYLIST
 	private ArrayList<ThongTinSinhVien> arrSV = new ArrayList<ThongTinSinhVien>();
 	private ArrayList<Lop> arrLop = new ArrayList<Lop>();
 	private ArrayList<MonHoc> arrMonHoc = new ArrayList<MonHoc>();
 	private ArrayList<Diem> arrDiem = new ArrayList<Diem>();
 	private ArrayList<MonHocCuaTungLop> arrMonHocCuaTungLop = new ArrayList<MonHocCuaTungLop>();
 
-	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
 	public MyLayout(String title) {
-
 		this.setTitle(title);
 		addLayout();
 		tinh();
@@ -225,27 +212,23 @@ public class MyLayout extends JFrame {
 		maMonHoc();
 		addEvent();
 		chonLopDiem();
-		// chonLopSinhVien();
 		chonNam();
 		chonLopSinhVienPrint();
 		chonNam1();
 		chonLopThongKe();
-
-	}
-
-	public void EmailValidator() {
-		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		chonLopXemDiem();
 	}
 
 	public void addLayout() {
 		con = getContentPane();
 
-		JPanel cardLayout = new JPanel();
-		cardLayout.setLayout(new CardLayout());
+		pnLayout = new JPanel();
+		card = new CardLayout();
+		pnLayout.setLayout(card);
 
 		pnBorder = new JPanel();
 		pnBorder.setLayout(new BorderLayout());
-
+		// CÁC BUTTON CỐ ĐỊNH
 		JPanel pnWest = new JPanel();
 		pnWest.setLayout(new BoxLayout(pnWest, BoxLayout.Y_AXIS));
 		pnWest.add(btnQuanLySinhVien);
@@ -256,14 +239,13 @@ public class MyLayout extends JFrame {
 		pnWest.add(btnThongKe);
 		pnBorder.add(pnWest, BorderLayout.WEST);
 
-		// Layout Quản Lý SV
+		// LAYOUT QUẢN LÝ SINH VIÊN
 		pnQuanLySinhVien = new JPanel();
 		pnQuanLySinhVien.setLayout(new BorderLayout());
 		JPanel pnTitle2 = new JPanel();
 		pnQuanLySinhVien.add(pnTitle2);
 
 		JPanel pnNorth = new JPanel();
-
 		JLabel title = new JLabel("CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN");
 		title.setOpaque(true);
 		Font font = new Font("Arial", Font.BOLD, 24);
@@ -276,20 +258,18 @@ public class MyLayout extends JFrame {
 		JPanel flowSeach = new JPanel();
 		flowSeach.setLayout(new FlowLayout());
 		flowSeach.setBackground(Color.PINK);
-		chonLop = new JLabel("XEM LỚP");
+		jlchonLop = new JLabel("XEM LỚP");
 
 		JLabel timKiem = new JLabel("TÌM KIẾM");
-		flowSeach.add(chonLop);
-		flowSeach.add(cboLop2);
+		flowSeach.add(jlchonLop);
+		flowSeach.add(cboLopSinhVienPrint);
 		flowSeach.add(timKiem);
 		flowSeach.add(timKiemJT);
 		flowSeach.add(btnTimKiem);
 
 		pnXemLop.add(title);
 		pnXemLop.add(flowSeach);
-
 		pnNorth.add(pnXemLop);
-
 		pnNorth.setBackground(Color.pink);
 		pnQuanLySinhVien.add(pnNorth, BorderLayout.NORTH);
 
@@ -310,30 +290,28 @@ public class MyLayout extends JFrame {
 		flowLop.add(cboLopPrint);
 		pnSouth.add(flowLop);
 
-		maSinhVien = new JLabel("MÃ SINH VIÊN");
-		maSinhVien.setPreferredSize(new Dimension(100, 50));
-		tenSinhVien = new JLabel("TÊN SINH VIÊN");
-		tenSinhVien.setPreferredSize(new Dimension(100, 50));
-		ngaySinh = new JLabel("NGÀY SINH");
-		ngaySinh.setPreferredSize(new Dimension(100, 50));
-		diaChi = new JLabel("ĐỊA CHỈ");
-		diaChi.setPreferredSize(new Dimension(100, 50));
-		email = new JLabel("EMAIL");
-		email.setPreferredSize(new Dimension(100, 50));
-		sDT = new JLabel("SỐ ĐIỆN THOẠI");
-		sDT.setPreferredSize(new Dimension(100, 50));
+		jlmaSinhVien = new JLabel("MÃ SINH VIÊN");
+		jlmaSinhVien.setPreferredSize(new Dimension(100, 50));
+		jltenSinhVien = new JLabel("TÊN SINH VIÊN");
+		jltenSinhVien.setPreferredSize(new Dimension(100, 50));
+		jlngaySinh = new JLabel("NGÀY SINH");
+		jlngaySinh.setPreferredSize(new Dimension(100, 50));
+		jldiaChi = new JLabel("ĐỊA CHỈ");
+		jldiaChi.setPreferredSize(new Dimension(100, 50));
+		jlemail = new JLabel("EMAIL");
+		jlemail.setPreferredSize(new Dimension(100, 50));
+		jlSDT = new JLabel("SỐ ĐIỆN THOẠI");
+		jlSDT.setPreferredSize(new Dimension(100, 50));
 
-		chonLop = new JLabel("CHỌN LỚP");
-		// chonLop.setPreferredSize(new Dimension(100,50));
+		jlchonLop = new JLabel("CHỌN LỚP");
+		jlChonPhuong = new JLabel("CHỌN PHƯỜNG");
+		jlChonPhuong.setPreferredSize(new Dimension(100, 50));
 
-		chonPhuong = new JLabel("CHỌN PHƯỜNG");
-		chonPhuong.setPreferredSize(new Dimension(100, 50));
+		jlChonQuan = new JLabel("CHỌN QUẬN");
+		jlChonQuan.setPreferredSize(new Dimension(100, 50));
 
-		chonQuan = new JLabel("CHỌN QUẬN");
-		chonQuan.setPreferredSize(new Dimension(100, 50));
-
-		chonTinh = new JLabel("CHỌN TỈNH");
-		chonTinh.setPreferredSize(new Dimension(100, 50));
+		jlChonTinh = new JLabel("CHỌN TỈNH");
+		jlChonTinh.setPreferredSize(new Dimension(100, 50));
 		cboPhuong.setPreferredSize(new Dimension(225, 20));
 		cboQuan.setPreferredSize(new Dimension(225, 20));
 		cboTinh.setPreferredSize(new Dimension(225, 20));
@@ -341,58 +319,58 @@ public class MyLayout extends JFrame {
 		JPanel pnBox = new JPanel();
 		pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
 
-		pnMTD = new JPanel();
-		pnMTD.setLayout(new FlowLayout());
-		pnMTD.setBackground(Color.PINK);
+		pnFolowSinhVien2 = new JPanel();
+		pnFolowSinhVien2.setLayout(new FlowLayout());
+		pnFolowSinhVien2.setBackground(Color.PINK);
 
-		pnMTD.add(maSinhVien);
-		pnMTD.add(nhapMaSinhVien);
-		pnMTD.add(tenSinhVien);
-		pnMTD.add(nhapTenSinhVien);
-		pnMTD.add(ngaySinh);
-		pnMTD.add(nhapNgaySinh);
+		pnFolowSinhVien2.add(jlmaSinhVien);
+		pnFolowSinhVien2.add(nhapMaSinhVien);
+		pnFolowSinhVien2.add(jltenSinhVien);
+		pnFolowSinhVien2.add(nhapTenSinhVien);
+		pnFolowSinhVien2.add(jlngaySinh);
+		pnFolowSinhVien2.add(nhapNgaySinh);
 
-		pnESL = new JPanel();
-		pnESL.setLayout(new FlowLayout());
-		pnESL.setBackground(Color.pink);
+		pnFolowSinhVien1 = new JPanel();
+		pnFolowSinhVien1.setLayout(new FlowLayout());
+		pnFolowSinhVien1.setBackground(Color.pink);
 
-		pnESL.add(diaChi);
-		pnESL.add(nhapDiaChi);
+		pnFolowSinhVien1.add(jldiaChi);
+		pnFolowSinhVien1.add(nhapDiaChi);
 
-		pnESL.add(email);
-		pnESL.add(nhapEmail);
+		pnFolowSinhVien1.add(jlemail);
+		pnFolowSinhVien1.add(nhapEmail);
 
-		pnESL.add(sDT);
-		pnESL.add(nhapSDT);
+		pnFolowSinhVien1.add(jlSDT);
+		pnFolowSinhVien1.add(nhapSDT);
 
-		pnJcombobox = new JPanel();
-		pnJcombobox.setLayout(new FlowLayout());
-		pnJcombobox.setBackground(Color.PINK);
+		pnFowlowTinhQuanHuyen = new JPanel();
+		pnFowlowTinhQuanHuyen.setLayout(new FlowLayout());
+		pnFowlowTinhQuanHuyen.setBackground(Color.PINK);
 
-		pnJcombobox.add(chonTinh);
-		pnJcombobox.add(cboTinh);
+		pnFowlowTinhQuanHuyen.add(jlChonTinh);
+		pnFowlowTinhQuanHuyen.add(cboTinh);
 
-		pnJcombobox.add(chonQuan);
-		pnJcombobox.add(cboQuan);
+		pnFowlowTinhQuanHuyen.add(jlChonQuan);
+		pnFowlowTinhQuanHuyen.add(cboQuan);
 
-		pnJcombobox.add(chonPhuong);
-		pnJcombobox.add(cboPhuong);
+		pnFowlowTinhQuanHuyen.add(jlChonPhuong);
+		pnFowlowTinhQuanHuyen.add(cboPhuong);
 
-		pnBox.add(pnMTD);
-		pnBox.add(pnESL);
-		pnBox.add(pnJcombobox);
+		pnBox.add(pnFolowSinhVien2);
+		pnBox.add(pnFolowSinhVien1);
+		pnBox.add(pnFowlowTinhQuanHuyen);
 
 		pnSouth.add(pnBox);
 
-		pnCRUD = new JPanel();
-		pnCRUD.setLayout(new FlowLayout());
+		pnCRUDSinhVien = new JPanel();
+		pnCRUDSinhVien.setLayout(new FlowLayout());
 
-		pnCRUD.add(them);
-		pnCRUD.add(sua);
-		pnCRUD.add(xoa);
-		pnCRUD.add(refreshSV);
+		pnCRUDSinhVien.add(themSinhVien);
+		pnCRUDSinhVien.add(suaSinhVien);
+		pnCRUDSinhVien.add(xoaSinhVien);
+		pnCRUDSinhVien.add(refreshSV);
 
-		pnSouth.add(pnCRUD);
+		pnSouth.add(pnCRUDSinhVien);
 
 		pnSouth.setBackground(Color.PINK);
 		pnQuanLySinhVien.add(pnSouth, BorderLayout.SOUTH);
@@ -405,23 +383,23 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor2 = new TitledBorder(bor2, "THÔNG TIN SINH VIÊN:");
 		pnCenter.setBorder(titlebor2);
 
-		dm = new DefaultTableModel();
-		tbl1 = new JTable(dm);
-		dm.addColumn("Mã ");
-		dm.addColumn("Tên");
-		dm.addColumn("Ngày sinh");
-		dm.addColumn("Địa chỉ");
-		dm.addColumn("Email");
-		dm.addColumn("SĐT");
-		dm.addColumn("Lớp");
-		dm.addColumn("Xã");
-		dm.addColumn("Huyện");
-		dm.addColumn("Tỉnh");
-		sc = new JScrollPane(tbl1);
+		dmSinhVien = new DefaultTableModel();
+		tblSinhVien = new JTable(dmSinhVien);
+		dmSinhVien.addColumn("Mã ");
+		dmSinhVien.addColumn("Tên");
+		dmSinhVien.addColumn("Ngày sinh");
+		dmSinhVien.addColumn("Địa chỉ");
+		dmSinhVien.addColumn("Email");
+		dmSinhVien.addColumn("SĐT");
+		dmSinhVien.addColumn("Lớp");
+		dmSinhVien.addColumn("Xã");
+		dmSinhVien.addColumn("Huyện");
+		dmSinhVien.addColumn("Tỉnh");
+		scSinhVien = new JScrollPane(tblSinhVien);
 
-		pnCenter.add(sc);
+		pnCenter.add(scSinhVien);
 		pnQuanLySinhVien.add(pnCenter);
-		// Layout Quản Lý MonHoc
+		// LAYOUT QUẢN LÝ MÔN HỌC
 		pnQuanLyMonHoc = new JPanel();
 		pnQuanLyMonHoc.setLayout(new BorderLayout());
 
@@ -433,13 +411,13 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor4 = new TitledBorder(bor4, "THÔNG TIN MÔN HỌC:");
 		pnCenter1.setBorder(titlebor4);
 
-		dm2 = new DefaultTableModel();
-		tbl2 = new JTable(dm2);
-		dm2.addColumn("MÃ MÔN HỌC");
-		dm2.addColumn("TÊN MÔN HỌC");
-		dm2.addColumn("SỐ TÍN CHỈ");
-		dm2.addColumn("THỜI GIAN HỌC");
-		sc2 = new JScrollPane(tbl2);
+		dmLop = new DefaultTableModel();
+		tblLop = new JTable(dmLop);
+		dmLop.addColumn("MÃ MÔN HỌC");
+		dmLop.addColumn("TÊN MÔN HỌC");
+		dmLop.addColumn("SỐ TÍN CHỈ");
+		dmLop.addColumn("THỜI GIAN HỌC");
+		scLop = new JScrollPane(tblLop);
 
 		JPanel pnSouth1 = new JPanel();
 		pnSouth1.setLayout(new BoxLayout(pnSouth1, BoxLayout.Y_AXIS));
@@ -451,31 +429,31 @@ public class MyLayout extends JFrame {
 		JPanel pnMSTT = new JPanel();
 		pnMSTT.setLayout(new BoxLayout(pnMSTT, BoxLayout.Y_AXIS));
 
-		pnMaSo = new JPanel();
-		pnMaSo.setLayout(new FlowLayout());
-		pnMaSo.setBackground(Color.PINK);
+		pnFowlowMonHoc1 = new JPanel();
+		pnFowlowMonHoc1.setLayout(new FlowLayout());
+		pnFowlowMonHoc1.setBackground(Color.PINK);
 
-		maMonHoc = new JLabel("MÃ MÔN HỌC");
-		maMonHoc.setPreferredSize(new Dimension(100, 50));
-		tenMonHoc = new JLabel("TÊN MÔN HỌC");
-		tenMonHoc.setPreferredSize(new Dimension(100, 50));
-		pnMaSo.add(maMonHoc);
-		pnMaSo.add(nhapMaMonHoc);
-		pnMaSo.add(tenMonHoc);
-		pnMaSo.add(nhapTenMonHoc);
+		jlMaMonHoc = new JLabel("MÃ MÔN HỌC");
+		jlMaMonHoc.setPreferredSize(new Dimension(100, 50));
+		jlTenMonHoc = new JLabel("TÊN MÔN HỌC");
+		jlTenMonHoc.setPreferredSize(new Dimension(100, 50));
+		pnFowlowMonHoc1.add(jlMaMonHoc);
+		pnFowlowMonHoc1.add(nhapMaMonHoc);
+		pnFowlowMonHoc1.add(jlTenMonHoc);
+		pnFowlowMonHoc1.add(nhapTenMonHoc);
 
-		pnThoiTen = new JPanel();
-		pnThoiTen.setLayout(new FlowLayout());
-		pnThoiTen.setBackground(Color.PINK);
+		pnFowlowMonHoc2 = new JPanel();
+		pnFowlowMonHoc2.setLayout(new FlowLayout());
+		pnFowlowMonHoc2.setBackground(Color.PINK);
 
-		soTinChi = new JLabel("SỐ TÍN CHỈ");
-		soTinChi.setPreferredSize(new Dimension(100, 50));
-		thoiLuongHoc = new JLabel("THỜI GIAN HỌC");
-		thoiLuongHoc.setPreferredSize(new Dimension(100, 50));
-		pnThoiTen.add(soTinChi);
-		pnThoiTen.add(nhapSoTinChi);
-		pnThoiTen.add(thoiLuongHoc);
-		pnThoiTen.add(nhapThoiLuongHoc);
+		jlSoTinChi = new JLabel("SỐ TÍN CHỈ");
+		jlSoTinChi.setPreferredSize(new Dimension(100, 50));
+		jlThoiLuongHoc = new JLabel("THỜI GIAN HỌC");
+		jlThoiLuongHoc.setPreferredSize(new Dimension(100, 50));
+		pnFowlowMonHoc2.add(jlSoTinChi);
+		pnFowlowMonHoc2.add(nhapSoTinChi);
+		pnFowlowMonHoc2.add(jlThoiLuongHoc);
+		pnFowlowMonHoc2.add(nhapThoiLuongHoc);
 
 		pnCRUDMonHoc = new JPanel();
 		pnCRUDMonHoc.setLayout(new FlowLayout());
@@ -485,13 +463,13 @@ public class MyLayout extends JFrame {
 		pnCRUDMonHoc.add(xoaMonHoc);
 		pnCRUDMonHoc.add(refreshMonHoc);
 
-		pnMSTT.add(pnMaSo);
-		pnMSTT.add(pnThoiTen);
+		pnMSTT.add(pnFowlowMonHoc1);
+		pnMSTT.add(pnFowlowMonHoc2);
 		pnSouth1.add(pnMSTT);
 		pnSouth1.add(pnCRUDMonHoc);
 
 		pnQuanLyMonHoc.add(pnSouth1, BorderLayout.SOUTH);
-		pnCenter1.add(sc2);
+		pnCenter1.add(scLop);
 		pnQuanLyMonHoc.add(pnCenter1);
 
 		// Layout Quản Lý lop
@@ -505,12 +483,12 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor6 = new TitledBorder(bor6, "THÔNG TIN LỚP HỌC:");
 		pnCenter2.setBorder(titlebor6);
 
-		dm3 = new DefaultTableModel();
-		tbl3 = new JTable(dm3);
-		dm3.addColumn("LỚP ");
-		dm3.addColumn("MÔ TẢ");
-		dm3.addColumn("NĂM HỌC");
-		sc3 = new JScrollPane(tbl3);
+		dmMonHoc = new DefaultTableModel();
+		tblMonHoc = new JTable(dmMonHoc);
+		dmMonHoc.addColumn("LỚP ");
+		dmMonHoc.addColumn("MÔ TẢ");
+		dmMonHoc.addColumn("NĂM HỌC");
+		scMonHoc = new JScrollPane(tblMonHoc);
 
 		JPanel pnSouth2 = new JPanel();
 		pnSouth2.setLayout(new BoxLayout(pnSouth2, BoxLayout.Y_AXIS));
@@ -518,49 +496,48 @@ public class MyLayout extends JFrame {
 		Border bor7 = BorderFactory.createMatteBorder(1, 1, 5, 5, Color.PINK);
 		TitledBorder titlebor7 = new TitledBorder(bor7, "THÊM THÔNG TIN LỚP HỌC:");
 		pnSouth2.setBorder(titlebor7);
-		// pnSouth2.add(pnLop);
-		maLop = new JLabel("LỚP HỌC");
-		maLop.setPreferredSize(new Dimension(70, 100));
-		moTa = new JLabel("MÔ TẢ");
-		moTa.setPreferredSize(new Dimension(70, 100));
+		jlMaLop = new JLabel("LỚP HỌC");
+		jlMaLop.setPreferredSize(new Dimension(70, 100));
+		jlMoTa = new JLabel("MÔ TẢ");
+		jlMoTa.setPreferredSize(new Dimension(70, 100));
 
 		JPanel pnLop1 = new JPanel();
 		pnLop1.setBackground(Color.pink);
-		chonNam = new JLabel("CHỌN NĂM");
-		pnLop1.add(chonNam);
-		cboLop1.addItem("TẤT CẢ");
-		cboLop1.addItem("2018");
-		cboLop1.addItem("2017");
-		cboLop1.addItem("2016");
-		cboLop1.addItem("2015");
-		cboLop1.addItem("2014");
-		pnLop1.add(cboLop1);
+		jlChonNam = new JLabel("CHỌN NĂM");
+		pnLop1.add(jlChonNam);
+		cboChonNam.addItem("TẤT CẢ");
+		cboChonNam.addItem("2018");
+		cboChonNam.addItem("2017");
+		cboChonNam.addItem("2016");
+		cboChonNam.addItem("2015");
+		cboChonNam.addItem("2014");
+		pnLop1.add(cboChonNam);
 		pnSouth2.add(pnLop1);
 
-		pnTMN = new JPanel();
-		pnTMN.setLayout(new FlowLayout());
-		pnTMN.setBackground(Color.PINK);
+		pnFolowSinhVien3 = new JPanel();
+		pnFolowSinhVien3.setLayout(new FlowLayout());
+		pnFolowSinhVien3.setBackground(Color.PINK);
 
-		pnTMN.add(maLop);
-		pnTMN.add(nhapMaLop);
-		pnTMN.add(moTa);
-		pnTMN.add(nhapMoTa);
+		pnFolowSinhVien3.add(jlMaLop);
+		pnFolowSinhVien3.add(nhapMaLop);
+		pnFolowSinhVien3.add(jlMoTa);
+		pnFolowSinhVien3.add(nhapMoTa);
 
-		pnCRUDL = new JPanel();
-		pnCRUDL.setLayout(new FlowLayout());
-		pnCRUDL.setBackground(Color.WHITE);
-		pnCRUDL.add(themL);
-		pnCRUDL.add(suaL);
-		pnCRUDL.add(xoaL);
-		pnCRUDL.add(refreshLop);
+		pnCRUDLop = new JPanel();
+		pnCRUDLop.setLayout(new FlowLayout());
+		pnCRUDLop.setBackground(Color.WHITE);
+		pnCRUDLop.add(themLop);
+		pnCRUDLop.add(suaLop);
+		pnCRUDLop.add(xoaLop);
+		pnCRUDLop.add(refreshLop);
 
-		pnSouth2.add(pnTMN);
-		pnSouth2.add(pnCRUDL);
-		pnCenter2.add(sc3);
+		pnSouth2.add(pnFolowSinhVien3);
+		pnSouth2.add(pnCRUDLop);
+		pnCenter2.add(scMonHoc);
 		pnQuanLyLopHoc.add(pnCenter2);
 		pnQuanLyLopHoc.add(pnSouth2, BorderLayout.SOUTH);
 
-		// layoutquanlydiem
+		// LAYOUT QUẢN LÝ ĐIỂM
 		pnQuanLyDiem = new JPanel();
 		pnQuanLyDiem.setLayout(new BorderLayout());
 
@@ -572,13 +549,13 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor8 = new TitledBorder(bor8, "ĐIỂM SINH VIÊN");
 		pnCenter4.setBorder(titlebor8);
 
-		dm4 = new DefaultTableModel();
-		tbl4 = new JTable(dm4);
-		dm4.addColumn("LỚP");
-		dm4.addColumn("MÃ SINH VIÊN");
-		dm4.addColumn("MÃ MÔN HỌC");
-		dm4.addColumn("ĐIỂM");
-		sc4 = new JScrollPane(tbl4);
+		dmDiem = new DefaultTableModel();
+		tblDiem = new JTable(dmDiem);
+		dmDiem.addColumn("LỚP");
+		dmDiem.addColumn("MÃ SINH VIÊN");
+		dmDiem.addColumn("MÃ MÔN HỌC");
+		dmDiem.addColumn("ĐIỂM");
+		scDiem = new JScrollPane(tblDiem);
 
 		JPanel pnSouth4 = new JPanel();
 		pnSouth4.setLayout(new BoxLayout(pnSouth4, BoxLayout.Y_AXIS));
@@ -589,21 +566,28 @@ public class MyLayout extends JFrame {
 
 		JPanel boxlayoutY = new JPanel();
 		boxlayoutY.setLayout(new BoxLayout(boxlayoutY, BoxLayout.Y_AXIS));
+		JPanel pnfolowXemDiem = new JPanel();
+		pnfolowXemDiem.setLayout(new FlowLayout());
+		pnfolowXemDiem.setBackground(Color.WHITE);
+		jlXemDiemCuaLop = new JLabel("XEM ĐIỂM CỦA LỚP:");
+
+		pnfolowXemDiem.add(jlXemDiemCuaLop);
+		pnfolowXemDiem.add(cboXemDiemCuaLop);
 
 		JPanel pnfolow = new JPanel();
 		pnfolow.setLayout(new FlowLayout());
 		pnfolow.setBackground(Color.PINK);
-		diem = new JLabel("NHẬP ĐIỂM");
-		maLopHocDiem1 = new JLabel("CHỌN LỚP");
-		maMonHocDiem1 = new JLabel("CHỌN MÔN HỌC");
-		maSinhVien1 = new JLabel("CHỌN MÃ SINH VIÊN");
-		pnfolow.add(maLopHocDiem1);
+		jlDiem = new JLabel("NHẬP ĐIỂM");
+		jlMaLopHocDiem1 = new JLabel("CHỌN LỚP");
+		jlMaMonHocDiem1 = new JLabel("CHỌN MÔN HỌC");
+		jlMaSinhVien1 = new JLabel("CHỌN MÃ SINH VIÊN");
+		pnfolow.add(jlMaLopHocDiem1);
 		pnfolow.add(maLopHocDiem);
-		pnfolow.add(maMonHocDiem1);
+		pnfolow.add(jlMaMonHocDiem1);
 		pnfolow.add(maMonHocDiem);
-		pnfolow.add(maSinhVien1);
+		pnfolow.add(jlMaSinhVien1);
 		pnfolow.add(maSinhVienDiem);
-		pnfolow.add(diem);
+		pnfolow.add(jlDiem);
 		pnfolow.add(nhapDiem);
 
 		JPanel pnfolowCRUD = new JPanel();
@@ -613,13 +597,14 @@ public class MyLayout extends JFrame {
 		pnfolowCRUD.add(suaDiem);
 		pnfolowCRUD.add(xoaDiem);
 
+		boxlayoutY.add(pnfolowXemDiem);
 		boxlayoutY.add(pnfolow);
 		boxlayoutY.add(pnfolowCRUD);
 
 		pnSouth4.add(boxlayoutY);
 
 		pnQuanLyDiem.add(pnSouth4, BorderLayout.SOUTH);
-		pnCenter4.add(sc4);
+		pnCenter4.add(scDiem);
 		pnQuanLyDiem.add(pnCenter4);
 
 		// LayoutThongKe
@@ -644,15 +629,15 @@ public class MyLayout extends JFrame {
 		Border bor15 = BorderFactory.createEtchedBorder(Color.BLUE, Color.RED);
 		TitledBorder titlebor15 = new TitledBorder(bor15, "THỐNG KÊ BÁO CÁO SỐ LƯỢNG SINH VIÊN");
 		pnNorthThongKe.setBorder(titlebor15);
-		dm7 = new DefaultTableModel();
-		tbl7 = new JTable(dm7);
-		dm7.addColumn("MÃ LỚP");
-		dm7.addColumn("MÔ TẢ");
-		dm7.addColumn("SỐ LƯỢNG SINH VIÊN");
+		dmThongKe2 = new DefaultTableModel();
+		tblThongKe2 = new JTable(dmThongKe2);
+		dmThongKe2.addColumn("MÃ LỚP");
+		dmThongKe2.addColumn("MÔ TẢ");
+		dmThongKe2.addColumn("SỐ LƯỢNG SINH VIÊN");
 
-		sc7 = new JScrollPane(tbl7);
+		scThongKe2 = new JScrollPane(tblThongKe2);
 
-		pnNorthThongKe.add(sc7);
+		pnNorthThongKe.add(scThongKe2);
 		pnThongKe.add(pnNorthThongKe, BorderLayout.NORTH);
 
 		JPanel pnCenter5 = new JPanel();
@@ -663,76 +648,26 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor10 = new TitledBorder(bor10, "THỐNG KÊ BÁO CÁO ĐIỂM SINH VIÊN");
 		pnCenter5.setBorder(titlebor10);
 
-		dm5 = new DefaultTableModel();
-		tbl5 = new JTable(dm5);
+		dmThongKe = new DefaultTableModel();
+		tblThongKe = new JTable(dmThongKe);
 
-		dm5.addColumn("Mã sinh viên");
-		dm5.addColumn("Tên sinh viên");
+		dmThongKe.addColumn("Mã sinh viên");
+		dmThongKe.addColumn("Tên sinh viên");
 		try {
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM MonHoc");
 			while (result.next()) {
-				dm5.addColumn(new String(result.getString("MaMonHoc")));
+				dmThongKe.addColumn(new String(result.getString("MaMonHoc")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		dm5.addColumn("AVG");
-		dm5.addColumn("XẾP LOẠI");
+		dmThongKe.addColumn("AVG");
+		dmThongKe.addColumn("XẾP LOẠI");
+		inThongKe();
 
-		try {
-			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery(
-					"SELECT MaSV,\r\n" + "    SUM(CASE WHEN MaMonHoc = 'LP#0' THEN Diem  END) AS Lp0,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#1' THEN Diem END) AS Lp1,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#2' THEN Diem END) AS Lp2,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#3' THEN Diem END) AS Lp3,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#4' THEN Diem END) AS Lp4,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#5' THEN Diem END) AS Lp5,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'LP#6' THEN Diem END) AS Lp6,\r\n"
-							+ "    SUM(CASE WHEN MaMonHoc = 'E4IT' THEN Diem END) AS E4IT\r\n" + "FROM Diem\r\n"
-							+ "GROUP BY MaSV");
-			while (result.next()) {
-				Statement stt = conn.createStatement();
-				ResultSet query = stt.executeQuery("SELECT * FROM Sinhvien WHERE Sinhvien.MaSV = '"+result.getString("MaSV")+"'");
-				query.next();
-				String[] row = { result.getString("MaSV"),query.getString("Sinhvien.TenSinhVien"), result.getString("Lp0"), result.getString("Lp1"),
-						result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
-						result.getString("Lp5"), result.getString("Lp6"), result.getString("E4IT") };
-				int t= 0;
-				int n = 0;
-				int y = 0;
-				for (int i=2;i<row.length;i++) {
-					if(row[i] != null) {
-					y = Integer.parseInt(row[i]);
-					n =  n + y;
-					t++;
-					}
-					}
-				    float tbc=(float)n/t;
-				    String xeploai ;
-				    if (tbc <= 4.9) {
-				    	xeploai = "Yếu";
-					} else if (tbc <= 6.4) {
-						xeploai = "Trung Bình";
-					} else if (tbc <= 7.9) {
-						xeploai = "Khá";
-					} else {
-						xeploai = "Giỏi";
-					}
-				    String TBM = Float.toString(tbc);
-				    String[] dm = { result.getString("MaSV"),query.getString("Sinhvien.TenSinhVien"), result.getString("Lp0"), result.getString("Lp1"),
-							result.getString("Lp2"), result.getString("Lp3"), result.getString("Lp4"),
-							result.getString("Lp5"), result.getString("Lp6"), result.getString("E4IT"),TBM,xeploai };
-				    dm5.addRow(dm);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		sc5 = new JScrollPane(tbl5);
+		scThongKe = new JScrollPane(tblThongKe);
 
 		JPanel pnSouth5 = new JPanel();
 		pnSouth5.setLayout(new BoxLayout(pnSouth5, BoxLayout.Y_AXIS));
@@ -754,11 +689,10 @@ public class MyLayout extends JFrame {
 		pnSouth5.add(pnfolowThongKe);
 
 		pnThongKe.add(pnSouth5, BorderLayout.SOUTH);
-		pnCenter5.add(sc5);
+		pnCenter5.add(scThongKe);
 
 		pnThongKe.add(pnCenter5);
-		// layoutmonhoccualop
-
+		// LAYOUT QUẢN LÝ MÔN HỌC
 		pnMonHocCuaLop = new JPanel();
 		pnMonHocCuaLop.setLayout(new BorderLayout());
 		JPanel pnCenter6 = new JPanel();
@@ -769,12 +703,12 @@ public class MyLayout extends JFrame {
 		TitledBorder titlebor12 = new TitledBorder(bor12, "MÔN HỌC CỦA TỪNG LỚP");
 		pnCenter6.setBorder(titlebor12);
 
-		dm6 = new DefaultTableModel();
-		tbl6 = new JTable(dm6);
-		dm6.addColumn("LỚP");
-		dm6.addColumn("MÃ MÔN HỌC");
-		dm6.addColumn("TÊN MÔN HỌC");
-		sc6 = new JScrollPane(tbl6);
+		dmMonHocCuaTungLop = new DefaultTableModel();
+		tblMonHocCuaTungLop = new JTable(dmMonHocCuaTungLop);
+		dmMonHocCuaTungLop.addColumn("LỚP");
+		dmMonHocCuaTungLop.addColumn("MÃ MÔN HỌC");
+		dmMonHocCuaTungLop.addColumn("TÊN MÔN HỌC");
+		scMonHocCuaTungLop = new JScrollPane(tblMonHocCuaTungLop);
 
 		JPanel pnSouth6 = new JPanel();
 		pnSouth6.setLayout(new BoxLayout(pnSouth6, BoxLayout.Y_AXIS));
@@ -803,22 +737,24 @@ public class MyLayout extends JFrame {
 		pnSouth6.add(Y_AXIS);
 
 		pnMonHocCuaLop.add(pnSouth6, BorderLayout.SOUTH);
-		pnCenter6.add(sc6);
+		pnCenter6.add(scMonHocCuaTungLop);
 		pnMonHocCuaLop.add(pnCenter6);
 
-		cardLayout.add(pnQuanLySinhVien);
-		cardLayout.add(pnQuanLyDiem);
-		cardLayout.add(pnQuanLyMonHoc);
-		cardLayout.add(pnQuanLyLopHoc);
-		cardLayout.add(pnThongKe);
-		cardLayout.add(pnMonHocCuaLop);
+		// ADD CAR LAYOUT
+		pnLayout.add(pnQuanLySinhVien, "1");
+		pnLayout.add(pnQuanLyDiem, "2");
+		pnLayout.add(pnQuanLyMonHoc, "3");
+		pnLayout.add(pnQuanLyLopHoc, "4");
+		pnLayout.add(pnThongKe, "5");
+		pnLayout.add(pnMonHocCuaLop, "6");
 
-		pnBorder.add(cardLayout);
+		pnBorder.add(pnLayout);
 
+		// ADD BUTTON CỐ ĐỊNH
 		getContentPane().add(pnBorder);
 		con.add(pnBorder);
 
-		// connect data SinhVien
+		// CONNECT SINH VIÊN
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 		try {
 			Statement statement = conn.createStatement();
@@ -836,9 +772,9 @@ public class MyLayout extends JFrame {
 		for (ThongTinSinhVien x : arrSV) {
 			String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 					x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-			dm.addRow(row);
+			dmSinhVien.addRow(row);
 		}
-		// connect Lop
+		// CONNECT LỚP
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM Lop");
@@ -851,9 +787,9 @@ public class MyLayout extends JFrame {
 
 		for (Lop x : arrLop) {
 			String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-			dm3.addRow(row);
+			dmMonHoc.addRow(row);
 		}
-		// connect Mon hoc
+		// CONNECT MÔN HỌC
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM MonHoc");
@@ -868,10 +804,9 @@ public class MyLayout extends JFrame {
 		for (MonHoc x : arrMonHoc) {
 			String tinChi = String.valueOf(x.getTinChi());
 			String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), tinChi, x.getThoiGian() };
-			dm2.addRow(row);
+			dmLop.addRow(row);
 		}
-		// connect Diem
-
+		// CONNECT ĐIỂM
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM Diem");
@@ -885,29 +820,11 @@ public class MyLayout extends JFrame {
 
 		for (Diem x : arrDiem) {
 			String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
-			dm4.addRow(row);
-		}
-		// connect môn học từng lớp
-
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT * FROM MonHocCuaTungLop");
-			while (result.next()) {
-				arrMonHocCuaTungLop.add(new MonHocCuaTungLop(result.getString("Lop"), result.getString("MaMonHoc"),
-						result.getString("TenMonHoc")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
-			String[] row = { x.getLopMonHocCuaTungLop(), x.getMaMonHocCuaTungLop(), x.getTenMonHocCuaTungLop() };
-			dm6.addRow(row);
+			dmDiem.addRow(row);
 		}
 	}
-	// kiem tra
 
-	// select devvn_tinhthanhpho
+	// SELECT TỈNH
 	public void tinh() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -922,7 +839,7 @@ public class MyLayout extends JFrame {
 		}
 	}
 
-	// select chon lop thong ke
+	// SELECT CHỌN LỚP THỐNG KÊ
 	public void chonLopThongKe() {
 		String chonNamDuoi = (String) cbochonNamThongKe.getSelectedItem();
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
@@ -938,7 +855,21 @@ public class MyLayout extends JFrame {
 		}
 	}
 
-	// selectlopthongke
+	// SELECT CHỌN LỚP XEM ĐIỂM
+	public void chonLopXemDiem() {
+		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery("select * from Lop");
+			while (result.next()) {
+				cboXemDiemCuaLop.addItem(result.getString("MaLop"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// SELECT LỚP THỐNG KÊ
 	public void thongKePrint() {
 		String chonNam = (String) thongKeSinhVien.getSelectedItem();
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
@@ -954,7 +885,7 @@ public class MyLayout extends JFrame {
 				String[] row = { result.getString("MaLop"), result.getString("MoTa"),
 						result.getString("TongSinhVien") };
 
-				dm7.addRow(row);
+				dmThongKe2.addRow(row);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -962,8 +893,7 @@ public class MyLayout extends JFrame {
 
 	}
 
-	// select lop
-
+	// SELECT LỚP CHO MÔN HỌC
 	public void chonLop() {
 
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
@@ -979,8 +909,8 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	// select nam
 
+	// SELECT NĂM THỐNG KÊ 1
 	public void chonNam() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -995,8 +925,8 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	// select nam
 
+	// SELECY CHỌN NĂM THỐNG KÊ
 	public void chonNam1() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -1011,25 +941,8 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	// select nam
 
-	public void chonLopThongKe1() {
-		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
-
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery("SELECT DISTINCT Nam FROM Lop");
-			while (result.next()) {
-				cbochonNamThongKe.addItem(result.getString("Nam"));
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// select lop của dienn
-
+	// SELECT LỚP CỦA ĐIỂM
 	public void chonLopDiem() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -1045,17 +958,17 @@ public class MyLayout extends JFrame {
 		}
 	}
 
-	// select lop của sinh vien print
+	// SELECT LỚP CỦA SINH VIÊN PRINT
 	public void chonLopSinhVienPrint() {
 
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
-		cboLop2.addItem("TẤT CẢ");
+		cboLopSinhVienPrint.addItem("TẤT CẢ");
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("select * from Lop");
 			while (result.next()) {
 				cboLopPrint.addItem(result.getString("MaLop"));
-				cboLop2.addItem(result.getString("MaLop"));
+				cboLopSinhVienPrint.addItem(result.getString("MaLop"));
 
 			}
 		} catch (Exception e) {
@@ -1063,6 +976,7 @@ public class MyLayout extends JFrame {
 		}
 	}
 
+	// SELECT MÃ SINH VIÊN
 	public void chonMaSinhVien() {
 
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
@@ -1078,8 +992,8 @@ public class MyLayout extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	// select ma mon hoc
 
+	// SELECT MÃ MÔN HỌC
 	public void maMonHoc() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -1094,9 +1008,9 @@ public class MyLayout extends JFrame {
 		}
 	}
 
+	// RESET DIEM
 	public void resetDiem() {
 		arrDiem.clear();
-
 		try {
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
@@ -1109,15 +1023,15 @@ public class MyLayout extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		dm4.setRowCount(0);
+		dmDiem.setRowCount(0);
 		for (Diem x : arrDiem) {
 			String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
-			dm4.addRow(row);
+			dmDiem.addRow(row);
 
 		}
 	}
-	// select devvn_quanhuyen
 
+	// SELECT QUẬN
 	public void quan() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 		try {
@@ -1131,7 +1045,7 @@ public class MyLayout extends JFrame {
 		}
 	}
 
-	// select devvn_xaphuongthitran
+	// SELECT HUYỆN
 	public void huyen() {
 		Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 		try {
@@ -1145,10 +1059,10 @@ public class MyLayout extends JFrame {
 		}
 	}
 
+	// CHỌN LỚP CHO SINH VIÊN
 	public void setLop() {
-		System.out.println("hieu");
-		String chonLop = (String) cboLop2.getSelectedItem();
-		dm.setRowCount(0);
+		String chonLop = (String) cboLopSinhVienPrint.getSelectedItem();
+		dmSinhVien.setRowCount(0);
 		if (chonLop == "TẤT CẢ") {
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 			try {
@@ -1170,7 +1084,7 @@ public class MyLayout extends JFrame {
 
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-				dm.addRow(row);
+				dmSinhVien.addRow(row);
 			}
 
 		} else {
@@ -1190,37 +1104,50 @@ public class MyLayout extends JFrame {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			dm.setRowCount(0);
+			dmSinhVien.setRowCount(0);
 			for (ThongTinSinhVien x : arrSV) {
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-				dm.addRow(row);
+				dmSinhVien.addRow(row);
 			}
-
 		}
-
 	}
 
+	// EVENT CHỌN NĂM
 	public void setNam() {
-		String chonNam = (String) cboLop1.getSelectedItem();
-		dm3.setRowCount(0);
+		String chonNam = (String) cboChonNam.getSelectedItem();
+		dmMonHoc.setRowCount(0);
 		if (chonNam == "TẤT CẢ") {
 
 			for (Lop x : arrLop) {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-				dm3.addRow(row);
+				dmMonHoc.addRow(row);
 			}
 
 		} else {
 			for (Lop x : arrLop) {
 				if (chonNam.equals(x.getNam())) {
 					String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-					dm3.addRow(row);
+					dmMonHoc.addRow(row);
 				}
 			}
 		}
 	}
 
+	// EVENT XEM LỚP HỌC CÓ MÔN NÀO
+	public void xemLopHocCoMonNao() {
+		String chonLop = (String) cboChonLopMonHoc.getSelectedItem();
+		dmMonHocCuaTungLop.setRowCount(0);
+		for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
+			System.out.println(chonLop.equals(x.getLopMonHocCuaTungLop()));
+			if (chonLop.equals(x.getLopMonHocCuaTungLop())) {
+				String[] row = { x.getLopMonHocCuaTungLop(), x.getMaMonHocCuaTungLop(), x.getTenMonHocCuaTungLop() };
+				dmMonHocCuaTungLop.addRow(row);
+			}
+		}
+	}
+
+	// ADD ITEM CHO CBO maMonHocDiem
 	public void chonMon() {
 		maMonHocDiem.removeAllItems();
 		maSinhVienDiem.removeAllItems();
@@ -1241,9 +1168,9 @@ public class MyLayout extends JFrame {
 
 	}
 
-	// quanlyyevent
+	// EVENT
 	public void addEvent() {
-		// event sv
+		// EVENT SINH VIÊN
 		cboTinh.addActionListener(eventChooseQuan);
 		cboQuan.addActionListener(eventChoosePhuong);
 		btnQuanLyLopHoc.addActionListener(eventQuanLyLopHoc);
@@ -1252,46 +1179,110 @@ public class MyLayout extends JFrame {
 		btnQuanLyDiem.addActionListener(eventQuanLyDiem);
 		btnThongKe.addActionListener(eventThongKe);
 		btnMonHocTungLop.addActionListener(eventMonHocCuaLop);
-		them.addActionListener(eventAdd);
-		xoa.addActionListener(eventDel);
-		sua.addActionListener(eventEdit);
-		tbl1.addMouseListener(eventTable);
-		cboLop2.addActionListener(eventchooseLop);
+		themSinhVien.addActionListener(eventAdd);
+		xoaSinhVien.addActionListener(eventDel);
+		suaSinhVien.addActionListener(eventEdit);
+		tblSinhVien.addMouseListener(eventTable);
+		cboLopSinhVienPrint.addActionListener(eventchooseLop);
 		cboLopPrint.addActionListener(eventchooseLopPrint);
 		refreshSV.addActionListener(eventrefreshSV);
-		// eventlop
-		cboLop1.addActionListener(eventchooseNam);
+		// EVENT LỚP
+		cboChonNam.addActionListener(eventchooseNam);
 		refreshLop.addActionListener(eventrefreshLop);
-		themL.addActionListener(eventAddLop);
-		xoaL.addActionListener(eventDelLop);
-		suaL.addActionListener(eventEditLop);
-		tbl3.addMouseListener(eventTableLop);
-		// eventmonhoc
+		themLop.addActionListener(eventAddLop);
+		xoaLop.addActionListener(eventDelLop);
+		suaLop.addActionListener(eventEditLop);
+		tblMonHoc.addMouseListener(eventTableLop);
+		// EVENT MÔN HỌC
 		refreshMonHoc.addActionListener(eventRefreshMonHoc);
 		themMonHoc.addActionListener(eventAddMonHoc);
 		suaMonHoc.addActionListener(eventEditMonHoc);
 		xoaMonHoc.addActionListener(eventDelMonHoc);
-		tbl2.addMouseListener(eventTableMonHoc);
-		// tìm kiếm
+		tblLop.addMouseListener(eventTableMonHoc);
+		// EVENT TÌM KIẾM
 		btnTimKiem.addActionListener(eventTimKiem);
-		// eventmonhoccuatunglop
+		// EVENT MÔN HỌC CỦA TỪNG LỚP
 		themMonHocCuaLop.addActionListener(eventThemMonHocCuaTungLop);
 		xoaMonHocCuaLop.addActionListener(eventXoaMonHocCuaTungLop);
-		// eventtablemoncuatunglop
-		tbl6.addMouseListener(eventTableMonHocCuaTungLop);
-		// event diem
+		cboChonLopMonHoc.addActionListener(eventChonLopHocMonHoc);
+		tblMonHocCuaTungLop.addMouseListener(eventTableMonHocCuaTungLop);
+		// EVENT ĐIỂM
 		maLopHocDiem.addActionListener(eventChonMaSinhVien);
 		themDiem.addActionListener(eventThemDiem);
 		xoaDiem.addActionListener(eventXoaDiem);
 		suaDiem.addActionListener(eventsuaDiem);
-		tbl4.addMouseListener(eventTableDiem);
-		// event thong ke
+		tblDiem.addMouseListener(eventTableDiem);
+		cboXemDiemCuaLop.addActionListener(eventXemDiemCuaLop);
+		// EVENT THỐNG KÊ
 		thongKeSinhVien.addActionListener(eventPrintLop);
 		cbochonNamThongKe.addActionListener(eventChonLopThongKe);
+		cbochonLop.addActionListener(eventTheoLop);
 
 	}
+	// EVENT XEM ĐIỂM CỦA LỚP
+	ActionListener eventXemDiemCuaLop = new ActionListener() {
 
-	// eventchonlopthongke
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String xemDiemCuaLop = (String) cboXemDiemCuaLop.getSelectedItem();
+			try {
+				Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien",
+						"QuanLySinhVien");
+				Statement statement = conn.createStatement();
+				ResultSet result = statement.executeQuery("SELECT * FROM Diem WHERE MaLop='" + xemDiemCuaLop + "'");
+
+				arrDiem.clear();
+				while (result.next()) {
+					arrDiem.add(new Diem(result.getString("MaLop"), result.getString("MaSV"),
+							result.getString("MaMonHoc"), result.getString("Diem")));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dmDiem.setRowCount(0);
+			for (Diem x : arrDiem) {
+				String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
+				dmDiem.addRow(row);
+			}
+		}
+	};
+	// EVENT PRINT THEO LỚP
+	ActionListener eventTheoLop = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dmThongKe.setRowCount(0);
+			inThongKeTheoLop();
+		}
+	};
+	// EVENT CHỌN LỚP HỌC CỦA MÔN HỌC
+	ActionListener eventChonLopHocMonHoc = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+
+			String chonLop = (String) cboChonLopMonHoc.getSelectedItem();
+			try {
+				Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien",
+						"QuanLySinhVien");
+				Statement statement = conn.createStatement();
+				ResultSet result = statement.executeQuery("SELECT * FROM MonHocCuaTungLop WHERE Lop='" + chonLop + "'");
+				arrMonHocCuaTungLop.clear();
+				while (result.next()) {
+					arrMonHocCuaTungLop.add(new MonHocCuaTungLop(result.getString("Lop"), result.getString("MaMonHoc"),
+							result.getString("TenMonHoc")));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			dmMonHocCuaTungLop.setRowCount(0);
+
+			for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
+				String[] row = { x.getLopMonHocCuaTungLop(), x.getMaMonHocCuaTungLop(), x.getTenMonHocCuaTungLop() };
+				dmMonHocCuaTungLop.addRow(row);
+			}
+
+		}
+	};
+	// EVENT CHỌN LỚP THỐNG KÊ
 	ActionListener eventChonLopThongKe = new ActionListener() {
 
 		@Override
@@ -1303,23 +1294,19 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// thongke
+	// EVENT PRINT THỐNG KÊ
 	ActionListener eventPrintLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			dm7.setRowCount(0);
-
+			dmThongKe2.setRowCount(0);
 			thongKePrint();
 		}
 	};
-
+	// EVENT SỮA ĐIỂM
 	ActionListener eventsuaDiem = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int KT = 0;
-
 			String chonLopHocDiem = (String) maLopHocDiem.getSelectedItem();
 			String chonMonHocDiem = (String) maMonHocDiem.getSelectedItem();
 			String chonMaSinhVienDiem = (String) maSinhVienDiem.getSelectedItem();
@@ -1358,7 +1345,6 @@ public class MyLayout extends JFrame {
 							if (x >= 0) {
 								JOptionPane.showMessageDialog(null, "SỮA THÀNH CÔNG");
 								nhapDiem.setText("");
-
 							}
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -1369,41 +1355,35 @@ public class MyLayout extends JFrame {
 					}
 				}
 			}
-
-			dm4.setRowCount(0);
+			dmDiem.setRowCount(0);
 			for (Diem x : arrDiem) {
 				String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
-				dm4.addRow(row);
-
+				dmDiem.addRow(row);
 			}
-
 		}
 	};
 
-	// table diem
+	// TABLE ĐIỂM
 	MouseAdapter eventTableDiem = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
-			int row = tbl4.getSelectedRow();
+			int row = tblDiem.getSelectedRow();
 			String[] col = new String[4];
-			col[0] = (String) tbl4.getValueAt(row, 0);
-			col[1] = (String) tbl4.getValueAt(row, 1);
-			col[2] = (String) tbl4.getValueAt(row, 2);
-			col[3] = (String) tbl4.getValueAt(row, 3);
+			col[0] = (String) tblDiem.getValueAt(row, 0);
+			col[1] = (String) tblDiem.getValueAt(row, 1);
+			col[2] = (String) tblDiem.getValueAt(row, 2);
+			col[3] = (String) tblDiem.getValueAt(row, 3);
 
 			maLopHocDiem.setSelectedItem(col[0]);
 			maSinhVienDiem.setSelectedItem(col[1]);
 			maMonHocDiem.setSelectedItem(col[2]);
 			nhapDiem.setText(col[3]);
-
 		}
 	};
 
-	// event xoa diem
+	// EVENT XÓA ĐIỂM
 	ActionListener eventXoaDiem = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
 			int KT = 0;
 			String chonLopHocDiem = (String) maLopHocDiem.getSelectedItem();
 			String chonMonHocDiem = (String) maMonHocDiem.getSelectedItem();
@@ -1439,16 +1419,16 @@ public class MyLayout extends JFrame {
 
 				}
 			}
-			dm4.setRowCount(0);
+			dmDiem.setRowCount(0);
 			for (Diem x : arrDiem) {
 				String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
-				dm4.addRow(row);
+				dmDiem.addRow(row);
 			}
 
 		}
 	};
+	// EVENT THÊM ĐIỂM
 	ActionListener eventThemDiem = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int KT1 = 0;
@@ -1458,6 +1438,8 @@ public class MyLayout extends JFrame {
 			String chonMonHocDiem = (String) maMonHocDiem.getSelectedItem();
 			String chonMaSinhVienDiem = (String) maSinhVienDiem.getSelectedItem();
 			String nhapDiem1 = nhapDiem.getText();
+			String diemString = String.valueOf(nhapDiem1);
+
 			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
 
 			for (Diem x : arrDiem) {
@@ -1473,76 +1455,77 @@ public class MyLayout extends JFrame {
 				KT2 = 1;
 
 			}
-			try {
-				if (nhapDiem1.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
-							JOptionPane.WARNING_MESSAGE);
-				} else if (KT1 > 0) {
-					JOptionPane.showMessageDialog(null, "ĐIỂM CỦA MÔN HỌC ĐÃ TỒN TẠI!", null,
-							JOptionPane.WARNING_MESSAGE);
-					nhapDiem.setText("");
-
-				} else if (KT2 > 0) {
-					JOptionPane.showMessageDialog(null, "HÃY NHẬP KIỂU SỐ!", null, JOptionPane.WARNING_MESSAGE);
-					nhapDiem.setText("");
-
-				} else {
-
-					arrDiem.add(new Diem(chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1));
-					dm4.addRow(new String[] { chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1 });
-					try {
-						String sql = "INSERT INTO Diem(MaMonHoc, MaLop, MaSV, Diem) VALUES (" + "'" + chonMonHocDiem
-								+ "','" + chonLopHocDiem + "','" + chonMaSinhVienDiem + "','" + nhapDiem1 + "')";
-						Statement statement = conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "ĐÃ LƯU THÔNG TIN MÔN HỌC");
-							nhapDiem.setText("");
-
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-
-				}
-			} catch (Exception ex) {
+			if (diemString.equals("")) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
 			}
+			int diem = Integer.parseInt(nhapDiem1);
+
+			if (KT1 > 0) {
+				JOptionPane.showMessageDialog(null, "ĐIỂM CỦA MÔN HỌC ĐÃ TỒN TẠI!", null, JOptionPane.WARNING_MESSAGE);
+				nhapDiem.setText("");
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "HÃY NHẬP KIỂU SỐ!", null, JOptionPane.WARNING_MESSAGE);
+				nhapDiem.setText("");
+
+			} else if (diem < 1 || diem > 10) {
+				JOptionPane.showMessageDialog(null, "HÃY NHẬP TỪ 1 DẾN 10!", null, JOptionPane.WARNING_MESSAGE);
+				nhapDiem.setText("");
+			} else {
+
+				arrDiem.add(new Diem(chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1));
+				dmDiem.addRow(new String[] { chonLopHocDiem, chonMaSinhVienDiem, chonMonHocDiem, nhapDiem1 });
+				try {
+					String sql = "INSERT INTO Diem(MaMonHoc, MaLop, MaSV, Diem) VALUES (" + "'" + chonMonHocDiem + "','"
+							+ chonLopHocDiem + "','" + chonMaSinhVienDiem + "','" + nhapDiem1 + "')";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x > 0) {
+						JOptionPane.showMessageDialog(null, "ĐÃ LƯU THÔNG TIN MÔN HỌC");
+						nhapDiem.setText("");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+
+			}
+
 			nhapDiem.setText("");
 
-			dm4.setRowCount(0);
+			dmDiem.setRowCount(0);
 			for (Diem x : arrDiem) {
 				String[] row = { x.getMaLop(), x.getMaSinhVien(), x.getMaMonHoc(), x.getDiem() };
-				dm4.addRow(row);
+				dmDiem.addRow(row);
 			}
 
 		}
 	};
+	// EVENT CHỌN MÃ SINH VIÊN
 	ActionListener eventChonMaSinhVien = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			chonMon();
-
 		}
 	};
 
+	// TABLE MÔN HỌC CỦA TỪNG LỚP
 	MouseAdapter eventTableMonHocCuaTungLop = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
-			int row = tbl6.getSelectedRow();
+			int row = tblMonHocCuaTungLop.getSelectedRow();
 			String[] col = new String[2];
-			col[0] = (String) tbl6.getValueAt(row, 0);
-			col[1] = (String) tbl6.getValueAt(row, 1);
+			col[0] = (String) tblMonHocCuaTungLop.getValueAt(row, 0);
+			col[1] = (String) tblMonHocCuaTungLop.getValueAt(row, 1);
 			cboChonLopMonHoc.setSelectedItem(col[0]);
 			cboChonMaMonHoc.setSelectedItem(col[1]);
 
 		}
 	};
-
+	// EVENT XÓA MÔN HỌC CỦA TỪNG LỚP
 	ActionListener eventXoaMonHocCuaTungLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
 			for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
 
 				if (((String) cboChonLopMonHoc.getSelectedItem()).equals(x.getLopMonHocCuaTungLop())) {
@@ -1566,15 +1549,15 @@ public class MyLayout extends JFrame {
 				ex.printStackTrace();
 			}
 
-			dm6.setRowCount(0);
+			dmMonHocCuaTungLop.setRowCount(0);
 			for (MonHocCuaTungLop x1 : arrMonHocCuaTungLop) {
 				String[] row = { x1.getLopMonHocCuaTungLop(), x1.getMaMonHocCuaTungLop(), x1.getTenMonHocCuaTungLop() };
-				dm6.addRow(row);
+				dmMonHocCuaTungLop.addRow(row);
 			}
 
 		}
 	};
-
+	// EVENT THÊM MÔN HỌC CỦA TỪNG LỚP
 	ActionListener eventThemMonHocCuaTungLop = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -1588,9 +1571,7 @@ public class MyLayout extends JFrame {
 					if ((chonLopMonHoc.equals(x.getLopMonHocCuaTungLop()))
 							&& (chonMaMonHoc.equals(x.getMaMonHocCuaTungLop()))) {
 						KTTT = 1;
-
 					}
-
 				}
 				if (KTTT > 0) {
 
@@ -1609,7 +1590,7 @@ public class MyLayout extends JFrame {
 					result.next();
 					arrMonHocCuaTungLop.add(new MonHocCuaTungLop(result.getString("MaLop"),
 							result.getString("MaMonHoc"), result.getString("TenMonHoc")));
-					dm6.addRow(new String[] { result.getString("MaLop"), result.getString("MaMonHoc"),
+					dmMonHocCuaTungLop.addRow(new String[] { result.getString("MaLop"), result.getString("MaMonHoc"),
 							result.getString("TenMonHoc") });
 					String sql = "INSERT INTO MonHocCuaTungLop(Lop, MaMonHoc,TenMonHoc) VALUES (" + "'"
 							+ result.getString("MaLop") + "','" + result.getString("MaMonHoc") + "','"
@@ -1623,19 +1604,17 @@ public class MyLayout extends JFrame {
 				ex.printStackTrace();
 			}
 
-			dm6.setRowCount(0);
+			dmMonHocCuaTungLop.setRowCount(0);
 			for (MonHocCuaTungLop x : arrMonHocCuaTungLop) {
 				String[] row = { x.getLopMonHocCuaTungLop(), x.getMaMonHocCuaTungLop(), x.getTenMonHocCuaTungLop() };
-				dm6.addRow(row);
+				dmMonHocCuaTungLop.addRow(row);
 			}
 		}
 	};
-
+	// EVENT TÌM KIẾM
 	ActionListener eventTimKiem = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
 			if (timKiemJT.getText().isEmpty()) {
 
 				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
@@ -1659,10 +1638,10 @@ public class MyLayout extends JFrame {
 				}
 
 				for (ThongTinSinhVien x : arrSV) {
-					dm.setRowCount(0);
+					dmSinhVien.setRowCount(0);
 					String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(),
 							x.getsDT(), x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-					dm.addRow(row);
+					dmSinhVien.addRow(row);
 				}
 			}
 
@@ -1674,7 +1653,6 @@ public class MyLayout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String chonLopPrintt = (String) cboLopPrint.getSelectedItem();
-
 			nhapMaSinhVien.setText(chonLopPrintt);
 			nhapNgaySinh.setText("");
 			nhapTenSinhVien.setText("");
@@ -1686,55 +1664,41 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// buttonmonhoccualop
+	// CARLAYOUT MÔN HỌC CỦA LỚP
 	ActionListener eventMonHocCuaLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			pnQuanLyLopHoc.setVisible(false);
-			pnQuanLySinhVien.setVisible(false);
-			pnQuanLyMonHoc.setVisible(false);
-			pnQuanLyDiem.setVisible(false);
-			pnThongKe.setVisible(false);
-			pnMonHocCuaLop.setVisible(true);
-
+			card.show(pnLayout, "6");
 			cboChonLopMonHoc.removeAllItems();
 			chonLop();
 
 		}
 	};
-	// button thong ke
+	// CARLAYOUT THỐNG KÊ
 	ActionListener eventThongKe = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			pnQuanLyLopHoc.setVisible(false);
-			pnQuanLySinhVien.setVisible(false);
-			pnQuanLyMonHoc.setVisible(false);
-			pnQuanLyDiem.setVisible(false);
-			pnMonHocCuaLop.setVisible(false);
-			pnThongKe.setVisible(true);
+
+			card.show(pnLayout, "5");
+			dmThongKe.setRowCount(0);
+			inThongKe();
 			thongKeSinhVien.removeAllItems();
 			cbochonNamThongKe.removeAllItems();
 			cbochonLop.removeAllItems();
-
 			chonNam();
 			chonNam1();
-
 		}
 	};
-
+	// CARLAYOUT QUẢN LÝ ĐIỂM
 	ActionListener eventQuanLyDiem = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pnQuanLyLopHoc.setVisible(false);
-			pnQuanLySinhVien.setVisible(false);
-			pnQuanLyMonHoc.setVisible(false);
-			pnThongKe.setVisible(false);
-			pnQuanLyDiem.setVisible(true);
-			pnMonHocCuaLop.setVisible(false);
+
+			card.show(pnLayout, "2");
 			maLopHocDiem.removeAllItems();
+			cboXemDiemCuaLop.removeAllItems();
+			chonLopXemDiem();
 			chonLopDiem();
 			chonMaSinhVien();
 			chonMon();
@@ -1742,16 +1706,13 @@ public class MyLayout extends JFrame {
 
 		}
 	};
-	// suamonhoc
-
+	// EVENT SỮA MÔN HỌC
 	ActionListener eventEditMonHoc = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int ktTonTai = 0;
 			int kt = 0;
 
-			
 			String tenMonHoc = nhapTenMonHoc.getText();
 			String thoiLuongHoc = nhapThoiLuongHoc.getText();
 			Integer tinChi1 = Integer.valueOf(nhapSoTinChi.getText());
@@ -1768,7 +1729,6 @@ public class MyLayout extends JFrame {
 					break;
 				}
 			}
-
 			for (MonHoc x : arrMonHoc) {
 				if (nhapMaMonHoc.getText().equals(x.getMaMonHoc())) {
 					String maMonHoc1 = nhapMaMonHoc.getText();
@@ -1820,16 +1780,15 @@ public class MyLayout extends JFrame {
 				JOptionPane.showMessageDialog(null, "BẠN CẦN NHẬP THÔNG TIN SINH VIÊN");
 			}
 
-			dm2.setRowCount(0);
+			dmLop.setRowCount(0);
 			for (MonHoc x : arrMonHoc) {
 				String tinChi = String.valueOf(x.getTinChi());
 				String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), tinChi, x.getThoiGian() };
-				dm2.addRow(row);
+				dmLop.addRow(row);
 			}
-
 		}
 	};
-	// xoamonhoc
+	// EVENT XÓA MÔN HỌC
 	ActionListener eventDelMonHoc = new ActionListener() {
 
 		@Override
@@ -1853,7 +1812,7 @@ public class MyLayout extends JFrame {
 			} else {
 				Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien",
 						"QuanLySinhVien");
-				
+
 				try {
 					String sql = "DELETE FROM MonHoc WHERE MaMonHoc = '" + nhapMaMonHoc.getText() + "'";
 
@@ -1873,26 +1832,25 @@ public class MyLayout extends JFrame {
 			nhapTenMonHoc.setText("");
 			nhapThoiLuongHoc.setText("");
 			nhapSoTinChi.setText("");
-			dm2.setRowCount(0);
+			dmLop.setRowCount(0);
 			for (MonHoc x : arrMonHoc) {
 				String tinChi = String.valueOf(x.getTinChi());
 				String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), tinChi, x.getThoiGian() };
-				dm2.addRow(row);
+				dmLop.addRow(row);
 			}
 
 		}
 	};
-	// tablemonhoc
+	// TABLE MÔN HỌC
 	MouseAdapter eventTableMonHoc = new MouseAdapter() {
-
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e) {
-			int row = tbl2.getSelectedRow();
+			int row = tblLop.getSelectedRow();
 			String[] col = new String[4];
-			col[0] = (String) tbl2.getValueAt(row, 0);
-			col[1] = (String) tbl2.getValueAt(row, 1);
-			col[2] = (String) tbl2.getValueAt(row, 2);
-			col[3] = (String) tbl2.getValueAt(row, 3);
+			col[0] = (String) tblLop.getValueAt(row, 0);
+			col[1] = (String) tblLop.getValueAt(row, 1);
+			col[2] = (String) tblLop.getValueAt(row, 2);
+			col[3] = (String) tblLop.getValueAt(row, 3);
 
 			nhapMaMonHoc.setText(col[0]);
 			nhapTenMonHoc.setText(col[1]);
@@ -1901,20 +1859,18 @@ public class MyLayout extends JFrame {
 
 		}
 	};
-	// event refesh
+	// EVENT REFRESH MÔN HỌC
 	ActionListener eventRefreshMonHoc = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			nhapMaMonHoc.setText("");
 			nhapTenMonHoc.setText("");
 			nhapThoiLuongHoc.setText("");
 			nhapSoTinChi.setText("");
-
 		}
 	};
+	// EVENT THÊM MÔN HỌC
 	ActionListener eventAddMonHoc = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int kt = 0;
@@ -1941,7 +1897,7 @@ public class MyLayout extends JFrame {
 					Integer tinChi = Integer.valueOf(nhapSoTinChi.getText());
 
 					arrMonHoc.add(new MonHoc(maMonHoc, tinChi, tenMonHoc, thoiLuongHoc));
-					dm2.addRow(new String[] { maMonHoc, tenMonHoc, soTinChi, thoiLuongHoc });
+					dmLop.addRow(new String[] { maMonHoc, tenMonHoc, soTinChi, thoiLuongHoc });
 					try {
 						String sql = "INSERT INTO MonHoc(MaMonHoc,SoTinChi,ThoiLuongHoc,TenMonHoc) VALUES (" + "'"
 								+ maMonHoc + "','" + tinChi + "','" + thoiLuongHoc + "','" + tenMonHoc + "')";
@@ -1965,25 +1921,22 @@ public class MyLayout extends JFrame {
 				JOptionPane.showMessageDialog(null, "HÃY NHẬP SỐ TÍN CHỈ KIỂU SỐ");
 			}
 
-			dm2.setRowCount(0);
+			dmLop.setRowCount(0);
 			for (MonHoc x : arrMonHoc) {
 				String tinChi = String.valueOf(x.getTinChi());
 				String[] row = { x.getMaMonHoc(), x.getTenMonHoc(), tinChi, x.getThoiGian() };
-				dm2.addRow(row);
+				dmLop.addRow(row);
 			}
-
 		}
 	};
-
-	// event add lop
+	// EVENT THÊM LỚP
 	ActionListener eventAddLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int kt = 0;
 			String lop = nhapMaLop.getText();
 			String mota = nhapMoTa.getText();
-			String chonNam = (String) cboLop1.getSelectedItem();
+			String chonNam = (String) cboChonNam.getSelectedItem();
 			for (Lop x : arrLop) {
 				if (nhapMaLop.getText().equals(x.getMaLop()) && mota.equals(x.getMoTa())) {
 					kt = 2;
@@ -2005,7 +1958,7 @@ public class MyLayout extends JFrame {
 				} else {
 
 					arrLop.add(new Lop(lop, mota, chonNam));
-					dm3.addRow(new String[] { lop, mota, chonNam });
+					dmMonHoc.addRow(new String[] { lop, mota, chonNam });
 					try {
 						String sql = "INSERT INTO Lop(MaLop,MoTa,Nam) VALUES ('" + lop + "','" + mota + "','" + chonNam
 								+ "')";
@@ -2023,24 +1976,23 @@ public class MyLayout extends JFrame {
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP THÔNG TIN");
 			}
-			dm3.setRowCount(0);
+			dmMonHoc.setRowCount(0);
 			for (Lop x : arrLop) {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-				dm3.addRow(row);
+				dmMonHoc.addRow(row);
 				setNam();
 			}
 		}
 	};
 
-	// event sua lop
+	// EVENT SỮA LỚP
 	ActionListener eventEditLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int ktTonTai = 0;
 			int kt = 0;
 			String mota = nhapMoTa.getText();
-			String chonNam = (String) cboLop1.getSelectedItem();
+			String chonNam = (String) cboChonNam.getSelectedItem();
 			for (int i = 0; i < arrLop.size(); i++) {
 				if (nhapMaLop.getText().equals(arrLop.get(i).getMaLop())) {
 					ktTonTai = 1;
@@ -2058,13 +2010,13 @@ public class MyLayout extends JFrame {
 				if (nhapMaLop.getText().equals(x.getMaLop())) {
 					x.setMaLop(nhapMaLop.getText());
 					x.setMoTa(nhapMoTa.getText());
-					x.setNam((String) cboLop1.getSelectedItem());
+					x.setNam((String) cboChonNam.getSelectedItem());
 					break;
 				}
 			}
 			try {
 				if (nhapMaLop.getText().equals("") || nhapMoTa.getText().equals("")
-						|| cboLop1.getSelectedItem().equals("")) {
+						|| cboChonNam.getSelectedItem().equals("")) {
 					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
 							JOptionPane.WARNING_MESSAGE);
 				} else if (ktTonTai < 1) {
@@ -2079,7 +2031,7 @@ public class MyLayout extends JFrame {
 
 					try {
 						String sql = "UPDATE Lop SET MaLop ='" + nhapMaLop.getText() + "',MoTa ='" + nhapMoTa.getText()
-								+ "',Nam ='" + cboLop1.getSelectedItem() + "' WHERE MaLop = '" + nhapMaLop.getText()
+								+ "',Nam ='" + cboChonNam.getSelectedItem() + "' WHERE MaLop = '" + nhapMaLop.getText()
 								+ "'";
 						Statement statement = conn.createStatement();
 						int x = statement.executeUpdate(sql);
@@ -2101,7 +2053,7 @@ public class MyLayout extends JFrame {
 
 			for (Lop x : arrLop) {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-				dm3.addRow(row);
+				dmMonHoc.addRow(row);
 				setNam();
 
 			}
@@ -2109,29 +2061,27 @@ public class MyLayout extends JFrame {
 		}
 	};
 
+	// EVENT CHỌN NĂM
 	ActionListener eventchooseNam = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			setNam();
-
 		}
 
 	};
-	// event refresh LOP
+	// EVENT REFESH LỚP
 	ActionListener eventrefreshLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			nhapMoTa.setText("");
 			nhapMaLop.setText("");
-			cboLop1.setSelectedItem("TẤT CẢ");
+			cboChonNam.setSelectedItem("TẤT CẢ");
 
 		}
 	};
-	// event refresh SInhvIEN
+	// EVENT REFESH SINH VIÊN
 	ActionListener eventrefreshSV = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			nhapNgaySinh.setText("");
@@ -2147,10 +2097,8 @@ public class MyLayout extends JFrame {
 		}
 
 	};
-
-	// event Delete Lop
+	// EVENT XÓA LỚP
 	ActionListener eventDelLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -2187,10 +2135,10 @@ public class MyLayout extends JFrame {
 			}
 			nhapMoTa.setText("");
 			nhapMaLop.setText("");
-			dm3.setRowCount(0);
+			dmMonHoc.setRowCount(0);
 			for (Lop x : arrLop) {
 				String[] row = { x.getMaLop(), x.getMoTa(), x.getNam() };
-				dm3.addRow(row);
+				dmMonHoc.addRow(row);
 				setNam();
 
 			}
@@ -2198,9 +2146,8 @@ public class MyLayout extends JFrame {
 		}
 
 	};
-	// eventchonlop
+	// EVENT CHỌN LỚP
 	ActionListener eventchooseLop = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			setLop();
@@ -2208,21 +2155,19 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// event table lop
+	// EVENT TABLE LỚP
 	MouseListener eventTableLop = new MouseListener() {
-
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent arg0) {
-			int row = tbl3.getSelectedRow();
+			int row = tblMonHoc.getSelectedRow();
 			String[] col = new String[3];
-			col[0] = (String) tbl3.getValueAt(row, 0);
-			col[1] = (String) tbl3.getValueAt(row, 1);
-			col[2] = (String) tbl3.getValueAt(row, 2);
+			col[0] = (String) tblMonHoc.getValueAt(row, 0);
+			col[1] = (String) tblMonHoc.getValueAt(row, 1);
+			col[2] = (String) tblMonHoc.getValueAt(row, 2);
 
 			nhapMaLop.setText(col[0]);
 			nhapMoTa.setText(col[1]);
-			cboLop1.setSelectedItem(col[2]);
-
+			cboChonNam.setSelectedItem(col[2]);
 		}
 
 		@Override
@@ -2246,38 +2191,29 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// event Layout LopHoc
+	// CARLAYOUT LỚP HỌC
 	ActionListener eventQuanLyLopHoc = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pnQuanLySinhVien.setVisible(false);
-			pnQuanLyMonHoc.setVisible(false);
-			pnQuanLyLopHoc.setVisible(true);
-			pnQuanLyDiem.setVisible(false);
-			pnThongKe.setVisible(false);
-			pnMonHocCuaLop.setVisible(false);
-
+			card.show(pnLayout, "4");
 		}
 	};
-
-	// event table
+	// EVENT TABLE SINH VIÊN
 	MouseAdapter eventTable = new MouseAdapter() {
-
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e) {
-			int row = tbl1.getSelectedRow();
+			int row = tblSinhVien.getSelectedRow();
 			String[] col = new String[10];
-			col[0] = (String) tbl1.getValueAt(row, 0);
-			col[1] = (String) tbl1.getValueAt(row, 1);
-			col[2] = (String) tbl1.getValueAt(row, 2);
-			col[3] = (String) tbl1.getValueAt(row, 3);
-			col[4] = (String) tbl1.getValueAt(row, 4);
-			col[5] = (String) tbl1.getValueAt(row, 5);
-			col[6] = (String) tbl1.getValueAt(row, 6);
-			col[7] = (String) tbl1.getValueAt(row, 7);
-			col[8] = (String) tbl1.getValueAt(row, 8);
-			col[9] = (String) tbl1.getValueAt(row, 9);
+			col[0] = (String) tblSinhVien.getValueAt(row, 0);
+			col[1] = (String) tblSinhVien.getValueAt(row, 1);
+			col[2] = (String) tblSinhVien.getValueAt(row, 2);
+			col[3] = (String) tblSinhVien.getValueAt(row, 3);
+			col[4] = (String) tblSinhVien.getValueAt(row, 4);
+			col[5] = (String) tblSinhVien.getValueAt(row, 5);
+			col[6] = (String) tblSinhVien.getValueAt(row, 6);
+			col[7] = (String) tblSinhVien.getValueAt(row, 7);
+			col[8] = (String) tblSinhVien.getValueAt(row, 8);
+			col[9] = (String) tblSinhVien.getValueAt(row, 9);
 
 			cboLopPrint.setSelectedItem(col[6]);
 			nhapTenSinhVien.setText(col[1]);
@@ -2293,9 +2229,8 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// sua
+	// EVENT SỮA SINH VIÊN
 	ActionListener eventEdit = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int ktTonTai = 0;
@@ -2387,12 +2322,12 @@ public class MyLayout extends JFrame {
 			nhapEmail.setText("");
 			nhapSDT.setText("");
 
-			dm.setRowCount(0);
+			dmSinhVien.setRowCount(0);
 			for (ThongTinSinhVien x : arrSV) {
 
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-				dm.addRow(row);
+				dmSinhVien.addRow(row);
 				setLop();
 
 			}
@@ -2401,9 +2336,8 @@ public class MyLayout extends JFrame {
 
 	};
 
-	// xoasinhvien
+	// EVENT XÓA SINH VIÊN
 	ActionListener eventDel = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int kt = 0;
@@ -2455,19 +2389,18 @@ public class MyLayout extends JFrame {
 			nhapDiaChi.setText("");
 			nhapEmail.setText("");
 			nhapSDT.setText("");
-			dm.setRowCount(0);
+			dmSinhVien.setRowCount(0);
 			for (ThongTinSinhVien x : arrSV) {
 				String[] row = { x.getMaSV(), x.getTenSV(), x.getNgaySinh(), x.getDiaChi(), x.getEmail(), x.getsDT(),
 						x.getLop(), x.getPhuong(), x.getQuan(), x.getTinh() };
-				dm.addRow(row);
+				dmSinhVien.addRow(row);
 			}
 
 		}
 	};
 
-	// them
+	// EVENT THÊM SINH VIÊN
 	ActionListener eventAdd = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -2523,7 +2456,7 @@ public class MyLayout extends JFrame {
 
 			else {
 
-				dm.addRow(new String[] { ma, ten, ngaySinh, diaChi, email, sDT, chonLop, chonPhuong, chonQuan,
+				dmSinhVien.addRow(new String[] { ma, ten, ngaySinh, diaChi, email, sDT, chonLop, chonPhuong, chonQuan,
 						chonTinh });
 				arrSV.add(new ThongTinSinhVien(ma, ten, ngaySinh, diaChi, email, sDT, chonLop, chonPhuong, chonQuan,
 						chonTinh));
@@ -2552,40 +2485,27 @@ public class MyLayout extends JFrame {
 		}
 	};
 
-	// layout quanlydiem
+	// CARLAYOUT QUẢN LÝ MÔN HỌC
 	ActionListener eventQuanLyMonHoc = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			pnQuanLyLopHoc.setVisible(false);
-			pnQuanLySinhVien.setVisible(false);
-			pnQuanLyMonHoc.setVisible(true);
-			pnQuanLyDiem.setVisible(false);
-			pnThongKe.setVisible(false);
-			pnMonHocCuaLop.setVisible(false);
-
+			card.show(pnLayout, "3");
 		}
 
 	};
 
-	// layout quanlySinhVien
+	// CARLAYOUT QUẢN LÝ SINH VIÊN
 	ActionListener eventQuanLySinhVien = new ActionListener() {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			cboLopPrint.removeAllItems();
-			cboLop2.removeAllItems();
+			cboLopSinhVienPrint.removeAllItems();
 			chonLopSinhVienPrint();
-
-			pnQuanLyLopHoc.setVisible(false);
-			pnQuanLySinhVien.setVisible(true);
-			pnQuanLyMonHoc.setVisible(false);
-			pnThongKe.setVisible(false);
-			pnMonHocCuaLop.setVisible(false);
-			pnQuanLyDiem.setVisible(false);
+			card.show(pnLayout, "1");
 
 		}
 	};
+	// EVENT CHỌN PHƯỜNG
 	ActionListener eventChoosePhuong = new ActionListener() {
 
 		@Override
@@ -2607,6 +2527,7 @@ public class MyLayout extends JFrame {
 		}
 	};
 
+	// EVENT CHỌN QUẬN
 	ActionListener eventChooseQuan = new ActionListener() {
 
 		@Override
@@ -2628,12 +2549,128 @@ public class MyLayout extends JFrame {
 		}
 	};
 
+	// EVENT ĐIỀU CHỈNH HIỂN THỊ
 	public void showWindow() {
 		this.setSize(1340, 600);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
 	}
 
+	// IN THỐNG KÊ THEO LỚP
+	private void inThongKeTheoLop() {
+		try {
+			String chonLop = (String) cbochonLop.getSelectedItem();
+
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement
+					.executeQuery("SELECT MaSV,\r\n" + "    SUM(CASE WHEN MaMonHoc = 'LP#0' THEN Diem  END) AS Lp0,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#1' THEN Diem END) AS Lp1,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#2' THEN Diem END) AS Lp2,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#3' THEN Diem END) AS Lp3,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#4' THEN Diem END) AS Lp4,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#5' THEN Diem END) AS Lp5,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#6' THEN Diem END) AS Lp6,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'E4IT' THEN Diem END) AS E4IT\r\n" + "FROM Diem\r\n"
+							+ "GROUP BY MaSV");
+			while (result.next()) {
+				Statement stt = conn.createStatement();
+				ResultSet query = stt.executeQuery("SELECT * FROM Sinhvien WHERE Sinhvien.MaSV = '"
+						+ result.getString("MaSV") + "' AND SinhVien.Lop ='" + chonLop + "'");
+				while (query.next()) {
+					String[] row = { result.getString("MaSV"), query.getString("Sinhvien.TenSinhVien"),
+							result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
+							result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
+							result.getString("Lp6"), result.getString("E4IT") };
+					int t = 0;
+					int n = 0;
+					int y = 0;
+					for (int i = 2; i < row.length; i++) {
+						if (row[i] != null) {
+							y = Integer.parseInt(row[i]);
+							n = n + y;
+							t++;
+						}
+					}
+					float tbc = (float) n / t;
+					String xeploai;
+					if (tbc <= 4.9) {
+						xeploai = "Yếu";
+					} else if (tbc <= 6.4) {
+						xeploai = "Trung Bình";
+					} else if (tbc <= 7.9) {
+						xeploai = "Khá";
+					} else {
+						xeploai = "Giỏi";
+					}
+					String TBM = Float.toString(tbc);
+					String[] dm = { result.getString("MaSV"), query.getString("Sinhvien.TenSinhVien"),
+							result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
+							result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
+							result.getString("Lp6"), result.getString("E4IT"), TBM, xeploai };
+					dmThongKe.addRow(dm);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// IN THỐNG KÊ
+	private void inThongKe() {
+		try {
+			Connection conn = ConnectData.getConnect("localhost", "QuanLySinhVien", "QuanLySinhVien", "QuanLySinhVien");
+			Statement statement = conn.createStatement();
+			ResultSet result = statement
+					.executeQuery("SELECT MaSV,\r\n" + "    SUM(CASE WHEN MaMonHoc = 'LP#0' THEN Diem  END) AS Lp0,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#1' THEN Diem END) AS Lp1,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#2' THEN Diem END) AS Lp2,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#3' THEN Diem END) AS Lp3,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#4' THEN Diem END) AS Lp4,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#5' THEN Diem END) AS Lp5,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'LP#6' THEN Diem END) AS Lp6,\r\n"
+							+ "    SUM(CASE WHEN MaMonHoc = 'E4IT' THEN Diem END) AS E4IT\r\n" + "FROM Diem\r\n"
+							+ "GROUP BY MaSV");
+			while (result.next()) {
+				Statement stt = conn.createStatement();
+				ResultSet query = stt.executeQuery(
+						"SELECT * FROM Sinhvien WHERE Sinhvien.MaSV = '" + result.getString("MaSV") + "'");
+				query.next();
+				String[] row = { result.getString("MaSV"), query.getString("Sinhvien.TenSinhVien"),
+						result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
+						result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
+						result.getString("Lp6"), result.getString("E4IT") };
+				int t = 0;
+				int n = 0;
+				int y = 0;
+				for (int i = 2; i < row.length; i++) {
+					if (row[i] != null) {
+						y = Integer.parseInt(row[i]);
+						n = n + y;
+						t++;
+					}
+				}
+				float tbc = (float) n / t;
+				String xeploai;
+				if (tbc <= 4.9) {
+					xeploai = "Yếu";
+				} else if (tbc <= 6.4) {
+					xeploai = "Trung Bình";
+				} else if (tbc <= 7.9) {
+					xeploai = "Khá";
+				} else {
+					xeploai = "Giỏi";
+				}
+				String TBM = Float.toString(tbc);
+				String[] dm = { result.getString("MaSV"), query.getString("Sinhvien.TenSinhVien"),
+						result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
+						result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
+						result.getString("Lp6"), result.getString("E4IT"), TBM, xeploai };
+				dmThongKe.addRow(dm);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
