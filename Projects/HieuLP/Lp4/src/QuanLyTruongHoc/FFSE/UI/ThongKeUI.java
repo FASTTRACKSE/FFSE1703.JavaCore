@@ -242,7 +242,7 @@ public class ThongKeUI extends JPanel {
 					ResultSet result = statement.executeQuery(
 							"SELECT *,(SELECT Count(*) FROM table_sinhvien WHERE table_sinhvien.MaLop = table_lop.MaLop) as Tong FROM table_lop");
 					while (result.next()) {
-						String[] row = { result.getString("table_lop.MaLop"), result.getString("TenLop"),
+						String[] row = { result.getString("table_lop.MaLop"), result.getString("MoTa"),
 								result.getString("Tong"), result.getString("NamHoc") };
 						dm_nhapdiem1.addRow(row);
 					}

@@ -255,9 +255,7 @@ public class LopHocUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
 				String sql = "DELETE FROM table_lop WHERE maLop = '" + maLop.getText() + "'";
-				String query = "DELETE FROM table_monhoccholop WHERE MaSV = '" + maLop.getText() + "'";
 				Statement statement = conn.createStatement();
-				statement.executeUpdate(query);
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
 					JOptionPane.showMessageDialog(null, "Đã xóa");

@@ -384,6 +384,7 @@ public class SinhVienUI extends JPanel {
 	};
 
 	ActionListener eventAdd_SV = new ActionListener() {
+		@SuppressWarnings("unlikely-arg-type")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -412,7 +413,7 @@ public class SinhVienUI extends JPanel {
 				if (maSV.equals(arrSV.get(i).getMaSV())) {
 					ktTonTai = 1;
 				}
-			}
+		}
 			if (ma_SinhVien.equals(lop_SinhVien) || ten_SinhVien.equals("") || diachi_SinhVien.equals("")
 					|| email_SinhVien.equals("") || sdt_SinhVien.equals("")) {
 				JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
@@ -420,13 +421,13 @@ public class SinhVienUI extends JPanel {
 			} else if (lop_SinhVien == "TẤT CẢ") {
 				JOptionPane.showMessageDialog(null, "HÃY CHỌN LỚP", null, JOptionPane.WARNING_MESSAGE);
 
-			} else if (ktTonTai > 0) {
+			} else if (ktTonTai == 0) {
 				JOptionPane.showMessageDialog(null, "MÃ SINH VIÊN ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
 
 			} else if (!mail1.find()) {
 				JOptionPane.showMessageDialog(null, "EMAIL KHÔNG HỢP LỆ", null, JOptionPane.WARNING_MESSAGE);
 
-			} else if (KT2 > 0) {
+			} else if (KT2 == 0) {
 				JOptionPane.showMessageDialog(null, "SỐ ĐIỆN THOẠI CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
 
 			} else if (sdt_SinhVien.length() > 0 && (sdt_SinhVien.length() < 10 || sdt_SinhVien.length() > 11)) {

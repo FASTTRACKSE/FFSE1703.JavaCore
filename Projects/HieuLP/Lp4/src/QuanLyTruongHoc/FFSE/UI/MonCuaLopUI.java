@@ -18,7 +18,6 @@ public class MonCuaLopUI extends JPanel {
 	private DefaultTableModel dm_moncholop;
 	private JTable table_moncholop;
 	private JScrollPane sc_moncholop;
-	private JScrollPane sp_moncholop;
 	private JTextField maLop = new JTextField(), maMH = new JTextField(), ten = new JTextField();
 	private ArrayList<MonCuaLop> arrMoncholop = new ArrayList<MonCuaLop>();
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
@@ -84,8 +83,8 @@ public class MonCuaLopUI extends JPanel {
 		}
 		table_moncholop = new JTable(dm_moncholop);
 		table_moncholop.setLayout(new BorderLayout());
-		sp_moncholop = new JScrollPane(table_moncholop);
-		sc_moncholop = new JScrollPane(sp_moncholop, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+//		sp_moncholop = new JScrollPane(table_moncholop);
+		sc_moncholop = new JScrollPane(table_moncholop, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sc_moncholop.setPreferredSize(new Dimension(715, 415));
 

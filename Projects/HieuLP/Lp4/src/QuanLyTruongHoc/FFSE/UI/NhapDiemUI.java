@@ -19,7 +19,6 @@ public class NhapDiemUI extends JPanel {
 	private DefaultTableModel dm_nhapdiem;
 	private JTable table_nhapdiem;
 	private JScrollPane sc_nhapdiem;
-	private JScrollPane sp_nhapdiem;
 	private JTextField nhapDiemsv = new JTextField();
 	private ArrayList<NhapDiem> arrNhapdiem = new ArrayList<NhapDiem>();
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
@@ -118,8 +117,8 @@ public class NhapDiemUI extends JPanel {
 		}
 		table_nhapdiem = new JTable(dm_nhapdiem);
 		table_nhapdiem.setLayout(new BorderLayout());
-		sp_nhapdiem = new JScrollPane(table_nhapdiem);
-		sc_nhapdiem = new JScrollPane(sp_nhapdiem, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		//sp_nhapdiem = new JScrollPane(table_nhapdiem);
+		sc_nhapdiem = new JScrollPane(table_nhapdiem, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sc_nhapdiem.setPreferredSize(new Dimension(715, 380));
 
@@ -314,7 +313,12 @@ public class NhapDiemUI extends JPanel {
 			String maMH = (String) maMonhoc.getSelectedItem();
 			String sinhVien = (String) maSVcomnoBox.getSelectedItem();
 			String diem = nhapDiemsv.getText();
-			
+			int KT = 0;
+			try {
+				Double.parseDouble(diem);
+			} catch (NumberFormatException ex) {
+				KT = 1;
+			}
 
 			try {
 				for (NhapDiem x : arrNhapdiem ) {
@@ -325,6 +329,12 @@ public class NhapDiemUI extends JPanel {
 				if (kt == 1) {
 					JOptionPane.showMessageDialog(null, "ĐIỂM ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
 
+				} else if (KT == 1) {
+					JOptionPane.showMessageDialog(null, "Bạn nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if ((Double.parseDouble(diem)) > 10 || (Double.parseDouble(diem)) < 0) {
+					JOptionPane.showMessageDialog(null, "Nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+							JOptionPane.WARNING_MESSAGE);
 				} else {	
 						if (diem.equals("")) {
 							JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
@@ -362,31 +372,33 @@ public class NhapDiemUI extends JPanel {
 			String chonMonHocDiem = (String) maMonhoc.getSelectedItem();
 			String chonMaSinhVienDiem = (String) maSVcomnoBox.getSelectedItem();
 			String nhapDiem1 = nhapDiemsv.getText();
+			
+			try {
+				Double.parseDouble(nhapDiem1);
+			} catch (NumberFormatException ex) {
+				KT = 1;
+			}
+			
 			if (nhapDiem1.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "HÃY NHẬP ĐIỂM", null, JOptionPane.WARNING_MESSAGE);
 
-			} else {
-				for (NhapDiem x : arrNhapdiem) {
-					if (chonLopHocDiem.equals(x.getMaLop()) && chonMonHocDiem.equals(x.getMaMH())
-							&& chonMaSinhVienDiem.equals(x.getMaSV())) {
-						KT = 2;
-
-						x.setMaLop(chonLopHocDiem);
-						x.setMaMH(chonMonHocDiem);
-						x.setMaSV(chonMaSinhVienDiem);
-						x.setDiem(nhapDiem1);
-						break;
-					}
-				}
-				if (KT < 2) {
-					JOptionPane.showMessageDialog(null, "CHỈ ĐƯỢC SỮA ĐIỂM", null, JOptionPane.WARNING_MESSAGE);
-
-				} else {
-					try {
+			} else if (KT == 1) {
+					JOptionPane.showMessageDialog(null, "Bạn nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if ((Double.parseDouble(nhapDiem1)) > 10 || (Double.parseDouble(nhapDiem1)) < 0) {
+					JOptionPane.showMessageDialog(null, "Nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else {					
 						Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 						try {
-							String sql = "UPDATE table_diem SET MaLop ='" + chonLopHocDiem + "',MaMH ='"
-									+ chonMonHocDiem + "',MaSV ='" + chonMaSinhVienDiem + "',Diem ='" + nhapDiem1
+							for (NhapDiem x : arrNhapdiem) {
+								if (chonLopHocDiem.equals(x.getMaLop()) && chonMonHocDiem.equals(x.getMaMH())
+										&& chonMaSinhVienDiem.equals(x.getMaSV())) {
+									x.setDiem(nhapDiem1);
+									break;
+								}
+							}
+							String sql = "UPDATE table_diem SET Diem ='" + nhapDiem1
 									+ "' WHERE MaMH ='" + chonMonHocDiem + "'AND MaLop ='" + chonLopHocDiem
 									+ "' AND MaSV ='" + chonMaSinhVienDiem + "'";
 							Statement statement = conn.createStatement();
@@ -396,14 +408,9 @@ public class NhapDiemUI extends JPanel {
 								nhapDiemsv.setText("");
 
 							}
-						} catch (Exception ex) {
-							ex.printStackTrace();
-						}
-
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, "BẠN CẦN NHẬP THÔNG TIN SINH VIÊN");
 					}
-				}
 			}
 
 			dm_nhapdiem.setRowCount(0);
