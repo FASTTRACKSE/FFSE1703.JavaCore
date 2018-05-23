@@ -76,6 +76,8 @@ public class LayoutATM extends JPanel{
 		    		}
 	    			/*đặt giá trị cho các ô textfield*/
 	    			txtMaMay.setText(ma);
+	    			txtMaMay.setEditable(false);
+	    			
 	    			txtDuong.setText(viTri);
 	    			txtTongTien.setText(tongTien);
 	    		}
@@ -96,8 +98,7 @@ public class LayoutATM extends JPanel{
 				String quan = (String) cbQuan.getSelectedItem();
 				int keyQuan = cbQuan.getSelectedIndex();
 				String phuong = (String) cbPhuong.getSelectedItem();
-				int keyPhuong = cbPhuong.getSelectedIndex();
-				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0||keyPhuong==0) {
+				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0) {
 					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
 				}else {
 					MayATM mayATM = new MayATM();
@@ -109,6 +110,7 @@ public class LayoutATM extends JPanel{
 					txtDuong.setText("");
 					txtTongTien.setText("");
 					cbQuan.setSelectedIndex(0);
+					
 				}
 				
 			}catch(Exception x) {
@@ -147,8 +149,7 @@ public class LayoutATM extends JPanel{
 				String quan = (String) cbQuan.getSelectedItem();
 				int keyQuan = cbQuan.getSelectedIndex();
 				String phuong = (String) cbPhuong.getSelectedItem();
-				int keyPhuong = cbPhuong.getSelectedIndex();
-				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0||keyPhuong==0) {
+				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0) {
 					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
 				}else {
 					MayATM mayATM = new MayATM();
@@ -161,9 +162,14 @@ public class LayoutATM extends JPanel{
 						dm.addRow(row);
 					}
 					txtMaMay.setText("");
+					
 					txtDuong.setText("");
 					txtTongTien.setText("");
 					cbQuan.setSelectedIndex(0);
+					txtMaMay.setEditable(true);
+					btnSua.setEnabled(false);
+					btnXoa.setEnabled(false);
+					btnThem.setEnabled(true);
 				}
 				
 			}catch(Exception X) {
@@ -178,7 +184,6 @@ public class LayoutATM extends JPanel{
 		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String mayATM = txtMaMay.getText();
 			atmDB.xoaMayATM(mayATM);
 			int row;
@@ -192,6 +197,10 @@ public class LayoutATM extends JPanel{
 			txtDuong.setText("");
 			txtTongTien.setText("");
 			cbQuan.setSelectedIndex(0);
+			txtMaMay.setEditable(true);
+			btnSua.setEnabled(false);
+			btnXoa.setEnabled(false);
+			btnThem.setEnabled(true);
 		}
 	};
 	
@@ -205,6 +214,7 @@ public class LayoutATM extends JPanel{
 			btnThem.setEnabled(true);
 			arrATM=atmDB.hienThiMayATM();
 			txtMaMay.setText("");
+			txtMaMay.setEditable(true);
 			txtDuong.setText("");
 			txtTongTien.setText("");
 			cbQuan.setSelectedIndex(0);

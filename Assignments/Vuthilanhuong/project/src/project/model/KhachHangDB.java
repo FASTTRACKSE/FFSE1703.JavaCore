@@ -45,8 +45,8 @@ public class KhachHangDB {
 	public static int themKhachHang(KhachHang kh) {
 		try {
 			String sql = "insert into atm_khach (ma_kh, ho_ten, quan, phuong,"
-					+ "duong, sdt, email, so_the, so_tien) "
-					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "duong, sdt, email, so_the, so_tien, mat_khau) "
+					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, kh.getMaKhach());
 			stm.setString(2, kh.getTenKhach());
@@ -57,6 +57,7 @@ public class KhachHangDB {
 			stm.setString(7, kh.getEmailK());
 			stm.setString(8, kh.getSoThe());
 			stm.setString(9, kh.getSoTien());
+			stm.setString(10, "12345");
 			int i = stm.executeUpdate();						
 			return i;
 		} catch (Exception e) {

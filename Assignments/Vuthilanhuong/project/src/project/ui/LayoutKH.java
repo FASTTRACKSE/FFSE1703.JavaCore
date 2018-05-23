@@ -118,11 +118,13 @@ public class LayoutKH extends JFrame {
 		    		}
 	    			/*đặt giá trị cho các ô textfield*/
 	    			txtMaK.setText(ma);
+	    			txtMaK.setEditable(false);
 		    		txtTenK.setText(ten);
 		    		txtDiaChi.setText(dc);
 		    		txtDienThoai.setText(sdt);
 		    		txtEmail.setText(email);
 		    		txtSoThe.setText(soThe);
+		    		txtSoThe.setEditable(false);
 		    		txtTaiKhoan.setText(soTien);
 	    		}
 	    		
@@ -146,8 +148,7 @@ public class LayoutKH extends JFrame {
 			String quanKh =(String) cbQuan.getSelectedItem();
 			int keyQuan = cbQuan.getSelectedIndex();
 			String phuongKh =(String) cbPhuong.getSelectedItem();
-			int keyPhuong = cbPhuong.getSelectedIndex();
-			if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0||keyPhuong==0) {
+			if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0) {
 				JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
 			}else {
 				KhachHang khachHang=new KhachHang();
@@ -184,13 +185,12 @@ public class LayoutKH extends JFrame {
 		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			//Lấy giá trị từ textField đưa vào mảng kh
 			try {
 				btnSua.setEnabled(false);
 				btnXoa.setEnabled(false);
 				String maKh = txtMaK.getText();
-				txtMaK.setEditable(false);
+				
 				String tenKh= txtTenK.getText();
 				String diaChiKh = txtDiaChi.getText();
 				String dienThoaiKh =txtDienThoai.getText();
@@ -200,35 +200,35 @@ public class LayoutKH extends JFrame {
 				String quanKh =(String) cbQuan.getSelectedItem();
 				int keyQuan = cbQuan.getSelectedIndex();
 				String phuongKh =(String) cbPhuong.getSelectedItem();
-				int keyPhuong = cbPhuong.getSelectedIndex();
-				if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0||keyPhuong==0) {
+				if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0) {
 					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
 				}else {
-					JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
-				}
-				
-				KhachHang khachHang=new KhachHang();
-				khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
-				
-				//gọi lệnh suaKhachHang từ class KhachHangDB
-				khDb.suaKhachHang(khachHang);
-				//set bảng về trống
-				dm.setRowCount(0);
-				//chạy lại bảng từ arrayList
-				arrKhachHang=khDb.hienThiKH();
-				for(KhachHang x:arrKhachHang) {
-					String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
-					dm.addRow(row);
-				}
-				//set ô input về trống
-				txtMaK.setText("");
-				txtTenK.setText("");
-				txtDiaChi.setText("");
-				txtDienThoai.setText("");
-				txtEmail.setText("");
-				txtSoThe.setText("");
-				txtTaiKhoan.setText("");
-				cbQuan.setSelectedIndex(0);
+					KhachHang khachHang=new KhachHang();
+					khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
+					
+					//gọi lệnh suaKhachHang từ class KhachHangDB
+					khDb.suaKhachHang(khachHang);
+					//set bảng về trống
+					dm.setRowCount(0);
+					//chạy lại bảng từ arrayList
+					arrKhachHang=khDb.hienThiKH();
+					for(KhachHang x:arrKhachHang) {
+						String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
+						dm.addRow(row);
+					}
+					//set ô input về trống
+					txtMaK.setText("");
+					txtTenK.setText("");
+					txtDiaChi.setText("");
+					txtDienThoai.setText("");
+					txtEmail.setText("");
+					txtSoThe.setText("");
+					txtTaiKhoan.setText("");
+					cbQuan.setSelectedIndex(0);
+					txtMaK.setEditable(true);
+					txtSoThe.setEditable(true);
+					btnThem.setEnabled(true);
+				}			
 			}catch (Exception x){
 				JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
 			}
@@ -241,7 +241,8 @@ public class LayoutKH extends JFrame {
 		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			btnSua.setEnabled(false);
+			btnXoa.setEnabled(false);
 			String maK = txtMaK.getText();
 			khDb.xoaKhachHang(maK);
 			int row;
@@ -259,6 +260,9 @@ public class LayoutKH extends JFrame {
 			txtSoThe.setText("");
 			txtTaiKhoan.setText("");
 			cbQuan.setSelectedIndex(0);
+			txtMaK.setEditable(true);
+			txtSoThe.setEditable(true);
+			btnThem.setEnabled(true);
 		}
 	};
 	
@@ -272,13 +276,10 @@ public class LayoutKH extends JFrame {
 			btnXoa.setEnabled(false);
 			btnThem.setEnabled(true);
 			btnHuy.setEnabled(true);
-			//đưa bảng về trống và in ra theo arrKhachHang
-			dm.setRowCount(0);
-			for(KhachHang x:arrKhachHang) {
-				String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
-				dm.addRow(row);
-			}
+			
 			//sự kiện huỷ đưa các ô JTextField về trống
+			txtMaK.setEditable(true);
+			txtSoThe.setEditable(true);
 			txtMaK.setText("");
 			txtTenK.setText("");
 			txtDiaChi.setText("");
@@ -323,7 +324,6 @@ public class LayoutKH extends JFrame {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void addControll() {
-		// TODO Auto-generated method stub
 		Container con = getContentPane();
 		JPanel pnMain= new JPanel();
 		pnMain.setLayout(new BorderLayout());

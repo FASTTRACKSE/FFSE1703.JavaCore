@@ -72,7 +72,7 @@ public class LayoutGiaoDich extends JPanel{
 			int key= cbQuan.getSelectedIndex();
 			arrDiaChi= diachiDb.hienThiPhuong(key);
 			cbPhuong.removeAllItems();
-			cbPhuong.addItem("Chọn phường");
+			cbPhuong.addItem("Tất cả");
 			for(String x:arrDiaChi) {
 				cbPhuong.addItem(x);
 				
@@ -172,7 +172,7 @@ public class LayoutGiaoDich extends JPanel{
 		cbQuan = new JComboBox();
 		cbQuan.setPreferredSize(new Dimension(165, 20));
 		arrDiaChi = diachiDb.hienThiQuan();
-		cbQuan.addItem("Chọn Quận");
+		cbQuan.addItem("Tất cả");
 		for(String x: arrDiaChi) {
 			cbQuan.addItem(x);
 		}
@@ -185,7 +185,7 @@ public class LayoutGiaoDich extends JPanel{
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
 		cbPhuong = new JComboBox();
-		cbPhuong.addItem("Chọn phường");
+		cbPhuong.addItem("Tất Cả");
 		cbPhuong.setPreferredSize(new Dimension(165, 20));
 		
 		pnPhuong.add(lblPhuong);
