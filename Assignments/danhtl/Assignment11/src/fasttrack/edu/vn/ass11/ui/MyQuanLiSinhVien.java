@@ -13,9 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -80,6 +77,7 @@ public class MyQuanLiSinhVien extends JFrame {
 
 		JPanel pnContent1 = new JPanel();
 		JLabel lblContent1 = new JLabel("Chọn Lớp :");
+		
 		select = new JComboBox(Item);
 		pnContent1.add(lblContent1);
 		pnContent1.add(select);
