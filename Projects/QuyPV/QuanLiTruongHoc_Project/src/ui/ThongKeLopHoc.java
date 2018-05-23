@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,6 +35,7 @@ public class ThongKeLopHoc extends JPanel {
 	public JComboBox cboNamHoc;
 	private DefaultTableModel dm;
 	private JTable tbLop;
+	private JButton btnThoat;
 	private QuanLiLopHoc_Statement quanLiLopHocStatement = new QuanLiLopHoc_Statement();
 	private ThongKeLopHocStatement thongKeLopHocStatement = new ThongKeLopHocStatement();
 	private ArrayList<QuanLiLopHoc_Model> arrLopHoc = new ArrayList<>();
@@ -76,8 +79,9 @@ public class ThongKeLopHoc extends JPanel {
 		JScrollPane sc = new JScrollPane(tbLop);
 		JPanel phanNut = new JPanel();
 		phanNut.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		JButton btnThoat = new JButton("Thoát");
-		btnThoat.setPreferredSize(new Dimension(100, 30));
+		ImageIcon imgBtnThoat = new ImageIcon(getClass().getResource("/images/btn_thoat.png"));
+		btnThoat = new JButton("Thoát", imgBtnThoat);
+		btnThoat.setPreferredSize(new Dimension(110, 30));
 		
 		
 		phanTimKiem.add(namHoc);
@@ -100,6 +104,7 @@ public class ThongKeLopHoc extends JPanel {
 	
 	private void addEvents() {
 		cboNamHoc.addActionListener(cboNamHocEvents);
+		btnThoat.addActionListener(btnThoatEvents);
 	}
 	
 	ActionListener cboNamHocEvents = new ActionListener() {
@@ -124,6 +129,18 @@ public class ThongKeLopHoc extends JPanel {
 			}
 			//String  soLuongSinhVien = String.valueOf(quanLiLopHocStatement.demSoSinhVien(maLop));
 			
+			
+		}
+	};
+	
+	ActionListener btnThoatEvents = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int chose = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?", "Xóa", JOptionPane.YES_NO_OPTION);
+			if(chose == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
 			
 		}
 	};
