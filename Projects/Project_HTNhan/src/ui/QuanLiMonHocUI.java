@@ -23,12 +23,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import model.DistrictModel;
-import model.ProvinceModel;
+
 import model.QuanLiMonHocModel;
 import model.QuanLiMonHocSQL;
-import model.QuanLiSinhVienModel;
-import model.WardModel;
+
 
 public class QuanLiMonHocUI extends JPanel {
 	/**
@@ -37,7 +35,7 @@ public class QuanLiMonHocUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private String maMH, tenMH, tinChiMH, thoiGianMH;
 	private JTextField txtmaMh, txttenMh, txttinchiMh, txtthoigianMh;
-	private JButton btnThem, btnSua, btnXoa, btnThoat, btnThemMoi;
+	private JButton btnThem, btnSua, btnXoa, btnThemMoi;
 	private DefaultTableModel dm;
 	private JTable tbl;
 	private ArrayList<QuanLiMonHocModel> arrMonHoc = new ArrayList<>();
@@ -56,7 +54,7 @@ public class QuanLiMonHocUI extends JPanel {
 		JPanel pnlMonHocInput = new JPanel();
 		JPanel pnlMonHocTable = new JPanel();
 		// INPUT
-		Border border = BorderFactory.createLineBorder(Color.RED);
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Nhập Thông Tin Môn Học");
 		pnlMonHocInput.setBorder(borderTitle);
 		//
@@ -95,24 +93,25 @@ public class QuanLiMonHocUI extends JPanel {
 		// button
 		JPanel btn = new JPanel();
 		btnThem = new JButton("Thêm");
+		btnThem.setBackground(Color.GRAY);
 		btnThem.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThem);
 		btnSua = new JButton("Sửa");
+		btnSua.setBackground(Color.GRAY);
 		btnSua.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnSua);
 		btnXoa = new JButton("Xóa");
+		btnXoa.setBackground(Color.GRAY);
 		btnXoa.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnXoa);
-		btnThoat = new JButton("Thoát");
-		btnThoat.setPreferredSize(new Dimension(70, 30));
-		btn.add(btnThoat);
-		btnThemMoi = new JButton("Thêm Mới");
+		btnThemMoi = new JButton("Hủy");
+		btnThemMoi.setBackground(Color.GRAY);
 		btnThemMoi.setPreferredSize(new Dimension(95, 30));
 		btn.add(btnThemMoi);
 		pnlMonHocInput.add(btn);
 		// TABLE
 
-		Border border1 = BorderFactory.createLineBorder(Color.RED);
+		Border border1 = BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle1 = BorderFactory.createTitledBorder(border1, "Danh Sách Môn Học");
 		pnlMonHocTable.setBorder(borderTitle1);
 
@@ -168,6 +167,7 @@ public class QuanLiMonHocUI extends JPanel {
 					//
 					//
 					txtmaMh.setEditable(false);
+					btnThem.setEnabled(false);
 					int row = tbl.getSelectedRow();
 					String value = tbl.getValueAt(row, 0).toString();
 					for (QuanLiMonHocModel x : arrMonHoc) {
@@ -188,59 +188,66 @@ public class QuanLiMonHocUI extends JPanel {
 	public void addEvents() {
 		btnThem.addActionListener(eventThem);
 		btnThemMoi.addActionListener(eventThemMoi);
-		btnThoat.addActionListener(eventThoat);
+
 		btnSua.addActionListener(eventSua);
 		btnXoa.addActionListener(eventXoa);
 	}
 
-	ActionListener eventThoat = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.exit(0);
-
-		}
-	};
 	ActionListener eventThem = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (txtmaMh.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Mã Môn Học !!!");
-			} else if (txttenMh.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Tên Môn Học !!!");
-			} else if (txtthoigianMh.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Thời Gian Môn Học!!!");
-			} else if (txttinchiMh.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Số Tín Chỉ Môn Học!!!");
-			} else {
-				int ktMaMH = 0;
-				maMH = txtmaMh.getText();
-				tenMH = txttenMh.getText();
-				tinChiMH = txttinchiMh.getText();
-				thoiGianMH = txtthoigianMh.getText();
-
-				for (QuanLiMonHocModel x : arrMonHoc) {
-					if (maMH.equals(x.getMaMH())) {
-						ktMaMH = 1;
-					}
-				}
-				if (ktMaMH > 0) {
-					JOptionPane.showMessageDialog(null, "Môn Đã Tồn Tại !!");
+			try {
+				String maMH = txtmaMh.getText();
+				String tenMH = txttenMh.getText();
+				String thoigianMH = txtthoigianMh.getText();
+				String tinchiMH = txttinchiMh.getText();
+				@SuppressWarnings("unused")
+				int thoigian = Integer.parseInt(thoigianMH);
+				@SuppressWarnings("unused")
+				int tinchi = Integer.parseInt(tinchiMH);
+				if (maMH.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Mã Môn Học !!!");
+				} else if (tenMH.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Tên Môn Học !!!");
+				} else if (thoigianMH.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Thời Gian Môn Học!!!");
+				} else if (tinchiMH.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Phải Nhập Số Tín Chỉ Môn Học!!!");
 				} else {
-					quanLiMonHocSQL.insert(maMH, tenMH, tinChiMH, thoiGianMH);
-					dm.setRowCount(0);
+					int ktMaMH = 0;
+					maMH = txtmaMh.getText();
+					tenMH = txttenMh.getText();
+					tinChiMH = txttinchiMh.getText();
+					thoiGianMH = txtthoigianMh.getText();
+
 					for (QuanLiMonHocModel x : arrMonHoc) {
-						String row[] = { x.getMaMH(), x.getTenMH(), x.getThoiGianMH(), x.getTinChiMH() };
-						dm.addRow(row);
+						if (maMH.equals(x.getMaMH())) {
+							ktMaMH = 1;
+						}
 					}
+					if (ktMaMH > 0) {
+						JOptionPane.showMessageDialog(null, "Môn Đã Tồn Tại !!");
+					} else {
+						quanLiMonHocSQL.insert(maMH, tenMH, tinChiMH, thoiGianMH);
+						dm.setRowCount(0);
+						for (QuanLiMonHocModel x : arrMonHoc) {
+							String row[] = { x.getMaMH(), x.getTenMH(), x.getThoiGianMH(), x.getTinChiMH() };
+							dm.addRow(row);
+						}
+					}
+					txtmaMh.setText("");
+					txttenMh.setText("");
+					txtthoigianMh.setText("");
+					txttinchiMh.setText("");
 				}
-				txtmaMh.setText("");
-				txttenMh.setText("");
-				txtthoigianMh.setText("");
-				txttinchiMh.setText("");
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Tín Chỉ Và Thời Gian Bạn phải nhập số");
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 		}
+
 	};
 	ActionListener eventThemMoi = new ActionListener() {
 
@@ -251,7 +258,7 @@ public class QuanLiMonHocUI extends JPanel {
 			txttenMh.setText("");
 			txtthoigianMh.setText("");
 			txttinchiMh.setText("");
-
+			btnThem.setEnabled(true);
 		}
 	};
 	ActionListener eventSua = new ActionListener() {

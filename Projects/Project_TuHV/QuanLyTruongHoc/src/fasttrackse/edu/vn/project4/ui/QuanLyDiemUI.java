@@ -210,6 +210,21 @@ public class QuanLyDiemUI extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int KT = 0;
+			try {
+				Double.parseDouble(diem.getText());
+			} catch (NumberFormatException ex) {
+				KT = 1;
+			}
+			
+			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+			if (KT == 1) {
+				JOptionPane.showMessageDialog(null, "Bạn nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if ((Double.parseDouble(diem.getText())) > 10 || (Double.parseDouble(diem.getText())) < 0) {
+				JOptionPane.showMessageDialog(null, "Nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
 			
 			for (Diem x : arrDiem) {
 				if (((String)maSV.getSelectedItem()).equals(x.getMaSV()) && ((String)maMonHoc.getSelectedItem()).equals(x.getMaMH())) {
@@ -218,7 +233,7 @@ public class QuanLyDiemUI extends JPanel {
 					break;
 				}
 			}
-			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+		
 			try {
 				String sql = "UPDATE quan_ly_diem SET diem ='" + diem.getText() + "',ma_lop_hoc ='"
 						+((String) maLopHoc.getSelectedItem()) + "' WHERE ma_mon_hoc = '" + ((String)maMonHoc.getSelectedItem())
@@ -230,6 +245,7 @@ public class QuanLyDiemUI extends JPanel {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
+			}
 			}
 			dm_diem.setRowCount(0);
 			

@@ -240,22 +240,31 @@ public class MonHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (MonHoc x : arrMH) {
-				if (MaMH.getText().equals(x.getMaMH())) {
-					arrMH.remove(x);
-					break;
-				}
-			}
+			String ma_MonHoc = MaMH.getText();
+			String ten_MonHoc = TenMH.getText();
+			String tinchi_MonHoc = Tinchi.getText();
+			String time_MonHoc = Time.getText();
+
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-			try {
-				String sql = "DELETE FROM table_monhoc WHERE MaMH = '" + MaMH.getText() + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+			if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("") || time_MonHoc.equals("")) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa có thông tin cần xóa", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					for (MonHoc x : arrMH) {
+						if (MaMH.getText().equals(x.getMaMH())) {
+							arrMH.remove(x);
+							break;
+						}
+					}
+					String sql = "DELETE FROM table_monhoc WHERE MaMH = '" + MaMH.getText() + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 			dm_MonHoc.setRowCount(0);
 			for (MonHoc x : arrMH) {
@@ -275,25 +284,34 @@ public class MonHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (MonHoc x : arrMH) {
-				if (MaMH.getText().equals(x.getMaMH())) {
-					x.setTenMH(TenMH.getText());
-					x.setTinChi(Tinchi.getText());
-					x.setTime(Time.getText());
-					break;
-				}
-			}
+			String ma_MonHoc = MaMH.getText();
+			String ten_MonHoc = TenMH.getText();
+			String tinchi_MonHoc = Tinchi.getText();
+			String time_MonHoc = Time.getText();
+
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-			try {
-				String sql = "UPDATE table_monhoc SET TenMH ='" + TenMH.getText() + "',STC ='" + Tinchi.getText()
-						+ "',ThoiGian ='" + Time.getText() + "' WHERE MaMH = '" + MaMH.getText() + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+			if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("") || time_MonHoc.equals("")) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa có thông tin cần sửa", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					for (MonHoc x : arrMH) {
+						if (MaMH.getText().equals(x.getMaMH())) {
+							x.setTenMH(TenMH.getText());
+							x.setTinChi(Tinchi.getText());
+							x.setTime(Time.getText());
+							break;
+						}
+					}
+					String sql = "UPDATE table_monhoc SET TenMH ='" + TenMH.getText() + "',STC ='" + Tinchi.getText()
+							+ "',ThoiGian ='" + Time.getText() + "' WHERE MaMH = '" + MaMH.getText() + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 			dm_MonHoc.setRowCount(0);
 			for (MonHoc x : arrMH) {

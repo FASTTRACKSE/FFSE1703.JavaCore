@@ -82,6 +82,8 @@ public class ThongKeLopHocUI extends JPanel {
 		dm.addColumn("Lớp học");
 		dm.addColumn("Tổng số sinh viên");
 		
+		btnSort.setPreferredSize(new Dimension(100, 27));
+		
 		JLabel labelNamHoc = new JLabel("Chọn năm học:");
 		
 		pnCBbox.add(labelNamHoc);

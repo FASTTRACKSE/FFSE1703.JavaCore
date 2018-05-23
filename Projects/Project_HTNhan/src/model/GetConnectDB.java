@@ -5,8 +5,6 @@ import java.util.Properties;
 import org.gjt.mm.mysql.Driver;
 
 import com.mysql.jdbc.Connection;
-
-import main.*;
 public class GetConnectDB {
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;

@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -54,6 +55,8 @@ public class Layout extends JFrame {
 		super(title);
 		addControls();
 		addEvent();
+
+		showDS();
 	}
 
 	public void addControls() {
@@ -171,31 +174,30 @@ public class Layout extends JFrame {
 			String studate = txtDate.getText();
 			String lop = cbo.getSelectedItem().toString();
 			int kt = 0;
+			
 			for (SinhVien x : arrSinhVien) {
+				System.out.println("mã từ arr " + x.gettxtMaSV());
 				if (stuma.equals(x.gettxtMaSV())) {
 					kt = 1;
+					break;
 				}
 			}
 			try {
 				if (stuma.isEmpty() || stuname.isEmpty() || studate.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ!!");
-				} else if (kt > 0) {
+				} else if (kt == 1) {
 					JOptionPane.showMessageDialog(null, "Sinh viên đã tồn tại!!");
 
 				} else if (lop == "All") {
 					JOptionPane.showMessageDialog(null, "Bạn phải chọn lớp!!");
 				} else {
 					// arrSinhVien.add(new SinhVien(stuma, stuname, studate, lop));
-					try {
-						String sql = "insert into SinhVien values(null,'" + stuma + "','" + stuname + "','" + studate
-								+ "','" + lop + "')";
-						Statement statement = (Statement) conn.createStatement();
-						int x = statement.executeUpdate(sql);
-						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Lưu OK");
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
+					String sql = "insert into SinhVien values(null,'" + stuma + "','" + stuname + "','" + studate
+							+ "','" + lop + "')";
+					Statement statement = (Statement) conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x > 0) {
+						JOptionPane.showMessageDialog(null, "Lưu OK");
 					}
 					for (int i = (arrSinhVien.size() - 1); i < arrSinhVien.size(); i++) {
 						String[] row = { arrSinhVien.get(i).gettxtMaSV(), arrSinhVien.get(i).gettxtName(),
@@ -205,8 +207,9 @@ public class Layout extends JFrame {
 
 				}
 			} catch (Exception ex) {
-
+				ex.printStackTrace();
 			}
+			showDS();
 		}
 
 	};
@@ -225,19 +228,12 @@ public class Layout extends JFrame {
 	MouseAdapter chonHang = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			int col = tbl.getSelectedRow();
-			String[] row = new String[3];
-			row[0] = tbl.getValueAt(col, 0).toString();
-			row[1] = tbl.getValueAt(col, 1).toString();
-			row[2] = tbl.getValueAt(col, 2).toString();
+			System.out.println("hàng " + col);
+			System.out.println("cột " + tbl.getSelectedColumn());
 			txtMaSV.setEditable(false);
-			txtMaSV.setText(row[0]);
-			txtName.setText(row[1]);
-			txtDate.setText(row[2]);
-			for (int i = 0; i < arrSinhVien.size(); i++) {
-				if (row[0].equals(arrSinhVien.get(i).gettxtMaSV())) {
-					stt = i;
-				}
-			}
+			txtMaSV.setText(tbl.getValueAt(col, 0).toString());
+			txtName.setText(tbl.getValueAt(col, 1).toString());
+			txtDate.setText(tbl.getValueAt(col, 2).toString());
 
 		}
 	};
@@ -261,6 +257,7 @@ public class Layout extends JFrame {
 					try {
 						String sql = "update SinhVien set Masv='" + stuma + "', Tensv='" + stuname + "',Tuoi=" + studate
 								+ " where Masv='" + stuma + "'";
+						System.out.println(sql);
 						Statement statement = (Statement) conn.createStatement();
 						int x = statement.executeUpdate(sql);
 						if (x > 0) {
@@ -269,26 +266,12 @@ public class Layout extends JFrame {
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-					dm.setRowCount(0);
-					if (lop == "All") {
-						for (SinhVien x : arrSinhVien) {
-							String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
-							dm.addRow(row);
-
-						}
-					} else {
-						for (SinhVien x : arrSinhVien) {
-							if (lop.equals(x.gettxtLop())) {
-								String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
-								dm.addRow(row);
-							}
-						}
-					}
 
 				}
 			} catch (Exception ex) {
 
 			}
+			showDS();
 		}
 	};
 	ActionListener chonLop = new ActionListener() {
@@ -296,23 +279,26 @@ public class Layout extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			arrSinhVien.removeAll(arrSinhVien);
-			txtMaSV.setText("");
-			txtDate.setText("");
-			txtName.setText("");
-			String lop = cbo.getSelectedItem().toString();
+			showDS();
+		}
 
+	};
+
+	private void showDS() {
+		arrSinhVien.removeAll(arrSinhVien);
+		txtMaSV.setText("");
+		txtDate.setText("");
+		txtName.setText("");
+		String lop = cbo.getSelectedItem().toString();
+
+		try {
 			dm.setRowCount(0);
 			if (lop == "All") {
-				try {
-					Statement statement = (Statement) conn.createStatement();
-					ResultSet result = statement.executeQuery("select * from SinhVien");
-					while (result.next()) {
-						arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
-								result.getString("Tuoi"), result.getString("Lop")));
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				Statement statement = (Statement) conn.createStatement();
+				ResultSet result = statement.executeQuery("select * from SinhVien");
+				while (result.next()) {
+					arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
+							result.getString("Tuoi"), result.getString("Lop")));
 				}
 				for (SinhVien x : arrSinhVien) {
 					String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
@@ -320,16 +306,13 @@ public class Layout extends JFrame {
 
 				}
 			} else {
-				try {
-					Statement statement = (Statement) conn.createStatement();
-					ResultSet result = statement.executeQuery("select * from SinhVien where Lop='" + lop + "'");
-					while (result.next()) {
-						arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
-								result.getString("Tuoi"), result.getString("Lop")));
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				Statement statement = (Statement) conn.createStatement();
+				ResultSet result = statement.executeQuery("select * from SinhVien where Lop='" + lop + "'");
+				while (result.next()) {
+					arrSinhVien.add(new SinhVien(result.getString("Masv"), result.getString("Tensv"),
+							result.getString("Tuoi"), result.getString("Lop")));
 				}
+
 				for (SinhVien x : arrSinhVien) {
 					if (lop.equals(x.gettxtLop())) {
 						String[] row = { x.gettxtMaSV(), x.gettxtName(), x.gettxtDate(), x.gettxtLop() };
@@ -337,30 +320,33 @@ public class Layout extends JFrame {
 					}
 				}
 			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-
-	};
+		System.out.println("số phần tử arr là: " + arrSinhVien.size());
+	}
 
 	ActionListener xoa = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			int row = tbl.getSelectedRow();
-			String stuma = (String) dm.getValueAt(row, 0);
-			String lop = cbo.getSelectedItem().toString();
 			try {
+				int row = tbl.getSelectedRow();
+				String stuma = (String) dm.getValueAt(row, 0);
+				String lop = (String) dm.getValueAt(row, 3);
 				String sql = "delete from SinhVien where Masv='" + stuma + "'and Lop='" + lop + "'";
-				Statement statement = (Statement) conn.createStatement();
+				Statement statement;
+				statement = (Statement) conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x > 0) {
 					JOptionPane.showMessageDialog(null, "Xóa OK");
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				dm.removeRow(row);
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, "Xóa thất bại");
+				e1.printStackTrace();
 			}
-
-			dm.removeRow(row);
 		}
 	};
 	ActionListener thoat = new ActionListener() {
