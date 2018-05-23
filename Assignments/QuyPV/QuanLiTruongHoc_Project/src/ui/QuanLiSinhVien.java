@@ -391,7 +391,6 @@ public class QuanLiSinhVien extends JPanel {
 				String quanHuyen = cboQuanHuyen.getSelectedItem().toString();
 				String phuong = cboPhuong.getSelectedItem().toString();
 				String dienThoai = textDienthoai.getText();
-				int soDienthoai = Integer.parseInt(dienThoai);
 				String email = textEmail.getText();
 				String maLop = cboMaLop.getSelectedItem().toString();
 				
@@ -417,7 +416,10 @@ public class QuanLiSinhVien extends JPanel {
 					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Email ");
 				}else if(!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", textEmail.getText()))){
 					JOptionPane.showMessageDialog(null, "Email nhập chưa đúng dạng. Vui lòng nhập lại");
-				} else {
+				}else if(!(Pattern.matches("^\\+?[0-9. ()-]{10,25}$", textDienthoai.getText()))){
+					JOptionPane.showMessageDialog(null, "Số điện thoại phải nhập đúng dạng");
+				}
+				else {
 						for(QuanLiSinhVien_Model x : arrSinhVien) {
 							if(maSv.equals(x.getMaSV())) {
 								kt = "Trùng";
@@ -446,9 +448,6 @@ public class QuanLiSinhVien extends JPanel {
 					
 				}
 			} 
-			catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "Vui lòng nhập số điện thoại đúng dạng");
-			}
 			catch (Exception ex) {
 				System.out.println(ex);
 			}
@@ -493,6 +492,8 @@ public class QuanLiSinhVien extends JPanel {
 					JOptionPane.showMessageDialog(null, "Vui lòng Nhập mã Email ");
 				}else if(!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", textEmail.getText()))){
 					JOptionPane.showMessageDialog(null, "Email nhập chưa đúng dạng. Vui lòng nhập lại");
+				}else if(!(Pattern.matches("^\\+?[0-9. ()-]{10,25}$", textDienthoai.getText()))){
+					JOptionPane.showMessageDialog(null, "Số điện thoại phải nhập đúng dạng");
 				} else {
 						quanLiSinhVienStatement.updateSv(maSv, hoTen, diaChi, phuong, quanHuyen, tinhThanh, dienThoai, email, maLop);
 						selectAllSinhVien();

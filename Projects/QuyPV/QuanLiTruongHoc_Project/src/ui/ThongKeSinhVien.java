@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,6 +36,7 @@ public class ThongKeSinhVien extends JPanel {
 	public JComboBox cboNamHoc, cboMaLop;
 	public DefaultTableModel dm;
 	private JTable tbSinhVien;
+	private JButton btnThoat;
 	private ThongKeSinhVien_Statement thongKeSinhVienStatement = new ThongKeSinhVien_Statement();
 	private ArrayList<String> arrNamHoc = new ArrayList<>();
 	private ArrayList<QuanLiLopHoc_Model> arrMaLop = new ArrayList<>();
@@ -85,8 +88,9 @@ public class ThongKeSinhVien extends JPanel {
 		JScrollPane sc = new JScrollPane(tbSinhVien);
 		JPanel phanNut = new JPanel();
 		phanNut.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		JButton btnThoat = new JButton("Thoát");
-		btnThoat.setPreferredSize(new Dimension(100, 30));
+		ImageIcon imgBtnThoat = new ImageIcon(getClass().getResource("/images/btn_thoat.png"));
+		btnThoat = new JButton("Thoát", imgBtnThoat);
+		btnThoat.setPreferredSize(new Dimension(110, 30));
 		
 		
 		phanTimKiem.add(namHoc);
@@ -113,6 +117,7 @@ public class ThongKeSinhVien extends JPanel {
 	private void addEvents() {
 		cboNamHoc.addActionListener(cboNamHocEvents);
 		cboMaLop.addActionListener(cboMaLopEvents);
+		btnThoat.addActionListener(btnThoatEvents);
 	}
 	
 	
@@ -198,6 +203,17 @@ public class ThongKeSinhVien extends JPanel {
 				}
 				
 				
+			}
+		}
+	};
+	
+	ActionListener btnThoatEvents = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int chose = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?", "Xóa", JOptionPane.YES_NO_OPTION);
+			if(chose == JOptionPane.YES_OPTION) {
+				System.exit(0);
 			}
 		}
 	};
