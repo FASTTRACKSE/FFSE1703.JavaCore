@@ -192,6 +192,18 @@ public class QuanLyLopHocUI extends JPanel {
 	ActionListener Add = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int kt = 0;
+			@SuppressWarnings("unused")
+			String lop = malop.getText();
+			String mota = tenlop.getText();
+			@SuppressWarnings("unused")
+			String chonNam = namhoc.getText();
+			for (LopHoc x : arrLH) {
+				if (malop.getText().equals(x.getMalop()) && mota.equals(x.getTenlop())) {
+					kt = 2;
+					break;
+				}
+			}
 
 			String ma = malop.getText();
 			String ten = tenlop.getText();
@@ -199,28 +211,32 @@ public class QuanLyLopHocUI extends JPanel {
 			try {
 				if (ma.equals("") || ten.equals("") || nam.equals("")) {
 					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin cho sinh viên");
+				}  else if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "ĐÃ TỒN TẠI", null, JOptionPane.WARNING_MESSAGE);
+
+				
+
 				} else {
 					arrLH.add(new LopHoc(ma, ten, nam));
 					dm_lophoc.addRow(new String[] { ma, ten, nam });
+					Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+					try {
+
+						String sql = "INSERT INTO Quan_ly_lop_hoc( ma_lop, mo_ta, nam_hoc) VALUES ('" + ma + "','" + ten + "','"
+								+ nam + "')";
+						Statement statement = (Statement) conn.createStatement();
+						int x = statement.executeUpdate(sql);
+						if (x > 0) {
+							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			;
-
-			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
-			try {
-
-				String sql = "INSERT INTO Quan_ly_lop_hoc( ma_lop, mo_ta, nam_hoc) VALUES ('" + ma + "','" + ten + "','"
-						+ nam + "')";
-				Statement statement = (Statement) conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x > 0) {
-					JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			
 			malop.setText("");
 			tenlop.setText("");
 			namhoc.setText("");
@@ -233,6 +249,22 @@ public class QuanLyLopHocUI extends JPanel {
 	ActionListener eventEdit = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int ktTonTai = 0;
+			int kt = 0;
+			String mota = tenlop.getText();
+			String chonNam = namhoc.getText();
+			for (int i = 0; i < arrLH.size(); i++) {
+				if (malop.getText().equals(arrLH.get(i).getMalop())) {
+					ktTonTai = 1;
+				}
+			}
+			for (LopHoc x : arrLH) {
+				if (malop.getText().equals(x.getMalop()) && mota.equals(x.getTenlop())
+						&& chonNam.equals(x.getNamhoc())) {
+					kt = 2;
+					break;
+				}
+			}
 
 			for (LopHoc x : arrLH) {
 				if (malop.getText().equals(x.getMalop())) {
@@ -242,6 +274,18 @@ public class QuanLyLopHocUI extends JPanel {
 					break;
 				}
 			}
+			try {
+				if (malop.getText().equals("") || tenlop.getText().equals("")
+						|| namhoc.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if (ktTonTai < 1) {
+					JOptionPane.showMessageDialog(null, "LỚP KHÔNG ĐỰC SỮA,HÃY THÊM MỚI", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "HÃY SỮA THÔNG TIN", null, JOptionPane.WARNING_MESSAGE);
+
+				} else {
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
 				String sql = "UPDATE Quan_ly_lop_hoc SET mo_ta ='" + tenlop.getText() + "',nam_hoc ='"
@@ -260,6 +304,11 @@ public class QuanLyLopHocUI extends JPanel {
 				dm_lophoc.addRow(row);
 			}
 
+		
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 
 	};
@@ -268,12 +317,21 @@ public class QuanLyLopHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			int kt = 0;
 			for (LopHoc x : arrLH) {
 				if (malop.getText().equals(x.getMalop())) {
 					arrLH.remove(x);
+					kt = 2;
 					break;
 				}
 			}
+			if (tenlop.getText().isEmpty() || malop.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if (kt < 1) {
+				JOptionPane.showMessageDialog(null, "THÔNG TIN LỚP HỌC CHƯA ĐƯỢC XÓA", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
 				String sql = "DELETE FROM quan_ly_lop_hoc WHERE ma_lop = '" + malop.getText() + "'";
@@ -290,7 +348,7 @@ public class QuanLyLopHocUI extends JPanel {
 				String[] row = { x.getMalop(), x.getTenlop(), x.getNamhoc() };
 				dm_lophoc.addRow(row);
 			}
-
+			}
 		}
 
 	};
@@ -304,7 +362,7 @@ public class QuanLyLopHocUI extends JPanel {
 			tenlop.setText("");
 			namhoc.setText("");
 		}
-
+	
 	};
 
 }

@@ -428,7 +428,7 @@ public class ThongKeBaoCaoUI extends JPanel {
 						String sSQLAllStudents = "" + 
 								"SELECT quan_ly_sinh_vien.ma_sinh_vien,SUM(CASE WHEN ma_mon_hoc = 'LP0' THEN diem ELSE 0 END) AS LP0,\r\n" + 
 								"							   SUM(CASE WHEN ma_mon_hoc = 'LP1' THEN diem ELSE 0 END) AS LP1,\r\n" + 
-								"							   SUM(CASE WHEN ma_mon_hoc = 'Lp2' THEN diem ELSE 0 END) AS LP2,\r\n" + 
+								"							   SUM(CASE WHEN ma_mon_hoc = 'LP2' THEN diem ELSE 0 END) AS LP2,\r\n" + 
 								"							   SUM(CASE WHEN ma_mon_hoc = 'LP3' THEN diem ELSE 0 END) AS LP3,\r\n" + 
 								"							   SUM(CASE WHEN ma_mon_hoc = 'LP4' THEN diem ELSE 0 END) AS LP4,\r\n" + 
 								"							   SUM(CASE WHEN ma_mon_hoc = 'LP5' THEN diem ELSE 0 END) AS LP5,\r\n" + 

@@ -93,15 +93,19 @@ public class QuanLiMonHocUI extends JPanel {
 		// button
 		JPanel btn = new JPanel();
 		btnThem = new JButton("Thêm");
+		btnThem.setBackground(Color.GRAY);
 		btnThem.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThem);
 		btnSua = new JButton("Sửa");
+		btnSua.setBackground(Color.GRAY);
 		btnSua.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnSua);
 		btnXoa = new JButton("Xóa");
+		btnXoa.setBackground(Color.GRAY);
 		btnXoa.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnXoa);
-		btnThemMoi = new JButton("Thêm Mới");
+		btnThemMoi = new JButton("Hủy");
+		btnThemMoi.setBackground(Color.GRAY);
 		btnThemMoi.setPreferredSize(new Dimension(95, 30));
 		btn.add(btnThemMoi);
 		pnlMonHocInput.add(btn);
@@ -163,6 +167,7 @@ public class QuanLiMonHocUI extends JPanel {
 					//
 					//
 					txtmaMh.setEditable(false);
+					btnThem.setEnabled(false);
 					int row = tbl.getSelectedRow();
 					String value = tbl.getValueAt(row, 0).toString();
 					for (QuanLiMonHocModel x : arrMonHoc) {
@@ -253,7 +258,7 @@ public class QuanLiMonHocUI extends JPanel {
 			txttenMh.setText("");
 			txtthoigianMh.setText("");
 			txttinchiMh.setText("");
-
+			btnThem.setEnabled(true);
 		}
 	};
 	ActionListener eventSua = new ActionListener() {
