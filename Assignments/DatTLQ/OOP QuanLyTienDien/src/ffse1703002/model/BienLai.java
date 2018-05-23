@@ -1,31 +1,44 @@
-package ffse1703002.model;
+ 	package ffse1703002.model;
 
 public class BienLai extends KhachHang {
 	public float chiSoCu,chiSoMoi;
-	public String thangChuKy,namChuKy;
+	public String maCT,ngayNhap,chuKy;
 	
 	public BienLai() {
 		super();
 	}
-	public BienLai(String tenKH, String maKH, String diaChi, String maCongTo,float chiSoCu,float chiSoMoi,String thangChuKy, String namChuKy) {
-		super(tenKH, maKH, diaChi, maCongTo);
-		this.chiSoCu=chiSoCu;
-		this.chiSoMoi=chiSoMoi;
-		this.thangChuKy=thangChuKy;
-		this.namChuKy=namChuKy;
-	}
 	
-	public String getThangChuKy() {
-		return thangChuKy;
+	
+	public BienLai(String maCT, String ngayNhap, String chuKy,float chiSoCu, float chiSoMoi) {
+		super();
+		this.maCT = maCT;
+		this.chiSoCu = chiSoCu;
+		this.chiSoMoi = chiSoMoi;
+		this.ngayNhap = ngayNhap;
+		this.chuKy = chuKy;
 	}
-	public void setThangChuKy(String thangChuKy) {
-		this.thangChuKy = thangChuKy;
+
+	public String getMaCT() {
+		return maCT;
 	}
-	public String getNamChuKy() {
-		return namChuKy;
+
+
+	public void setMaCT(String maCT) {
+		this.maCT = maCT;
 	}
-	public void setNamChuKy(String namChuKy) {
-		this.namChuKy = namChuKy;
+
+
+	public String getNgayNhap() {
+		return ngayNhap;
+	}
+	public void setNgayNhap(String ngayNhap) {
+		this.ngayNhap = ngayNhap;
+	}
+	public String getChuKy() {
+		return chuKy;
+	}
+	public void setChuKy(String chuKy) {
+		this.chuKy = chuKy;
 	}
 	
 	public float tienDien() {
@@ -47,6 +60,6 @@ public class BienLai extends KhachHang {
 		return String.format("| %-20s | %-20s | %-15s | %-15s | %-15s | %-15s | %-15s | %-10s |%-10s |",
 				this.getTenKH(), this.getDiaChi(), this.getMaKH(),
 				this.getMaCongTo(),this.getChiSoCu(), this.getChiSoMoi(),
-				this.getThangChuKy(),this.getNamChuKy(), this.tienDien());
+				this.getNgayNhap(),this.getChuKy(), this.tienDien());
 	}
 }

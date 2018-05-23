@@ -96,15 +96,19 @@ public class QuanLiLopHocUI extends JPanel {
 
 		JPanel btn = new JPanel();
 		btnThem = new JButton("Thêm");
+		btnThem.setBackground(Color.GRAY);
 		btnThem.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnThem);
 		btnSua = new JButton("Sửa");
+		btnSua.setBackground(Color.GRAY);
 		btnSua.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnSua);
 		btnXoa = new JButton("Xóa");
+		btnXoa.setBackground(Color.GRAY);
 		btnXoa.setPreferredSize(new Dimension(70, 30));
 		btn.add(btnXoa);
-		btnThemMoi = new JButton("Thêm Mới");
+		btnThemMoi = new JButton("Hủy");
+		btnThemMoi.setBackground(Color.GRAY);
 		btnThemMoi.setPreferredSize(new Dimension(220, 30));
 		btn.add(btnThemMoi);
 		pnlLopHocInput.add(btn);
@@ -158,6 +162,7 @@ public class QuanLiLopHocUI extends JPanel {
 					//
 					//
 					txtmaLop.setEditable(false);
+					btnThem.setEnabled(false);
 					int row = tblLopHoc.getSelectedRow();
 					String value = tblLopHoc.getValueAt(row, 0).toString();
 					for (QuanLiLopHocModel x : arrLopHoc) {
@@ -186,7 +191,9 @@ public class QuanLiLopHocUI extends JPanel {
 		cboChonMon = new JComboBox();
 
 		btnThemMon = new JButton("Thêm Môn");
+		btnThemMon.setBackground(Color.GRAY);
 		btnXoaMon = new JButton("Xóa Môn");
+		btnXoaMon.setBackground(Color.GRAY);
 		chonMon.add(lblchonMon);
 		chonMon.add(cboChonMon);
 		chonMon.add(btnThemMon);
@@ -314,6 +321,7 @@ public class QuanLiLopHocUI extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			
 			txtmaLop.setEditable(true);
+			btnThem.setEnabled(true);
 			txtmaLop.setText("");
 			txttenLop.setText("");
 			txtnamHoc.setText("");
