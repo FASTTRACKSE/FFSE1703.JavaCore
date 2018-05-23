@@ -34,24 +34,23 @@ public class QuanLi extends JFrame {
 	QuanLiDiem tabQuanLiDiem;
 	ThongKeLopHoc tabThongKeLopHoc;
 	ThongKeSinhVien tabThongKeSinhVien;
+
 	public QuanLi() {
 		super();
 	}
-	
+
 	public QuanLi(String title) {
 		super(title);
 		addControls();
 		addEvents();
 	}
-	
+
 	public void addControls() {
 		Container con = getContentPane();
 
 		JPanel boxMain = new JPanel();
-		boxMain.setLayout(new BoxLayout(boxMain, BoxLayout.X_AXIS ));
-		
+		boxMain.setLayout(new BoxLayout(boxMain, BoxLayout.X_AXIS));
 
-		
 		myTab = new JTabbedPane();
 		tabQuanLiSinhVien = new QuanLiSinhVien();
 		tabQuanLiMonHoc = new QuanLiMonHoc();
@@ -59,7 +58,7 @@ public class QuanLi extends JFrame {
 		tabQuanLiDiem = new QuanLiDiem();
 		tabThongKeLopHoc = new ThongKeLopHoc();
 		tabThongKeSinhVien = new ThongKeSinhVien();
-		
+
 		myTab.add("Quản lí sinh viên", tabQuanLiSinhVien);
 		myTab.add("Quản lí môn học", tabQuanLiMonHoc);
 		myTab.add("Quản lí lớp học", tabQuanLiLopHoc);
@@ -67,56 +66,65 @@ public class QuanLi extends JFrame {
 		myTab.add("Thống kê lớp học", tabThongKeLopHoc);
 		myTab.add("Thống kê sinh viên", tabThongKeSinhVien);
 		boxMain.add(myTab);
-		
+
 		con.add(boxMain);
-		
-		
+
 	}
-	
+
 	public void addEvents() {
 		myTab.addChangeListener(new SelectedTab());
 	}
-	
+
 	public void showWindown() {
-		this.setSize(1100,900);
+		this.setSize(1300, 900);
 		this.setVisible(true);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+
+		// set size tab
+		double wid = (myTab.getSize().width) / (myTab.getTabCount() + 2.74);
+		for (int i = 0; i < myTab.getTabCount(); i++) {
+			String name = myTab.getTitleAt(i);
+			myTab.setTitleAt(i, "<html><div style='width: " + wid
+					+ "px; height: 20px; font-size: 10px; text-align: center'><p style='vertical-align: middle; margin-top: 4px'>"
+					+ name + "</p></div></html>");
+		}
 	}
-	
-	private class SelectedTab implements ChangeListener{
+
+	private class SelectedTab implements ChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			int choose = myTab.getSelectedIndex();
 			switch (choose) {
 			case 0:
-//				tabQuanLiSinhVien = new QuanLiSinhVien();
-//				myTab.setComponentAt(0, tabQuanLiSinhVien);
-//				break;
+				// tabQuanLiSinhVien = new QuanLiSinhVien();
+				// myTab.setComponentAt(0, tabQuanLiSinhVien);
+				// break;
 				tabQuanLiSinhVien.addItemMaLop();
 				break;
 			case 2:
-//				tabQuanLiLopHoc = new QuanLiLopHoc();
-//				myTab.setComponentAt(2, tabQuanLiLopHoc);
+				// tabQuanLiLopHoc = new QuanLiLopHoc();
+				// myTab.setComponentAt(2, tabQuanLiLopHoc);
 				tabQuanLiLopHoc.addItemMonHoc();
 				break;
 			case 3:
-//				tabQuanLiDiem = new QuanLiDiem();
-//				myTab.setComponentAt(3, tabQuanLiDiem);
+				// tabQuanLiDiem = new QuanLiDiem();
+				// myTab.setComponentAt(3, tabQuanLiDiem);
 				tabQuanLiDiem.addItemMaLop();
 				break;
 			case 4:
-//				tabThongKeLopHoc = new ThongKeLopHoc();
-//				myTab.setComponentAt(4, tabThongKeLopHoc);
+				// tabThongKeLopHoc = new ThongKeLopHoc();
+				// myTab.setComponentAt(4, tabThongKeLopHoc);
 				tabThongKeLopHoc.addItemNamHoc();
 				break;
 			case 5:
-//				tabThongKeSinhVien = new ThongKeSinhVien();
-//				myTab.setComponentAt(5, tabThongKeSinhVien);
+				// tabThongKeSinhVien = new ThongKeSinhVien();
+				// myTab.setComponentAt(5, tabThongKeSinhVien);
 				tabThongKeSinhVien.addItemNamHoc();
 				break;
 			}
 		}
-		
+
 	}
 }

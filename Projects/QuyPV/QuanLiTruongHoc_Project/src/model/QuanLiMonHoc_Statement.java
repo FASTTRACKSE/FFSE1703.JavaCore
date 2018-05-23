@@ -34,7 +34,7 @@ public class QuanLiMonHoc_Statement {
 	
 	public void insertMonHoc(String maMon, String tenMon, String soTinChi, String thoiLuong) {
 		try {
-			String sql = "insert into Mon_hoc values('"+0+"','"+maMon+"', '"+tenMon+"', '"+soTinChi+"','"+thoiLuong+"')";
+			String sql = "insert into Mon_hoc values('"+0+"','"+maMon+"', '"+tenMon+"', '"+soTinChi+"','"+thoiLuong+" giờ"+"')";
 			Statement statement = conn.createStatement();
 			int x=statement.executeUpdate(sql);
 			if(x>0) {
@@ -50,7 +50,7 @@ public class QuanLiMonHoc_Statement {
 	public void updateMonHoc(String maMon, String tenMon, String soTinChi, String thoiLuong  ) {
 		try
 		{
-			String sql="update Mon_hoc set Tenmon='" + tenMon + "', SoTinChi='"+ soTinChi +  "', Thoiluong='" + thoiLuong + "' where Mamon='" + maMon +"'";
+			String sql="update Mon_hoc set Tenmon='" + tenMon + "', SoTinChi='"+ soTinChi +  "', Thoiluong='" + thoiLuong + " giờ" + "' where Mamon='" + maMon +"'";
 			Statement statement = conn.createStatement();
 			int y=statement.executeUpdate(sql);
 			if(y>0){

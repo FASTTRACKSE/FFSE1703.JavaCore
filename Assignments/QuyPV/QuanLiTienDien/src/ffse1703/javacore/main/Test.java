@@ -1,6 +1,6 @@
-package ffse1702010.edu.vn.ui;
+package ffse1703.javacore.main;
 
-public class QuanLyDiem {
+public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

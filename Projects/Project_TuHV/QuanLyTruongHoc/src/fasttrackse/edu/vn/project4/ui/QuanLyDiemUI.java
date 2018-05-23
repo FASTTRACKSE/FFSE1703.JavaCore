@@ -64,8 +64,6 @@ public class QuanLyDiemUI extends JPanel {
 
 	private JPanel pnCenter1 = new JPanel();
 
-	
-	
 	private JButton btnSuadiem = new JButton("Sửa");
 
 	@SuppressWarnings("unused")
@@ -93,8 +91,8 @@ public class QuanLyDiemUI extends JPanel {
 		JPanel pnbutton1 = new JPanel();
 		pnbutton1.setLayout(new FlowLayout());
 
-//		pnbutton1.add(btnThemdiem);
-//		pnbutton1.add(btnSuadiem);
+		// pnbutton1.add(btnThemdiem);
+		// pnbutton1.add(btnSuadiem);
 		pnCenter1.add(pnbutton1);
 
 		JPanel pnCombo1 = new JPanel();
@@ -142,7 +140,7 @@ public class QuanLyDiemUI extends JPanel {
 			ResultSet result = statement.executeQuery("SELECT * FROM Quan_ly_diem");
 			while (result.next()) {
 				arrDiem.add(new Diem(result.getString("ma_mon_hoc"), result.getString("ma_sinh_vien"),
-						result.getString("diem"),result.getString("ma_lop_hoc")));
+						result.getString("diem"), result.getString("ma_lop_hoc")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,7 +153,7 @@ public class QuanLyDiemUI extends JPanel {
 
 		tbl_diem = new JTable(dm_diem);
 		JScrollPane sc1 = new JScrollPane(tbl_diem);
-		
+
 		sc1.setPreferredSize(new Dimension(1170, 520));
 		pnTable1.add(sc1, BorderLayout.CENTER);
 		pnCenter1.add(pnTable1);
@@ -169,7 +167,7 @@ public class QuanLyDiemUI extends JPanel {
 	public void addEvent() {
 		// chọn mã MH, tên MH..
 		maLopHoc.addActionListener(eventChooseLop);
-		 maMonHoc.addActionListener(eventChooseMonHoc);
+		maMonHoc.addActionListener(eventChooseMonHoc);
 		tbl_diem.addMouseListener(eventTable_NhapDiem);
 		btnSuadiem.addActionListener(eventEdit_NhapDiem);
 	}
@@ -207,32 +205,49 @@ public class QuanLyDiemUI extends JPanel {
 
 	ActionListener eventEdit_NhapDiem = new ActionListener() {
 
-		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
-			for (Diem x : arrDiem) {
-				if (((String)maSV.getSelectedItem()).equals(x.getMaSV()) && ((String)maMonHoc.getSelectedItem()).equals(x.getMaMH())) {
-					x.setMalophoc((String) maLopHoc.getSelectedItem());
-					x.setDiem(diem.getText());
-					break;
-				}
-			}
-			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+			int KT = 0;
 			try {
-				String sql = "UPDATE quan_ly_diem SET diem ='" + diem.getText() + "',ma_lop_hoc ='"
-						+((String) maLopHoc.getSelectedItem()) + "' WHERE ma_mon_hoc = '" + ((String)maMonHoc.getSelectedItem())
-						+ "' AND ma_sinh_vien ='" + ((String)maSV.getSelectedItem()) + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+				Double.parseDouble(diem.getText());
+			} catch (NumberFormatException ex) {
+				KT = 1;
+			}
+
+			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
+			if (KT == 1) {
+				JOptionPane.showMessageDialog(null, "Bạn nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else if ((Double.parseDouble(diem.getText())) > 10 || (Double.parseDouble(diem.getText())) < 0) {
+				JOptionPane.showMessageDialog(null, "Nhập sai điểm sinh viên vui lòng nhập lại!!", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+
+				for (Diem x : arrDiem) {
+					if (((String) maSV.getSelectedItem()).equals(x.getMaSV())
+							&& ((String) maMonHoc.getSelectedItem()).equals(x.getMaMH())) {
+						x.setMalophoc((String) maLopHoc.getSelectedItem());
+						x.setDiem(diem.getText());
+						break;
+					}
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+
+				try {
+					String sql = "UPDATE quan_ly_diem SET diem ='" + diem.getText() + "',ma_lop_hoc ='"
+							+ ((String) maLopHoc.getSelectedItem()) + "' WHERE ma_mon_hoc = '"
+							+ ((String) maMonHoc.getSelectedItem()) + "' AND ma_sinh_vien ='"
+							+ ((String) maSV.getSelectedItem()) + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 			dm_diem.setRowCount(0);
-			
+
 			for (Diem x : arrDiem) {
 				String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
 				dm_diem.addRow(row);
@@ -246,11 +261,11 @@ public class QuanLyDiemUI extends JPanel {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
+
 			String chonLop = (String) maLopHoc.getSelectedItem();
 			System.out.println(chonLop);
 			dm_diem.setRowCount(0);
-			
+
 			for (Diem x : arrDiem) {
 				if (chonLop.equals(x.getMalophoc())) {
 					String[] row = { x.getMalophoc(), x.getMaMH(), x.getMaSV(), x.getDiem() };
@@ -262,7 +277,8 @@ public class QuanLyDiemUI extends JPanel {
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
 				Statement statement = conn.createStatement();
-				ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
+				ResultSet result = statement
+						.executeQuery("SELECT * FROM quan_ly_mon_hoc_cho_lop WHERE ma_lop ='" + chonLop + "'");
 				while (result.next()) {
 					maMonHoc.addItem(new String(result.getString("ma_mon_hoc")));
 				}
@@ -280,7 +296,7 @@ public class QuanLyDiemUI extends JPanel {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
+
 			int i = maMonHoc.getSelectedIndex();
 			if (i >= 0) {
 				String chonLop = (String) maLopHoc.getSelectedItem();
@@ -291,7 +307,8 @@ public class QuanLyDiemUI extends JPanel {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				try {
 					Statement statement = conn.createStatement();
-					ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_diem WHERE ma_lop_hoc ='" + chonLop + "'AND ma_mon_hoc = '"+chonMH+"'");
+					ResultSet result = statement.executeQuery("SELECT * FROM quan_ly_diem WHERE ma_lop_hoc ='" + chonLop
+							+ "'AND ma_mon_hoc = '" + chonMH + "'");
 					while (result.next()) {
 						maSV.addItem(new String(result.getString("ma_sinh_vien")));
 					}
