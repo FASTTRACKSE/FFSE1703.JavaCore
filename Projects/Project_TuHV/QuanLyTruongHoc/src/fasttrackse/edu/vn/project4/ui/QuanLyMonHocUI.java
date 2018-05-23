@@ -162,10 +162,9 @@ public class QuanLyMonHocUI extends JPanel {
 
 			tbl_monhoc = new JTable(dm_monhoc);
 			JScrollPane sc3 = new JScrollPane(tbl_monhoc);
-			JScrollPane VT3 = new JScrollPane(sc3, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			VT3.setPreferredSize(new Dimension(1170, 520));
-			pnTable3.add(VT3, BorderLayout.CENTER);
+			
+			sc3.setPreferredSize(new Dimension(1170, 520));
+			pnTable3.add(sc3, BorderLayout.CENTER);
 			pnCenter3.add(pnTable3);
 
 			Border border3 = BorderFactory.createLineBorder(Color.blue);
@@ -214,16 +213,27 @@ public class QuanLyMonHocUI extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				boolean kt = false;
 
 				String ma_MonHoc = mamonhoc.getText();
 				String ten_MonHoc = tenmonhoc.getText();
 				String tinchi_MonHoc = soTC.getText();
 				String time_MonHoc = thoiluong.getText();
-
+				for (MonHoc x : arrMH) {
+					
+					if (ma_MonHoc.equals(x.getMaMH()) || ten_MonHoc.equals(x.getTenMH())) {
+						kt = true;
+						break;
+					}
+				}
+				
 				try {
-					if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("")
-							|| time_MonHoc.equals("")) {
-						JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+					if (mamonhoc.getText().isEmpty() || tenmonhoc.getText().isEmpty() || soTC.getText().isEmpty() || thoiluong.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+								JOptionPane.WARNING_MESSAGE);
+					} else if (kt) {
+						JOptionPane.showMessageDialog(null, "MÔN HỌC ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
+
 					} else {
 						arrMH.add(new MonHoc(ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc));
 						dm_monhoc.addRow(new String[] { ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc });
@@ -256,12 +266,23 @@ public class QuanLyMonHocUI extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				int kt = 0;
 				for (MonHoc x : arrMH) {
 					if (mamonhoc.getText().equals(x.getMaMH())) {
+						kt = 2;
 						arrMH.remove(x);
 						break;
 					}
 				}
+				if (mamonhoc.getText().isEmpty() || tenmonhoc.getText().isEmpty()
+						|| soTC.getText().isEmpty() || thoiluong.getText().isEmpty()) {
+
+					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if (kt < 1) {
+					JOptionPane.showMessageDialog(null, "THÔNG TIN MÔN HỌC CHƯA XÓA ĐƯỢC", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				try {
 					String sql = "DELETE FROM quan_ly_mon_hoc WHERE ma_mon_hoc = '" + mamonhoc.getText() + "'";
@@ -279,6 +300,7 @@ public class QuanLyMonHocUI extends JPanel {
 					dm_monhoc.addRow(row);
 				}
 			}
+			}
 
 		};
 
@@ -287,14 +309,41 @@ public class QuanLyMonHocUI extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				int ktTonTai = 0;
+				int kt = 0;
+				@SuppressWarnings("unused")
+				String tenMonHoc = tenmonhoc.getText();
+				@SuppressWarnings("unused")
+				String thoiLuongHoc = thoiluong.getText();
+				@SuppressWarnings("unused")
+				Integer tinChi1 = Integer.valueOf(soTC.getText());
+
+				for (int i = 0; i < arrMH.size(); i++) {
+					if (mamonhoc.getText().equals(arrMH.get(i).getMaMH())) {
+						ktTonTai = 1;
+					}
+				}
 				for (MonHoc x : arrMH) {
 					if (mamonhoc.getText().equals(x.getMaMH())) {
 						x.setTenMH(tenmonhoc.getText());
 						x.setSoTC(soTC.getText());
 						x.setThoiluonghoc(thoiluong.getText());
+						kt = 2;
 						break;
 					}
 				}
+				try {
+					if (mamonhoc.getText().isEmpty() || tenmonhoc.getText().isEmpty()
+							|| soTC.getText().isEmpty() || thoiluong.getText().isEmpty()) {
+
+						JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+								JOptionPane.WARNING_MESSAGE);
+					} else if (ktTonTai < 1) {
+						JOptionPane.showMessageDialog(null, "MÃ MÔN HỌC KHÔNG ĐƯỢC SỮA,HÃY THÊM MỚI", null,
+								JOptionPane.WARNING_MESSAGE);
+					} else if (kt == 2) {
+						JOptionPane.showMessageDialog(null, "HÃY SỮA THÔNG TIN", null, JOptionPane.WARNING_MESSAGE);
+					} else {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				try {
 					String sql = "UPDATE quan_ly_mon_hoc SET ten ='" + tenmonhoc.getText() + "',so_tin_chi ='"
@@ -308,11 +357,16 @@ public class QuanLyMonHocUI extends JPanel {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
+				}
 				dm_monhoc.setRowCount(0);
 				for (MonHoc x : arrMH) {
 					String[] row = { x.getMaMH(), x.getTenMH(), x.getSoTC(), x.getThoiluonghoc() };
 					dm_monhoc.addRow(row);
 				}
+				}catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "BẠN CẦN NHẬP THÔNG TIN SINH VIÊN");
+				}
+					
 			}
 		};
 

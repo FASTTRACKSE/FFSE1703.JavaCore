@@ -6,7 +6,7 @@ import connector.GetConnect;
 
 public class DiemTrungBinh_Model {
 	private String maSv, diemTb, xepLoai;
-	final Connection conn= (new GetConnect()).getConnect("localhost", "Quan_li_truong_hoc", "phamquy481", "a0163763123");
+	
 	public DiemTrungBinh_Model() {
 		//
 	}

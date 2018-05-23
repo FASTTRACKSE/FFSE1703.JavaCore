@@ -1,7 +1,7 @@
 package ass11.java.model;
 import java.util.Scanner;
-import java.io.Serializable;
-public class SinhVien implements Serializable {
+
+public class SinhVien  {
 	public String txtName;
 	public String txtDate;
 	public String txtMaSV;

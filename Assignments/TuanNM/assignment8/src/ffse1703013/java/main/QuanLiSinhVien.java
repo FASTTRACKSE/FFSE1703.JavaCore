@@ -2,7 +2,6 @@ package ffse1703013.java.main;
 
 import java.util.Scanner;
 import ffse1703013.java.io.*;
-import ffse1703013.java.modle.*;
 
 import ffse1703013.java.modle.SinhVien;
 import java.util.Collections;

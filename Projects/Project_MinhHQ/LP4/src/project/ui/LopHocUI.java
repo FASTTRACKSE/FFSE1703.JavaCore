@@ -150,7 +150,8 @@ public class LopHocUI extends JPanel {
 		namhoc.addActionListener(eventChooseNH);
 
 	}
-	//Chọn năm học
+
+	// Chọn năm học
 	ActionListener eventChooseNH = new ActionListener() {
 
 		@Override
@@ -160,21 +161,19 @@ public class LopHocUI extends JPanel {
 			dm_LopHoc.setRowCount(0);
 
 			for (LopHoc x : arrLH) {
-				if(chonNH.equals("Chọn năm học")) {
-				String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc() };
-				dm_LopHoc.addRow(row);
-				} else if(chonNH.equals(x.getNamHoc())) {
+				if (chonNH.equals("Chọn năm học")) {
 					String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc() };
 					dm_LopHoc.addRow(row);
-					}
+				} else if (chonNH.equals(x.getNamHoc())) {
+					String[] row = { x.getMaLop(), x.getTenLop(), x.getNamHoc() };
+					dm_LopHoc.addRow(row);
+				}
 			}
 		}
 	};
-	
-	
-	
-	//Kết thúc chọn năm học
-	
+
+	// Kết thúc chọn năm học
+
 	// CRUD Lớp Học
 
 	MouseAdapter eventTable_LopHoc = new MouseAdapter() {
@@ -245,22 +244,29 @@ public class LopHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (LopHoc x : arrLH) {
-				if (MaLH.getText().equals(x.getMaLop())) {
-					arrLH.remove(x);
-					break;
-				}
-			}
+			String ma_LopHoc = MaLH.getText();
+			String ten_LopHoc = TenLH.getText();
+			String nam_LopHoc = NamHoc.getText();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-			try {
-				String sql = "DELETE FROM lophoc WHERE MaLop = '" + MaLH.getText() + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+			if (ma_LopHoc.equals("") || ten_LopHoc.equals("") || nam_LopHoc.equals("")) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa có thông tin cần xóa", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					for (LopHoc x : arrLH) {
+						if (MaLH.getText().equals(x.getMaLop())) {
+							arrLH.remove(x);
+							break;
+						}
+					}
+					String sql = "DELETE FROM lophoc WHERE MaLop = '" + MaLH.getText() + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 			dm_LopHoc.setRowCount(0);
 			for (LopHoc x : arrLH) {
@@ -279,24 +285,31 @@ public class LopHocUI extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			for (LopHoc x : arrLH) {
-				if (MaLH.getText().equals(x.getMaLop())) {
-					x.setTenLop(TenLH.getText());
-					x.setNamHoc(NamHoc.getText());
-					break;
-				}
-			}
+			String ma_LopHoc = MaLH.getText();
+			String ten_LopHoc = TenLH.getText();
+			String nam_LopHoc = NamHoc.getText();
 			Connection conn = Connect.getConnect("localhost", "minhad", "minhad", "minh");
-			try {
-				String sql = "UPDATE lophoc SET TenLop ='" + TenLH.getText() + "',NamHoc ='" + NamHoc.getText()
-						+ "' WHERE MaLop = '" + MaLH.getText() + "'";
-				Statement statement = conn.createStatement();
-				int x = statement.executeUpdate(sql);
-				if (x >= 0) {
-					JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+			if (ma_LopHoc.equals("") || ten_LopHoc.equals("") || nam_LopHoc.equals("")) {
+				JOptionPane.showMessageDialog(null, "Bạn chưa có thông tin cần sửa", null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					for (LopHoc x : arrLH) {
+						if (MaLH.getText().equals(x.getMaLop())) {
+							x.setTenLop(TenLH.getText());
+							x.setNamHoc(NamHoc.getText());
+							break;
+						}
+					}
+					String sql = "UPDATE lophoc SET TenLop ='" + TenLH.getText() + "',NamHoc ='" + NamHoc.getText()
+							+ "' WHERE MaLop = '" + MaLH.getText() + "'";
+					Statement statement = conn.createStatement();
+					int x = statement.executeUpdate(sql);
+					if (x >= 0) {
+						JOptionPane.showMessageDialog(null, "Đã sửa thông tin sinh viên");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
 			dm_LopHoc.setRowCount(0);
 			for (LopHoc x : arrLH) {

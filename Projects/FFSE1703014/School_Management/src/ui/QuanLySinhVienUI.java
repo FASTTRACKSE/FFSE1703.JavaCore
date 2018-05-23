@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -123,7 +124,6 @@ public class QuanLySinhVienUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = tableSV.getSelectedRow();
-			txtMaSV.setEnabled(false);
 			txtMaSV.setText(dm.getValueAt(row, 0).toString());
 			txtTenSV.setText(dm.getValueAt(row, 1).toString());
 			txtDiaChi.setText(dm.getValueAt(row, 2).toString());
@@ -133,6 +133,7 @@ public class QuanLySinhVienUI extends JPanel {
 			cbHuyen.setSelectedItem(dm.getValueAt(row, 4).toString());
 			cbXa.setSelectedItem(dm.getValueAt(row, 3).toString());
 			cbLop.setSelectedItem(dm.getValueAt(row, 8).toString());
+			disableEnable();
 		}
 	};
 	ActionListener getSelectSV = new ActionListener() {
@@ -224,6 +225,8 @@ public class QuanLySinhVienUI extends JPanel {
 			lop = cbLop.getSelectedItem().toString();
 			if (maSV.isEmpty() || tenSV.isEmpty() || diaChi.isEmpty() || tinhTP == "Chọn tỉnh/thành phố" || quanHuyen == "Chọn quận/huyện" || xaPhuong == "Chọn xã/phường" || sdt.isEmpty() || email.isEmpty() || lop == "Chon lop") {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+			} else if (isValid(email) == false) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập lại địa chỉ email");
 			} else {
 				try {
 					Statement statement =  connection.createStatement();
@@ -266,20 +269,24 @@ public class QuanLySinhVienUI extends JPanel {
 			sdt = txtSDT.getText();
 			email = txtEmail.getText();
 			lop = cbLop.getSelectedItem().toString();
-			try {
-				String sql = "update sinhvien set TenSV ='" + tenSV + "',DiaChi ='" + diaChi + "',XaPhuong ='"+ xaPhuong + "',QuanHuyen ='"+quanHuyen+ "',TinhTP ='"+tinhTP+ "',Phone ='"+sdt+ "',Email ='"+email+ "',LopHoc ='"+lop+ "' where MaSV ='" + maSV + "'";
-				Statement statements = (Statement) connection.createStatement();
-				int y = statements.executeUpdate(sql);
-				if (y > 0) {
-					reset();
-					JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thành công!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thất bại!");
+			if (isValid(email) == false) {
+					JOptionPane.showMessageDialog(null, "Vui lòng nhập lại địa chỉ email");
+			} else {
+				try {
+					String sql = "update sinhvien set TenSV ='" + tenSV + "',DiaChi ='" + diaChi + "',XaPhuong ='"+ xaPhuong + "',QuanHuyen ='"+quanHuyen+ "',TinhTP ='"+tinhTP+ "',Phone ='"+sdt+ "',Email ='"+email+ "',LopHoc ='"+lop+ "' where MaSV ='" + maSV + "'";
+					Statement statements = (Statement) connection.createStatement();
+					int y = statements.executeUpdate(sql);
+					if (y > 0) {
+						reset();
+						JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thành công!");
+					} else {
+						JOptionPane.showMessageDialog(null, "Cập nhật thông tin sinh viên thất bại!");
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				getRowTable();
 			}
-			getRowTable();
 		}
 	};
 	ActionListener XoaSV = new ActionListener() {
@@ -296,6 +303,7 @@ public class QuanLySinhVienUI extends JPanel {
 						Statement statement = (Statement) connection.createStatement();
 						int x = statement.executeUpdate(sql);
 						if (x > 0) {
+							reset();
 							JOptionPane.showMessageDialog(null, "Xóa sinh viên thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Xóa sinh viên thất bại!");
@@ -422,6 +430,8 @@ public class QuanLySinhVienUI extends JPanel {
 		pnMain.add(pnCRUD);
 		pnMain.add(pnTable);
 		this.add(pnMain);
+		
+		reset();
 	}
 	public void getRowTable() {
 		dm.setRowCount(0);
@@ -441,6 +451,10 @@ public class QuanLySinhVienUI extends JPanel {
 	}
 	public void reset() {
 		txtMaSV.setEnabled(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
+		btnThem.setEnabled(true);
 		txtMaSV.setText("");
 		txtTenSV.setText("");
 		txtDiaChi.setText("");
@@ -451,6 +465,21 @@ public class QuanLySinhVienUI extends JPanel {
 		txtEmail.setText("");
 		cbLop.setSelectedItem("Chọn lớp");
 	}
+	public void disableEnable() {
+		txtMaSV.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
+		btnThem.setEnabled(false);
+	}
+	public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@" +"(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";                      
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd) {
 		Connection conn = null;
 		String strConnect = "jdbc:mysql://" + strServer + "/" + strDatabase+"?useUnicode=true&characterEncoding=UTF-8";
