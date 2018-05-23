@@ -5,11 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-
-
 public class DatabaseDiaChi {
-	final static Connection conn = ConnectDatabase.getConnect("localhost", "FFSE1703013_ATM", "tuan18081999", "tuan123");
+	final static Connection conn = ConnectDatabase.getConnect("localhost", "FFSE1703013_ATM", "tuan18081999",
+			"tuan123");
 
 	public static ArrayList<ComboItem> getQuan() {
 		ArrayList<ComboItem> arrDiaChi = new ArrayList<ComboItem>();
@@ -22,14 +20,15 @@ public class DatabaseDiaChi {
 				item.setName(rs.getString(1));
 				item.setId(rs.getInt(2));
 				arrDiaChi.add(item);
-			} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return arrDiaChi;
 
 	}
+
 	public static ArrayList<ComboItem> getQuanTK() {
 		ArrayList<ComboItem> arrDiaChi = new ArrayList<ComboItem>();
 		try {
@@ -41,18 +40,19 @@ public class DatabaseDiaChi {
 				item.setName(rs.getString(1));
 				item.setId(rs.getInt(2));
 				arrDiaChi.add(item);
-			} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return arrDiaChi;
 
 	}
+
 	public static ArrayList<ComboItem> getPhuonng(int id) {
 		ArrayList<ComboItem> arrDiaChi = new ArrayList<ComboItem>();
 		try {
-			String sql = "SELECT name,maqh from phuong WHERE maqh = "+id;
+			String sql = "SELECT name,maqh from phuong WHERE maqh = " + id;
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
@@ -60,13 +60,13 @@ public class DatabaseDiaChi {
 				item.setName(rs.getString(1));
 				item.setId(rs.getInt(2));
 				arrDiaChi.add(item);
-			} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return arrDiaChi;
 
 	}
-	
+
 }

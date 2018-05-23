@@ -66,7 +66,7 @@ public class DatabaseGiaoDich {
 
 			@SuppressWarnings("unused")
 			int x = statement.executeUpdate(sql);
-		
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -94,28 +94,25 @@ public class DatabaseGiaoDich {
 
 			@SuppressWarnings("unused")
 			int x = statement.executeUpdate(sql);
-			if(x>0)
-			{
-			JOptionPane.showMessageDialog(null, "Đổi mã pin thành công");
+			if (x > 0) {
+				JOptionPane.showMessageDialog(null, "Đổi mã pin thành công");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	public void insertGiaoDich(String maGD,String soThe,String soTien,String maMay) {
-		try
-		{
-		String sql = "INSERT INTO `giaodich`(`maGD`, `soTheATM`, `soTien`, `maMay`) VALUES "
-				+ "('"+maGD+"','"+soThe+"','"+soTien+"','"+maMay+"')";
-		Statement statement= (Statement) conn.createStatement();
-		int x=statement.executeUpdate(sql);
-		if(x>0)
-		{
-		JOptionPane.showMessageDialog(null, "Giao dịch thành công");
-		}
-		}
-		catch(Exception ex){
-		ex.printStackTrace();
+
+	public void insertGiaoDich(String maGD, String soThe, String soTien, String maMay) {
+		try {
+			String sql = "INSERT INTO `giaodich`(`maGD`, `soTheATM`, `soTien`, `maMay`) VALUES " + "('" + maGD + "','"
+					+ soThe + "','" + soTien + "','" + maMay + "')";
+			Statement statement = (Statement) conn.createStatement();
+			int x = statement.executeUpdate(sql);
+			if (x > 0) {
+				JOptionPane.showMessageDialog(null, "Giao dịch thành công");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }

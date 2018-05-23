@@ -218,7 +218,7 @@ public class LayoutATM extends JPanel {
 
 			try {
 				int ktTonTai = 0;
-				int ktNhapTien =0 ;
+				int ktNhapTien = 0;
 				int soTien = 0;
 				String maATM = txtMaMay.getText();
 				String duongPho = txtDuongPho.getText();
@@ -233,40 +233,39 @@ public class LayoutATM extends JPanel {
 				try {
 					soTien = Integer.parseInt(tongTien);
 				} catch (Exception ex) {
-					ktNhapTien = 1 ;
+					ktNhapTien = 1;
 				}
-				
-					if (maATM.isEmpty() || duongPho.isEmpty() || tongTien.isEmpty()) {
-						String msg = "Vui lòng nhập đầy đủ thông tin";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
 
-					} else if (ktTonTai > 0) {
-						String msg = "Mã máy ATM đã tồn tạ !!";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
+				if (maATM.isEmpty() || duongPho.isEmpty() || tongTien.isEmpty()) {
+					String msg = "Vui lòng nhập đầy đủ thông tin";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
 
-					} else if (ktNhapTien > 0) {
-						// throw new NullPointerException();
-						String msg = "Số tiền không được nhập kí tự !!";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					}else if (soTien > 1000000000) {
-						// throw new NullPointerException();
-						String msg = "Trong Máy ATM không quá  1,000,000,000 đ !!";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					}else if (soTien < 1000000) {
-						// throw new NullPointerException();
-						String msg = "Trong Máy ATM ít nhất 1,000,000 đ !!";
-						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						connectATM.insertATM(maATM, duongPho, phuong, quan, tongTien);
-						arrATM.clear();
-						duLieu();
-						txtMaMay.setText("");
-						txtDuongPho.setText("");
-						txtTongTien.setText("");
+				} else if (ktTonTai > 0) {
+					String msg = "Mã máy ATM đã tồn tạ !!";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
 
-					}
+				} else if (ktNhapTien > 0) {
+					// throw new NullPointerException();
+					String msg = "Số tiền không được nhập kí tự !!";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
+				} else if (soTien > 1000000000) {
+					// throw new NullPointerException();
+					String msg = "Trong Máy ATM không quá  1,000,000,000 đ !!";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
+				} else if (soTien < 1000000) {
+					// throw new NullPointerException();
+					String msg = "Trong Máy ATM ít nhất 1,000,000 đ !!";
+					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					connectATM.insertATM(maATM, duongPho, phuong, quan, tongTien);
+					arrATM.clear();
+					duLieu();
+					txtMaMay.setText("");
+					txtDuongPho.setText("");
+					txtTongTien.setText("");
 
-				
+				}
+
 			} catch (Exception ex) {
 
 			}
@@ -278,19 +277,19 @@ public class LayoutATM extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int ktNhapTien =0 ;
+			int ktNhapTien = 0;
 			int soTien = 0;
 			String maATM = txtMaMay.getText();
 			String duongPho = txtDuongPho.getText();
 			String tongTien = txtTongTien.getText();
 			String quan = cboQuan.getSelectedItem().toString();
 			String phuong = cboPhuong.getSelectedItem().toString();
-			
-			//kiểm tra số tiền không được nhập số
+
+			// kiểm tra số tiền không được nhập số
 			try {
 				soTien = Integer.parseInt(tongTien);
 			} catch (Exception ex) {
-				ktNhapTien = 1 ;
+				ktNhapTien = 1;
 			}
 
 			try {
@@ -299,11 +298,11 @@ public class LayoutATM extends JPanel {
 					String msg = "Vui lòng nhập đầy đủ thông tin";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập Thiếu", JOptionPane.INFORMATION_MESSAGE);
 
-				}else if (ktNhapTien > 0) {
+				} else if (ktNhapTien > 0) {
 					// throw new NullPointerException();
 					String msg = "Số tiền không được nhập kí tự !!";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
-				}else if (soTien < 1000000) {
+				} else if (soTien < 1000000) {
 					// throw new NullPointerException();
 					String msg = "Trong Máy ATM ít nhất 1,000,000 đ !!";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
@@ -392,7 +391,7 @@ public class LayoutATM extends JPanel {
 
 	public void searchTheoMa() {
 		String maATM1 = txtTimKiemMa.getText();
-		//arrATM = connectATM.searchATMTheoMa(maATM1);
+		// arrATM = connectATM.searchATMTheoMa(maATM1);
 
 		if (maATM1.isEmpty()) {
 			model.setRowCount(0);
@@ -400,12 +399,12 @@ public class LayoutATM extends JPanel {
 			duLieu();
 		} else {
 			for (ATM atm : arrATM) {
-				if(atm.getMaATM().toUpperCase().indexOf(maATM1.toUpperCase()) > -1) {
-				DecimalFormat formatter = new DecimalFormat("###,###,###");
-				String soTien = formatter.format(Integer.parseInt(atm.getTongTien())) + " VNĐ";
-				String[] row = { atm.getMaATM(),
-						atm.getDuongPho() + "," + atm.getPhuong() + "," + atm.getQuan(), soTien };
-				model.addRow(row);
+				if (atm.getMaATM().toUpperCase().indexOf(maATM1.toUpperCase()) > -1) {
+					DecimalFormat formatter = new DecimalFormat("###,###,###");
+					String soTien = formatter.format(Integer.parseInt(atm.getTongTien())) + " VNĐ";
+					String[] row = { atm.getMaATM(), atm.getDuongPho() + "," + atm.getPhuong() + "," + atm.getQuan(),
+							soTien };
+					model.addRow(row);
 				}
 			}
 		}
@@ -615,8 +614,7 @@ public class LayoutATM extends JPanel {
 
 			DecimalFormat formatter = new DecimalFormat("###,###,###");
 			String soTien = formatter.format(Integer.parseInt(atm.getTongTien())) + " VNĐ";
-			String[] row = { atm.getMaATM(),
-					atm.getDuongPho() + "," + atm.getPhuong() + "," + atm.getQuan(), soTien };
+			String[] row = { atm.getMaATM(), atm.getDuongPho() + "," + atm.getPhuong() + "," + atm.getQuan(), soTien };
 			model.addRow(row);
 		}
 	}

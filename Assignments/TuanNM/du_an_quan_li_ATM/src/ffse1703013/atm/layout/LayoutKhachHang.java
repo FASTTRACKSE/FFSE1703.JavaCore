@@ -211,6 +211,7 @@ public class LayoutKhachHang extends JPanel {
 
 			txtSoThe.setEditable(true);
 			txtMaKH.setEditable(true);
+			txtTK.setEditable(true);
 			buttonThem.setEnabled(true);
 			buttonSua.setEnabled(false);
 			buttonXoa.setEnabled(false);
@@ -925,12 +926,12 @@ public class LayoutKhachHang extends JPanel {
 		tblKhachHang.getColumnModel().getColumn(2).setPreferredWidth(250);
 		tblKhachHang.getColumnModel().getColumn(3).setPreferredWidth(150);
 		tblKhachHang.getColumnModel().getColumn(4).setPreferredWidth(80);
-		
+
 		JScrollPane scroll = new JScrollPane(tblKhachHang);
 		scroll.setOpaque(false);
 		scroll.getViewport().setOpaque(false);
 		scroll.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.decode("#191970")));
-		
+
 		pnTableKhachHang.setLayout(new BorderLayout());
 		pnTableKhachHang.add(scroll, BorderLayout.CENTER);
 		duLieu();
@@ -963,6 +964,7 @@ public class LayoutKhachHang extends JPanel {
 				/* Các trường không được sửa set enable false */
 				txtMaKH.setEditable(false);
 				txtSoThe.setEditable(false);
+				txtTK.setEditable(false);
 				buttonThem.setFocusable(false);
 				buttonSua.setEnabled(true);
 				buttonXoa.setEnabled(true);

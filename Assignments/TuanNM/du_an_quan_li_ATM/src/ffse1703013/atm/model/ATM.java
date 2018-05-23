@@ -3,47 +3,60 @@ package ffse1703013.atm.model;
 import java.util.Comparator;
 
 public class ATM {
-	private String maATM,duongPho,phuong, quan,tongTien;
+	private String maATM, duongPho, phuong, quan, tongTien;
+
 	public ATM() {
-		
+
 	}
-	public ATM(String maATM,String duongPho,String phuong,String quan,String tongTien) {
-		this.maATM =maATM;
+
+	public ATM(String maATM, String duongPho, String phuong, String quan, String tongTien) {
+		this.maATM = maATM;
 		this.duongPho = duongPho;
-		this.phuong =phuong;
+		this.phuong = phuong;
 		this.quan = quan;
-		this.tongTien= tongTien;
+		this.tongTien = tongTien;
 	}
+
 	public String getMaATM() {
 		return maATM;
 	}
+
 	public void setMaATM(String maATM) {
 		this.maATM = maATM;
 	}
+
 	public String getDuongPho() {
 		return duongPho;
 	}
+
 	public void setDuongPho(String duongPho) {
 		this.duongPho = duongPho;
 	}
+
 	public String getPhuong() {
 		return phuong;
 	}
+
 	public void setPhuong(String phuong) {
 		this.phuong = phuong;
 	}
+
 	public String getQuan() {
 		return quan;
 	}
+
 	public void setQuan(String quan) {
 		this.quan = quan;
 	}
+
 	public String getTongTien() {
 		return tongTien;
 	}
+
 	public void setTongTien(String tongTien) {
 		this.tongTien = tongTien;
 	}
+
 	public static Comparator<ATM> sortSoTien = new Comparator<ATM>() {
 
 		public int compare(ATM s1, ATM s2) {
@@ -71,5 +84,5 @@ public class ATM {
 		}
 
 	};
-	
+
 }

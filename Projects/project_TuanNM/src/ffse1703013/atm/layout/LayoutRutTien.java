@@ -42,10 +42,9 @@ public class LayoutRutTien extends JFrame {
 	private ArrayList<String> arrMaATM = new ArrayList<>();
 	private ArrayList<KhachHang> arrTT = new ArrayList<>();
 	private DatabaseGiaoDich connectGD = new DatabaseGiaoDich();
-	private JTextField txtMaKH, txtTenKH, txtDc, txtSoThe, txtSoTK, txtSoTien, txtSoTienRut,txtMaPin;
-	private JPasswordField txtKMCu,txtKMMoi,txtKMNhapLai;
-	private JButton btnSoTienRut,btnLuu;
-	
+	private JTextField txtMaKH, txtTenKH, txtDc, txtSoThe, txtSoTK, txtSoTien, txtSoTienRut, txtMaPin;
+	private JPasswordField txtKMCu, txtKMMoi, txtKMNhapLai;
+	private JButton btnSoTienRut, btnLuu;
 
 	public LayoutRutTien() {
 		addControll();
@@ -57,11 +56,13 @@ public class LayoutRutTien extends JFrame {
 		cboQuan.addActionListener(selectPhuong);
 		cboPhuong.addActionListener(selectDuongPho);
 		cboDuongPho.addActionListener(selectMayATM);
+		txtSoTienRut.addActionListener(rutTien);
 		btnSoTienRut.addActionListener(rutTien);
 		btnLuu.addActionListener(doiMaPin);
 	}
-	ActionListener doiMaPin= new ActionListener() {
-		
+
+	ActionListener doiMaPin = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			@SuppressWarnings("deprecation")
@@ -69,30 +70,25 @@ public class LayoutRutTien extends JFrame {
 			@SuppressWarnings("deprecation")
 			String mkMoi = txtKMMoi.getText();
 			@SuppressWarnings("deprecation")
-			String mkNhapLai= txtKMNhapLai.getText();
+			String mkNhapLai = txtKMNhapLai.getText();
 			String soThe = txtSoThe.getText();
 			String maPin = txtMaPin.getText();
 			try {
 				@SuppressWarnings("unused")
 				int ma = Integer.parseInt(mkNhapLai);
-			}catch(Exception ex) {
-				JOptionPane.showMessageDialog(null, "Mã Pin phải là số", "",
-						JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Mã Pin phải là số", "", JOptionPane.INFORMATION_MESSAGE);
 			}
-			
-			if (mkCu.isEmpty()||mkMoi.isEmpty()|| mkNhapLai.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ", "",
-						JOptionPane.INFORMATION_MESSAGE);
-			}else if (!mkCu.equals(maPin)) {
-				JOptionPane.showMessageDialog(null, "Mã pin cũ không đúng", "",
-						JOptionPane.INFORMATION_MESSAGE);
-			}else if (!mkMoi.equals(mkNhapLai)) {
-				JOptionPane.showMessageDialog(null, "Mã pin nhập lại chưa đúng", "",
-						JOptionPane.INFORMATION_MESSAGE);
-			}else if (mkNhapLai.length() != 6) {
-				JOptionPane.showMessageDialog(null, "Mã pin phải 6 Số", "",
-						JOptionPane.INFORMATION_MESSAGE);
-			}else {
+
+			if (mkCu.isEmpty() || mkMoi.isEmpty() || mkNhapLai.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ", "", JOptionPane.INFORMATION_MESSAGE);
+			} else if (!mkCu.equals(maPin)) {
+				JOptionPane.showMessageDialog(null, "Mã pin cũ không đúng", "", JOptionPane.INFORMATION_MESSAGE);
+			} else if (!mkMoi.equals(mkNhapLai)) {
+				JOptionPane.showMessageDialog(null, "Mã pin nhập lại chưa đúng", "", JOptionPane.INFORMATION_MESSAGE);
+			} else if (mkNhapLai.length() != 6) {
+				JOptionPane.showMessageDialog(null, "Mã pin phải 6 Số", "", JOptionPane.INFORMATION_MESSAGE);
+			} else {
 				connectGD.doiMaPin(soThe, mkNhapLai);
 			}
 		}
@@ -152,7 +148,8 @@ public class LayoutRutTien extends JFrame {
 		// bắt điều kiện cho số tiền rút
 		int dieuKien = soTienRut % 10000;
 		if (dieuKien > 0 || soTienRut < 10000) {
-			JOptionPane.showMessageDialog(null, "Trong máy chỉ có mệnh giá 10.000đ,20.000đ \n 50,000đ,100,000đ,200,000đ,500,000đ", "",
+			JOptionPane.showMessageDialog(null,
+					"Trong máy chỉ có mệnh giá 10.000đ,20.000đ \n 50,000đ,100,000đ,200,000đ,500,000đ", "",
 					JOptionPane.INFORMATION_MESSAGE);
 		} else if (soTienRut > 5000000) {
 			JOptionPane.showMessageDialog(null, "Số tiền số tiền rút không quá 5.000.000 đ ", "",
@@ -306,7 +303,7 @@ public class LayoutRutTien extends JFrame {
 	@SuppressWarnings("unchecked")
 	public void addControll() {
 		Container con = getContentPane();
-		txtMaPin =new JTextField();
+		txtMaPin = new JTextField();
 		CardLayout clMain = new CardLayout();
 		JPanel pnMain = new JPanel(clMain) {
 			private static final long serialVersionUID = 1L;
@@ -420,6 +417,7 @@ public class LayoutRutTien extends JFrame {
 		btnBack.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		JButton btnCaNhan = new JButton("Rút tiền");
 		btnCaNhan.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+
 		btnCaNhan.setPreferredSize(new Dimension(150, 30));
 		pnBtnThongTin.add(btnBack);
 		pnBtnThongTin.add(btnCaNhan);
@@ -444,7 +442,7 @@ public class LayoutRutTien extends JFrame {
 		pnThongTin.setOpaque(false);
 		pnThongTin.setLayout(new BoxLayout(pnThongTin, BoxLayout.Y_AXIS));
 		JLabel nameThongTin = new JLabel("Thông tin khách hàng");
-		Font font6 = new Font("Arial", Font.BOLD | Font.ITALIC,18);
+		Font font6 = new Font("Arial", Font.BOLD | Font.ITALIC, 18);
 		nameThongTin.setFont(font6);
 
 		JPanel pnMaKH = new JPanel();
@@ -512,46 +510,44 @@ public class LayoutRutTien extends JFrame {
 		txtSoTien.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
 		pnSoTien.add(nameSoTien);
 		pnSoTien.add(txtSoTien);
-		
-		CardLayout clDoiMa= new CardLayout();
+
+		CardLayout clDoiMa = new CardLayout();
 		JPanel pnDoiMaPin = new JPanel(clDoiMa);
 		pnDoiMaPin.setOpaque(false);
 		pnDoiMaPin.setPreferredSize(new Dimension(500, 200));
 		pnDoiMaPin.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.black));
-		//panel ấn button doi ma
+		// panel ấn button doi ma
 		JPanel pnBntDoiMa = new JPanel();
 		pnBntDoiMa.setOpaque(false);
 		JButton btnDoiMa = new JButton("Đổi mã pin");
 		btnDoiMa.setPreferredSize(new Dimension(80, 20));
 		btnDoiMa.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnBntDoiMa.add(btnDoiMa);
-		
+
 		JPanel pnDataDoiMa = new JPanel();
 		pnDataDoiMa.setOpaque(false);
 		pnDataDoiMa.setLayout(new BoxLayout(pnDataDoiMa, BoxLayout.Y_AXIS));
-		
+
 		JPanel pnMKTitle = new JPanel();
 		pnMKTitle.setOpaque(false);
-		
-		JPanel pnTitlesMK= new JPanel();
+
+		JPanel pnTitlesMK = new JPanel();
 		pnTitlesMK.setOpaque(false);
 		pnTitlesMK.setPreferredSize(new Dimension(350, 25));
 		JLabel nameTitleMK = new JLabel("Đỗi mã pin");
 		nameTitleMK.setFont(font6);
 		pnTitlesMK.add(nameTitleMK);
-		
+
 		JPanel pnBtnDong = new JPanel();
 		pnBtnDong.setOpaque(false);
 		JButton btnDong = new JButton("Đóng");
 		btnDong.setPreferredSize(new Dimension(50, 20));
 		btnDong.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnBtnDong.add(btnDong);
-		
+
 		pnMKTitle.add(pnTitlesMK);
 		pnMKTitle.add(pnBtnDong);
-		
-		
-		
+
 		JPanel pnMKCu = new JPanel();
 		pnMKCu.setOpaque(false);
 		JLabel nameMKCu = new JLabel("Mã pin cũ:");
@@ -560,7 +556,7 @@ public class LayoutRutTien extends JFrame {
 		txtKMCu.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnMKCu.add(nameMKCu);
 		pnMKCu.add(txtKMCu);
-		
+
 		JPanel pnMKMoi = new JPanel();
 		pnMKMoi.setOpaque(false);
 		JLabel nameMKMoi = new JLabel("Mã pin mới:");
@@ -569,7 +565,7 @@ public class LayoutRutTien extends JFrame {
 		txtKMMoi.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnMKMoi.add(nameMKMoi);
 		pnMKMoi.add(txtKMMoi);
-		
+
 		JPanel pnMKNhapLai = new JPanel();
 		pnMKNhapLai.setOpaque(false);
 		JLabel nameMKNhapLai = new JLabel("Nhập lại mã pin:");
@@ -578,41 +574,41 @@ public class LayoutRutTien extends JFrame {
 		txtKMNhapLai.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnMKNhapLai.add(nameMKNhapLai);
 		pnMKNhapLai.add(txtKMNhapLai);
-		
+
 		JPanel pnBtnLuu = new JPanel();
 		pnBtnLuu.setOpaque(false);
 		btnLuu = new JButton("Lưu thay đổi");
 		btnLuu.setPreferredSize(new Dimension(100, 20));
 		btnLuu.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnBtnLuu.add(btnLuu);
-		
+
 		pnDataDoiMa.add(pnMKTitle);
 		pnDataDoiMa.add(pnMKCu);
 		pnDataDoiMa.add(pnMKMoi);
 		pnDataDoiMa.add(pnMKNhapLai);
 		pnDataDoiMa.add(pnBtnLuu);
-		
-		pnDoiMaPin.add(pnBntDoiMa,"1");
-		pnDoiMaPin.add(pnDataDoiMa,"2");
+
+		pnDoiMaPin.add(pnBntDoiMa, "1");
+		pnDoiMaPin.add(pnDataDoiMa, "2");
 		clDoiMa.show(pnDoiMaPin, "1");
+		btnCaNhan.setBorder(BorderFactory.createMatteBorder(4, 1, 1, 1, Color.black));
+		btnRutTien.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		// bắt sự kiện nhấn button doi mat khẩu
 		btnDoiMa.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clDoiMa.show(pnDoiMaPin, "2");
 			}
 		});
 		btnDong.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clDoiMa.show(pnDoiMaPin, "1");
 			}
 		});
-		
-		
-		
+
 		pnThongTin.add(nameThongTin);
 		pnThongTin.add(pnMaKH);
 		pnThongTin.add(pnTenKH);
@@ -680,7 +676,7 @@ public class LayoutRutTien extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				clRutTien.show(pndata, "1");
 				btnCaNhan.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
-				btnRutTien.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+				btnRutTien.setBorder(BorderFactory.createMatteBorder(4, 1, 1, 1, Color.black));
 			}
 		});
 

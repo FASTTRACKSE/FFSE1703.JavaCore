@@ -33,8 +33,8 @@ public class LayoutBaoCaoKH extends JPanel {
 	private JComboBox cboQuan, cboPhuong, cboSapXep;
 	private DefaultTableModel model;
 	private JTable tblBaoCaoKH;
-	private JTextField txtMaKH, txtTenKH, txtSoLan, txtTongTien,txtSoDu;
-	private JLabel nameMaKH, nameTenKH, nameSoLan, nameTongTien,nameSoDu;
+	private JTextField txtMaKH, txtTenKH, txtSoLan, txtTongTien, txtSoDu;
+	private JLabel nameMaKH, nameTenKH, nameSoLan, nameTongTien, nameSoDu;
 	private PlaceholderTextField txtTimKiemTen;
 	private DatabaseBaoCaoKH connectBC = new DatabaseBaoCaoKH();
 	private CardLayout cl;
@@ -100,15 +100,14 @@ public class LayoutBaoCaoKH extends JPanel {
 			duLieu();
 		} else {
 			for (ThongKeBaoCao bc : arrBC) {
-				if(bc.getTenKH().toUpperCase().indexOf(tenKH1.toUpperCase()) > -1) {
-				DecimalFormat formatter = new DecimalFormat("###,###,###");
-				String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
-				
-				int soTienTrongThe = Integer.parseInt(bc.getSoDu());
-				String soDu = formatter.format(soTienTrongThe) + " VNĐ";
-				String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut()),
-						soTien ,soDu};
-				model.addRow(row);
+				if (bc.getTenKH().toUpperCase().indexOf(tenKH1.toUpperCase()) > -1) {
+					DecimalFormat formatter = new DecimalFormat("###,###,###");
+					String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
+
+					int soTienTrongThe = Integer.parseInt(bc.getSoDu());
+					String soDu = formatter.format(soTienTrongThe) + " VNĐ";
+					String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut())+" Lần", soTien, soDu };
+					model.addRow(row);
 				}
 			}
 		}
@@ -125,6 +124,7 @@ public class LayoutBaoCaoKH extends JPanel {
 
 			nameSoLan.setForeground(Color.white);
 			nameTongTien.setForeground(Color.white);
+			nameSoDu.setForeground(Color.white);
 			txtMaKH.setText("");
 			txtTenKH.setText("");
 
@@ -160,6 +160,7 @@ public class LayoutBaoCaoKH extends JPanel {
 			SelectKhachHang();
 		}
 	};
+
 	public void SelectKhachHang() {
 		try {
 			String phuong1 = cboPhuong.getSelectedItem().toString();
@@ -173,8 +174,7 @@ public class LayoutBaoCaoKH extends JPanel {
 				String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
 				int soTienTrongThe = Integer.parseInt(bc.getSoDu());
 				String soDu = formatter.format(soTienTrongThe) + " VNĐ";
-				String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut()),
-						soTien ,soDu};
+				String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut())+" Lần", soTien, soDu };
 				model.addRow(row);
 			}
 			nameMaKH.setForeground(Color.white);
@@ -194,6 +194,7 @@ public class LayoutBaoCaoKH extends JPanel {
 
 		}
 	}
+
 	ListSelectionListener chonHang = new ListSelectionListener() {
 
 		@Override
@@ -253,8 +254,7 @@ public class LayoutBaoCaoKH extends JPanel {
 			String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
 			int soTienTrongThe = Integer.parseInt(bc.getSoDu());
 			String soDu = formatter.format(soTienTrongThe) + " VNĐ";
-			String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut()),
-					soTien ,soDu};
+			String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut())+" Lần", soTien, soDu };
 			model.addRow(row);
 		}
 	}
@@ -272,8 +272,7 @@ public class LayoutBaoCaoKH extends JPanel {
 					String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
 					int soTienTrongThe = Integer.parseInt(bc.getSoDu());
 					String soDu = formatter.format(soTienTrongThe) + " VNĐ";
-					String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut()),
-							soTien ,soDu};
+					String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut())+" Lần", soTien, soDu };
 					model.addRow(row);
 				}
 			} else if (sx == "theo Tổng Tiền rút ") {
@@ -284,8 +283,7 @@ public class LayoutBaoCaoKH extends JPanel {
 					String soTien = formatter.format(bc.getTongTien()) + " VNĐ";
 					int soTienTrongThe = Integer.parseInt(bc.getSoDu());
 					String soDu = formatter.format(soTienTrongThe) + " VNĐ";
-					String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut()),
-							soTien ,soDu};
+					String[] row = { bc.getMaKH(), bc.getTenKH(), Integer.toString(bc.getSoLanRut())+" Lần", soTien, soDu };
 					model.addRow(row);
 				}
 			}
@@ -377,13 +375,13 @@ public class LayoutBaoCaoKH extends JPanel {
 		txtTongTien.setBackground(Color.WHITE);
 		pnTongTien.add(nameTongTien);
 		pnTongTien.add(txtTongTien);
-		
+
 		JPanel pnSoDu = new JPanel();
-		pnSoDu .setBackground(Color.WHITE);
-		nameSoDu  = new JLabel("Số dư: ");
+		pnSoDu.setBackground(Color.WHITE);
+		nameSoDu = new JLabel("Số dư: ");
 		nameSoDu.setForeground(Color.WHITE);
 		nameSoDu.setPreferredSize(new Dimension(110, 20));
-		txtSoDu  = new JTextField(20);
+		txtSoDu = new JTextField(20);
 		txtSoDu.setEditable(false);
 		txtSoDu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
 		txtSoDu.setBackground(Color.WHITE);
@@ -398,7 +396,6 @@ public class LayoutBaoCaoKH extends JPanel {
 		btnChiTiet.setBackground(Color.WHITE);
 		btnChiTiet.setForeground(Color.WHITE);
 		btnChiTiet.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
-		
 
 		pnChiTiet.add(pnMaKH);
 		pnChiTiet.add(pnTenKH);
@@ -459,13 +456,13 @@ public class LayoutBaoCaoKH extends JPanel {
 		model.addColumn("Số lần rút tiền");
 		model.addColumn("Tổng tiền rút");
 		model.addColumn("Số dư");
-		//đưa dữ liêu qua bên phải
+		// đưa dữ liêu qua bên phải
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 		tblBaoCaoKH.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 		tblBaoCaoKH.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 		tblBaoCaoKH.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
-		
+
 		JScrollPane scroll = new JScrollPane(tblBaoCaoKH);
 		scroll.setOpaque(false);
 		scroll.getViewport().setOpaque(false);

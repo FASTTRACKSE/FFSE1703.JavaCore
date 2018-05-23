@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import com.mysql.jdbc.PreparedStatement;
 
 public class DatabaseUser {
-	final static Connection conn = ConnectDatabase.getConnect("localhost", "FFSE1703013_ATM", "tuan18081999", "tuan123");
+	final static Connection conn = ConnectDatabase.getConnect("localhost", "FFSE1703013_ATM", "tuan18081999",
+			"tuan123");
 
 	public static boolean checkLogin(String userName, String pass) {
 		try {
@@ -24,8 +25,8 @@ public class DatabaseUser {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
+
 	public static boolean checkLoginGD(String soThe, String maPin) {
 		try {
 			String sql = "select * from khachhang where soThe = ? and maPin = ?";

@@ -120,9 +120,7 @@ public class DatabaseKhachHang {
 					+ "`phuong`='" + phuong + "',`quan`='" + quan + "',`dienThoai`='" + dienThoai + "',`email`='"
 					+ email + "'," + "`soTK`='" + soTK + "',`soDu`='" + soDu + "',`maPin`='" + maPin
 					+ "' WHERE `maKH`='" + maKH + "' ";
-
 			Statement statement = (Statement) conn.createStatement();
-
 			int x = statement.executeUpdate(sql);
 			if (x > 0) {
 				JOptionPane.showMessageDialog(null, "Cập nhật thành công ");

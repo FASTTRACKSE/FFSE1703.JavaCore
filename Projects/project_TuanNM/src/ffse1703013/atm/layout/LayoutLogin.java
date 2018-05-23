@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-
 import ffse1703013.atm.model.DatabaseUser;
 
 public class LayoutLogin extends JFrame {
@@ -42,7 +41,7 @@ public class LayoutLogin extends JFrame {
 		JPanel pnLoi = new JPanel();
 		pnLoi.setBackground(Color.decode("#87CEFA"));
 		htLoi = new JTextField(30);
-		htLoi.setHorizontalAlignment(JLabel.CENTER);	
+		htLoi.setHorizontalAlignment(JLabel.CENTER);
 		htLoi.setBackground(Color.decode("#87CEFA"));
 		htLoi.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.LIGHT_GRAY));
 		htLoi.setForeground(Color.RED);

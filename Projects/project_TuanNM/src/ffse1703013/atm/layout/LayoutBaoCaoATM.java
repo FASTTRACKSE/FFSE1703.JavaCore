@@ -31,7 +31,6 @@ import ffse1703013.atm.model.ComboItem;
 import ffse1703013.atm.model.DatabaseBaoCaoATM;
 import ffse1703013.atm.model.DatabaseDiaChi;
 
-
 @SuppressWarnings("serial")
 public class LayoutBaoCaoATM extends JPanel {
 	ArrayList<ATM> arrTK = new ArrayList<ATM>();
@@ -69,6 +68,7 @@ public class LayoutBaoCaoATM extends JPanel {
 		cboSapXep.addActionListener(sapXep);
 
 	}
+
 	ActionListener sapXep = new ActionListener() {
 
 		@Override
@@ -83,7 +83,7 @@ public class LayoutBaoCaoATM extends JPanel {
 					String[] row = { bc.getMaATM(), bc.getDuongPho() + "," + bc.getPhuong() + "," + bc.getQuan(),
 							soTien };
 					model.addRow(row);
-					
+
 				}
 			} else if (sx == "theo tổng tiền ") {
 				model.setRowCount(0);
@@ -94,7 +94,7 @@ public class LayoutBaoCaoATM extends JPanel {
 					String[] row = { bc.getMaATM(), bc.getDuongPho() + "," + bc.getPhuong() + "," + bc.getQuan(),
 							soTien };
 					model.addRow(row);
-					
+
 				}
 			}
 		}
@@ -213,8 +213,8 @@ public class LayoutBaoCaoATM extends JPanel {
 						if (maMay.equals(bc.getMaATM())) {
 							DecimalFormat formatter = new DecimalFormat("###,###,###");
 							String soTien = formatter.format(Integer.parseInt(bc.getTongTien())) + " VNĐ";
-							String[] row = { bc.getMaATM(), bc.getDuongPho() + "," + bc.getPhuong() + "," + bc.getQuan(),
-									soTien };
+							String[] row = { bc.getMaATM(),
+									bc.getDuongPho() + "," + bc.getPhuong() + "," + bc.getQuan(), soTien };
 							model.addRow(row);
 						}
 
@@ -498,11 +498,10 @@ public class LayoutBaoCaoATM extends JPanel {
 		model.addColumn("Mã Máy ATM");
 		model.addColumn("Địa chỉ");
 		model.addColumn("tổng tiền trong máy");
-		//đưa dữ liệu qua bên phải
+		// đưa dữ liệu qua bên phải
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 		tblDanhSachMayATM.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-		
 
 		JScrollPane scroll = new JScrollPane(tblDanhSachMayATM);
 		scroll.setOpaque(false);

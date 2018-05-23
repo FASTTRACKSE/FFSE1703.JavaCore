@@ -90,9 +90,10 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 				for (GiaoDich bc : arrBC) {
 					DecimalFormat formatter = new DecimalFormat("###,###,###");
 					String soTien = formatter.format(Integer.parseInt(bc.getSoTien())) + " VNĐ";
-					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ", new Locale("vi", "VN"));
+					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ",
+							new Locale("vi", "VN"));
 					SimpleDateFormat dfOld = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String thoiGian ="";
+					String thoiGian = "";
 					try {
 						thoiGian = dfNew.format(dfOld.parse(bc.getThoiGian()));
 					} catch (ParseException ex) {
@@ -108,9 +109,10 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 				for (GiaoDich bc : arrBC) {
 					DecimalFormat formatter = new DecimalFormat("###,###,###");
 					String soTien = formatter.format(Integer.parseInt(bc.getSoTien())) + " VNĐ";
-					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ", new Locale("vi", "VN"));
+					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ",
+							new Locale("vi", "VN"));
 					SimpleDateFormat dfOld = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String thoiGian ="";
+					String thoiGian = "";
 					try {
 						thoiGian = dfNew.format(dfOld.parse(bc.getThoiGian()));
 					} catch (ParseException ex) {
@@ -162,14 +164,15 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 						arrBC = connectBaoCaoATM.selectATMTheoKhoangTG(maMay, batDau, ketThuc);
 						if (arrBC.isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Không có giao dịch nào trong Khoảng thời gian này");
-							
+
 						} else {
 							for (GiaoDich bc : arrBC) {
 								DecimalFormat formatter = new DecimalFormat("###,###,###");
 								String soTien = formatter.format(Integer.parseInt(bc.getSoTien())) + " VNĐ";
-								SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ", new Locale("vi", "VN"));
+								SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ",
+										new Locale("vi", "VN"));
 								SimpleDateFormat dfOld = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-								String thoiGian ="";
+								String thoiGian = "";
 								try {
 									thoiGian = dfNew.format(dfOld.parse(bc.getThoiGian()));
 								} catch (ParseException ex) {
@@ -208,9 +211,10 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 					for (GiaoDich bc : arrBC) {
 						DecimalFormat formatter = new DecimalFormat("###,###,###");
 						String soTien = formatter.format(Integer.parseInt(bc.getSoTien())) + " VNĐ";
-						SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ", new Locale("vi", "VN"));
+						SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ",
+								new Locale("vi", "VN"));
 						SimpleDateFormat dfOld = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						String thoiGian ="";
+						String thoiGian = "";
 						try {
 							thoiGian = dfNew.format(dfOld.parse(bc.getThoiGian()));
 						} catch (ParseException ex) {
@@ -253,9 +257,10 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 
 					DecimalFormat formatter = new DecimalFormat("###,###,###");
 					String soTien = formatter.format(Integer.parseInt(bc.getSoTien())) + " VNĐ";
-					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ", new Locale("vi", "VN"));
+					SimpleDateFormat dfNew = new SimpleDateFormat("HH:mm a ,EEEEE ,dd/MM/yyyy ",
+							new Locale("vi", "VN"));
 					SimpleDateFormat dfOld = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String thoiGian ="";
+					String thoiGian = "";
 					try {
 						thoiGian = dfNew.format(dfOld.parse(bc.getThoiGian()));
 					} catch (ParseException ex) {
@@ -578,8 +583,8 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 		model.addColumn("Số thẻ ");
 		model.addColumn("Thời gian");
 		model.addColumn("Số tiền rút");
-		
-		//đưa dữ liệu qua bên phải
+
+		// đưa dữ liệu qua bên phải
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 		tblDanhSachMayATM.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);

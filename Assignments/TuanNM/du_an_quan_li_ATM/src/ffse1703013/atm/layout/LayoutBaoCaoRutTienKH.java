@@ -61,7 +61,6 @@ public class LayoutBaoCaoRutTienKH extends JPanel {
 	private JComboBox cboThang, cboNam;
 	private JDateChooser dateStart, dateEnd;
 
-
 	public LayoutBaoCaoRutTienKH() {
 		addControll();
 		addEvents();

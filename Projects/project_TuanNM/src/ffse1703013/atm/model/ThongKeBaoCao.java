@@ -12,13 +12,12 @@ public class ThongKeBaoCao extends GiaoDich {
 	}
 
 	public ThongKeBaoCao(String maKH, String tenKH, String soNha, String phuong, String quan, String soThe, String soTK,
-			int soLanRut, int tongTien ,String soDu) {
+			int soLanRut, int tongTien, String soDu) {
 
 		this.maKH = maKH;
 		this.tenKH = tenKH;
 		this.soNha = soNha;
 		this.phuong = phuong;
-		this.quan = quan;
 		this.soThe = soThe;
 		this.soTK = soTK;
 		this.soLanRut = soLanRut;
@@ -31,7 +30,6 @@ public class ThongKeBaoCao extends GiaoDich {
 		this.maKH = maKH;
 
 	}
-	
 
 	public String getSoDu() {
 		return soDu;
@@ -140,7 +138,7 @@ public class ThongKeBaoCao extends GiaoDich {
 		}
 
 	};
-	
+
 	public static Comparator<ThongKeBaoCao> sortTongTien = new Comparator<ThongKeBaoCao>() {
 
 		public int compare(ThongKeBaoCao s1, ThongKeBaoCao s2) {
