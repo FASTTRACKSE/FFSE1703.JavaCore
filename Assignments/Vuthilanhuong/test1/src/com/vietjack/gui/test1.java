@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class test1 {
    private JFrame mainFrame;
-   private JLabel headerLabel;
+   private JLabel heade3333333333333l;
    private JLabel statusLabel;
    private JPanel controlPanel;
    private JLabel msglabel;

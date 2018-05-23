@@ -3,7 +3,6 @@ package project.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,18 +28,20 @@ import project.model.ConnectDB;
 import project.model.DiaChiDB;
 import project.model.MayATM;
 import project.model.MayATMDb;
-import project.model.MayATMDb;
-import project.model.MayATM;
 
 public class LayoutTinhTrangATM  extends JPanel{
+
+	private static final long serialVersionUID = 1L;
 	JButton btnHuy, btnXem;
 	JTextField txtATM;
 	JTextField txtDuong;
+	@SuppressWarnings("rawtypes")
 	JComboBox cbQuan, cbPhuong;
 	DefaultTableModel dm=new DefaultTableModel();
 	final JTable tbl=new JTable(dm);
 	JScrollPane sc=new JScrollPane(tbl);
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
 	DiaChiDB diachiDb = new DiaChiDB();
 	ArrayList<String> arrDiaChi = new ArrayList<String>();
@@ -48,15 +49,18 @@ public class LayoutTinhTrangATM  extends JPanel{
 	ArrayList<MayATM> arrATM = new ArrayList<MayATM>();
 	public LayoutTinhTrangATM() {
 		addControll();
+		in();
+		addEvent();
+		}
+
+	public void in() {
 		arrATM=ATMDb.hienThiMayATM();
+		 System.out.println ( arrATM.size()); 
 		for(MayATM x:arrATM) {
 			String[] row = {x.getMaMay(),x.getTenDuong(),x.getTongTien()};
 			dm.addRow(row);
 		}
-		addEvent();
-		}
-
-	
+	}
 
 	private void addEvent() {
 		// TODO Auto-generated method stub
@@ -65,8 +69,10 @@ public class LayoutTinhTrangATM  extends JPanel{
 		btnHuy.addActionListener(eventHuy);
 		btnXem.addActionListener(eventTimTheoDiaChi);
 	}
+	//hiển thị phường
 	ActionListener eventHienThiPhuong = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int key= cbQuan.getSelectedIndex();
@@ -80,7 +86,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		}
 
 	};
-	
+	//tìm theo dịa chỉ
 	ActionListener eventTimTheoDiaChi= new ActionListener() {
 
 		@Override
@@ -112,7 +118,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 
 	};
 	
-	
+	//tìm theo mã
 	private DocumentListener eventTimTheoMa = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -139,7 +145,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 			dm.addRow(row);
 		}
 	}
-	
+	//event huỷ
 	ActionListener eventHuy = new ActionListener() {
 
 		@Override
@@ -157,19 +163,23 @@ public class LayoutTinhTrangATM  extends JPanel{
 
 	};
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addControll() {
-		// TODO Auto-generated method stub
-		JPanel pnTTrangATM =new JPanel();
-		pnTTrangATM.setPreferredSize(new Dimension(1000, 700));
-		pnTTrangATM.setLayout(new BoxLayout(pnTTrangATM, BoxLayout.Y_AXIS));
 		
+		Border border5=BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border5, "Báo cáo tình trạng ATM");
+		this.setBorder(borderTitle5);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		//pn Chính
 		JPanel pnChinh = new JPanel();
 		pnChinh.setLayout(new BoxLayout(pnChinh, BoxLayout.X_AXIS));
+		
 		JPanel pnVitri= new JPanel();
-		Border border5=BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border5, "Vị Trí");
-		pnVitri.setBorder(borderTitle5);
+		Border border=BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle=BorderFactory.createTitledBorder(border, "Chọn Máy Theo Địa Chỉ");
+		pnVitri.setBorder(borderTitle);
 		pnVitri.setLayout(new BoxLayout(pnVitri, BoxLayout.Y_AXIS));
+		//JPanel quận
 		JPanel pnQuan = new JPanel();
 		JLabel lblQuan = new JLabel("Chọn quận: ");
 		lblQuan.setPreferredSize(new Dimension(90, 20));
@@ -183,7 +193,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		pnQuan.add(lblQuan);
 		pnQuan.add(cbQuan);
 		pnVitri.add(pnQuan);
-		
+		//JPanel phường
 		JPanel pnPhuong = new JPanel();
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
@@ -193,7 +203,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		pnPhuong.add(lblPhuong);
 		pnPhuong.add(cbPhuong);
 		pnVitri.add(pnPhuong);
-
+		//JPanel đường
 		JPanel pnDuong = new JPanel(); 
 		JLabel lblDuong = new JLabel("Đường");
 		lblDuong.setPreferredSize(new Dimension(90, 20));
@@ -202,7 +212,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		pnDuong.add(txtDuong);
 		pnVitri.add(pnDuong);
 	
-		
+		//JPanel mã máy
 		JPanel pnATM =new JPanel();
 		Border border4=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle4=BorderFactory.createTitledBorder(border4, "Chọn Máy Theo Mã");
@@ -215,6 +225,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		pnMaMay.add(txtATM);
 		pnATM.add(pnMaMay);
 		
+		//JPanel chứa các Jbutton
 		JPanel pnFlow=new JPanel();
 		pnFlow.setLayout(new BoxLayout(pnFlow, BoxLayout.X_AXIS));
 		btnXem=new JButton("Xem");
@@ -222,7 +233,7 @@ public class LayoutTinhTrangATM  extends JPanel{
 		pnFlow.add(btnXem);
 		pnFlow.add(btnHuy);
 		
-		
+		//JPanel hiển thị bảng
 		JPanel pnBang5 = new JPanel();
 		Border border3=BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle3=BorderFactory.createTitledBorder(border3, "Hiển Thị Thông Tin Khách Hàng");
@@ -235,10 +246,10 @@ public class LayoutTinhTrangATM  extends JPanel{
 		
 		pnChinh.add(pnVitri);
 		pnChinh.add(pnATM);
-		pnTTrangATM.add(pnChinh);
-		pnTTrangATM.add(pnFlow);
-		pnTTrangATM.add(pnBang5);
-		this.add(pnTTrangATM);
+		this.add(pnChinh);
+		this.add(pnFlow);
+		this.add(pnBang5);
+		//this.add(pnTTrangATM);
 	}
 }
 	

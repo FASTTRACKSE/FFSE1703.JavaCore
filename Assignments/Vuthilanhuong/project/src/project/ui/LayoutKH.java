@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -20,9 +18,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -33,23 +32,26 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 
-import project.main.QuanLyKH;
 
+
+@SuppressWarnings("serial")
 public class LayoutKH extends JFrame {
 	JTextField txtMaK, txtTenK, txtDiaChi, txtDienThoai, txtEmail, txtSoThe, txtTaiKhoan, txtTimKiem;
+	@SuppressWarnings("rawtypes")
 	JComboBox cbQuan, cbPhuong, cboTimKiem;
 	JButton btnThem, btnSua, btnXoa, btnHuy;
 	DefaultTableModel dm = new DefaultTableModel();
 	final JTable tbl = new JTable(dm);
 	JScrollPane sc = new JScrollPane(tbl);
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
 	DiaChiDB diachiDb = new DiaChiDB();
 	ArrayList<String> arrDiaChi = new ArrayList<String>();
 	KhachHangDB khDb = new KhachHangDB();
 	ArrayList<KhachHang> arrKhachHang = new ArrayList<KhachHang>();
+	@SuppressWarnings("static-access")
 	public LayoutKH(String title) {
 		super(title);
 		addControll();
@@ -62,7 +64,7 @@ public class LayoutKH extends JFrame {
 	}
 
 	private void addEvent() {
-		// TODO Auto-generated method stub
+
 		btnThem.addActionListener(eventThem);
 		btnSua.addActionListener(eventSua);
 		btnXoa.addActionListener(eventXoa);
@@ -71,9 +73,10 @@ public class LayoutKH extends JFrame {
 		cbQuan.addActionListener(eventHienThiPhuong);
 		txtTimKiem.getDocument().addDocumentListener(eventTimTheoMa);
 	}
-	
+	//event hiển thị phường 
 	ActionListener eventHienThiPhuong = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int key= cbQuan.getSelectedIndex();
@@ -86,7 +89,7 @@ public class LayoutKH extends JFrame {
 		}
 
 	};
-	
+	//sự kiện click vào các dòng trong bảng table
 	 MouseAdapter eventChooseRow = new MouseAdapter() {
 	    	public void mouseClicked(MouseEvent e) {
 	    		/*Lấy dòng được chọn trong table*/
@@ -129,11 +132,10 @@ public class LayoutKH extends JFrame {
 
 	ActionListener eventThem = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-//			txtMaK, txtTenK, txtDiaChi, txtDienThoai, txtEmail, txtSoThe, txtTaiKhoan,
-			//lấy gt textfield  đưa vào mảng kh
+		try {
 			String maKh = txtMaK.getText();
 			String tenKh= txtTenK.getText();
 			String diaChiKh = txtDiaChi.getText();
@@ -142,73 +144,101 @@ public class LayoutKH extends JFrame {
 			String sotheKh =txtSoThe.getText();
 			String taiKhoanKh =txtTaiKhoan.getText();
 			String quanKh =(String) cbQuan.getSelectedItem();
+			int keyQuan = cbQuan.getSelectedIndex();
 			String phuongKh =(String) cbPhuong.getSelectedItem();
-			KhachHang khachHang=new KhachHang();
-			khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
-			//đưa gt qua class KhachHangDB để xử lý thêm dữ liệu vào database
-			khDb.themKhachHang(khachHang);
+			int keyPhuong = cbPhuong.getSelectedIndex();
+			if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0||keyPhuong==0) {
+				JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+			}else {
+				KhachHang khachHang=new KhachHang();
+				khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
+				//đưa gt qua class KhachHangDB để xử lý thêm dữ liệu vào database
+				khDb.themKhachHang(khachHang);
+				
+				// làm các input về trống
+				txtMaK.setText("");
+				txtTenK.setText("");
+				txtDiaChi.setText("");
+				txtDienThoai.setText("");
+				txtEmail.setText("");
+				txtSoThe.setText("");
+				txtTaiKhoan.setText("");
+				cbQuan.setSelectedIndex(0);
+				
+				// thêm cột trong table list
+				String[] row = {khachHang.getMaKhach(),khachHang.getTenKhach(),khachHang.getDiaChiN(),khachHang.getSoDT(),khachHang.getEmailK(),khachHang.getSoThe(),khachHang.getSoTien()};
+				dm.addRow(row);
+			}
 			
-			// làm các input về trống
-			txtMaK.setText("");
-			txtTenK.setText("");
-			txtDiaChi.setText("");
-			txtDienThoai.setText("");
-			txtEmail.setText("");
-			txtSoThe.setText("");
-			txtTaiKhoan.setText("");
-			cbQuan.setSelectedIndex(0);
-			
-			// thêm cột trong table list
-			String[] row = {khachHang.getMaKhach(),khachHang.getTenKhach(),khachHang.getDiaChiN(),khachHang.getSoDT(),khachHang.getEmailK(),khachHang.getSoThe(),khachHang.getSoTien()};
-			dm.addRow(row);
+		
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
 		}
+			
+		}	
 
 	};
 	
 	ActionListener eventSua = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			//Lấy giá trị từ textField đưa vào mảng kh
-			btnSua.setEnabled(false);
-			btnXoa.setEnabled(false);
-			String maKh = txtMaK.getText();
-			txtMaK.setEditable(false);
-			String tenKh= txtTenK.getText();
-			String diaChiKh = txtDiaChi.getText();
-			String dienThoaiKh =txtDienThoai.getText();
-			String emailKh =txtEmail.getText();
-			String sotheKh =txtSoThe.getText();
-			String taiKhoanKh =txtTaiKhoan.getText();
-			String quanKh =(String) cbQuan.getSelectedItem();
-			String phuongKh =(String) cbPhuong.getSelectedItem();
-			KhachHang khachHang=new KhachHang();
-			khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
-			//gọi lệnh suaKhachHang từ class KhachHangDB
-			khDb.suaKhachHang(khachHang);
-			//set bảng về trống
-			dm.setRowCount(0);
-			//chạy lại bảng từ arrayList
-			arrKhachHang=khDb.hienThiKH();
-			for(KhachHang x:arrKhachHang) {
-				String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
-				dm.addRow(row);
+			try {
+				btnSua.setEnabled(false);
+				btnXoa.setEnabled(false);
+				String maKh = txtMaK.getText();
+				txtMaK.setEditable(false);
+				String tenKh= txtTenK.getText();
+				String diaChiKh = txtDiaChi.getText();
+				String dienThoaiKh =txtDienThoai.getText();
+				String emailKh =txtEmail.getText();
+				String sotheKh =txtSoThe.getText();
+				String taiKhoanKh =txtTaiKhoan.getText();
+				String quanKh =(String) cbQuan.getSelectedItem();
+				int keyQuan = cbQuan.getSelectedIndex();
+				String phuongKh =(String) cbPhuong.getSelectedItem();
+				int keyPhuong = cbPhuong.getSelectedIndex();
+				if(maKh.isEmpty()||tenKh.isEmpty()||diaChiKh.isEmpty()||dienThoaiKh.isEmpty()||emailKh.isEmpty()||sotheKh.isEmpty()||taiKhoanKh.isEmpty()||keyQuan==0||keyPhuong==0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+				}else {
+					JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
+				}
+				
+				KhachHang khachHang=new KhachHang();
+				khachHang.add(maKh,tenKh,diaChiKh,dienThoaiKh,emailKh,sotheKh,taiKhoanKh,quanKh,phuongKh);
+				
+				//gọi lệnh suaKhachHang từ class KhachHangDB
+				khDb.suaKhachHang(khachHang);
+				//set bảng về trống
+				dm.setRowCount(0);
+				//chạy lại bảng từ arrayList
+				arrKhachHang=khDb.hienThiKH();
+				for(KhachHang x:arrKhachHang) {
+					String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
+					dm.addRow(row);
+				}
+				//set ô input về trống
+				txtMaK.setText("");
+				txtTenK.setText("");
+				txtDiaChi.setText("");
+				txtDienThoai.setText("");
+				txtEmail.setText("");
+				txtSoThe.setText("");
+				txtTaiKhoan.setText("");
+				cbQuan.setSelectedIndex(0);
+			}catch (Exception x){
+				JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
 			}
-			//set ô input về trống
-			txtMaK.setText("");
-			txtTenK.setText("");
-			txtDiaChi.setText("");
-			txtDienThoai.setText("");
-			txtEmail.setText("");
-			txtSoThe.setText("");
-			txtTaiKhoan.setText("");
-			cbQuan.setSelectedIndex(0);
+			
 		}
 		
 	};
 	ActionListener eventXoa = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -231,6 +261,8 @@ public class LayoutKH extends JFrame {
 			cbQuan.setSelectedIndex(0);
 		}
 	};
+	
+	
 	ActionListener eventHuy = new ActionListener() {
 		
 
@@ -240,11 +272,13 @@ public class LayoutKH extends JFrame {
 			btnXoa.setEnabled(false);
 			btnThem.setEnabled(true);
 			btnHuy.setEnabled(true);
+			//đưa bảng về trống và in ra theo arrKhachHang
 			dm.setRowCount(0);
 			for(KhachHang x:arrKhachHang) {
 				String[] row = {x.getMaKhach(),x.getTenKhach(),x.getDiaChiN(),x.getSoDT(),x.getEmailK(),x.getSoThe(),x.getSoTien()};
 				dm.addRow(row);
 			}
+			//sự kiện huỷ đưa các ô JTextField về trống
 			txtMaK.setText("");
 			txtTenK.setText("");
 			txtDiaChi.setText("");
@@ -257,6 +291,7 @@ public class LayoutKH extends JFrame {
 		}
 
 	};
+	
 	
 	private DocumentListener eventTimTheoMa = new DocumentListener() {		
 		@Override
@@ -273,7 +308,7 @@ public class LayoutKH extends JFrame {
 			
 		}
 	};
-	
+	//sự kiện tìm theo mã từ mảng arrKh
 	public void searchCode() {
 		String ma =  txtTimKiem.getText();
 		ArrayList<KhachHang> arrKh = new ArrayList <KhachHang>();
@@ -286,6 +321,7 @@ public class LayoutKH extends JFrame {
 	}
 	
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void addControll() {
 		// TODO Auto-generated method stub
 		Container con = getContentPane();
@@ -293,10 +329,12 @@ public class LayoutKH extends JFrame {
 		pnMain.setLayout(new BorderLayout());
 		JTabbedPane myTabled = new JTabbedPane();
 		
+		//JPanel chính
 		JPanel quanLyKh = new JPanel();
 		myTabled.add(quanLyKh, "Quản lý khách hàng");
 		quanLyKh.setLayout(new BoxLayout(quanLyKh, BoxLayout.Y_AXIS));
 		
+		//JPanel thông tinkhachs hàng chứa các ô JTextF và các comboBox
 		JPanel thongTinK =new JPanel();
 		thongTinK.setPreferredSize(new Dimension(1050, 180));
 		thongTinK.setLayout(new BoxLayout(thongTinK, BoxLayout.X_AXIS));
@@ -304,7 +342,11 @@ public class LayoutKH extends JFrame {
 		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Thông Tin Khách Hàng");
 		thongTinK.setBorder(borderTitle);
 		
+		
+		//JPanel chứa các ô JTextF và jLabel
 		JPanel pnC1 =new JPanel();
+		
+		//JPanel mã khách
 		JPanel pnMaK = new JPanel();
 		JLabel lblMaK = new JLabel("Mã Khách: ");
 		lblMaK.setPreferredSize(new Dimension(90, 20));
@@ -313,6 +355,7 @@ public class LayoutKH extends JFrame {
 		pnMaK.add(txtMaK);
 		pnC1.add(pnMaK);
 		
+		//JPanel tên khách
 		JPanel pnKhach = new JPanel();
 		JLabel lblTenK = new JLabel("Tên khách: ");
 		lblTenK.setPreferredSize(new Dimension(90, 20));
@@ -322,7 +365,7 @@ public class LayoutKH extends JFrame {
 		pnKhach.add(txtTenK);
 		pnC1.add(pnKhach);
 		
-
+		//JPanel số  thẻ
 		JPanel pnSoThe = new JPanel();
 		JLabel lblSoThe = new JLabel("Số thẻ ATM: ");
 		lblSoThe.setPreferredSize(new Dimension(90, 20));
@@ -331,15 +374,17 @@ public class LayoutKH extends JFrame {
 		pnSoThe.add(txtSoThe);
 		pnC1.add(pnSoThe);
 		
+		//JPanel chứa các thông tin về địa chỉ khách
 		JPanel pnC2 = new JPanel();
+		//JPanel địa chỉ khách
 		JPanel pnDiaChi = new JPanel();
 		JLabel lblDiaChi = new JLabel("Địa Chỉ nhà: ");
 		lblDiaChi.setPreferredSize(new Dimension(90, 20));
-		txtDiaChi = new JTextField(15);
+		txtDiaChi = new JTextField(20);
 		pnDiaChi.add(lblDiaChi);
 		pnDiaChi.add(txtDiaChi);
 		pnC2.add(pnDiaChi);
-
+		//JPanel chọn quận
 		JPanel pnQuan = new JPanel();
 		JLabel lblQuan = new JLabel("Chọn quận: ");
 		lblQuan.setPreferredSize(new Dimension(90, 20));
@@ -353,7 +398,7 @@ public class LayoutKH extends JFrame {
 		pnQuan.add(lblQuan);
 		pnQuan.add(cbQuan);
 		pnC2.add(pnQuan);
-
+		//JPanel chọn phường
 		JPanel pnPhuong = new JPanel();
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
@@ -364,7 +409,10 @@ public class LayoutKH extends JFrame {
 		pnPhuong.add(cbPhuong);
 		pnC2.add(pnPhuong);
 		
+		
+		//JPanel chưa thông tin liên lạc của khách
 		JPanel pnC3 =new JPanel();
+		//JPanel số điện thoại
 		JPanel pnDienThoai = new JPanel();
 		JLabel lblDienThoai = new JLabel("Số điện thoại: ");
 		lblDienThoai.setPreferredSize(new Dimension(90, 20));
@@ -372,7 +420,8 @@ public class LayoutKH extends JFrame {
 		pnDienThoai.add(lblDienThoai);
 		pnDienThoai.add(txtDienThoai);
 		pnC3.add(pnDienThoai);
-
+		
+		//JPanel email
 		JPanel pnEmail = new JPanel();
 		JLabel lblEmail = new JLabel("Email khách: ");
 		lblEmail.setPreferredSize(new Dimension(90, 20));
@@ -381,6 +430,7 @@ public class LayoutKH extends JFrame {
 		pnEmail.add(txtEmail);
 		pnC3.add(pnEmail);
 		
+		//JPanel tài khoản
 		JPanel pnTaiKhoan = new JPanel();
 		JLabel lblTaiKhoan = new JLabel("Tài khoản: ");
 		lblTaiKhoan.setPreferredSize(new Dimension(90, 20));
@@ -388,7 +438,8 @@ public class LayoutKH extends JFrame {
 		pnTaiKhoan.add(lblTaiKhoan);
 		pnTaiKhoan.add(txtTaiKhoan);
 		pnC3.add(pnTaiKhoan);
-
+		
+		//JPanel chứa các JButton
 		JPanel pnFlow = new JPanel();
 		pnFlow.setLayout(new FlowLayout());
 		pnFlow.setBackground(Color.PINK);
@@ -469,4 +520,5 @@ public class LayoutKH extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+	
 }

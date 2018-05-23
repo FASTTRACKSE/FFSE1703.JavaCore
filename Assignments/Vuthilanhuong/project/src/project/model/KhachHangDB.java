@@ -9,8 +9,11 @@ import com.mysql.jdbc.Statement;
 
 public class KhachHangDB {
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	static Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
-	public ArrayList<KhachHang> hienThiKH(){
+	
+	//hiển thị thông tin khách hàng
+	public static ArrayList<KhachHang> hienThiKH(){
 		ArrayList<KhachHang> arrKH=new ArrayList<KhachHang>();
 		try {
 			
@@ -38,6 +41,7 @@ public class KhachHangDB {
 		return arrKH;
 		
 	}
+	//thêm khách hàng
 	public static int themKhachHang(KhachHang kh) {
 		try {
 			String sql = "insert into atm_khach (ma_kh, ho_ten, quan, phuong,"
@@ -60,6 +64,7 @@ public class KhachHangDB {
 			return -1;
 		}
 	}
+	//sửa thông tin khách hàng
 	public static int suaKhachHang(KhachHang kh) {
 		try {
 			String sql = "update atm_khach set ho_ten = ?, quan = ?, phuong = ?, "
@@ -81,6 +86,7 @@ public class KhachHangDB {
 			return -1;
 		}
 	}
+	//xoá khách hàng
 	public static int xoaKhachHang(String maK) {
 		try {
 			String sql = "DELETE FROM atm_khach WHERE ma_kh = ?";
@@ -93,7 +99,7 @@ public class KhachHangDB {
 			return -1;
 		}
 	}
-	
+	//tìm khách hàng theo địa chỉ
 	public ArrayList<KhachHang> timTheoDiaChi(String duong,String quan, String phuong){
 		ArrayList<KhachHang> arrKH=new ArrayList<KhachHang>();
 		try {
@@ -123,6 +129,7 @@ public class KhachHangDB {
 		return arrKH;
 		
 	}
+	//tìm khách hang theo mã
 	public ArrayList<KhachHang> timTheoMa(String ma){
 		ArrayList<KhachHang> arrKH=new ArrayList<KhachHang>();
 		try {
@@ -150,7 +157,7 @@ public class KhachHangDB {
 		return arrKH;
 		
 	}	
-	
+	//tìm khách hàng theo tên
 	public ArrayList<KhachHang> timTheoTen(String ten){
 		ArrayList<KhachHang> arrKH=new ArrayList<KhachHang>();
 		try {
@@ -177,5 +184,37 @@ public class KhachHangDB {
 			}
 		return arrKH;
 		
-	}		
+	}	
+	//kiểm tra đăng nhập
+	public static boolean checkLoginGD(String so_the, String mat_khau) {
+		try {
+			String sql = "select * from atm_khach where so_the = ? and mat_khau = ?";
+			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+			stm.setString(1, so_the);
+			stm.setString(2, mat_khau);
+			ResultSet result = stm.executeQuery();
+			if (!result.next()) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public static int rutTien(int soDu,String soThe) {
+		try {
+			String sql = "update atm_khach set so_tien = ? where so_the = ?";
+			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+			stm.setInt(1, soDu);
+			stm.setString(2, soThe);
+
+			return stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
