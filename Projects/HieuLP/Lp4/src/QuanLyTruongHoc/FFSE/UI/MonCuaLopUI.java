@@ -24,8 +24,8 @@ public class MonCuaLopUI extends JPanel {
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
 	private JComboBox<String> maMonhoc = new JComboBox<>();
 	private JComboBox<String> comBoboxlop = new JComboBox<>();
-	private Button ThemMoncholop = new Button("Thêm");
-	private Button XoaMoncholop = new Button("Xóa");
+	private JButton ThemMoncholop = new JButton("Thêm");
+	private JButton XoaMoncholop = new JButton("Xóa");
 	private JButton nhapSinhVien = new JButton("Nhập");
 
 	public MonCuaLopUI() {
@@ -61,7 +61,7 @@ public class MonCuaLopUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Quản lý môn học cho lớp");
 		this.setBorder(borderTitle);
 		dm_moncholop = new DefaultTableModel();
 		dm_moncholop.addColumn("Mã lớp học");
@@ -117,6 +117,8 @@ public class MonCuaLopUI extends JPanel {
 		JPanel chonlop = new JPanel();
 		chonlop.setLayout(new FlowLayout());
 		JLabel txtlop = new JLabel("Mã lớp:  ");
+		txtlop.setPreferredSize(new Dimension(70, 30));
+		maLopcomnoBox.setPreferredSize(new Dimension(220, 20));
 		chonlop.add(txtlop);
 		chonlop.add(maLopcomnoBox);
 		pnLeft.add(chonlop);
@@ -124,6 +126,8 @@ public class MonCuaLopUI extends JPanel {
 		JPanel chonma = new JPanel();
 		chonma.setLayout(new FlowLayout());
 		JLabel txtma = new JLabel("Mã môn:  ");
+		txtma.setPreferredSize(new Dimension(70, 30));
+		maMonhoc.setPreferredSize(new Dimension(220, 20));
 		chonma.add(txtma);
 		chonma.add(maMonhoc);
 		pnLeft.add(chonma);
@@ -198,6 +202,7 @@ public class MonCuaLopUI extends JPanel {
 		ThemMoncholop.addActionListener(eventAdd_lop);
 		XoaMoncholop.addActionListener(eventDel_lop);
 		comBoboxlop.addActionListener(eventchoseLop);
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
 
 	}
 

@@ -34,9 +34,9 @@ public class SinhVienUI extends JPanel {
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
 	private JComboBox<String> comBoboxlop = new JComboBox<>();
 	JTextField seach = new JTextField(30);
-	private Button ThemSV = new Button("Thêm");
-	private Button SuaSV = new Button("Sửa");
-	private Button XoaSV = new Button("Xóa");
+	private JButton ThemSV = new JButton("Thêm");
+	private JButton SuaSV = new JButton("Sửa");
+	private JButton XoaSV = new JButton("Xóa");
 	private JButton nhapSinhVien = new JButton("Nhập");
 	private Button Timkiem = new Button("Tìm kiếm");
 
@@ -79,7 +79,7 @@ public class SinhVienUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border borderSV = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitleSV = BorderFactory.createTitledBorder(borderSV, "Danh sách");
+		TitledBorder borderTitleSV = BorderFactory.createTitledBorder(borderSV, "Danh sách sinh viên");
 		this.setBorder(borderTitleSV);
 
 		dm_sv = new DefaultTableModel();

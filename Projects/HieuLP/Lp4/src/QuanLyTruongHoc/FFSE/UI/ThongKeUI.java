@@ -242,7 +242,7 @@ public class ThongKeUI extends JPanel {
 					ResultSet result = statement.executeQuery(
 							"SELECT *,(SELECT Count(*) FROM table_sinhvien WHERE table_sinhvien.MaLop = table_lop.MaLop) as Tong FROM table_lop");
 					while (result.next()) {
-						String[] row = { result.getString("lophoc.MaLop"), result.getString("TenLop"),
+						String[] row = { result.getString("table_lop.MaLop"), result.getString("TenLop"),
 								result.getString("Tong"), result.getString("NamHoc") };
 						dm_nhapdiem1.addRow(row);
 					}
@@ -332,7 +332,7 @@ public class ThongKeUI extends JPanel {
 							ResultSet query = stt.executeQuery(
 									"SELECT * FROM table_sinhvien WHERE table_sinhvien.MaSV = '" + result.getString("MaSV") + "'");
 							query.next();
-							String[] row = { result.getString("MaSV"), query.getString("sinhvien.TenSV"),
+							String[] row = { result.getString("MaSV"), query.getString("table_sinhvien.Ten"),
 									result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
 									result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
 									result.getString("Lp6"), result.getString("LpE") };
@@ -390,7 +390,7 @@ public class ThongKeUI extends JPanel {
 							ResultSet query = stt.executeQuery("SELECT * FROM table_sinhvien WHERE table_sinhvien.MaSV = '"
 									+ result.getString("MaSV") + "' AND table_sinhvien.MaLop ='" + chonLopHoc + "'");
 							while (query.next()) {
-								String[] row = { result.getString("MaSV"), query.getString("sinhvien.Ten"),
+								String[] row = { result.getString("MaSV"), query.getString("table_sinhvien.Ten"),
 										result.getString("Lp0"), result.getString("Lp1"), result.getString("Lp2"),
 										result.getString("Lp3"), result.getString("Lp4"), result.getString("Lp5"),
 										result.getString("Lp6"), result.getString("LpE") };

@@ -24,9 +24,9 @@ public class LopHocUI extends JPanel {
 					   moTa = new JTextField();
 	private ArrayList<QuanLyModelLopHoc> arrLop = new ArrayList<QuanLyModelLopHoc>();
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
-	private Button ThemLop = new Button("Thêm");
-	private Button SuaLop = new Button("Sửa");
-	private Button XoaLop = new Button("Xóa");
+	private JButton ThemLop = new JButton("Thêm");
+	private JButton SuaLop = new JButton("Sửa");
+	private JButton XoaLop = new JButton("Xóa");
 	private JButton nhapSinhVien = new JButton("Nhập");
 	public LopHocUI() {
 		addControls();
@@ -36,7 +36,7 @@ public class LopHocUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách lớp học");
 		this.setBorder(borderTitle);
 		dm_lophoc = new DefaultTableModel();
 		dm_lophoc.addColumn("Mã lớp");
@@ -80,6 +80,7 @@ public class LopHocUI extends JPanel {
 		JPanel nhapmaLop = new JPanel();
 		nhapmaLop.setLayout(new FlowLayout());
 		JLabel lblNhapmaLop = new JLabel("Mã lớp:");
+		lblNhapmaLop.setPreferredSize(new Dimension(70, 30));
 		maLop = new JTextField(20);
 		nhapmaLop.add(lblNhapmaLop);
 		nhapmaLop.add(maLop);
@@ -89,6 +90,7 @@ public class LopHocUI extends JPanel {
 		JPanel nhapNamhoc = new JPanel();
 		nhapNamhoc.setLayout(new FlowLayout());
 		JLabel lblNhapNamhoc = new JLabel("Năm học:");
+		lblNhapNamhoc.setPreferredSize(new Dimension(70, 30));
 		namHoc = new JTextField(20);
 		nhapNamhoc.add(lblNhapNamhoc);
 		nhapNamhoc.add(namHoc);
@@ -96,7 +98,8 @@ public class LopHocUI extends JPanel {
 
 		JPanel nhapMota = new JPanel();
 		nhapMota.setLayout(new FlowLayout());
-		JLabel lblNhapMota = new JLabel("Mô tả      :");
+		JLabel lblNhapMota = new JLabel("Mô tả:");
+		lblNhapMota.setPreferredSize(new Dimension(70, 30));
 		moTa = new JTextField(20);
 		nhapMota.add(lblNhapMota);
 		nhapMota.add(moTa);
@@ -108,7 +111,7 @@ public class LopHocUI extends JPanel {
 		pnLophocbutton.setBorder(borderTitle4);
 		pnLophocbutton.setLayout(new FlowLayout());
 		JPanel chucnang = new JPanel();
-		chucnang.setLayout(new BoxLayout(chucnang, BoxLayout.X_AXIS));
+		chucnang.setLayout(new BoxLayout(chucnang, BoxLayout.Y_AXIS));
 		pnLophocbutton.setPreferredSize(new Dimension(200, 100));
 		pnLophocbutton.add(ThemLop);
 		pnLophocbutton.add(SuaLop);
