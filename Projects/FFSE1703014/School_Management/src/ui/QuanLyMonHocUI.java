@@ -208,7 +208,7 @@ public class QuanLyMonHocUI extends JPanel {
 								}
 							} else {
 								try {
-									String sql = "insert into monhoc value(null,'" + maMH + "','" + tenMH + "','" + tinChi + "','"+ thoiLuong + "', null)";
+									String sql = "insert into monhoc value(null,'" + maMH + "','" + tenMH + "','" + tinChi + "','"+ thoiLuong + "', '')";
 									Statement statements = (Statement) connection.createStatement();
 									int y = statements.executeUpdate(sql);
 									if (y > 0) {

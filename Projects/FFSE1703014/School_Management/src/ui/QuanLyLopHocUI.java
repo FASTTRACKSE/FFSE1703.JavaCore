@@ -243,9 +243,9 @@ public class QuanLyLopHocUI extends JPanel {
 									"select * from lophoc where MaLop ='" + maLop + "' and status ='deleted'");
 							if (result2.next()) {
 								try {
-									String sql = "update lophoc set TenLop ='" + tenLop + "', NamHoc ='" + namHoc + "', status ='' where MaLop ='" + maLop + "'";
-									Statement statements = (Statement) connection.createStatement();
-									int y = statements.executeUpdate(sql);
+									String sql1 = "update lophoc set TenLop ='" + tenLop + "', NamHoc ='" + namHoc + "', status ='' where MaLop ='" + maLop + "'";
+									Statement statement1 = (Statement) connection.createStatement();
+									int y = statement1.executeUpdate(sql1);
 									if (y > 0) {
 										resetButton();
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thành công!");
@@ -257,9 +257,9 @@ public class QuanLyLopHocUI extends JPanel {
 								}
 							} else {
 								try {
-									String sql = "insert into lophoc value(null,'" + maLop + "','" + tenLop + "','" + namHoc + "')";
-									Statement statements = (Statement) connection.createStatement();
-									int y = statements.executeUpdate(sql);
+									String sql2 = "insert into lophoc value(null,'" + maLop + "','" + tenLop + "','" + namHoc + "', '')";
+									Statement statement3 = (Statement) connection.createStatement();
+									int y = statement3.executeUpdate(sql2);
 									if (y > 0) {
 										resetButton();
 										JOptionPane.showMessageDialog(null, "Thêm lớp học thành công!");
