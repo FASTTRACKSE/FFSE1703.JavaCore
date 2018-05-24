@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class TransactionsDb {
 	static ConnectDB myDB = new ConnectDB();
 	private static Connection conn= myDB.getConnect("localhost", "ffse1703005", "hainam", "123456");
+	/*Thêm dữ liệu vào bảng atm_transactions lên database*/
 	public static int addTransactions(String code_customer,String code_atm,String code_transactions,int amount,String status) {
 		try {
 			String sql = "insert into atm_transactions (code_customer, code_atm, code_transactions,"
@@ -29,7 +30,8 @@ public class TransactionsDb {
 			return -1;
 		}
 	}
-	
+	/*truy suất dữ liệu từ bảng atm_transactions inner join với 3 bảng atm_customer,atm_wards,atm_districts từ database vào ArrayList
+	có kiểu của đối tượng CusTransaction*/
 	public static ArrayList<CusTransaction> getCusTransactionList() {
 		ArrayList<CusTransaction> arrTssCus = new ArrayList<CusTransaction>();
 		try {
@@ -60,7 +62,8 @@ public class TransactionsDb {
 		}
 		return arrTssCus;
 	}				
-	
+	/*truy suất dữ liệu từ bảng atm_transactions inner join với 3 bảng atm_atm,atm_wards,atm_districts từ database vào ArrayList
+	có kiểu của đối tượng ATMTransaction*/
 	public static ArrayList<ATMTransaction> getAtmTransactionList() {
 		ArrayList<ATMTransaction> arrTssAtm = new ArrayList<ATMTransaction>();
 		try {
@@ -90,7 +93,9 @@ public class TransactionsDb {
 		}
 		return arrTssAtm;
 	}			
-	
+	/*truy suất dữ liệu từ bảng atm_transactions inner join với 3 bảng atm_customer,atm_wards,atm_districts từ database
+	 * theo điều kiện cột atm_customer.code vào ArrayList
+	có kiểu của đối tượng CusTransaction*/
 	public static ArrayList<CusTransaction> getSearchCusList(String codeCus) {
 		ArrayList<CusTransaction> arrTssCus = new ArrayList<CusTransaction>();
 		try {

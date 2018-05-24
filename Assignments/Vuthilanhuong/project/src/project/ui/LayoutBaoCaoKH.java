@@ -30,19 +30,23 @@ import project.model.DiaChiDB;
 import project.model.KhachHang;
 import project.model.KhachHangDB;
 
+@SuppressWarnings("serial")
 public class LayoutBaoCaoKH extends JPanel{
 	JTextField txtMaKhach, txtSoNha, txtTenK;
+	@SuppressWarnings("rawtypes")
 	JComboBox cbQuan, cbPhuong;
 	JButton btnXem,btnHuy;
 	DefaultTableModel dm=new DefaultTableModel();
 	final JTable tbl=new JTable(dm);
 	JScrollPane sc=new JScrollPane(tbl);
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
 	DiaChiDB diachiDb = new DiaChiDB();
 	KhachHangDB khDb = new KhachHangDB();
 	ArrayList<KhachHang> arrKhachHang = new ArrayList<KhachHang>();
 	ArrayList<String> arrDiaChi = new ArrayList<String>();
+	@SuppressWarnings("static-access")
 	public LayoutBaoCaoKH() {
 		addControll();
 		arrKhachHang=khDb.hienThiKH();
@@ -61,9 +65,10 @@ public class LayoutBaoCaoKH extends JPanel{
 		cbQuan.addActionListener(eventHienThiPhuong);
 		btnHuy.addActionListener(eventHuy);
 	}
-	
+	//event hiển thị phường
 	ActionListener eventHienThiPhuong = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int key= cbQuan.getSelectedIndex();
@@ -78,7 +83,7 @@ public class LayoutBaoCaoKH extends JPanel{
 
 	};
 	ActionListener eventTimTheoDiaChi = new ActionListener() {
-
+		//event tìm kiếm theo địa chỉ
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			ArrayList<KhachHang>arrKh= new ArrayList<KhachHang>();
@@ -111,6 +116,7 @@ public class LayoutBaoCaoKH extends JPanel{
 	
 	private DocumentListener eventTimTheoMa = new DocumentListener() {		
 		@Override
+		//event tìm kiếm theo mã
 		public void changedUpdate(DocumentEvent e) {
 			searchCode();
 		}
@@ -135,7 +141,7 @@ public class LayoutBaoCaoKH extends JPanel{
 			dm.addRow(row);
 		}
 	}
-	
+	//event tìm theo tên
 	private DocumentListener eventTimTheoTen = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -162,7 +168,7 @@ public class LayoutBaoCaoKH extends JPanel{
 			dm.addRow(row);
 		}
 	}
-	
+	//sự kiện set ô JTextF về trống và in ra bảng
 	ActionListener eventHuy = new ActionListener() {
 
 		@Override
@@ -182,23 +188,19 @@ public class LayoutBaoCaoKH extends JPanel{
 	};
 	
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addControll() {
 		// TODO Auto-generated method stub
-		JPanel pnBaoCaoKH = new JPanel();
-		
-		
-		
+		Border border5=BorderFactory.createLineBorder(Color.RED);
+		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border5, "Báo cáo khách hàng");
+		this.setBorder(borderTitle5);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		//JPanel chính
 		JPanel pnChinh = new JPanel();
-		pnChinh.setPreferredSize(new Dimension(1000, 700));
-		pnChinh.setLayout(new BoxLayout(pnChinh, BoxLayout.Y_AXIS));
-		Border border6=BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border6, "Báo cáo khách hàng");
-		pnBaoCaoKH.setBorder(borderTitle5);
-		//pnChinh.setLayout(new BoxLayout(pnChinh, BoxLayout.Y_AXIS));
-		
+		//JPanel chứa các ô JTextF 
 		JPanel pnChinh1 = new JPanel();
 		pnChinh1.setLayout(new BoxLayout(pnChinh1, BoxLayout.X_AXIS));
-		
+		//JPanel mã
 		JPanel pnMaK = new JPanel();
 		JLabel lblMaKhach = new JLabel("Mã Khách: ");
 		lblMaKhach.setPreferredSize(new Dimension(90, 20));
@@ -206,7 +208,7 @@ public class LayoutBaoCaoKH extends JPanel{
 		pnMaK.add(lblMaKhach);
 		pnMaK.add(txtMaKhach);
 		pnChinh1.add(pnMaK);
-		
+		//JPanel tên khách
 		JPanel pnTenK = new JPanel();
 		JLabel lblTenK = new JLabel("Tên khách: ");
 		lblTenK.setPreferredSize(new Dimension(90, 20));
@@ -214,21 +216,21 @@ public class LayoutBaoCaoKH extends JPanel{
 		pnTenK.add(lblTenK);
 		pnTenK.add(txtTenK);
 		pnChinh1.add(pnTenK);
-		
+		//JPanel chứa các ô JTextF và các ô comboBox
 		JPanel pnDiaChiChinh = new JPanel();
 		pnDiaChiChinh.setLayout(new BoxLayout(pnDiaChiChinh, BoxLayout.Y_AXIS));
 		Border border8=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle8=BorderFactory.createTitledBorder(border8, "Địa chỉ khách");
 		pnDiaChiChinh.setBorder(borderTitle8);
-		
+		//JPanel số nhà
 		JPanel pnSoNha = new JPanel();
 		JLabel lblSoNha = new JLabel("Địa Chỉ: ");
 		lblSoNha.setPreferredSize(new Dimension(90, 20));
-		txtSoNha = new JTextField(15);
+		txtSoNha = new JTextField(20);
 		pnSoNha.add(lblSoNha);
 		pnSoNha.add(txtSoNha);
 		pnDiaChiChinh.add(pnSoNha);
-		
+		//JPanel quận
 		JPanel pnQuan = new JPanel();
 		JLabel lblQuan = new JLabel("Chọn quận: ");
 		lblQuan.setPreferredSize(new Dimension(90, 20));
@@ -242,7 +244,7 @@ public class LayoutBaoCaoKH extends JPanel{
 		pnQuan.add(lblQuan);
 		pnQuan.add(cbQuan);
 		pnDiaChiChinh.add(pnQuan);
-		
+		//JPanel phường
 		JPanel pnPhuong = new JPanel();
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
@@ -253,7 +255,7 @@ public class LayoutBaoCaoKH extends JPanel{
 		pnPhuong.add(cbPhuong);
 		pnDiaChiChinh.add(pnPhuong);
 	
-		
+		//JPanel chứa các JButton
 		JPanel pnFlow=new JPanel();
 		pnFlow.setLayout(new FlowLayout());
 		pnFlow.setBackground(Color.PINK);
@@ -262,7 +264,7 @@ public class LayoutBaoCaoKH extends JPanel{
 		pnFlow.add(btnXem);
 		pnFlow.add(btnHuy);
 		
-		
+		//JPanel hiển thị bảng
 		JPanel pnBang5 = new JPanel();
 		Border border3=BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle3=BorderFactory.createTitledBorder(border3, "Hiển Thị Thông Tin Khách Hàng");
@@ -280,11 +282,10 @@ public class LayoutBaoCaoKH extends JPanel{
 		
 		pnChinh1.add(pnDiaChiChinh);
 		pnChinh.add(pnChinh1);
-		pnBaoCaoKH.add(pnChinh);
+		this.add(pnChinh);
 		
-		pnChinh.add(pnFlow);
-		pnChinh.add(pnBang5);
-		this.add(pnBaoCaoKH);
+		this.add(pnFlow);
+		this.add(pnBang5);
 	}
 
 	

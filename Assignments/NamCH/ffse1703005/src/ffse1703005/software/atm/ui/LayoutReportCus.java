@@ -33,7 +33,7 @@ import ffse1703005.software.atm.model.Customer;
 import ffse1703005.software.atm.model.CustomerDB;
 import ffse1703005.software.atm.model.StamentAdress;
 import ffse1703005.software.atm.model.TransactionsDb;
-
+/*tạo class LayoutReportCus kế thừa JPanel*/
 public class LayoutReportCus extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JButton btnSearchAdress,btnCancelAdress,btnClearInfor,btnUpdate;
@@ -54,6 +54,7 @@ public class LayoutReportCus extends JPanel{
 	public LayoutReportCus() {
 		addControlls();
 		addEvents();
+		/*Lấy giá trị quận truyền vào combobox từ phương thức SeclectDis của class StamentAdress*/
 		arrAdress = adress.SeclectDis();
 		for(String x:arrAdress) {
 			cboDistricts.addItem(x);
@@ -73,13 +74,14 @@ public class LayoutReportCus extends JPanel{
 			
 			JPanel pnMain = new JPanel();
 			pnMain.setOpaque(false);	
+			/*set BoxLayout cho pnMain*/
 			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
 			pnMain.setPreferredSize(new Dimension(1050, 587));
 			pnMain.setMaximumSize(pnMain.getPreferredSize() );
 			
 			JPanel pnCenter = new JPanel();
 			pnCenter.setOpaque(false);		
-			
+			/*set BoxLayout cho pnCenter*/
 			pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
 			pnCenter.setPreferredSize(new Dimension(700, 587));
 			pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
@@ -91,6 +93,7 @@ public class LayoutReportCus extends JPanel{
 			pnCenter.add(pnSeacher);
 			
 			JPanel pnList = new JPanel();
+			/*set Border cho pnList*/
 			Border titleBorderList;
 			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
 			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
@@ -110,16 +113,17 @@ public class LayoutReportCus extends JPanel{
 			pnList.setLayout(new BorderLayout());
 			pnList.add(sc,BorderLayout.CENTER);
 			pnCenter.add(pnList);
+			/*Cảnh chỉnh value cột nằm bên phải của table*/
 			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 			tbl.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
 			tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-			
-			
-			
+									
 			JPanel pnDetail = new JPanel();
+			/*set BoxLayout cho pnDetail*/
 			pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
+			/*set Border cho pnDetail*/
 			Border titleBorderDetail;
 			Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
 			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Chi Tiết Khách Hàng",
@@ -130,6 +134,7 @@ public class LayoutReportCus extends JPanel{
 			pnCenter.add(pnDetail);
 			
 			JPanel pnAllInfor = new JPanel();
+			/*set BoxLayout cho pnAllInfor*/
 			pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
 			
 			JPanel pnDetailInfor = new JPanel();
@@ -144,7 +149,7 @@ public class LayoutReportCus extends JPanel{
 			JLabel lblDetailE = new JLabel("Địa Chỉ Email :");
 			txtDetailEmail = new JTextField(20);
 			txtDetailEmail.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
 			pnDetailInfor.setLayout(infoDetailLayout);
 			infoDetailLayout.setAutoCreateGaps(true);
@@ -191,7 +196,7 @@ public class LayoutReportCus extends JPanel{
 			JLabel lblDetailSt = new JLabel("Địa Chỉ Nhà :");
 			txtDetailStreets = new JTextField(20);
 			txtDetailStreets.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
 			pnDetailAdress.setLayout(adressDetailLayout);
 			adressDetailLayout.setAutoCreateGaps(true);
@@ -239,7 +244,7 @@ public class LayoutReportCus extends JPanel{
 			JLabel lblDetailB = new JLabel("Số Dư :");
 			txtDetailBalance = new JTextField(20);
 			txtDetailBalance.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout accountDetailLayout = new GroupLayout(pnDetailAccount);
 			pnDetailAccount.setLayout(accountDetailLayout);
 			accountDetailLayout.setAutoCreateGaps(true);
@@ -275,6 +280,7 @@ public class LayoutReportCus extends JPanel{
 			pnAllInfor.add(pnDetailAccount);
 			
 			JPanel pnMoney = new JPanel();
+			
 			pnMoney.setLayout(new BoxLayout(pnMoney, BoxLayout.X_AXIS));
 			
 			JPanel pnRecharge = new JPanel();
@@ -310,6 +316,7 @@ public class LayoutReportCus extends JPanel{
 			
 			pnAction.setPreferredSize(new Dimension(350, 587));
 			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			/*set Border cho pnAction*/
 			Border titleBorderAction;
 			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
 			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
@@ -326,8 +333,10 @@ public class LayoutReportCus extends JPanel{
 			JPanel pnInformation = new JPanel();
 			pnInformation.setPreferredSize(new Dimension(340,140));
 			pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
+			/*set BoxLayout cho pnInformation*/
 			pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
 			pnInformation.setOpaque(false);
+			/*set Border cho pnInformation*/
 			Border titleBorderInfor;
 			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
 			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
@@ -347,7 +356,7 @@ public class LayoutReportCus extends JPanel{
 			
 			JLabel lblCode = new JLabel("Mã Khách Hàng :");
 			txtCode = new JTextField(20);				
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout infolayout = new GroupLayout(pnInformation);
 			pnInformation.setLayout(infolayout);
 			infolayout.setAutoCreateGaps(true);
@@ -391,8 +400,10 @@ public class LayoutReportCus extends JPanel{
 			JPanel pnAdress = new JPanel();
 			pnAdress.setPreferredSize(new Dimension(340,130));
 			pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
+			/*set BoxLayout cho pnAdress*/
 			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
 			pnAdress.setOpaque(false);
+			/*set Border cho pnAdress*/
 			Border titleBorderAdress;
 			Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
 			titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
@@ -422,7 +433,7 @@ public class LayoutReportCus extends JPanel{
 			pnSearchAdress.add(btnCancelAdress);
 			pnSearchAdress.add(btnUpdate);
 			
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout adressLayout = new GroupLayout(pnAdress);
 			pnAdress.setLayout(adressLayout);
 			adressLayout.setAutoCreateGaps(true);
@@ -483,9 +494,10 @@ public class LayoutReportCus extends JPanel{
 		btnClearInfor.addActionListener(eventClearInfor);
 		btnUpdate.addActionListener(eventUpdate);
 	}
-	
+	/*Sự kiện khi click vào các dòng trong table*/
 	MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {
+    		/*Lấy index số dòng khi click*/
     		int col = tbl.getSelectedRow();
     		String[] row = new String[6];	    		
     		row[0] = (String) tbl.getValueAt(col, 0);
@@ -502,6 +514,7 @@ public class LayoutReportCus extends JPanel{
     		txtDetailBalance.setText(row[5]);
     		btnClearInfor.setEnabled(true);
     		int money=0;
+    		/*duyệt mảng ArrayList để lấy các giá trị đưa vào Ô textfield*/
 			for(int i=0;i<arrCtm.size();i++) {
 				if(row[0].equals(arrCtm.get(i).getCodeCus())) {
 					txtDetailStreets.setText(arrCtm.get(i).getStreetCus());
@@ -521,13 +534,13 @@ public class LayoutReportCus extends JPanel{
 			txtWithdrawal.setText(String.format("%,d", (long) moneyWithdrawal)+" VNĐ");
     	}
     };
-	
+	/*Xóa các thông tin từ phương thức clearInfor();*/
     ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
 		}
     };
-    
+    /*Cập nhập dữ liệu cho ArrayList*/
     ActionListener eventUpdate = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			arrCtmAll = CustomerDB.getCustomersList();
@@ -537,7 +550,7 @@ public class LayoutReportCus extends JPanel{
 			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
-    
+    /*set các giá trị về trống*/
     public void clearInfor() {
     	txtDetailCode.setText("");
 		txtDetailFullname.setText("");
@@ -553,7 +566,7 @@ public class LayoutReportCus extends JPanel{
 		tbl.clearSelection();
 		btnClearInfor.setEnabled(false);
     }
-    
+    /*set các giá trị về trống*/
 	ActionListener eventCancelAdress = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			txtFullname.setText("");
@@ -570,7 +583,7 @@ public class LayoutReportCus extends JPanel{
 			clearInfor();
 		}
     };
-	
+	/*Sự kiện khi thay đổi combobox sẽ hiện thị các item của cboWards*/
 	ActionListener eventChooseDistricts = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			int keys = cboDistricts.getSelectedIndex();
@@ -590,7 +603,7 @@ public class LayoutReportCus extends JPanel{
 			}						
 		}
     };		
-	
+    /*tìm kiếm theo tên*/
 	private DocumentListener eventSearchFullname = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -617,6 +630,7 @@ public class LayoutReportCus extends JPanel{
 			}
 		}
 	};
+	/*duyệt arrayList theo tên*/
 	private void searchName() {	
 		clearInfor();
 		btnCancelAdress.setEnabled(true);
@@ -639,7 +653,7 @@ public class LayoutReportCus extends JPanel{
 		txtEmail.setEditable(false);
 		txtCode.setEditable(false);
 	}
-	
+	/*tìm kiếm theo số điện thoại*/
 	private DocumentListener eventSearchPhone = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -666,7 +680,7 @@ public class LayoutReportCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt ArrayList theo số đt*/
 	private void searchPhone() {	
 		clearInfor();
 		btnCancelAdress.setEnabled(true);
@@ -687,6 +701,7 @@ public class LayoutReportCus extends JPanel{
 		txtEmail.setEditable(false);
 		txtCode.setEditable(false);
 	}
+	/*tìm kiếm theo mail*/
 	private DocumentListener eventSearchEmail = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -712,7 +727,7 @@ public class LayoutReportCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt arrayList theo email*/
 	private void searchEmail() {
 		clearInfor();
 		btnCancelAdress.setEnabled(true);
@@ -733,6 +748,7 @@ public class LayoutReportCus extends JPanel{
 		txtEmail.setEditable(true);
 		txtCode.setEditable(false);
 	}
+	/*tìm kiếm theo Mã*/
 	private DocumentListener eventSearchCode = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -758,7 +774,7 @@ public class LayoutReportCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt mảng theo mã */
 	private void searchCode() {	
 		clearInfor();
 		btnCancelAdress.setEnabled(true);
@@ -779,7 +795,7 @@ public class LayoutReportCus extends JPanel{
 		txtEmail.setEditable(false);
 		txtCode.setEditable(true);
 	}
-	
+	/*Tìm kiếm theo đường */
 	private DocumentListener eventSearchStreets = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -801,7 +817,7 @@ public class LayoutReportCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt mảng theo Địa chỉ */
 	private void searchStreets() {	
 		clearInfor();
 		btnCancelAdress.setEnabled(true);
@@ -816,7 +832,7 @@ public class LayoutReportCus extends JPanel{
 		}				
 	}
 	
-	
+	/*Tìm kiếm theo quận*/
 	ActionListener eventSearchDistricts = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();

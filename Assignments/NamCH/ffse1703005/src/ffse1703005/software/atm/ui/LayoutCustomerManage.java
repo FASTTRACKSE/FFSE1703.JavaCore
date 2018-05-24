@@ -34,7 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ffse1703005.software.atm.model.*;
-
+/*tạo class LayoutCustomerManage kế thừa JPanel*/
 public class LayoutCustomerManage extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -53,6 +53,7 @@ public class LayoutCustomerManage extends JPanel{
 	public LayoutCustomerManage() {
 		addControlls();
 		addEvents();
+		/*Hiển thi Quận Từ phương thức SeclectDis của class StamentAdress*/
 		arrAdress = adress.SeclectDis();
 		for(String x:arrAdress) {
 			cboDistricts.addItem(x);
@@ -65,282 +66,286 @@ public class LayoutCustomerManage extends JPanel{
 	}
 
 	private void addControlls() {
-		this.setOpaque(false);		
-		
-		JPanel pnMain = new JPanel();
-		pnMain.setOpaque(false);	
-		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
-		pnMain.setPreferredSize(new Dimension(1050, 587));
-		pnMain.setMaximumSize(pnMain.getPreferredSize() );
-		
-		JPanel pnCenter = new JPanel();
-		pnCenter.setOpaque(false);
-		
-		JPanel pnSeacher = new JPanel();
-		pnSeacher.setOpaque(false);
-		pnSeacher.setPreferredSize(new Dimension(700, 35));
-		pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
-		
-		JPanel pnSeacherLeft = new JPanel();
-		pnSeacherLeft.setOpaque(false);
-		pnSeacherLeft.setPreferredSize(new Dimension(350, 35));
-		pnSeacherLeft.setMaximumSize(pnSeacherLeft.getPreferredSize() );
-		pnSeacher.add(pnSeacherLeft);
-		JPanel pnSeacherRight = new JPanel();
-		pnSeacherRight.setOpaque(false);
-//		pnSeacherRight.setPreferredSize(new Dimension(150, 30));
-//		pnSeacherRight.setMaximumSize(pnSeacherRight.getPreferredSize() );
-		JLabel lblSeacher=new JLabel("            Tìm Kiếm : ");
-		lblSeacher.setOpaque(false);
-		pnSeacherRight.add(lblSeacher);
-		txtSeacher = new JTextField(20);		
-		pnSeacherRight.add(txtSeacher);
-		pnSeacher.add(pnSeacherRight);
-		
-		pnCenter.add(pnSeacher);
-		
-		pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
-		pnCenter.setPreferredSize(new Dimension(700, 587));
-		pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
+		try {
+			this.setOpaque(false);		
+			
+			JPanel pnMain = new JPanel();
+			pnMain.setOpaque(false);	
+			/*set boxlayout cho pnMail*/
+			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
+			pnMain.setPreferredSize(new Dimension(1050, 587));
+			pnMain.setMaximumSize(pnMain.getPreferredSize() );
+			
+			JPanel pnCenter = new JPanel();
+			pnCenter.setOpaque(false);
+			
+			JPanel pnSeacher = new JPanel();
+			pnSeacher.setOpaque(false);
+			pnSeacher.setPreferredSize(new Dimension(700, 35));
+			pnSeacher.setMaximumSize(pnSeacher.getPreferredSize() );
+			
+			JPanel pnSeacherLeft = new JPanel();
+			pnSeacherLeft.setOpaque(false);
+			pnSeacherLeft.setPreferredSize(new Dimension(350, 35));
+			pnSeacherLeft.setMaximumSize(pnSeacherLeft.getPreferredSize() );
+			pnSeacher.add(pnSeacherLeft);
+			JPanel pnSeacherRight = new JPanel();
+			pnSeacherRight.setOpaque(false);
+			JLabel lblSeacher=new JLabel("            Tìm Kiếm : ");
+			lblSeacher.setOpaque(false);
+			pnSeacherRight.add(lblSeacher);
+			txtSeacher = new JTextField(20);		
+			pnSeacherRight.add(txtSeacher);
+			pnSeacher.add(pnSeacherRight);
+			
+			pnCenter.add(pnSeacher);
+			/*set boxlayout cho pnCenter*/
+			pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
+			pnCenter.setPreferredSize(new Dimension(700, 587));
+			pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
+			/*set Border cho pnCenter*/
+			Border titleBorderList;
+			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
+			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnList.setBorder(titleBorderList);
+			pnList.setPreferredSize(new Dimension(700, 400));
+			pnList.setMaximumSize(pnList.getPreferredSize() );	
+			/*Add column cho table*/
+			list.addColumn("Mã Khách Hàng");
+			list.addColumn("Họ Và Tên");
+			list.addColumn("Số Điện Thoại");
+			list.addColumn("Địa Chỉ Email");
+			list.addColumn("Số Tài Khoảng");
+			list.addColumn("Số Dư Tài Khoảng");						
+			JScrollPane sc=new JScrollPane(tbl);		
+			pnList.setLayout(new BorderLayout());
+			pnList.add(sc,BorderLayout.CENTER);
+			pnCenter.add(pnList);
+			/*Canh chỉnh các value các cột sang bên phải*/
+			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+			tbl.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+			tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+			pnMain.add(pnCenter);
+			
+			JPanel pnAction = new JPanel();
+			
+			pnAction.setPreferredSize(new Dimension(350, 587));
+			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			/*set Border cho pnAction*/
+			Border titleBorderAction;
+			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAction.setBorder(titleBorderAction);
+			pnAction.setOpaque(false);
+			
+			
+			JPanel pnInformation = new JPanel();
+			pnInformation.setOpaque(false);
+			/*set Border cho pnInformation*/
+			Border titleBorderInfor;
+			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnInformation.setBorder(titleBorderInfor);
+			pnInformation.setOpaque(false);
+			
+			JLabel lblFullname = new JLabel("Họ Và Tên :");
+			txtFullname = new JTextField(20);
+			
+			JLabel lblPhone = new JLabel("Số Điện Thoại :");
+			txtPhone = new JTextField(20);		
 
-		Border titleBorderList;
-		Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
-		titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"DANH SÁCH KHÁCH HÀNG",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnList.setBorder(titleBorderList);
-		pnList.setPreferredSize(new Dimension(700, 400));
-		pnList.setMaximumSize(pnList.getPreferredSize() );		
-		list.addColumn("Mã Khách Hàng");
-		list.addColumn("Họ Và Tên");
-		list.addColumn("Số Điện Thoại");
-		list.addColumn("Địa Chỉ Email");
-		list.addColumn("Số Tài Khoảng");
-		list.addColumn("Số Dư Tài Khoảng");						
-		JScrollPane sc=new JScrollPane(tbl);		
-		pnList.setLayout(new BorderLayout());
-		pnList.add(sc,BorderLayout.CENTER);
-		pnCenter.add(pnList);
-		
-		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-		rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-		tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-		tbl.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
-		tbl.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-		pnMain.add(pnCenter);
-		
-		JPanel pnAction = new JPanel();
-		
-		pnAction.setPreferredSize(new Dimension(350, 587));
-		pnAction.setMaximumSize(pnAction.getPreferredSize() );
-		Border titleBorderAction;
-		Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAction.setBorder(titleBorderAction);
-		pnAction.setOpaque(false);
-		
-		
-		JPanel pnInformation = new JPanel();
-//		pnInformation.setPreferredSize(new Dimension(340,120));
-//		pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
-//		pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
-		pnInformation.setOpaque(false);
-		Border titleBorderInfor;
-		Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Thông tin Cá nhân",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnInformation.setBorder(titleBorderInfor);
-		pnInformation.setOpaque(false);
-		
-		JLabel lblFullname = new JLabel("Họ Và Tên :");
-		txtFullname = new JTextField(20);
-		
-		JLabel lblPhone = new JLabel("Số Điện Thoại :");
-		txtPhone = new JTextField(20);		
-
-		JLabel lblEmail = new JLabel("Địa Chỉ Email :");
-		txtEmail = new JTextField(20);	
-		
-		GroupLayout infolayout = new GroupLayout(pnInformation);
-		pnInformation.setLayout(infolayout);
-		infolayout.setAutoCreateGaps(true);
-		infolayout.setAutoCreateContainerGaps(true);
-		
-		infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblFullname, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblPhone)
-				.addComponent(lblEmail)
-			)
-			.addGroup(infolayout.createParallelGroup()
-				.addComponent(txtFullname)
-				.addComponent(txtPhone)
-				.addComponent(txtEmail)
-			)
-		);
-		
-		infolayout.setVerticalGroup(infolayout.createSequentialGroup()
-			.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblFullname)
-				.addComponent(txtFullname)
-			)			
-			.addGroup(infolayout.createParallelGroup()
+			JLabel lblEmail = new JLabel("Địa Chỉ Email :");
+			txtEmail = new JTextField(20);	
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout infolayout = new GroupLayout(pnInformation);
+			pnInformation.setLayout(infolayout);
+			infolayout.setAutoCreateGaps(true);
+			infolayout.setAutoCreateContainerGaps(true);
+			
+			infolayout.setHorizontalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblFullname, 0, 100, Short.MAX_VALUE)
 					.addComponent(lblPhone)
-					.addComponent(txtPhone)
-				)
-			.addGroup(infolayout.createParallelGroup()
 					.addComponent(lblEmail)
+				)
+				.addGroup(infolayout.createParallelGroup()
+					.addComponent(txtFullname)
+					.addComponent(txtPhone)
 					.addComponent(txtEmail)
 				)
-		);
-		
-		
-		JPanel pnAdress = new JPanel();
-//		pnAdress.setPreferredSize(new Dimension(340,120));
-//		pnAdress.setMaximumSize(pnAdress.getPreferredSize() );
-		pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
-		pnAdress.setOpaque(false);
-		Border titleBorderAdress;
-		Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAdress.setBorder(titleBorderAdress);
-		pnAdress.setOpaque(false);
-				
-		JLabel lblDistricts = new JLabel("Quận :");
-		cboDistricts=new JComboBox<>();
-		cboDistricts.addItem("Chọn Quận");
-		
+			);
+			
+			infolayout.setVerticalGroup(infolayout.createSequentialGroup()
+				.addGroup(infolayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblFullname)
+					.addComponent(txtFullname)
+				)			
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblPhone)
+						.addComponent(txtPhone)
+					)
+				.addGroup(infolayout.createParallelGroup()
+						.addComponent(lblEmail)
+						.addComponent(txtEmail)
+					)
+			);
+			
+			
+			JPanel pnAdress = new JPanel();
+			/*set BoxLayout cho pnAdress*/
+			pnAdress.setLayout(new BoxLayout(pnAdress, BoxLayout.Y_AXIS));
+			pnAdress.setOpaque(false);
+			/*set Border cho pnAdress*/
+			Border titleBorderAdress;
+			Border blueBorderAdress = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderAdress = BorderFactory.createTitledBorder(blueBorderAdress,"Địa Chỉ",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAdress.setBorder(titleBorderAdress);
+			pnAdress.setOpaque(false);
+					
+			JLabel lblDistricts = new JLabel("Quận :");
+			cboDistricts=new JComboBox<>();
+			cboDistricts.addItem("Chọn Quận");
+			
 
-		JLabel lblWards = new JLabel("Phường :");
-		cboWards=new JComboBox<>();
-		cboWards.addItem("Chọn Phường");
-		
+			JLabel lblWards = new JLabel("Phường :");
+			cboWards=new JComboBox<>();
+			cboWards.addItem("Chọn Phường");
+			
 
-		JLabel lblStreets = new JLabel("Địa Chỉ Nhà :");
-		txtStreets = new JTextField(20);
-		
-		GroupLayout adressLayout = new GroupLayout(pnAdress);
-		pnAdress.setLayout(adressLayout);
-		adressLayout.setAutoCreateGaps(true);
-		adressLayout.setAutoCreateContainerGaps(true);
-		
-		adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblDistricts, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblWards)
-				.addComponent(lblStreets)
-			)
-			.addGroup(adressLayout.createParallelGroup()
-				.addComponent(cboDistricts)
-				.addComponent(cboWards)
-				.addComponent(txtStreets)
-			)
-		);
-		
-		adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
-			.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblDistricts)
-				.addComponent(cboDistricts)
-			)
-			.addGroup(adressLayout.createParallelGroup()
+			JLabel lblStreets = new JLabel("Địa Chỉ Nhà :");
+			txtStreets = new JTextField(20);
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout adressLayout = new GroupLayout(pnAdress);
+			pnAdress.setLayout(adressLayout);
+			adressLayout.setAutoCreateGaps(true);
+			adressLayout.setAutoCreateContainerGaps(true);
+			
+			adressLayout.setHorizontalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblDistricts, 0, 100, Short.MAX_VALUE)
 					.addComponent(lblWards)
-					.addComponent(cboWards)
-				)
-			.addGroup(adressLayout.createParallelGroup()
 					.addComponent(lblStreets)
+				)
+				.addGroup(adressLayout.createParallelGroup()
+					.addComponent(cboDistricts)
+					.addComponent(cboWards)
 					.addComponent(txtStreets)
 				)
-		);
-		
-		JPanel pnAccount = new JPanel();
-//		pnAccount.setPreferredSize(new Dimension(340,120));
-//		pnAccount.setMaximumSize(pnAccount.getPreferredSize() );
-		pnAccount.setOpaque(false);
-		pnAccount.setLayout(new BoxLayout(pnAccount, BoxLayout.Y_AXIS));
-		Border titleBorderAccount;
-		Border blueBorderAccount = BorderFactory.createLineBorder(Color.GRAY);
-		titleBorderAccount = BorderFactory.createTitledBorder(blueBorderAccount,"Thông tin tài khoảng",
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-		pnAccount.setBorder(titleBorderAccount);
-		pnAccount.setOpaque(false);
-		
-		
-		JLabel lblCode = new JLabel("Mã Khách Hàng :");
-		txtCode = new JTextField(20);		
-		
-
-		JLabel lblAccountNumber = new JLabel("Số Tài Khoảng :");
-		txtAccountNumber = new JTextField(20);
-
-		
-		
-		JLabel lblBalance = new JLabel("Số Dư :");		
-		balanceFormat = NumberFormat.getNumberInstance();
-		txtBalance = new JFormattedTextField(balanceFormat);
-//		txtBalance.setText(String.format("%,d", (long) 50000));
-		((JFormattedTextField) txtBalance).setValue(new Float("50000"));
-		txtBalance.setEditable(false);
-
-		GroupLayout accountLayout = new GroupLayout(pnAccount);
-		pnAccount.setLayout(accountLayout);
-		accountLayout.setAutoCreateGaps(true);
-		accountLayout.setAutoCreateContainerGaps(true);
-		
-		accountLayout.setHorizontalGroup(accountLayout.createSequentialGroup()
-			.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(lblCode, 0, 100, Short.MAX_VALUE)
-				.addComponent(lblAccountNumber)
-				.addComponent(lblBalance)
-			)
-			.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-				.addComponent(txtCode, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(txtAccountNumber)
-				.addComponent(txtBalance)
-			)
-		);
-		
-		accountLayout.setVerticalGroup(accountLayout.createSequentialGroup()
-			.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				.addComponent(lblCode)
-				.addComponent(txtCode)
-			)
-			.addGroup(accountLayout.createParallelGroup()
-					.addComponent(lblAccountNumber)
-					.addComponent(txtAccountNumber)
+			);
+			
+			adressLayout.setVerticalGroup(adressLayout.createSequentialGroup()
+				.addGroup(adressLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblDistricts)
+					.addComponent(cboDistricts)
 				)
-			.addGroup(accountLayout.createParallelGroup()
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblWards)
+						.addComponent(cboWards)
+					)
+				.addGroup(adressLayout.createParallelGroup()
+						.addComponent(lblStreets)
+						.addComponent(txtStreets)
+					)
+			);
+			
+			JPanel pnAccount = new JPanel();
+			pnAccount.setOpaque(false);
+			/*set BoxLayout cho pnAccount*/
+			pnAccount.setLayout(new BoxLayout(pnAccount, BoxLayout.Y_AXIS));
+			/*set Border cho pnAccount*/
+			Border titleBorderAccount;
+			Border blueBorderAccount = BorderFactory.createLineBorder(Color.GRAY);
+			titleBorderAccount = BorderFactory.createTitledBorder(blueBorderAccount,"Thông tin tài khoảng",
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+			pnAccount.setBorder(titleBorderAccount);
+			pnAccount.setOpaque(false);
+			
+			
+			JLabel lblCode = new JLabel("Mã Khách Hàng :");
+			txtCode = new JTextField(20);		
+			
+
+			JLabel lblAccountNumber = new JLabel("Số Tài Khoảng :");
+			txtAccountNumber = new JTextField(20);
+
+			
+			
+			JLabel lblBalance = new JLabel("Số Dư :");	
+			/*format cho số dư */
+			balanceFormat = NumberFormat.getNumberInstance();
+			txtBalance = new JFormattedTextField(balanceFormat);
+			((JFormattedTextField) txtBalance).setValue(new Float("50000"));
+			txtBalance.setEditable(false);
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout accountLayout = new GroupLayout(pnAccount);
+			pnAccount.setLayout(accountLayout);
+			accountLayout.setAutoCreateGaps(true);
+			accountLayout.setAutoCreateContainerGaps(true);
+			
+			accountLayout.setHorizontalGroup(accountLayout.createSequentialGroup()
+				.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(lblCode, 0, 100, Short.MAX_VALUE)
+					.addComponent(lblAccountNumber)
 					.addComponent(lblBalance)
+				)
+				.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+					.addComponent(txtCode, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(txtAccountNumber)
 					.addComponent(txtBalance)
 				)
-		);
+			);
+			
+			accountLayout.setVerticalGroup(accountLayout.createSequentialGroup()
+				.addGroup(accountLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(lblCode)
+					.addComponent(txtCode)
+				)
+				.addGroup(accountLayout.createParallelGroup()
+						.addComponent(lblAccountNumber)
+						.addComponent(txtAccountNumber)
+					)
+				.addGroup(accountLayout.createParallelGroup()
+						.addComponent(lblBalance)
+						.addComponent(txtBalance)
+					)
+			);
+			
+			JPanel pnMethod = new JPanel();
+			pnMethod.setOpaque(false);
+			btnAddCus = new JButton("Thêm");
+			btnEditCus = new JButton("Sửa");
+			btnDeleteCus = new JButton("Xóa");
+			btnCancelCus = new JButton("Hủy");
+			btnEditCus.setEnabled(false);
+			btnDeleteCus.setEnabled(false);
+			pnMethod.add(btnAddCus);
+			pnMethod.add(btnEditCus);
+			pnMethod.add(btnDeleteCus);
+			pnMethod.add(btnCancelCus);
+			
+			JPanel pnUpdate = new JPanel();
+			pnUpdate.setOpaque(false);
+			btnUpdate = new JButton("Cập Nhập Dữ Liệu");
+			pnUpdate.add(btnUpdate);
+			
+			pnAction.add(pnInformation);
+			pnAction.add(pnAdress);
+			pnAction.add(pnAccount);
+			pnAction.add(pnMethod);
+			pnAction.add(pnUpdate);
+			
+			pnMain.add(pnAction);
+			this.add(pnMain);
+		}catch (Exception e) {
+			
+		}
 		
-		JPanel pnMethod = new JPanel();
-		pnMethod.setOpaque(false);
-		btnAddCus = new JButton("Thêm");
-		btnEditCus = new JButton("Sửa");
-		btnDeleteCus = new JButton("Xóa");
-		btnCancelCus = new JButton("Hủy");
-		btnEditCus.setEnabled(false);
-		btnDeleteCus.setEnabled(false);
-		pnMethod.add(btnAddCus);
-		pnMethod.add(btnEditCus);
-		pnMethod.add(btnDeleteCus);
-		pnMethod.add(btnCancelCus);
-		
-		JPanel pnUpdate = new JPanel();
-		pnUpdate.setOpaque(false);
-		btnUpdate = new JButton("Cập Nhập Dữ Liệu");
-		pnUpdate.add(btnUpdate);
-		
-		pnAction.add(pnInformation);
-		pnAction.add(pnAdress);
-		pnAction.add(pnAccount);
-		pnAction.add(pnMethod);
-		pnAction.add(pnUpdate);
-		
-		pnMain.add(pnAction);
-		this.add(pnMain);
 		
 	}
 
@@ -354,7 +359,7 @@ public class LayoutCustomerManage extends JPanel{
 		txtSeacher.getDocument().addDocumentListener(eventSearch);
 		btnUpdate.addActionListener(eventUpdate);
 	}
-	
+	/*Cập nhập lại ArrayList*/
 	ActionListener eventUpdate = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			arrCtm = CustomerDB.getCustomersList();
@@ -364,13 +369,13 @@ public class LayoutCustomerManage extends JPanel{
 			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
-	
+    /*Sự kiện khi Button Hủy thay đổi sẽ gọi phương thức resetAll*/
 	ActionListener eventCancelCus = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			resetAll();	
 		}
     };
-	
+    /*Sự kiện khi chọn quận sẽ in vào combobox Phường*/
 	ActionListener eventChooseDistricts = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			int keys = cboDistricts.getSelectedIndex();
@@ -386,9 +391,10 @@ public class LayoutCustomerManage extends JPanel{
 			}						
 		}
     };
-    
+    /*Sự kiện lấy giá trị từ textfield và combobox đưa vào database*/
     ActionListener eventAddCus = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			/*Lấy các giá trị từ phương thức getValueIntput*/
 			ctm = getValueIntput();	
 			if(ctm==null) {
 				
@@ -413,7 +419,8 @@ public class LayoutCustomerManage extends JPanel{
 				}else if(checkAcc){
 					String msg = "Đã Tồn Tại Khách Hàng Có Số Tài Khoản : "+accNum;
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Thêm Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
-				}else {					
+				}else {				
+					/*kiểm tra đã thêm dữ liệu thành công chưa từ phương thức addCustomer của class CustomerDB*/
 					int check =CustomerDB.addCustomer(ctm);
 					if (check>-1) {
 						String msg = "Thêm Thành Công Khách Hàng : "+txtFullname.getText()
@@ -421,6 +428,7 @@ public class LayoutCustomerManage extends JPanel{
 									+"\nMã Pin Mặc Định Của Khách Là : 123456";
 						JOptionPane.showMessageDialog(null, msg, "Thêm Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
 					}
+					/*cập Nhập lại ArrayList rồi in ra table*/
 					arrCtmAll = CustomerDB.getCustomersList();
 					updateArrCtm();
 					printListCus();
@@ -431,9 +439,10 @@ public class LayoutCustomerManage extends JPanel{
 			
 		}
     };
-    
+    /*Sự kiện Sửa các giá trị rồi đưa lên database*/
     ActionListener eventEditCus = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {			
+		public void actionPerformed(ActionEvent e) {	
+			/*Lấy các giá trị từ phương thức getValueIntput*/
 			ctm = getValueIntput();
 			if(ctm==null) {
 				
@@ -448,6 +457,7 @@ public class LayoutCustomerManage extends JPanel{
 				int keyWards = adress.SeclectIdWards(wards);
 				int balance = ((Number) ((JFormattedTextField) txtBalance).getValue()).intValue();
 				for(Customer x:arrCtmAll) {
+					/*validate khi sữa*/
 					if(code.equals(x.getCodeCus())) {
 						if(fullname.equals(x.getFullnameCus())
 						&&phone.equals(x.getPhoneCus())
@@ -459,17 +469,18 @@ public class LayoutCustomerManage extends JPanel{
 							String msg = "Chưa Dòng Nào Được Sửa \n ";
 							JOptionPane.showMessageDialog(null, msg, "Sửa Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
 						}else {
+							/*kiểm tra đã sửa dữ liệu thành công chưa từ phương thức editCustomer của class CustomerDB*/
 							int check =CustomerDB.editCustomer(ctm);
 							if (check>-1) {
 								String msg = "Sửa Thành Công Khách Hàng : "+txtFullname.getText()
 											+"\nSố Tài Khoản : "+txtAccountNumber.getText()
 											+"\nMã Khách Hàng : "+txtCode.getText();
 								JOptionPane.showMessageDialog(null, msg, "Sửa Khách Hàng!!!", JOptionPane.INFORMATION_MESSAGE);
-//								
 							}
 						}
 					}
 				}
+				/*cập Nhập lại ArrayList rồi in ra table*/
 				arrCtmAll = CustomerDB.getCustomersList();
 				resetAll();
 				updateArrCtm();
@@ -478,7 +489,7 @@ public class LayoutCustomerManage extends JPanel{
 			
 		}
     };
-    
+    /*Sự kiện Xóa các giá trị trong database*/
     ActionListener eventDeleteCus = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			String msg = "Xóa Bạn Có Muốn Xóa Khách Hàng : "+txtFullname.getText()
@@ -486,7 +497,8 @@ public class LayoutCustomerManage extends JPanel{
 			+"\nMã Khách Hàng : "+txtCode.getText();
 			int i = JOptionPane.showConfirmDialog(null, msg, "Xóa Khách Hàng!!!", JOptionPane.YES_NO_OPTION);
 			if (i == JOptionPane.YES_OPTION) {
-				String code = txtCode.getText();				
+				String code = txtCode.getText();
+				/*kiểm tra đã sửa dữ liệu thành công chưa từ phương thức delCustomer của class CustomerDB*/
 				int check = CustomerDB.delCustomer(code);
 				if(check>-1) {
 					String msgXoa = "Xóa Thành Công Khách Hàng : "+txtFullname.getText();
@@ -499,12 +511,13 @@ public class LayoutCustomerManage extends JPanel{
 			}						
 		}
     };
-    
+    /*Sự kiện khi click vào các dòng trong table*/
     MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {
     		txtBalance.setEditable(true);
     		txtCode.setEditable(false);
     		txtAccountNumber.setEditable(false);
+    		/*Lấy index số dòng khi click*/
     		int col = tbl.getSelectedRow();
     		String[] row = new String[5];	    		
     		row[0] = (String) tbl.getValueAt(col, 0);
@@ -517,7 +530,7 @@ public class LayoutCustomerManage extends JPanel{
     		txtPhone.setText(row[2]);
     		txtEmail.setText(row[3]);
     		txtAccountNumber.setText(row[4]);
-    		
+    		/*duyệt mảng ArrayList để lấy các giá trị đưa vào Ô textfield*/
 			for(int i=0;i<arrCtm.size();i++) {
 				if(row[0].equals(arrCtm.get(i).getCodeCus())) {
 					((JFormattedTextField) txtBalance).setValue(new Double(arrCtm.get(i).getAmountCus()));
@@ -531,7 +544,7 @@ public class LayoutCustomerManage extends JPanel{
 			btnDeleteCus.setEnabled(true);
     	}
     };
-    
+    /*Sự kiện khi tìm kiếm sẽ gọi phương thức searcher*/
     private DocumentListener eventSearch = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -546,10 +559,11 @@ public class LayoutCustomerManage extends JPanel{
 			searcher();
 		}
 	};
-    
+	/*Tìm kiếm tên đường theo ArrayList*/
 	private void searcher() {
 		String nameSearch = txtSeacher.getText();
 		list.setRowCount(0);
+		/*Duyệt mảng */
 		for(Customer x:arrCtmAll) {		
 			if(x.getFullnameCus().toUpperCase().trim().indexOf(nameSearch.toUpperCase().trim()) > -1) {				
 				String phone = String.valueOf(x.getPhoneCus());
@@ -558,11 +572,11 @@ public class LayoutCustomerManage extends JPanel{
 			}			
 		}
 	}
-	
+	 /*Cập nhập ArrayList*/
 	private ArrayList<Customer> updateArrCtm() {
     	return arrCtm = arrCtmAll;
     }
-    
+	/*phương thức in vào các dòng trong bảng từ Arraylist*/
     private void printListCus() {
     	list.setRowCount(0);
     	for (Customer ctm : arrCtm) { 		
@@ -571,7 +585,7 @@ public class LayoutCustomerManage extends JPanel{
 			list.addRow(row);
 		}
     }
-    
+    /*Phương thức lấy giá trị của các ô TextField và combobox*/
     private Customer getValueIntput() {
     	ctm = new Customer();
 		String fullname = txtFullname.getText();
@@ -584,7 +598,7 @@ public class LayoutCustomerManage extends JPanel{
 		int keyDistricts = cboDistricts.getSelectedIndex();
 		String wards = (String) cboWards.getSelectedItem();
 		int keyWards = adress.SeclectIdWards(wards);
-
+		/*Validate các giá trị lấy về*/
 		if(fullname.isEmpty()&&phone.isEmpty()&&email.isEmpty()&&street.isEmpty()&&code.isEmpty()
 				&& accountNumber.isEmpty() && keyDistricts==0 && txtBalance.getText().isEmpty()) {
 			String msg = "Chưa Nhập!!!\nThông Tin Của Khách Hàng";
@@ -634,7 +648,7 @@ public class LayoutCustomerManage extends JPanel{
 			return ctm;
 		}
     }
-    
+    /*phương thức reset về trống cho các ô textfield và combobox*/
     private void resetAll() {
     	txtFullname.setText("");
 		txtPhone.setText("");

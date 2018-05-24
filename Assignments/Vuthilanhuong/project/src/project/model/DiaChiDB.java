@@ -8,8 +8,10 @@ import com.mysql.jdbc.Statement;
 
 public class DiaChiDB {
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
 	public ArrayList<String> hienThiQuan(){
+		//select từ bảng atm_quan trên database sseer hiển thị quận
 		ArrayList<String> arrQuan=new ArrayList<String>();
 		try {
 			
@@ -27,6 +29,7 @@ public class DiaChiDB {
 		return arrQuan;
 		
 	}
+	//select từ bảng atm_phuong để hiển thị phường
 	public ArrayList <String> hienThiPhuong(int key){
 		ArrayList<String> arrPhuong=new ArrayList<String>();
 		try {

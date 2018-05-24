@@ -7,12 +7,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,7 +27,9 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
+import project.model.ATMGD;
 import project.model.DiaChiDB;
+import project.model.GiaoDichDB;
 
 public class LayoutGiaoDich extends JPanel{
 
@@ -39,23 +44,35 @@ public class LayoutGiaoDich extends JPanel{
 	JScrollPane sc=new JScrollPane(tbl);
 	DiaChiDB diachiDb = new DiaChiDB();
 	ArrayList<String> arrDiaChi = new ArrayList<String>();
+	ArrayList<ATMGD> arrATMGD = new ArrayList<ATMGD>();
 	public LayoutGiaoDich() {
+		arrATMGD = GiaoDichDB.giaoDichATM();
+
 		addControll();
+		for(ATMGD x: arrATMGD ) {
+			@SuppressWarnings("unused")
+			String thoiGian = String.valueOf(x.getThoiGianGD());
+			String tongTien = String.valueOf(x.getTongTien());
+			String[] row = {x.getMaATM(),x.getDuong()+" "+x.getPhuong()+" "+x.getQuan(),x.getMaGiaoDich(),x.getThoiGianGD().toString(),tongTien};
+			dm.addRow(row);
+		}
 			addEvent();
 		}
 
 	private void addEvent() {
 		cbQuan.addActionListener(eventHienThiPhuong);
 		btnXem.addActionListener(eventInGiaoDich);
+		btnHuy.addActionListener(eventHuy);
 	}
 	ActionListener eventHienThiPhuong = new ActionListener() {
-
+		//event hiển thị phường
 		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int key= cbQuan.getSelectedIndex();
 			arrDiaChi= diachiDb.hienThiPhuong(key);
 			cbPhuong.removeAllItems();
+			cbPhuong.addItem("Tất cả");
 			for(String x:arrDiaChi) {
 				cbPhuong.addItem(x);
 				
@@ -63,24 +80,85 @@ public class LayoutGiaoDich extends JPanel{
 		}
 
 	};
-	
-	ActionListener eventInGiaoDich = new ActionListener() {
-		@Override
+	//set các ô JTextF về trống và in ra
+	ActionListener eventHuy = new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			
+			dm.setRowCount(0);
+			for(ATMGD x: arrATMGD ) {
+				@SuppressWarnings("unused")
+				String thoiGian = String.valueOf(x.getThoiGianGD());
+				String tongTien = String.valueOf(x.getTongTien());
+				String[] row = {x.getMaATM(),x.getDuong()+" "+x.getPhuong()+" "+x.getQuan(),x.getMaGiaoDich(),x.getThoiGianGD().toString(),tongTien};
+				dm.addRow(row);
+			}
+			txtSoThe.setText("");
+			txtDuong.setText("");
+			txtMaMay.setText("");
+			jdTuNgay.setCalendar(null);
+			jdDenNgay.setCalendar(null);
 		}
 
 	};
+	//event hiển thị các thông tin của khách
+	ActionListener eventInGiaoDich = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				String maMay = txtMaMay.getText();
+				String duong = txtDuong.getText();
+				String quan = cbQuan.getSelectedItem().toString();
+				int Quan= cbQuan.getSelectedIndex();
+				String phuong = cbQuan.getSelectedItem().toString();
+				int Phuong = cbPhuong.getSelectedIndex();
+				
+				Date tuNgay = jdTuNgay.getDate();
+				Date denNgay = new Date();
+				Calendar c = jdDenNgay.getCalendar(); 
+				c.add(Calendar.DATE, 1);
+				denNgay = c.getTime();
+				
+				if(Quan==0) {
+					quan="";
+					phuong="";
+					timKiem( quan,  phuong,  duong,  maMay,  tuNgay,  denNgay);
+				}
+				else if (Phuong==0) {
+				phuong = "";
+				timKiem( quan,  phuong,  duong,  maMay,  tuNgay,  denNgay);
+				}
+				else {
+					timKiem( quan,  phuong,  duong,  maMay,  tuNgay,  denNgay);
+				}
+			
+			}catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày");
+			}
+			
+		}
+	};
+	
+	//event  tìm kiếm máy atm
+	public void timKiem(String quan, String phuong, String duong, String maMay, Date tuNgay, Date denNgay) {
+		dm.setRowCount(0);
+		for(ATMGD x:arrATMGD) {
+			if(x.getQuan().indexOf(quan)>-1 && x.getPhuong().indexOf(phuong)>-1 && x.getDuong().indexOf(duong)>-1 && x.getMaATM().indexOf(maMay)>-1 
+					&& x.getThoiGianGD().after(tuNgay)&& x.getThoiGianGD().before(denNgay) ) {
+				String tongTien = String.valueOf(x.getTongTien());
+				String thoiGian = String.valueOf(x.getThoiGianGD());
+				String[] row = {x.getMaATM(),x.getDuong()+" "+x.getPhuong()+ " "+ x.getQuan(),x.getMaGiaoDich(),thoiGian,tongTien};
+				dm.addRow(row);
+			}
+		}
+	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addControll() {
-		JPanel pnGiaoDich = new JPanel();
-		pnGiaoDich.setPreferredSize(new Dimension(1000, 700));
+		
 		Border border5=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border5, "Quản Lý Giao Dịch ATM");
-		pnGiaoDich.setBorder(borderTitle5);
-		pnGiaoDich.setLayout(new BoxLayout(pnGiaoDich, BoxLayout.Y_AXIS));
+		this.setBorder(borderTitle5);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel pnQuanLy =new JPanel();
 		pnQuanLy.setLayout(new BoxLayout(pnQuanLy, BoxLayout.X_AXIS));
@@ -94,7 +172,7 @@ public class LayoutGiaoDich extends JPanel{
 		cbQuan = new JComboBox();
 		cbQuan.setPreferredSize(new Dimension(165, 20));
 		arrDiaChi = diachiDb.hienThiQuan();
-		cbQuan.addItem("Chọn Quận");
+		cbQuan.addItem("Tất cả");
 		for(String x: arrDiaChi) {
 			cbQuan.addItem(x);
 		}
@@ -107,6 +185,7 @@ public class LayoutGiaoDich extends JPanel{
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
 		cbPhuong = new JComboBox();
+		cbPhuong.addItem("Tất Cả");
 		cbPhuong.setPreferredSize(new Dimension(165, 20));
 		
 		pnPhuong.add(lblPhuong);
@@ -116,7 +195,7 @@ public class LayoutGiaoDich extends JPanel{
 		JPanel pnDuong = new JPanel(); 
 		JLabel lblDuong = new JLabel("Đường");
 		lblDuong.setPreferredSize(new Dimension(90, 20));
-		txtDuong = new JTextField(15);
+		txtDuong = new JTextField(20);
 		pnDuong.add(lblDuong);
 		pnDuong.add(txtDuong);
 		pnMa_The.add(pnDuong);
@@ -182,15 +261,16 @@ public class LayoutGiaoDich extends JPanel{
 		pnBang3.setBorder(borderTitle6);
 		dm.addColumn("Mã Máy ATM");
 		dm.addColumn("Vị trí máy");
-		dm.addColumn("Tổng tiền");
+		dm.addColumn("Mã Giao Dich");
+		dm.addColumn("Thời Gian Giao Dịch");
+		dm.addColumn("Số Tiền Rút");
 		pnBang3.setLayout(new BorderLayout());
 		pnBang3.add(sc,BorderLayout.CENTER);
 		
 		pnQuanLy.add(pnMa_The);
 		pnQuanLy.add(pnTgRut_SoTien);
-		pnGiaoDich.add(pnQuanLy);
-		pnGiaoDich.add(pnFlow3);
-		pnGiaoDich.add(pnBang3);
-		this.add(pnGiaoDich);
+		this.add(pnQuanLy);
+		this.add(pnFlow3);
+		this.add(pnBang3);
 	}
 }

@@ -16,12 +16,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import project.model.DiaChiDB;
-import project.model.KhachHang;
-import project.model.KhachHangDB;
 import project.model.MayATM;
 import project.model.MayATMDb;
 
+@SuppressWarnings("serial")
 public class LayoutATM extends JPanel{
+	@SuppressWarnings("rawtypes")
 	JComboBox cbQuan, cbPhuong;
 	JTextField txtMaMay,txtDuong, txtTongTien;
 	JButton btnThem,btnSua, btnXoa, btnHuy;
@@ -76,6 +76,8 @@ public class LayoutATM extends JPanel{
 		    		}
 	    			/*đặt giá trị cho các ô textfield*/
 	    			txtMaMay.setText(ma);
+	    			txtMaMay.setEditable(false);
+	    			
 	    			txtDuong.setText(viTri);
 	    			txtTongTien.setText(tongTien);
 	    		}
@@ -83,31 +85,45 @@ public class LayoutATM extends JPanel{
 	    		
 	    	}
 	 };
-	
+	//event thêm dữ liệu vào bảng
 	ActionListener eventThem = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String maMay = txtMaMay.getText();
-			String tenDuong= txtDuong.getText();
-			String tongTien = txtTongTien.getText();
-			String quan = (String) cbQuan.getSelectedItem();
-			String phuong = (String) cbPhuong.getSelectedItem();
-			MayATM mayATM = new MayATM();
-			mayATM.add(quan,phuong,tenDuong,maMay,tongTien);
-			atmDB.themMayATM(mayATM);
-			String[] row = {maMay,tenDuong,tongTien};
-			dm.addRow(row);
-			txtMaMay.setText("");
-			txtDuong.setText("");
-			txtTongTien.setText("");
-			cbQuan.setSelectedIndex(0);
+			try {
+				String maMay = txtMaMay.getText();
+				String tenDuong= txtDuong.getText();
+				String tongTien = txtTongTien.getText();
+				String quan = (String) cbQuan.getSelectedItem();
+				int keyQuan = cbQuan.getSelectedIndex();
+				String phuong = (String) cbPhuong.getSelectedItem();
+				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+				}else {
+					MayATM mayATM = new MayATM();
+					mayATM.add(quan,phuong,tenDuong,maMay,tongTien);
+					atmDB.themMayATM(mayATM);
+					String[] row = {maMay,tenDuong,tongTien};
+					dm.addRow(row);
+					txtMaMay.setText("");
+					txtDuong.setText("");
+					txtTongTien.setText("");
+					cbQuan.setSelectedIndex(0);
+					
+				}
+				
+			}catch(Exception x) {
+				JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
+			}
+			
 		}
 
 	};
-	
+	//event hiển thị phường trong ô comboBox
 	ActionListener eventHienThiPhuong = new ActionListener() {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int key= cbQuan.getSelectedIndex();
@@ -120,37 +136,54 @@ public class LayoutATM extends JPanel{
 		}
 
 	};
-	
+	//event sửa dữ liệu trong bảng atm_atm trong database
 	ActionListener eventSua = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String maMay = txtMaMay.getText();
-			String tenDuong= txtDuong.getText();
-			String tongTien = txtTongTien.getText();
-			String quan = (String) cbQuan.getSelectedItem();
-			String phuong = (String) cbPhuong.getSelectedItem();
-			MayATM mayATM = new MayATM();
-			mayATM.add(quan,phuong,tenDuong,maMay,tongTien);
-			atmDB.suaMayATM(mayATM);
-			dm.setRowCount(0);
-			arrATM = atmDB.hienThiMayATM();
-			for(MayATM x:arrATM) {
-				String[] row = {x.getMaMay(),x.getTenDuong(),x.getTongTien()};
-				dm.addRow(row);
+			try {
+				String maMay = txtMaMay.getText();
+				String tenDuong= txtDuong.getText();
+				String tongTien = txtTongTien.getText();
+				String quan = (String) cbQuan.getSelectedItem();
+				int keyQuan = cbQuan.getSelectedIndex();
+				String phuong = (String) cbPhuong.getSelectedItem();
+				if(maMay.isEmpty()||tenDuong.isEmpty()||tongTien.isEmpty()||keyQuan==0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+				}else {
+					MayATM mayATM = new MayATM();
+					mayATM.add(quan,phuong,tenDuong,maMay,tongTien);
+					atmDB.suaMayATM(mayATM);
+					dm.setRowCount(0);
+					arrATM = atmDB.hienThiMayATM();
+					for(MayATM x:arrATM) {
+						String[] row = {x.getMaMay(),x.getTenDuong(),x.getTongTien()};
+						dm.addRow(row);
+					}
+					txtMaMay.setText("");
+					
+					txtDuong.setText("");
+					txtTongTien.setText("");
+					cbQuan.setSelectedIndex(0);
+					txtMaMay.setEditable(true);
+					btnSua.setEnabled(false);
+					btnXoa.setEnabled(false);
+					btnThem.setEnabled(true);
+				}
+				
+			}catch(Exception X) {
+				JOptionPane.showMessageDialog(null, "Nhập sai thông tin");
 			}
-			txtMaMay.setText("");
-			txtDuong.setText("");
-			txtTongTien.setText("");
-			cbQuan.setSelectedIndex(0);
+			
 		}
 
 	};
 	ActionListener eventXoa = new ActionListener() {
 
+		@SuppressWarnings("static-access")
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String mayATM = txtMaMay.getText();
 			atmDB.xoaMayATM(mayATM);
 			int row;
@@ -164,8 +197,14 @@ public class LayoutATM extends JPanel{
 			txtDuong.setText("");
 			txtTongTien.setText("");
 			cbQuan.setSelectedIndex(0);
+			txtMaMay.setEditable(true);
+			btnSua.setEnabled(false);
+			btnXoa.setEnabled(false);
+			btnThem.setEnabled(true);
 		}
 	};
+	
+	//sự kiện đưa các ô JTextF về trống và in ra bảng
 	ActionListener eventHuy = new ActionListener() {
 
 		@Override
@@ -175,6 +214,7 @@ public class LayoutATM extends JPanel{
 			btnThem.setEnabled(true);
 			arrATM=atmDB.hienThiMayATM();
 			txtMaMay.setText("");
+			txtMaMay.setEditable(true);
 			txtDuong.setText("");
 			txtTongTien.setText("");
 			cbQuan.setSelectedIndex(0);
@@ -188,29 +228,30 @@ public class LayoutATM extends JPanel{
 
 	};
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addControll() {
 		
-		JPanel pnChinh4 = new JPanel();
-		pnChinh4.setPreferredSize(new Dimension(1000, 700));
-		pnChinh4.setLayout(new BorderLayout());
-		pnChinh4.setLayout(new BoxLayout(pnChinh4, BoxLayout.Y_AXIS));
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Border border5=BorderFactory.createLineBorder(Color.RED);
 		TitledBorder borderTitle5=BorderFactory.createTitledBorder(border5, "Quản Lý ATM");
-		pnChinh4.setBorder(borderTitle5);
+		this.setBorder(borderTitle5);
 		
+		//JPanel quản lý atm
 		JPanel pnQuanLyChinh = new JPanel();
 		pnQuanLyChinh.setLayout(new BoxLayout(pnQuanLyChinh, BoxLayout.X_AXIS));
 		
 		JPanel pnQuanLy1 = new JPanel();
 		pnQuanLy1.setLayout(new BoxLayout(pnQuanLy1, BoxLayout.Y_AXIS));
+		//JPanel mã atm
 		JPanel pnMaMay = new JPanel(); 
 		JLabel lblMaMay = new JLabel("Mã máy ATM: ");
 		lblMaMay.setPreferredSize(new Dimension(90, 20));
-		txtMaMay = new JTextField(15);
+		txtMaMay = new JTextField(20);
 		pnMaMay.add(lblMaMay);
 		pnMaMay.add(txtMaMay);
 		pnQuanLy1.add(pnMaMay);
-		
+		//JPanel Quận
 		JPanel pnQuan = new JPanel();
 		JLabel lblQuan = new JLabel("Chọn quận: ");
 		lblQuan.setPreferredSize(new Dimension(90, 20));
@@ -226,7 +267,7 @@ public class LayoutATM extends JPanel{
 		pnQuan.add(lblQuan);
 		pnQuan.add(cbQuan);
 		pnQuanLy1.add(pnQuan);
-
+		//JPanel phường
 		JPanel pnPhuong = new JPanel();
 		JLabel lblPhuong = new JLabel("Chọn phường: ");
 		lblPhuong.setPreferredSize(new Dimension(90, 20));
@@ -236,15 +277,16 @@ public class LayoutATM extends JPanel{
 		pnPhuong.add(lblPhuong);
 		pnPhuong.add(cbPhuong);
 		pnQuanLy1.add(pnPhuong);
-		
+		//JPanel Đường
 		JPanel pnDuong = new JPanel(); 
 		JLabel lblDuong = new JLabel("Đường");
 		lblDuong.setPreferredSize(new Dimension(90, 20));
-		txtDuong = new JTextField(15);
+		txtDuong = new JTextField(20);
 		pnDuong.add(lblDuong);
 		pnDuong.add(txtDuong);
 		pnQuanLy1.add(pnDuong);
 		
+		//JPanel chứa tổng tiền
 		JPanel pnQuanLy2 = new JPanel();
 		pnQuanLy2.setLayout(new BoxLayout(pnQuanLy2, BoxLayout.Y_AXIS));
 		JPanel pnTongTien = new JPanel();
@@ -256,6 +298,7 @@ public class LayoutATM extends JPanel{
 		pnTongTien.add(txtTongTien);
 		pnQuanLy2.add(pnTongTien);
 		
+		//JPanel chứa các JButton
 		JPanel pnQuanLy3 = new JPanel();
 		pnQuanLy3.setLayout(new BoxLayout(pnQuanLy3, BoxLayout.X_AXIS));
 		JPanel pnFlow1=new JPanel();
@@ -275,10 +318,11 @@ public class LayoutATM extends JPanel{
 		
 		pnQuanLyChinh.add(pnQuanLy1);
 		pnQuanLyChinh.add(pnQuanLy2);
-		pnChinh4.add(pnQuanLyChinh);
-		pnChinh4.add(pnQuanLy3);
-		this.add(pnChinh4);
+		this.add(pnQuanLyChinh);
+		this.add(pnQuanLy3);
+		//this.add(this);
 		
+		//JPanel hiển thị bảng
 		JPanel pnBang2 = new JPanel();
 		Border border6=BorderFactory.createLineBorder(Color.BLACK);
 		TitledBorder borderTitle6=BorderFactory.createTitledBorder(border6, "Hiển Thị Thông Tin Máy");
@@ -289,7 +333,7 @@ public class LayoutATM extends JPanel{
 		pnBang2.setLayout(new BorderLayout());
 		pnBang2.add(sc,BorderLayout.CENTER);
 		
-		pnChinh4.add(pnBang2);
+		this.add(pnBang2);
 		
 		}
 

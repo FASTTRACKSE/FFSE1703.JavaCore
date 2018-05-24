@@ -21,7 +21,7 @@ import javax.swing.border.TitledBorder;
 
 import ffse1703005.software.atm.model.UserAdmin;
 import ffse1703005.software.atm.model.UserAdminDb;
-
+/*tạo class LayoutChangePassAd kế thừa JPanel*/
 public class LayoutChangePassAd extends JPanel {
 	private String username;
 	private ArrayList<UserAdmin> arrUser = new ArrayList<UserAdmin>();
@@ -60,98 +60,107 @@ public class LayoutChangePassAd extends JPanel {
 	}
 
 	private void addControlls() {
-		this.setOpaque(false);
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		JPanel pnBlank = new JPanel();
-		pnBlank.setOpaque(false);
-		pnBlank.setPreferredSize(new Dimension(250, 80));
-		pnBlank.setMaximumSize( pnBlank.getPreferredSize() );
-		
-		JPanel pnInforAdminAction = new JPanel();
-		pnInforAdminAction.setOpaque(false);
-		pnInforAdminAction.setLayout(new BoxLayout(pnInforAdminAction, BoxLayout.Y_AXIS));
-		pnInforAdminAction.setPreferredSize(new Dimension(250, 200));
-		pnInforAdminAction.setMaximumSize( pnInforAdminAction.getPreferredSize() );
-		Border titleBorder;
-		Border blueBorder = BorderFactory.createLineBorder(Color.BLACK,3);
-		titleBorder = BorderFactory.createTitledBorder(blueBorder, "Xin Chào : "+username,
-		        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);		
-		pnInforAdminAction.setBorder(titleBorder);				
-		
-		JPanel pnHeader =new JPanel();
-		pnHeader.setOpaque(false);
-		JLabel lblHeader =new JLabel("Đổi Mật Khẩu");
-		lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblHeader.setForeground(Color.RED	);
-		pnHeader.add(lblHeader);
-		pnInforAdminAction.add(pnHeader);
-		
+		try {
+			this.setOpaque(false);
+			/*set BoxLayout cho class*/
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			JPanel pnBlank = new JPanel();
+			pnBlank.setOpaque(false);
+			pnBlank.setPreferredSize(new Dimension(250, 80));
+			pnBlank.setMaximumSize( pnBlank.getPreferredSize() );
+			
+			JPanel pnInforAdminAction = new JPanel();
+			pnInforAdminAction.setOpaque(false);
+			/*set BoxLayout cho pnInforAdminAction*/
+			pnInforAdminAction.setLayout(new BoxLayout(pnInforAdminAction, BoxLayout.Y_AXIS));
+			pnInforAdminAction.setPreferredSize(new Dimension(250, 200));
+			pnInforAdminAction.setMaximumSize( pnInforAdminAction.getPreferredSize() );
+			/*set Border cho pnInforAdminAction*/
+			Border titleBorder;
+			Border blueBorder = BorderFactory.createLineBorder(Color.BLACK,3);
+			titleBorder = BorderFactory.createTitledBorder(blueBorder, "Xin Chào : "+username,
+			        TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);		
+			pnInforAdminAction.setBorder(titleBorder);				
+			
+			JPanel pnHeader =new JPanel();
+			pnHeader.setOpaque(false);
+			JLabel lblHeader =new JLabel("Đổi Mật Khẩu");
+			/*set Font cho lblHeader*/
+			lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 20));
+			/*set setForeground cho lblHeader*/
+			lblHeader.setForeground(Color.RED	);
+			pnHeader.add(lblHeader);
+			pnInforAdminAction.add(pnHeader);
+			
 
-		JLabel lblOldPassword = new JLabel("Mật Khẩu Cũ:");
-		txtOldPassword = new JPasswordField(20);
+			JLabel lblOldPassword = new JLabel("Mật Khẩu Cũ:");
+			txtOldPassword = new JPasswordField(20);
 
-		JLabel lblNewPassword = new JLabel("Mật Khẩu Mới:");
-		txtNewPassword = new JPasswordField(20);
-		
-		JLabel lblConfimPass = new JLabel("Nhập Lại Mật Khẩu Mới:");
-		txtConfimPass = new JPasswordField(20);
-		
-		JPanel pnChangePass = new JPanel();
-		pnChangePass.setOpaque(false);
-		
-		GroupLayout accountLayout = new GroupLayout(pnChangePass);
-		pnChangePass.setLayout(accountLayout);
-		accountLayout.setAutoCreateGaps(true);
-		accountLayout.setAutoCreateContainerGaps(true);
-		
-		accountLayout.setHorizontalGroup(accountLayout.createSequentialGroup()
-			.addGroup(accountLayout.createParallelGroup()
-				.addComponent(lblOldPassword)
-				.addComponent(lblNewPassword)
-				.addComponent(lblConfimPass)
-			)
-			.addGroup(accountLayout.createParallelGroup()
-				.addComponent(txtOldPassword)
-				.addComponent(txtNewPassword)
-				.addComponent(txtConfimPass)
-			)
-		);
-		
-		accountLayout.setVerticalGroup(accountLayout.createSequentialGroup()
-			.addGroup(accountLayout.createParallelGroup()
-				.addComponent(lblOldPassword)
-				.addComponent(txtOldPassword)
-			)
-			.addGroup(accountLayout.createParallelGroup()
+			JLabel lblNewPassword = new JLabel("Mật Khẩu Mới:");
+			txtNewPassword = new JPasswordField(20);
+			
+			JLabel lblConfimPass = new JLabel("Nhập Lại Mật Khẩu Mới:");
+			txtConfimPass = new JPasswordField(20);
+			
+			JPanel pnChangePass = new JPanel();
+			pnChangePass.setOpaque(false);
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
+			GroupLayout accountLayout = new GroupLayout(pnChangePass);
+			pnChangePass.setLayout(accountLayout);
+			accountLayout.setAutoCreateGaps(true);
+			accountLayout.setAutoCreateContainerGaps(true);
+			
+			accountLayout.setHorizontalGroup(accountLayout.createSequentialGroup()
+				.addGroup(accountLayout.createParallelGroup()
+					.addComponent(lblOldPassword)
 					.addComponent(lblNewPassword)
-					.addComponent(txtNewPassword)
-				)
-			.addGroup(accountLayout.createParallelGroup()
 					.addComponent(lblConfimPass)
+				)
+				.addGroup(accountLayout.createParallelGroup()
+					.addComponent(txtOldPassword)
+					.addComponent(txtNewPassword)
 					.addComponent(txtConfimPass)
 				)
-		);
-		pnInforAdminAction.add(pnChangePass);
-		JPanel pnAction = new JPanel();
-		pnAction.setOpaque(false);
-		btnChange = new JButton("Xác Nhận");
-		btnCancel = new JButton("Hủy");
-		btnBack = new JButton("Cancel");
-		pnAction.add(btnChange);
-		pnAction.add(btnCancel);
-		pnAction.add(btnBack);
-		pnInforAdminAction.add(pnAction);
-		this.add(pnBlank);
-		this.add(pnInforAdminAction);
+			);
+			
+			accountLayout.setVerticalGroup(accountLayout.createSequentialGroup()
+				.addGroup(accountLayout.createParallelGroup()
+					.addComponent(lblOldPassword)
+					.addComponent(txtOldPassword)
+				)
+				.addGroup(accountLayout.createParallelGroup()
+						.addComponent(lblNewPassword)
+						.addComponent(txtNewPassword)
+					)
+				.addGroup(accountLayout.createParallelGroup()
+						.addComponent(lblConfimPass)
+						.addComponent(txtConfimPass)
+					)
+			);
+			pnInforAdminAction.add(pnChangePass);
+			JPanel pnAction = new JPanel();
+			pnAction.setOpaque(false);
+			btnChange = new JButton("Xác Nhận");
+			btnCancel = new JButton("Hủy");
+			btnBack = new JButton("Cancel");
+			pnAction.add(btnChange);
+			pnAction.add(btnCancel);
+			pnAction.add(btnBack);
+			pnInforAdminAction.add(pnAction);
+			this.add(pnBlank);
+			this.add(pnInforAdminAction);
+		}catch (Exception e) {
+			
+		}
+		
 	}
 
 	private void addEvents() {
 		btnCancel.addActionListener(eventCancel);
 		btnChange.addActionListener(eventChangePass);
 	}
-	
-	ActionListener eventCancel = new ActionListener() {
-		
+	/*Sự kiện khi nhấn nút hủy sẽ xóa các ô textfield*/
+	ActionListener eventCancel = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			txtConfimPass.setText("");
@@ -160,8 +169,8 @@ public class LayoutChangePassAd extends JPanel {
 		}
 		
 	};
-	ActionListener eventChangePass = new ActionListener() {
-		
+	/*Sự kiện khi thay đổi pass*/
+	ActionListener eventChangePass = new ActionListener() {		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			arrUser = UserAdminDb.getUserList(username);
@@ -183,6 +192,7 @@ public class LayoutChangePassAd extends JPanel {
 						String msg = "Mật Khẩu Xác Nhận Không Trùng Khớp Với Mật Khẩu Mới";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);
 					}else {
+						/*kiểm tra upadte pas thành công không từ phương thức changePass của class UserAdminDb*/
 						int checkPass = UserAdminDb.changePass(username, newPassword);
 						if(checkPass>-1) {
 							txtConfimPass.setText("");

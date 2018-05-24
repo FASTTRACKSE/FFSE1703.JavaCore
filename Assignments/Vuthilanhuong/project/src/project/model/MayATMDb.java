@@ -9,7 +9,10 @@ import com.mysql.jdbc.Statement;
 
 public class MayATMDb {
 	static ConnectDB myDb = new ConnectDB();
+	@SuppressWarnings("static-access")
 	static Connection conn = myDb.getConnect("localhost", "ffse1703001", "huong", "12345");
+	
+	//hiển thị thông tin máy atm
 	public ArrayList<MayATM> hienThiMayATM(){
 		ArrayList<MayATM> arrATM=new ArrayList<MayATM>();
 		try {
@@ -35,14 +38,40 @@ public class MayATMDb {
 		return arrATM;
 		
 	}
-	
+	//hiển thị vị trí máy atm
+	public static ArrayList<MayATM> hienThiViTriMay(){
+		ArrayList<MayATM> arrATM=new ArrayList<MayATM>();
+		try {
+			
+			Statement statement=(Statement) conn.createStatement();
+			ResultSet rs=statement.executeQuery
+			("select * from atm_atm");
+			while(rs.next())
+			{
+				MayATM ATM = new MayATM();
+				ATM.setMaMay(rs.getString("ma"));
+				ATM.setTenQuan(rs.getString("quan"));
+				ATM.setTenPhuong(rs.getString("phuong"));
+				ATM.setTenDuong(rs.getString("duong"));
+				ATM.setTongTien(rs.getString("tong_tien"));
+				arrATM.add(ATM);
+			}
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+		return arrATM;
+		
+	}
+	//thêm máy atm
 	public static int themMayATM(MayATM ATM) {
 		try {
 			String sql = "insert into atm_atm (ma, quan, phuong, duong, tong_tien) "
 					+ " values (?, ?, ?, ?,?)";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, ATM.getMaMay());
+		
 			stm.setString(2, ATM.getTenQuan());
+			
 			stm.setString(3, ATM.getTenPhuong());
 			stm.setString(4, ATM.getTenDuong());
 			stm.setString(5, ATM.getTongTien());
@@ -53,6 +82,7 @@ public class MayATMDb {
 			return -1;
 		}
 	}
+	//sửa máy atm
 	public static int suaMayATM(MayATM ATM) {
 		try {
 			String sql = "update atm_atm set quan = ?, phuong = ?, "
@@ -71,6 +101,7 @@ public class MayATMDb {
 			return -1;
 		}
 	}
+	//xoá máy atm
 	public static int xoaMayATM(String mayATM) {
 		try {
 			String sql = "DELETE FROM atm_atm WHERE ma = ?";
@@ -83,7 +114,7 @@ public class MayATMDb {
 			return -1;
 		}
 	}
-	
+	//tìm theo mã máy atm
 	public ArrayList<MayATM> timTheoMa( String maMay){
 		ArrayList<MayATM> arrATM=new ArrayList<MayATM>();
 		try {
@@ -106,7 +137,7 @@ public class MayATMDb {
 		return arrATM;
 		
 	}
-	
+	//tìm theo địa chỉ máy atm
 	public ArrayList<MayATM> timTheoDiaChi(String quan,String phuong, String duong){
 		ArrayList<MayATM> arrTimKiemDC=new ArrayList<MayATM>();
 		try {
@@ -131,5 +162,21 @@ public class MayATMDb {
 			}
 		return arrTimKiemDC;
 		
+	}
+	
+	public static int rutTienMayATM(int soDu,String maMay) {
+		try {
+			String sql = "update atm_atm set tong_tien = ? where ma = ?";
+			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+			stm.setInt(1, soDu);
+			stm.setString(2, maMay);
+			
+
+
+			return stm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 }

@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import ffse1703005.software.atm.model.Customer;
 import ffse1703005.software.atm.model.CustomerDB;
 import ffse1703005.software.atm.model.TransactionsDb;
-
+/*tạo class LayoutRechargeCus kế thừa JPanel*/
 public class LayoutRechargeCus extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JButton btnClearInfor,btnRecharge,btnUpdate;
@@ -60,13 +60,14 @@ public class LayoutRechargeCus extends JPanel{
 			
 			JPanel pnMain = new JPanel();
 			pnMain.setOpaque(false);	
+			/*set BoxLayout cho pnMain*/
 			pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.X_AXIS));
 			pnMain.setPreferredSize(new Dimension(1050, 587));
 			pnMain.setMaximumSize(pnMain.getPreferredSize() );
 			
 			JPanel pnCenter = new JPanel();
 			pnCenter.setOpaque(false);		
-			
+			/*set BoxLayout cho pnCenter*/
 			pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
 			pnCenter.setPreferredSize(new Dimension(700, 587));
 			pnCenter.setMaximumSize(pnCenter.getPreferredSize() );
@@ -78,6 +79,7 @@ public class LayoutRechargeCus extends JPanel{
 			pnCenter.add(pnSeacher);
 			
 			JPanel pnList = new JPanel();
+			/*set Border cho pnList*/
 			Border titleBorderList;
 			Border blueBorderList = BorderFactory.createLineBorder(Color.BLACK,2);
 			titleBorderList = BorderFactory.createTitledBorder(blueBorderList,"CHỌN KHÁCH HÀNG",
@@ -97,6 +99,7 @@ public class LayoutRechargeCus extends JPanel{
 			pnList.setLayout(new BorderLayout());
 			pnList.add(sc,BorderLayout.CENTER);
 			pnCenter.add(pnList);
+			/*Cảnh chỉnh value cột nằm bên phải của table*/
 			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 			rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 			tbl.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
@@ -106,7 +109,9 @@ public class LayoutRechargeCus extends JPanel{
 			
 			
 			JPanel pnDetail = new JPanel();
+			/*set BoxLayout cho pnDetail*/
 			pnDetail.setLayout(new BoxLayout(pnDetail, BoxLayout.Y_AXIS));
+			/*set Border cho pnDetail*/
 			Border titleBorderDetail;
 			Border blueBorderDetail = BorderFactory.createLineBorder(Color.BLACK,2);
 			titleBorderDetail = BorderFactory.createTitledBorder(blueBorderDetail,"Nạp Tiền Cho Khách Hàng",
@@ -117,6 +122,7 @@ public class LayoutRechargeCus extends JPanel{
 			pnCenter.add(pnDetail);
 			
 			JPanel pnAllInfor = new JPanel();
+			/*set BoxLayout cho pnAllInfor*/
 			pnAllInfor.setLayout(new BoxLayout(pnAllInfor, BoxLayout.X_AXIS));
 			
 			JPanel pnDetailInfor = new JPanel();
@@ -131,7 +137,7 @@ public class LayoutRechargeCus extends JPanel{
 			JLabel lblDetailE = new JLabel("Địa Chỉ Email :");
 			txtDetailEmail = new JTextField(20);
 			txtDetailEmail.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout infoDetailLayout = new GroupLayout(pnDetailInfor);
 			pnDetailInfor.setLayout(infoDetailLayout);
 			infoDetailLayout.setAutoCreateGaps(true);
@@ -178,7 +184,7 @@ public class LayoutRechargeCus extends JPanel{
 			JLabel lblDetailSt = new JLabel("Địa Chỉ Nhà :");
 			txtDetailStreets = new JTextField(20);
 			txtDetailStreets.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout adressDetailLayout = new GroupLayout(pnDetailAdress);
 			pnDetailAdress.setLayout(adressDetailLayout);
 			adressDetailLayout.setAutoCreateGaps(true);
@@ -226,7 +232,7 @@ public class LayoutRechargeCus extends JPanel{
 			JLabel lblDetailB = new JLabel("Số Dư :");
 			txtDetailBalance = new JTextField(20);
 			txtDetailBalance.setEditable(false);
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout accountDetailLayout = new GroupLayout(pnDetailAccount);
 			pnDetailAccount.setLayout(accountDetailLayout);
 			accountDetailLayout.setAutoCreateGaps(true);
@@ -283,6 +289,7 @@ public class LayoutRechargeCus extends JPanel{
 			
 			pnAction.setPreferredSize(new Dimension(350, 587));
 			pnAction.setMaximumSize(pnAction.getPreferredSize() );
+			/*set Border cho pnAction*/
 			Border titleBorderAction;
 			Border blueBorderAction = BorderFactory.createLineBorder(Color.BLACK,3);
 			titleBorderAction = BorderFactory.createTitledBorder(blueBorderAction,"TÌM KIẾM THEO",
@@ -299,8 +306,10 @@ public class LayoutRechargeCus extends JPanel{
 			JPanel pnInformation = new JPanel();
 			pnInformation.setPreferredSize(new Dimension(340,140));
 			pnInformation.setMaximumSize(pnInformation.getPreferredSize() );
+			/*set BoxLayout cho pnInformation*/
 			pnInformation.setLayout(new BoxLayout(pnInformation, BoxLayout.Y_AXIS));
 			pnInformation.setOpaque(false);
+			/*set Border cho pnInformation*/
 			Border titleBorderInfor;
 			Border blueBorderInfor = BorderFactory.createLineBorder(Color.GRAY);
 			titleBorderInfor = BorderFactory.createTitledBorder(blueBorderInfor,"Nhập 1 trong các ô dưới để tìm kiếm",
@@ -320,7 +329,7 @@ public class LayoutRechargeCus extends JPanel{
 			
 			JLabel lblCode = new JLabel("Mã Khách Hàng :");
 			txtCode = new JTextField(20);				
-			
+			/*Group layout để canh chỉnh lề cho các Jlabel và JtextField*/
 			GroupLayout infolayout = new GroupLayout(pnInformation);
 			pnInformation.setLayout(infolayout);
 			infolayout.setAutoCreateGaps(true);
@@ -386,7 +395,7 @@ public class LayoutRechargeCus extends JPanel{
 		btnRecharge.addActionListener(eventRecharge);
 		btnUpdate.addActionListener(eventUpdate);
 	}
-	
+	/*update lại arraylist*/
 	ActionListener eventUpdate = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {			
 			arrCtmAll = CustomerDB.getCustomersList();
@@ -395,9 +404,10 @@ public class LayoutRechargeCus extends JPanel{
 			JOptionPane.showMessageDialog(null, msgXoa, "Cập Nhập Dữ Liệu!!!", JOptionPane.INFORMATION_MESSAGE);
 		}
     };
-	
+    /*Sự kiện khi click vào các dòng trong table*/
 	MouseAdapter eventChooseRow = new MouseAdapter() {
     	public void mouseClicked(MouseEvent e) {
+    		/*Lấy index số dòng khi click*/
     		int col = tbl.getSelectedRow();
     		String[] row = new String[6];	    		
     		row[0] = (String) tbl.getValueAt(col, 0);
@@ -412,7 +422,7 @@ public class LayoutRechargeCus extends JPanel{
     		txtDetailEmail.setText(row[3]);
     		txtDetailAccNumber.setText(row[4]);
     		txtDetailBalance.setText(row[5]);
-    		
+    		/*duyệt mảng ArrayList để lấy các giá trị đưa vào Ô textfield*/
 			for(int i=0;i<arrCtm.size();i++) {
 				if(row[0].equals(arrCtm.get(i).getCodeCus())) {
 					txtDetailStreets.setText(arrCtm.get(i).getStreetCus());
@@ -423,15 +433,14 @@ public class LayoutRechargeCus extends JPanel{
 			btnClearInfor.setEnabled(true);
     	}
     };
-	
+	/*Sự kiện nạp tiền*/
     ActionListener eventRecharge = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			ArrayList<Customer> arrCtm = new ArrayList<Customer>();
-			
+			ArrayList<Customer> arrCtm = new ArrayList<Customer>();			
 			try {
 				String codeCus = txtDetailCode.getText();				
 				String money = txtRecharge.getText();
-				
+				/*validate khi nhập số tiền cần nạp*/
 				if(codeCus.isEmpty()) {
 					String msg = "Chưa Chọn Khách Hàng";
 					JOptionPane.showMessageDialog(null, msg, "Lỗi Nạp Tiền!!!", JOptionPane.INFORMATION_MESSAGE);
@@ -439,7 +448,8 @@ public class LayoutRechargeCus extends JPanel{
 					int moneyRecharge = Integer.parseInt(money);
 					arrCtm = CustomerDB.searchCode(codeCus);
 					if(moneyRecharge % 10000 == 0) {
-						int balanceCus = (arrCtm.get(0).getAmountCus() + moneyRecharge);						
+						int balanceCus = (arrCtm.get(0).getAmountCus() + moneyRecharge);	
+						/*kiểm tra đã nạp tiền thành công chưa từ phương thức editMoney của class CustomerDB*/
 						int checkCus = CustomerDB.editMoney(balanceCus,codeCus);
 						if(checkCus >-1) {
 							txtRecharge.setText("");							
@@ -451,7 +461,8 @@ public class LayoutRechargeCus extends JPanel{
 							    System.out.println(formattedTime);
 							    long int_transactions = t.getTime();	
 							    String code_transactions = "MGD" + int_transactions;
-								int checkTss = TransactionsDb.addTransactions(codeCus, "Tại Hệ Thống", code_transactions , moneyRecharge ,"Nạp Tiền");
+								/*Kiểm tra đã tạo giao dịch thành công hay chưa từ phương thức addTransactions của class TransactionsDb*/
+							    int checkTss = TransactionsDb.addTransactions(codeCus, "Tại Hệ Thống", code_transactions , moneyRecharge ,"Nạp Tiền");
 								if(checkTss>-1) {
 									list.setRowCount(0);
 									arrCtmAll = CustomerDB.getCustomersList();
@@ -463,7 +474,7 @@ public class LayoutRechargeCus extends JPanel{
 						}
 											
 					}else {
-						String msg = "Số tiền mỗi lần rút là bội số của 10.000 VNĐ";
+						String msg = "Số tiền mỗi lần nạp là bội số của 10.000 VNĐ";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi Nhập!!!", JOptionPane.INFORMATION_MESSAGE);						
 					}
 				}
@@ -474,14 +485,14 @@ public class LayoutRechargeCus extends JPanel{
 			
 		}
     };
-    
+    /*Sự kiện khi nhấn vào gọi phương thức clearInfor();*/
     ActionListener eventClearInfor = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			clearInfor();
 			btnClearInfor.setEnabled(false);
 		}
     };
-    
+    /*set các giá trị về trống*/
     public void clearInfor() {
     	txtDetailCode.setText("");
 		txtDetailFullname.setText("");
@@ -495,7 +506,7 @@ public class LayoutRechargeCus extends JPanel{
 		tbl.clearSelection();
 		btnClearInfor.setEnabled(false);
     }    			
-	
+	/*tìm kiếm theo tên*/
 	private DocumentListener eventSearchFullname = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -521,6 +532,7 @@ public class LayoutRechargeCus extends JPanel{
 			}
 		}
 	};
+	/*duyệt arrayList theo tên*/
 	private void searchName() {	
 		clearInfor();
 		nameSearch = txtFullname.getText();
@@ -541,7 +553,7 @@ public class LayoutRechargeCus extends JPanel{
 		txtEmail.setEditable(false);
 		txtCode.setEditable(false);
 	}
-	
+	/*tìm kiếm theo số điện thoại*/
 	private DocumentListener eventSearchPhone = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -567,7 +579,7 @@ public class LayoutRechargeCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt ArrayList theo số đt*/
 	private void searchPhone() {	
 		clearInfor();
 		phoneSearch = txtPhone.getText();
@@ -587,6 +599,7 @@ public class LayoutRechargeCus extends JPanel{
 		txtEmail.setEditable(false);
 		txtCode.setEditable(false);
 	}
+	/*tìm kiếm theo mail*/
 	private DocumentListener eventSearchEmail = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -611,7 +624,7 @@ public class LayoutRechargeCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt arrayList theo email*/
 	private void searchEmail() {
 		clearInfor();
 		emailSearch = txtEmail.getText();
@@ -631,6 +644,7 @@ public class LayoutRechargeCus extends JPanel{
 		txtEmail.setEditable(true);
 		txtCode.setEditable(false);
 	}
+	/*tìm kiếm theo Mã*/
 	private DocumentListener eventSearchCode = new DocumentListener() {		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
@@ -655,7 +669,7 @@ public class LayoutRechargeCus extends JPanel{
 			}
 		}
 	};
-	
+	/*Duyệt mảng theo mã */
 	private void searchCode() {	
 		clearInfor();
 		codeSearch = txtCode.getText();
@@ -683,11 +697,11 @@ public class LayoutRechargeCus extends JPanel{
 		txtEmail.setEditable(true);
 		txtCode.setEditable(true);
 	}		
-	
+	/*Cập nhập lại ArrayList*/
 	private ArrayList<Customer> updateArrCtm() {
     	return arrCtm = arrCtmAll;
     }
-    
+    /*in từ ArrayList vào Table*/
     private void printListCus() {
     	arrCtm = arrCtmAll;
     	list.setRowCount(0);
