@@ -18,14 +18,14 @@ public class MonCuaLopUI extends JPanel {
 	private DefaultTableModel dm_moncholop;
 	private JTable table_moncholop;
 	private JScrollPane sc_moncholop;
-	private JScrollPane sp_moncholop;
 	private JTextField maLop = new JTextField(), maMH = new JTextField(), ten = new JTextField();
 	private ArrayList<MonCuaLop> arrMoncholop = new ArrayList<MonCuaLop>();
 	private JComboBox<String> maLopcomnoBox = new JComboBox<>();
 	private JComboBox<String> maMonhoc = new JComboBox<>();
 	private JComboBox<String> comBoboxlop = new JComboBox<>();
-	private Button ThemMoncholop = new Button("Thêm");
-	private Button XoaMoncholop = new Button("Xóa");
+	private JButton ThemMoncholop = new JButton("Thêm");
+	private JButton XoaMoncholop = new JButton("Xóa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 
 	public MonCuaLopUI() {
 		maLopcomnoBox();
@@ -60,7 +60,7 @@ public class MonCuaLopUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border border = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Danh sách");
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Quản lý môn học cho lớp");
 		this.setBorder(borderTitle);
 		dm_moncholop = new DefaultTableModel();
 		dm_moncholop.addColumn("Mã lớp học");
@@ -83,8 +83,8 @@ public class MonCuaLopUI extends JPanel {
 		}
 		table_moncholop = new JTable(dm_moncholop);
 		table_moncholop.setLayout(new BorderLayout());
-		sp_moncholop = new JScrollPane(table_moncholop);
-		sc_moncholop = new JScrollPane(sp_moncholop, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+//		sp_moncholop = new JScrollPane(table_moncholop);
+		sc_moncholop = new JScrollPane(table_moncholop, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sc_moncholop.setPreferredSize(new Dimension(715, 415));
 
@@ -116,6 +116,8 @@ public class MonCuaLopUI extends JPanel {
 		JPanel chonlop = new JPanel();
 		chonlop.setLayout(new FlowLayout());
 		JLabel txtlop = new JLabel("Mã lớp:  ");
+		txtlop.setPreferredSize(new Dimension(70, 30));
+		maLopcomnoBox.setPreferredSize(new Dimension(220, 20));
 		chonlop.add(txtlop);
 		chonlop.add(maLopcomnoBox);
 		pnLeft.add(chonlop);
@@ -123,6 +125,8 @@ public class MonCuaLopUI extends JPanel {
 		JPanel chonma = new JPanel();
 		chonma.setLayout(new FlowLayout());
 		JLabel txtma = new JLabel("Mã môn:  ");
+		txtma.setPreferredSize(new Dimension(70, 30));
+		maMonhoc.setPreferredSize(new Dimension(220, 20));
 		chonma.add(txtma);
 		chonma.add(maMonhoc);
 		pnLeft.add(chonma);
@@ -137,6 +141,7 @@ public class MonCuaLopUI extends JPanel {
 		pnMoncholopbutton.setPreferredSize(new Dimension(200, 100));
 		pnMoncholopbutton.add(ThemMoncholop);
 		pnMoncholopbutton.add(XoaMoncholop);
+		pnMoncholopbutton.add(nhapSinhVien);
 
 		pnMoncholop.add(pnLeft);
 		pnMoncholopbutton.add(chucnang);
@@ -196,6 +201,7 @@ public class MonCuaLopUI extends JPanel {
 		ThemMoncholop.addActionListener(eventAdd_lop);
 		XoaMoncholop.addActionListener(eventDel_lop);
 		comBoboxlop.addActionListener(eventchoseLop);
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
 
 	}
 
@@ -215,25 +221,36 @@ public class MonCuaLopUI extends JPanel {
 			col[1] = (String) table_moncholop.getValueAt(row, 1);
 			maLopcomnoBox.setSelectedItem(col[0]);
 			maMonhoc.setSelectedItem(col[1]);
-
+			ThemMoncholop.setEnabled(false);
 		}
 	};
 
 	ActionListener eventAdd_lop = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-
+			int kt = 0;
 			String lop_SinhVien = (String) maLopcomnoBox.getSelectedItem();
 			String maMhoc_SinhVien = (String) maMonhoc.getSelectedItem();
+			for (MonCuaLop x : arrMoncholop ) {
+				if (lop_SinhVien.equals(x.getMaLop()) && maMhoc_SinhVien.equals(x.getMaMH())) {
+					kt = 2;
+					break;
+				}
+			}
 
 			try {
+				if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "MÔN HỌC ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
+
+				} else {	
+				
 				Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 				Statement statement = conn.createStatement();
 				ResultSet result = statement.executeQuery(
 						"SELECT table_lop.MaLop,table_monhoc.MaMH,table_monhoc.Ten FROM table_lop INNER JOIN table_monhoc WHERE MaLop= '"
 								+ lop_SinhVien + "' AND table_monhoc.MaMH='" + maMhoc_SinhVien + "'");
 
-				// while (result.next()) {
+			
 				result.next();
 				arrMoncholop.add(
 						new MonCuaLop(result.getString("MaLop"), result.getString("MaMH"), result.getString("Ten")));
@@ -243,7 +260,7 @@ public class MonCuaLopUI extends JPanel {
 						+ result.getString("MaLop") + "','" + result.getString("MaMH") + "','" + result.getString("Ten")
 						+ "')";
 				statement.executeUpdate(sql);
-
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -294,6 +311,18 @@ public class MonCuaLopUI extends JPanel {
 			}
 		}
 
+	};
+	ActionListener eventReset_SinhVien = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			ThemMoncholop.setEnabled(true);
+			maLopcomnoBox.setSelectedItem("");
+			maMonhoc.setSelectedItem("");
+			
+			
+		}
 	};
 
 }

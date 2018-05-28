@@ -13,9 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -74,12 +71,13 @@ public class MyQuanLiSinhVien extends JFrame {
 		lbl.setForeground(Color.YELLOW);
 		JPanel Title = new JPanel();
 		Title.setBackground(Color.PINK);
-		Title.setPreferredSize(new Dimension(0, 20));
+		Title.setPreferredSize(new Dimension(0, 50));
 		Title.add(lbl);
 		pnMain.add(Title, BorderLayout.NORTH);
 
 		JPanel pnContent1 = new JPanel();
 		JLabel lblContent1 = new JLabel("Chọn Lớp :");
+		
 		select = new JComboBox(Item);
 		pnContent1.add(lblContent1);
 		pnContent1.add(select);
@@ -163,7 +161,7 @@ public class MyQuanLiSinhVien extends JFrame {
 		sp = new JScrollPane(tbl);
 		JScrollPane sc = new JScrollPane(sp, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		sc.setPreferredSize(new Dimension(500, 180));
+		sc.setPreferredSize(new Dimension(450, 180));
 		pnTable1.add(sc, BorderLayout.CENTER);
 		pnMain.add(pnTable1);
 

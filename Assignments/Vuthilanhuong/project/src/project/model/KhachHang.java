@@ -9,6 +9,7 @@ private String chonPhuong;
 private String soDT;
 private String emailK;
 private String soThe;
+@SuppressWarnings("unused")
 private String matKhau;
 private String soTien;
 
@@ -105,7 +106,6 @@ public void setSoTien(String taiKhoan) {
 
 public void add(String maKh, String tenKh, String diaChiKh, String dienThoaiKh, String emailKh, String sotheKh,
 		String taiKhoanKh, String quanKh, String phuongKh) {
-	// TODO Auto-generated method stub
 	this.maKhach= maKh;
 	this.tenKhach= tenKh;
 	this.diaChiN= diaChiKh;

@@ -1,10 +1,10 @@
 package project.model;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 
 public class GiaoDich {
 	String theKhachHang,  maATM, maGiaoDich;
-	Time thoiGianGD;
+	Timestamp thoiGianGD;
 	double tongTien;
 	
 	
@@ -12,7 +12,7 @@ public class GiaoDich {
 	public GiaoDich() {
 		
 	}
-	public GiaoDich( String maGiaoDich, String theKhachHang,Time thoiGianGD, double tongTien, String  maATM) {
+	public GiaoDich( String maGiaoDich, String theKhachHang,Timestamp thoiGianGD, double tongTien, String  maATM) {
 		this.maATM = maATM;
 		this.theKhachHang = theKhachHang;
 		this.maGiaoDich =maGiaoDich;
@@ -40,10 +40,10 @@ public class GiaoDich {
 	public void setMaGiaoDich(String maGiaoDich) {
 		this.maGiaoDich = maGiaoDich;
 	}
-	public Time getThoiGianGD() {
+	public Timestamp getThoiGianGD() {
 		return thoiGianGD;
 	}
-	public void setThoiGianGD(Time thoiGianGD) {
+	public void setThoiGianGD(Timestamp thoiGianGD) {
 		this.thoiGianGD = thoiGianGD;
 	}
 	public double getTongTien() {

@@ -8,6 +8,7 @@ import org.gjt.mm.mysql.Driver;
 import com.mysql.jdbc.Connection;
 
 public class ConnectDB {
+	/*phương thức kết nối database*/
 	public Connection getConnect(String strServer,String strDatabase,
 			String strUser,String strPwd)
 			{

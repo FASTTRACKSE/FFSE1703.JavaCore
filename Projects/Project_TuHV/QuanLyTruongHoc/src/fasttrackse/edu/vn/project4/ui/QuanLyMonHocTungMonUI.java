@@ -54,7 +54,6 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 
 	JTable tbl_monhoc_lop;
 
-	
 	private JButton btnThem = new JButton("Thêm");
 	private JButton btnXoa = new JButton("Xóa");
 
@@ -84,7 +83,7 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 
 		JPanel pnbutton5 = new JPanel();
 		pnbutton5.setLayout(new FlowLayout());
-		
+
 		pnbutton5.add(btnThem);
 
 		pnbutton5.add(btnXoa);
@@ -106,7 +105,6 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 
 		pnCenter5.add(pnCombo6);
 
-
 		pnCenter5.setBackground(Color.white);
 		this.add(pnCenter5, BorderLayout.CENTER);
 		// getContentPane().add(pnBorder5);
@@ -123,8 +121,8 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery("SELECT * FROM Quan_ly_mon_hoc_cho_lop");
 			while (result.next()) {
-				arrMHL.add(
-						new MonCuaTungLop(result.getString("ma_lop"), result.getString("ma_mon_hoc"), result.getString("ten")));
+				arrMHL.add(new MonCuaTungLop(result.getString("ma_lop"), result.getString("ma_mon_hoc"),
+						result.getString("ten")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,10 +135,9 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 		}
 		tbl_monhoc_lop = new JTable(dm_monhoc_lop);
 		JScrollPane sc5 = new JScrollPane(tbl_monhoc_lop);
-		JScrollPane VT5 = new JScrollPane(sc5, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		VT5.setPreferredSize(new Dimension(1170, 520));
-		pnTable5.add(VT5, BorderLayout.CENTER);
+
+		sc5.setPreferredSize(new Dimension(1170, 520));
+		pnTable5.add(sc5, BorderLayout.CENTER);
 		pnCenter5.add(pnTable5);
 
 		Border border5 = BorderFactory.createLineBorder(Color.blue);
@@ -148,6 +145,7 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 		pnTable5.setBorder(borderTitle5);
 
 	}
+
 	@SuppressWarnings("unchecked")
 	public void lop() {
 		Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
@@ -181,7 +179,7 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 		tbl_monhoc_lop.addMouseListener(eventTable_lophoc);
 		btnThem.addActionListener(eventAdd_lop);
 		btnXoa.addActionListener(eventDel_lop);
-		
+
 	}
 
 	MouseAdapter eventTable_lophoc = new MouseAdapter() {
@@ -203,7 +201,6 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 			String chonMa = (String) maLopHocMon.getSelectedItem();
 			String chonMon = (String) monHoc.getSelectedItem();
 
-
 			try {
 				Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 				Statement statement = conn.createStatement();
@@ -213,15 +210,15 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 
 				// while (result.next()) {
 				result.next();
-				arrMHL.add(new MonCuaTungLop(result.getString("ma_lop"),
-						result.getString("ma_mon_hoc"), result.getString("ten")));
+				arrMHL.add(new MonCuaTungLop(result.getString("ma_lop"), result.getString("ma_mon_hoc"),
+						result.getString("ten")));
 				dm_monhoc_lop.addRow(new String[] { result.getString("ma_lop"), result.getString("ma_mon_hoc"),
 						result.getString("ten") });
 				String sql = "INSERT INTO Quan_ly_mon_hoc_cho_lop (ma_lop, ma_mon_hoc,ten) VALUES (" + "'"
 						+ result.getString("ma_lop") + "','" + result.getString("ma_mon_hoc") + "','"
 						+ result.getString("ten") + "')";
 				statement.executeUpdate(sql);
-				
+
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -230,8 +227,6 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 				String[] row = { x.getMalop(), x.getMaMH(), x.getTen() };
 				dm_monhoc_lop.addRow(row);
 			}
-
-		
 
 		}
 	};
@@ -243,14 +238,16 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 			for (MonCuaTungLop x : arrMHL) {
 				if (((String) maLopHocMon.getSelectedItem()).equals(x.getMalop())) {
 					if (((String) monHoc.getSelectedItem()).equals(x.getMaMH())) {
-					arrMHL.remove(x);
+						arrMHL.remove(x);
 					}
 					break;
 				}
 			}
 			Connection conn = Connect.getConnect("localhost", "project4", "viettu", "12345");
 			try {
-				String sql = "DELETE FROM Quan_ly_mon_hoc_cho_lop WHERE ma_lop = '" +(String) maLopHocMon.getSelectedItem()+ "' AND ma_mon_hoc ='"+(String) maLopHocMon.getSelectedItem()+"'";
+				String sql = "DELETE FROM Quan_ly_mon_hoc_cho_lop WHERE ma_lop = '"
+						+ (String) maLopHocMon.getSelectedItem() + "' AND ma_mon_hoc ='"
+						+ (String) maLopHocMon.getSelectedItem() + "'";
 				Statement statement = conn.createStatement();
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
@@ -268,7 +265,4 @@ public class QuanLyMonHocTungMonUI extends JPanel {
 
 	};
 
-
-
 }
-

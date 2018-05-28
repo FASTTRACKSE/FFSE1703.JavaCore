@@ -1,5 +1,12 @@
 package main;
+import java.awt.EventQueue;
 import java.util.ArrayList;
+
+
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.mysql.jdbc.Connection;
 import connector.GetConnect;
@@ -7,18 +14,27 @@ import ui.*;
 
 public class Main {
 	public static void main(String[] args) {
-		QuanLi myUI = new QuanLi("Quản lí trường học");
-		myUI.showWindown();
-//		Connection conn= GetConnect.getConnect("localhost", "Quan_li_truong_hoc", "admin", "123456");
-//		
-//		if(conn!=null)
-//		{
-//		System.out.println("Kết nối MYSQL thành công");
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+//				| UnsupportedLookAndFeelException e) {
 //		}
-//		else
-//		{
-//		System.out.println("Kết nối MYSQL thất bại");
-//		}
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+		
+//		QuanLi myUI = new QuanLi("Quản lí trường học");
+//		myUI.showWindown();
+		
+		Login login = new Login("Đăng nhập");
+		login.showWindown();
+		
 	}
 
 }

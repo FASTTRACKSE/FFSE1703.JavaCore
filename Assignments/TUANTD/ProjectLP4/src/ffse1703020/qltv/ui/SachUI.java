@@ -105,8 +105,9 @@ public class SachUI extends JPanel {
 	MouseAdapter eventselect = new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			txtMS.setEditable(false);
+//			txtSL.setEditable(false);
 			int i = tbListSach.getSelectedRow();
-			String[] row = new String[8];
+			String[] row = new String[7];
 			for (int j = 0; j < row.length; j++) {
 				row[j] = (String) tbListSach.getValueAt(i, j);
 			}
@@ -117,7 +118,7 @@ public class SachUI extends JPanel {
 			txtNamXB.setText(row[4]);
 			txtSL.setText(row[5]);
 			comboBox.setSelectedItem(row[6]);
-			txtSL.setText(row[7]);
+//			txtSL.setText(row[7]);
 		}
 	};
 
@@ -249,6 +250,7 @@ public class SachUI extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				txtMS.setEditable(true);
+//				txtSL.setEditable(true);
 				txtMS.setText("");
 				txtTS.setText("");
 				txtTG.setText("");
@@ -403,8 +405,9 @@ public class SachUI extends JPanel {
 					&& MyException.ChekEmpty(txtTG.getText()) && MyException.ChekEmpty(txtNamXB.getText())
 					&& MyException.ChekSo(txtSL.getText())) {
 				if (conn != null) {
-					String sql = "UPDATE `sach` SET `ten_sach`=?,`tac_gia`=?,`nha_xuat_ban`=?,`nam_xuat_ban`=?,`so_luong_tong`=?,`the_loai`=? WHERE ma_sach=?";
+					String sql = "UPDATE `sach` SET `ten_sach`=?,`tac_gia`=?,`nha_xuat_ban`=?,`nam_xuat_ban`=?,`so_luong_tong`=?,`the_loai`=?, `ton_kho`=? WHERE ma_sach=?";
 					try {
+						int t = tbListSach.getSelectedRow();
 						PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 						// khởi tạo resultset
 						ptmt.setString(1, txtTS.getText());
@@ -413,9 +416,9 @@ public class SachUI extends JPanel {
 						ptmt.setString(4, txtNamXB.getText());
 						ptmt.setString(5, txtSL.getText());
 						ptmt.setString(6, comboBox.getSelectedItem().toString());
-						ptmt.setString(7, txtMS.getText());
-
-						int t = tbListSach.getSelectedRow();
+						int tonKho = (Integer.parseInt(tbListSach.getValueAt(t, 7).toString()) - Integer.parseInt(tbListSach.getValueAt(t, 5).toString()) + Integer.parseInt(txtSL.getText()));
+						ptmt.setString(7, String.valueOf(tonKho));
+						ptmt.setString(8, txtMS.getText());
 						String[] row = { txtMS.getText(), txtTS.getText(), txtTG.getText(),
 								comboBoxnxb.getSelectedItem().toString(), txtNamXB.getText(), txtSL.getText(),
 								comboBox.getSelectedItem().toString() };
@@ -517,5 +520,6 @@ public class SachUI extends JPanel {
 		jbTKS.addActionListener(evTimKiem);
 
 	}
+	
 
 }

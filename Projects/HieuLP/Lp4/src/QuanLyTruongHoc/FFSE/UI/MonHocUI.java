@@ -21,10 +21,10 @@ public class MonHocUI extends JPanel {
 	private JTextField maMonhoc = new JTextField(), Ten = new JTextField(), soTinhChi = new JTextField(),
 			Thoiluonghoc = new JTextField();
 	private ArrayList<QuanLyTruonghocMonhoc> arrMH = new ArrayList<QuanLyTruonghocMonhoc>();
-	private Button ThemMon = new Button("Thêm");
-	private Button SuaMon = new Button("Sửa");
-	private Button XoaMon = new Button("Xóa");
-
+	private JButton ThemMon = new JButton("Thêm");
+	private JButton SuaMon = new JButton("Sửa");
+	private JButton XoaMon = new JButton("Xóa");
+	private JButton nhapSinhVien = new JButton("Nhập");
 	public MonHocUI() {
 		addControls();
 		addEvent();
@@ -34,7 +34,7 @@ public class MonHocUI extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setLayout(new BorderLayout());
 		Border bordermonhoc = BorderFactory.createLineBorder(Color.RED);
-		TitledBorder borderTitlemonhoc = BorderFactory.createTitledBorder(bordermonhoc, "Danh sách");
+		TitledBorder borderTitlemonhoc = BorderFactory.createTitledBorder(bordermonhoc, "Danh sách môn học");
 		this.setBorder(borderTitlemonhoc);
 		dm_monhoc = new DefaultTableModel();
 		dm_monhoc.addColumn("Mã môn học");
@@ -78,6 +78,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapmaMonhoc = new JPanel();
 		JLabel lblNhapmaMonhoc = new JLabel("Mã môn học:");
+		lblNhapmaMonhoc.setPreferredSize(new Dimension(100, 30));
 		maMonhoc = new JTextField(20);
 		nhapmaMonhoc.add(lblNhapmaMonhoc);
 		nhapmaMonhoc.add(maMonhoc);
@@ -85,6 +86,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhaptenMonhoc = new JPanel();
 		JLabel lblNhaptenMonhoc = new JLabel("Tên môn học:");
+		lblNhaptenMonhoc.setPreferredSize(new Dimension(100, 30));
 		Ten = new JTextField(20);
 		nhaptenMonhoc.add(lblNhaptenMonhoc);
 		nhaptenMonhoc.add(Ten);
@@ -92,6 +94,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapSotinhchi = new JPanel();
 		JLabel lblSotinhchi = new JLabel("Số tính chỉ:");
+		lblSotinhchi.setPreferredSize(new Dimension(100, 30));
 		soTinhChi = new JTextField(20);
 		nhapSotinhchi.add(lblSotinhchi);
 		nhapSotinhchi.add(soTinhChi);
@@ -99,6 +102,7 @@ public class MonHocUI extends JPanel {
 
 		JPanel nhapThoiluonghoc = new JPanel();
 		JLabel lblNhapthoiluonghoc = new JLabel("Thời lượng học:");
+		lblNhapthoiluonghoc.setPreferredSize(new Dimension(100, 30));
 		Thoiluonghoc = new JTextField(20);
 		nhapThoiluonghoc.add(lblNhapthoiluonghoc);
 		nhapThoiluonghoc.add(Thoiluonghoc);
@@ -110,11 +114,13 @@ public class MonHocUI extends JPanel {
 		pnMonhocbutton.setBorder(borderTitle4monhoc);
 		pnMonhocbutton.setLayout(new FlowLayout());
 		JPanel chucnangmonhoc = new JPanel();
-		chucnangmonhoc.setLayout(new BoxLayout(chucnangmonhoc, BoxLayout.X_AXIS));
+		chucnangmonhoc.setLayout(new BoxLayout(chucnangmonhoc, BoxLayout.Y_AXIS));
 		pnMonhocbutton.setPreferredSize(new Dimension(200, 100));
 		pnMonhocbutton.add(ThemMon);
 		pnMonhocbutton.add(SuaMon);
 		pnMonhocbutton.add(XoaMon);
+		pnMonhocbutton.add(nhapSinhVien);
+
 
 		pnMonhocbutton.add(chucnangmonhoc);
 		pnMonhoc.add(pnLeftmonhoc);
@@ -128,7 +134,7 @@ public class MonHocUI extends JPanel {
 		ThemMon.addActionListener(eventAdd_Mon);
 		XoaMon.addActionListener(eventDel_Mon);
 		SuaMon.addActionListener(eventEdit_Mon);
-
+		nhapSinhVien.addActionListener(eventReset_SinhVien);
 	}
 
 	MouseAdapter eventTable_Monhoc = new MouseAdapter() {
@@ -140,6 +146,8 @@ public class MonHocUI extends JPanel {
 			col[2] = (String) table_monhoc.getValueAt(row, 2);
 			col[3] = (String) table_monhoc.getValueAt(row, 3);
 			maMonhoc.setText(col[0]);
+			maMonhoc.setEditable(false);
+			ThemMon.setEnabled(false);
 			Ten.setText(col[1]);
 			soTinhChi.setText(col[2]);
 			Thoiluonghoc.setText(col[3]);
@@ -150,46 +158,77 @@ public class MonHocUI extends JPanel {
 	ActionListener eventAdd_Mon = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String ma_MonHoc = maMonhoc.getText();
-			String ten_MonHoc = Ten.getText();
-			String tinchi_MonHoc = soTinhChi.getText();
-			String time_MonHoc = Thoiluonghoc.getText();
-
+			int kt = 0;
+			String maMonHoc = maMonhoc.getText();
+			String tenMonHoc = Ten.getText();
+			String thoiLuongHoc = Thoiluonghoc.getText();
+			String soTinChi = String.valueOf(soTinhChi.getText());
+			for (QuanLyTruonghocMonhoc x : arrMH ) {
+				if (maMonHoc.equals(x.getMaMH()) && tenMonHoc.equals(x.getTen())) {
+					kt = 2;
+					break;
+				}
+			}
+			Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
 			try {
-				if (ma_MonHoc.equals("") || ten_MonHoc.equals("") || tinchi_MonHoc.equals("")
-						|| time_MonHoc.equals("")) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa nhập thông tin");
+				if (maMonHoc.isEmpty() || tenMonHoc.isEmpty() || soTinChi.isEmpty() || thoiLuongHoc.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+							JOptionPane.WARNING_MESSAGE);
+				} else if (kt == 2) {
+					JOptionPane.showMessageDialog(null, "MÔN HỌC ĐÃ TỒN TẠI RỒI!", null, JOptionPane.WARNING_MESSAGE);
+
 				} else {
-					arrMH.add(new QuanLyTruonghocMonhoc(ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc));
-					dm_monhoc.addRow(new String[] { ma_MonHoc, ten_MonHoc, tinchi_MonHoc, time_MonHoc });
-					Connection conn = Connect.getConnect("localhost", "admin", "admin1", "12345");
+
+					arrMH.add(new QuanLyTruonghocMonhoc(maMonHoc, tenMonHoc, soTinChi, thoiLuongHoc));
+					dm_monhoc.addRow(new String[] { maMonHoc, tenMonHoc, soTinChi, thoiLuongHoc });
 					try {
 						String sql = "INSERT INTO table_monhoc( MaMH, Ten , SoTinhChi, ThoiLuongHoc) VALUES ('"
-								+ ma_MonHoc + "','" + ten_MonHoc + "','" + tinchi_MonHoc + "','" + time_MonHoc + "')";
+								+ maMonHoc + "','" + tenMonHoc + "','" + soTinChi + "','" + thoiLuongHoc + "')";
 						Statement statement = conn.createStatement();
 						int x = statement.executeUpdate(sql);
 						if (x > 0) {
-							JOptionPane.showMessageDialog(null, "Đã lưu thông tin sinh viên");
+							JOptionPane.showMessageDialog(null, "ĐÃ LƯU THÔNG TIN MÔN HỌC");
+						
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
+					maMonhoc.setText("");
+					Ten.setText("");
+					soTinhChi.setText("");
+					Thoiluonghoc.setText("");
+
 				}
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Bạn cần nhập thông tin sinh viên");
+				JOptionPane.showMessageDialog(null, "HÃY NHẬP SỐ TÍN CHỈ KIỂU SỐ");
 			}
 
-			maMonhoc.setText("");
-			Ten.setText("");
-			soTinhChi.setText("");
-			Thoiluonghoc.setText("");
+			dm_monhoc.setRowCount(0);
+			for (QuanLyTruonghocMonhoc x : arrMH) {
+				
+				String[] row = { x.getMaMH(), x.getTen(), x.getSoTinhChi(), x.getThoiLuongHoc() };
+				dm_monhoc.addRow(row);
+			}
+
 		}
 	};
+
 
 	ActionListener eventDel_Mon = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			String maMonHoc = maMonhoc.getText();
+			String tenMonHoc = Ten.getText();
+			String thoiLuongHoc = Thoiluonghoc.getText();
+			String soTinChi = String.valueOf(soTinhChi.getText());
+			if (maMonHoc.isEmpty() || tenMonHoc.isEmpty() || thoiLuongHoc.isEmpty()  || soTinChi.isEmpty() 
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			}
+			else {
 			for (QuanLyTruonghocMonhoc x : arrMH) {
 				if ((maMonhoc.getText()).equals(x.getMaMH())) {
 					arrMH.remove(x);
@@ -200,6 +239,7 @@ public class MonHocUI extends JPanel {
 			try {
 				String sql = "DELETE FROM table_monhoc WHERE MaMH = '" + maMonhoc.getText() + "'";
 				Statement statement = conn.createStatement();
+
 				int x = statement.executeUpdate(sql);
 				if (x >= 0) {
 					JOptionPane.showMessageDialog(null, "Đã xóa thông tin sinh viên");
@@ -212,6 +252,7 @@ public class MonHocUI extends JPanel {
 				String[] row = { x.getMaMH(), x.getTen(), x.getSoTinhChi(), x.getThoiLuongHoc() };
 				dm_monhoc.addRow(row);
 			}
+			}
 
 		}
 
@@ -220,6 +261,35 @@ public class MonHocUI extends JPanel {
 	ActionListener eventEdit_Mon = new ActionListener() {
 
 		public void actionPerformed(ActionEvent arg0) {
+			int KT2 = 0;
+			String maMonHoc = maMonhoc.getText();
+			String tenMonHoc = Ten.getText();
+			String thoiLuongHoc = Thoiluonghoc.getText();
+			String soTinChi = String.valueOf(soTinhChi.getText());
+			try {
+				Integer.parseInt(soTinChi);
+			} catch (NumberFormatException ex) {
+				KT2 = 1;
+
+			}
+			
+			if (maMonHoc.isEmpty() || tenMonHoc.isEmpty() || thoiLuongHoc.isEmpty()  || soTinChi.isEmpty() 
+					) {
+				JOptionPane.showMessageDialog(null, "XIN HÃY NHẬP ĐẦY ĐỦ THÔNG TIN!", null,
+						JOptionPane.WARNING_MESSAGE);
+
+			} else if (KT2 > 0) {
+				JOptionPane.showMessageDialog(null, "SỐ TÍN CHỈ BAO GỒM SỐ", null, JOptionPane.WARNING_MESSAGE);
+
+			 
+				
+				maMonhoc.setText("");
+				Ten.setText("");
+				Thoiluonghoc.setText("");
+				soTinhChi.setText("");
+			
+
+			} else {
 			for (QuanLyTruonghocMonhoc x : arrMH) {
 				if (maMonhoc.getText().equals(x.getMaMH())) {
 					x.setTen(Ten.getText());
@@ -245,6 +315,20 @@ public class MonHocUI extends JPanel {
 				String[] row = { x.getMaMH(), x.getTen(), x.getSoTinhChi(), x.getThoiLuongHoc() };
 				dm_monhoc.addRow(row);
 			}
+			}
+		}
+	};
+	ActionListener eventReset_SinhVien = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			maMonhoc.setEditable(true);
+			ThemMon.setEnabled(true);
+			maMonhoc.setText("");
+			Ten.setText("");
+			soTinhChi.setText("");
+			Thoiluonghoc.setText("");
+			
 		}
 	};
 

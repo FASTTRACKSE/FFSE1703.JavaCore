@@ -12,7 +12,7 @@ public class StamentAdress {
 	ConnectDB myDB = new ConnectDB();
 	Connection conn= myDB.getConnect("localhost", "ffse1703005", "hainam", "123456");
 	ArrayList<Adress> Adress=new ArrayList<Adress>();
-	
+	/*Truy suất dữ liệu của bảng atm_districts từ database vào ArrayList theo kiểu String*/
 	public ArrayList<String> SeclectDis() {
 		ArrayList<String> arrDistricts=new ArrayList<String>();
 		try {
@@ -30,6 +30,7 @@ public class StamentAdress {
 			}
 		return arrDistricts;
 	}
+	/*Truy suất dữ liệu của bảng atm_wards từ database vào ArrayList theo kiểu String*/
 	public ArrayList<String> SeclectWard(int key) {
 		ArrayList<String> arrWards=new ArrayList<String>();
 		try {
@@ -49,7 +50,7 @@ public class StamentAdress {
 	}
 	
 	
-	
+	/*Truy suất dữ liệu của bảng atm_wards từ database giá trị trả về theo kiểu int*/
 	public int SeclectIdWards(String name) {
 		int idWards=0;
 		try {
@@ -67,7 +68,7 @@ public class StamentAdress {
 			}
 		return idWards;
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_wards từ database giá trị trả về theo kiểu String*/
 	public String SeclectStringWards(int keyWards) {
 		String nameWards=null;
 		try {
@@ -85,7 +86,7 @@ public class StamentAdress {
 			}
 		return nameWards;
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_districts từ database giá trị trả về theo kiểu String*/
 	public String SeclectStringDistricts(int keyDistricts) {
 		String nameDistricts=null;
 		try {

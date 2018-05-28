@@ -128,6 +128,8 @@ public class QuanLyMonHocUI extends JPanel {
 		pnMain.add(pnCRUD);
 		pnMain.add(pnTable);
 		
+		reset();
+		
 		this.add(pnMain);
 		
 		
@@ -178,18 +180,35 @@ public class QuanLyMonHocUI extends JPanel {
 							ResultSet result2 = statement2.executeQuery(
 									"select * from monhoc where MaMH ='" + maMH + "' and status ='deleted'");
 							if (result2.next()) {
-								String sql = "update monhoc set  TenMH ='" + tenMH + "',TinChi ='" + tinChi + "',ThoiLuongHoc ='"+ thoiLuong + "', status = '' where MaMH ='" + maMH + "'";
-								Statement statements = (Statement) connection.createStatement();
-								int y = statements.executeUpdate(sql);
-								if (y > 0) {
-									reset();
-									JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
-								} else {
-									JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+								try {
+									String sql = "update monhoc set  TenMH ='" + tenMH + "',TinChi ='" + tinChi + "',ThoiLuongHoc ='"+ thoiLuong + "', status = '' where MaMH ='" + maMH + "'";
+									Statement statements = (Statement) connection.createStatement();
+									int y = statements.executeUpdate(sql);
+									if (y > 0) {
+										reset();
+										JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+									} else {
+										JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+									}	
+								} catch (Exception e2) {
+									e2.printStackTrace();
+								}
+								try {
+									String sql = "update monhoctheolop set status = '' where MaMH ='" + maMH + "'";
+									Statement statements = (Statement) connection.createStatement();
+									int y = statements.executeUpdate(sql);
+									if (y > 0) {
+										reset();
+										JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+									} else {
+										JOptionPane.showMessageDialog(null, "Thêm môn học thất bại!");
+									}
+								} catch (Exception e2) {
+									e2.printStackTrace();
 								}
 							} else {
 								try {
-									String sql = "insert into monhoc value(null,'" + maMH + "','" + tenMH + "','" + tinChi + "','"+ thoiLuong + "', null)";
+									String sql = "insert into monhoc value(null,'" + maMH + "','" + tenMH + "','" + tinChi + "','"+ thoiLuong + "', '')";
 									Statement statements = (Statement) connection.createStatement();
 									int y = statements.executeUpdate(sql);
 									if (y > 0) {
@@ -252,10 +271,25 @@ public class QuanLyMonHocUI extends JPanel {
 						Statement statements = (Statement) connection.createStatement();
 						int y = statements.executeUpdate(sql);
 						if (y > 0) {
-							txtMaMH.setText("");
-							txtTenMH.setText("");
-							txtTinChi.setText("");
-							txtThoiLuong.setText("");
+							try {
+								String sql2 = "delete from diemsinhvien where MaMH='" + maMH + "'";
+								Statement statement2 = (Statement) connection.createStatement();
+								int x = statement2.executeUpdate(sql2);
+								if (x > 0) {
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+							try {
+								String sql2 = "update monhoctheolop set status = 'deleted' where MaMH ='" + maMH + "'";
+								Statement statement2 = (Statement) connection.createStatement();
+								int x = statement2.executeUpdate(sql2);
+								if (x > 0) {
+								}
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+							reset();
 							JOptionPane.showMessageDialog(null, "Xóa môn học thành công!");
 						} else {
 							JOptionPane.showMessageDialog(null, "Xóa môn học thất bại!");
@@ -302,11 +336,11 @@ public class QuanLyMonHocUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int row = tableMH.getSelectedRow();
-			txtMaMH.setEnabled(false);
 			txtMaMH.setText(dm.getValueAt(row, 0).toString());
 			txtTenMH.setText(dm.getValueAt(row, 1).toString());
 			txtTinChi.setText(dm.getValueAt(row, 2).toString());
 			txtThoiLuong.setText(dm.getValueAt(row, 3).toString());
+			disableEnable();
 		}
 	};
 
@@ -326,8 +360,19 @@ public class QuanLyMonHocUI extends JPanel {
 			dm.addRow(new String[] {x.getMaSub(),x.getTenSub(),x.getTinChi(), x.getThoiLuong()});
 		}
 	}
+	public void disableEnable() {
+		txtMaMH.setEnabled(false);
+		btnThem.setEnabled(false);
+		btnSua.setEnabled(true);
+		btnXoa.setEnabled(true);
+		btnHuy.setEnabled(true);
+	}
 	public void reset() {
 		txtMaMH.setEnabled(true);
+		btnThem.setEnabled(true);
+		btnSua.setEnabled(false);
+		btnXoa.setEnabled(false);
+		btnHuy.setEnabled(false);
 		txtMaMH.setText("");
 		txtTenMH.setText("");
 		txtTinChi.setText("");

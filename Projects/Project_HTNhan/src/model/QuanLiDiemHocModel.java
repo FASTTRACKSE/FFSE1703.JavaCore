@@ -3,11 +3,13 @@ package model;
 public class QuanLiDiemHocModel {
 	private String maSv,maMH,diemMH;
 	public QuanLiDiemHocModel() {
-		// TODO Auto-generated constructor stub
 	}
 	public QuanLiDiemHocModel(String maSv ,String maMH,String diemMH) {
 		this.maSv = maSv;
 		this.maMH = maMH;
+		this.diemMH = diemMH;
+	}
+	public QuanLiDiemHocModel(String diemMH) {
 		this.diemMH = diemMH;
 	}
 	public String getMaSv() {

@@ -9,7 +9,6 @@ public class DistrictSQL {
 	private static ArrayList<DistrictModel> arrDistrict = new ArrayList<>();
 	final static Connection conn = GetConnectDB.getConnect("localhost", "QuanLiTruongHoc", "admin", "admin");
 	public DistrictSQL() {
-		// TODO Auto-generated constructor stub
 	}
 	public ArrayList<DistrictModel> selectDistrict(String provinceId) {
 		try {

@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class MachineATMDb {
 	static ConnectDB myDB = new ConnectDB();
 	private static Connection conn= myDB.getConnect("localhost", "ffse1703005", "hainam", "123456");
+	/*Thêm dữ liệu vào bảng atm_atm lên database*/
 	public static int addAtm(MachineATM atm) {
 		try {
 			String sql = "insert into atm_atm (code, code_districts, code_wards,"
@@ -29,7 +30,7 @@ public class MachineATMDb {
 			return -1;
 		}
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_atm từ database vào ArrayList theo kiểu đối tượng MachineATM*/
 	public static ArrayList<MachineATM> getAtmList() {
 		ArrayList<MachineATM> arrAtm = new ArrayList<>();
 		try {
@@ -56,7 +57,7 @@ public class MachineATMDb {
 		}
 		return arrAtm;
 	}
-	
+	/*Sửa dữ liệu của bảng atm_atm từ database */
 	public static int editAtm(MachineATM atm) {
 		try {
 			String sql = "update atm_atm set  "
@@ -73,7 +74,7 @@ public class MachineATMDb {
 			return -1;
 		}
 	}
-	
+	/*Xóa dữ liệu của bảng atm_atm từ database */
 	public static int delAtm(String code) {
 		try {
 			String sql = "delete from atm_atm where code = ?";
@@ -86,7 +87,8 @@ public class MachineATMDb {
 			return -1;
 		}
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_atm từ database vào ArrayList điều kiện theo cột streets
+	 * theo kiểu đối tượng MachineATM*/
 	public static ArrayList<MachineATM> searchStreets(String streets) {
 		ArrayList<MachineATM> arrAtm = new ArrayList<MachineATM>();
 		try {
@@ -108,7 +110,8 @@ public class MachineATMDb {
 		}
 		return arrAtm;
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_atm từ database vào ArrayList điều kiện theo cột code
+	 * theo kiểu đối tượng MachineATM*/
 	public static ArrayList<MachineATM> searchCode(String code) {
 		ArrayList<MachineATM> arrAtm = new ArrayList<MachineATM>();
 		try {
@@ -130,7 +133,8 @@ public class MachineATMDb {
 		}
 		return arrAtm;
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_atm từ database vào ArrayList điều kiện theo cột distrist và cột wards
+	 * theo kiểu đối tượng MachineATM*/
 	public static ArrayList<MachineATM> searchAdrees(int distrist,int wards) {
 		ArrayList<MachineATM> arrAtm = new ArrayList<MachineATM>();
 		if(wards == 0) {
@@ -174,7 +178,7 @@ public class MachineATMDb {
 			return arrAtm;
 		}		
 	}
-	
+	/*Truy suất dữ liệu của bảng atm_atm từ database vào ArrayList theo kiểu String*/
 	public ArrayList<String> SeclectCodeATM() {
 		ArrayList<String> arrCodeATM=new ArrayList<String>();
 		try {
@@ -192,7 +196,7 @@ public class MachineATMDb {
 			}
 		return arrCodeATM;
 	}
-	
+	/*Sửa dữ liệu của bảng atm_atm từ database khi thực hiện lệnh rút tiền*/
 	public static int editMoney(int money,String code) {
 		try {
 			String sql = "update atm_atm set amount = ? where code = ?";
