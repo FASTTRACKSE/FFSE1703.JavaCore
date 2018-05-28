@@ -5,7 +5,7 @@ public class LopHoc {
 	String tenLop;
 	String motaLop;
 	String namhocLop;
-	public LopHoc(String maLop,String tenLop,String motaLop,String namhocLop) {
+	public LopHoc(String maLop,String tenLop,String namhocLop,String motaLop) {
 		this.maLop = maLop;
 		this.tenLop = tenLop;
 		this.motaLop = motaLop;
