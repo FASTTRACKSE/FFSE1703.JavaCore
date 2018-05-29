@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -56,10 +57,12 @@ public class Project_UI extends JFrame {
 	JPanel monhocQL = new JPanel();
 	JPanel thongke = new JPanel();
 	JPanel nhapdiem = new JPanel();
+	JPanel user = new JPanel();
 	ArrayList<LopHoc> arrLH = new ArrayList<LopHoc>();
 	ArrayList<SinhVien> arrSV = new ArrayList<SinhVien>();
 	ArrayList<MonHoc> arrMH = new ArrayList<MonHoc>();
 	ArrayList<BangDiem> arrBD = new ArrayList<BangDiem>();
+	ArrayList<User> arrUS = new ArrayList<User>();
 	ImageIcon sinhvienAnh = new ImageIcon(new ImageIcon("sinhvien.jpg").
 			getImage().getScaledInstance(80,65,Image.SCALE_SMOOTH));
 	ImageIcon lopAnh = new ImageIcon(new ImageIcon("Classroom.jpeg").
@@ -69,6 +72,8 @@ public class Project_UI extends JFrame {
 	ImageIcon diemsoAnh = new ImageIcon(new ImageIcon("diem.png").
 			getImage().getScaledInstance(80,65,Image.SCALE_SMOOTH));
 	ImageIcon thongkeAnh = new ImageIcon(new ImageIcon("thongke.png").
+			getImage().getScaledInstance(80,65,Image.SCALE_SMOOTH));
+	ImageIcon userAnh = new ImageIcon(new ImageIcon("user.png").
 			getImage().getScaledInstance(80,65,Image.SCALE_SMOOTH));
 	
 	JPanel actionLH = new JPanel();
@@ -140,13 +145,21 @@ public class Project_UI extends JFrame {
 	JTable tableTK2 = new JTable(defTableTK2);
 	JScrollPane scrPaneTK2 = new JScrollPane(tableTK2);
 	
+	JPanel informUS,suaUS,btnstUS,settingUS;
+	JLabel titthemnameUS,titthempswUS,titsuanameUS,titsuapswUS,titXoaUS,titidUS,titsuapswmoiUS,
+		titidmoiUS,titpswmoiUS,titidsuaUS;
+	JTextField txtnameUS,txtidUS,txtnamesuaUS,txtnamexoaUS,txtidxoaUS,txtidsuaUS,
+	txtPass,txtpasSua,txtpasXoa,txtpasSuaMoi;
+	JButton btnthemUS,btnsuaUS,btnxoaUS;
+	DefaultTableModel defTableUS = new DefaultTableModel();
+	JTable tableUS = new JTable(defTableUS);
+	JScrollPane scrPaneUS = new JScrollPane(tableUS);
 	public Project_UI(String tittle) {
 		super(tittle);
 		setContent();
 		setDisplay();
 		tabbed.addChangeListener(new SelectedTab());
 	}
-	
 	public void connectDB() {
 		conn=ConnectDB.getConnect("Localhost","project_quanlysv","Project_QuanLySv","12345");
 		if (conn != null) {
@@ -156,7 +169,6 @@ public class Project_UI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Không kết nối được vs Database");
 		}
 	}
-
 	public void setDisplay() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -164,7 +176,6 @@ public class Project_UI extends JFrame {
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(1900, 1000));
 	}
-
 	private class SelectedTab implements ChangeListener {
 		//Chọn Tab
 		public void stateChanged(ChangeEvent e) {
@@ -196,6 +207,10 @@ public class Project_UI extends JFrame {
 				namhocSV.removeAllItems();
 				shownhSV();
 				shownhLH();
+			case 5:
+				defTableUS.setRowCount(0);
+				arrUS.clear();
+				showtbUser();
 			}
 		}
 	}
@@ -212,22 +227,25 @@ public class Project_UI extends JFrame {
 		nhapdiemEvent();
 		thongke_UI();
 		thongkeEvent();
+		user_UI();
+		userEvent();
 		tabbed = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
 		tabbed.addTab("Quản Lý Lớp Học", lopAnh, lophocQL, "Quản Lý Lớp Học");
 		tabbed.addTab("Quản Lý Sinh Viên", sinhvienAnh, sinhvienQL, "Quản Lý Sinh Viên");
 		tabbed.addTab("Môn Học", monhocAnh, monhocQL, "Quản Lý Môn Học");
 		tabbed.addTab("Nhập Điểm", diemsoAnh, nhapdiem, "Nhập Điểm");
 		tabbed.addTab("Thống Kê", thongkeAnh, thongke, "Thống Kê");
+		tabbed.addTab("Người Dùng", userAnh,user,"Người Dùng");
 		lophocQL.setLayout(new BoxLayout(lophocQL, BoxLayout.Y_AXIS));
 		sinhvienQL.setLayout(new BoxLayout(sinhvienQL, BoxLayout.Y_AXIS));
 		monhocQL.setLayout(new GridLayout(2,1));
 		nhapdiem.setLayout(new BoxLayout(nhapdiem, BoxLayout.Y_AXIS));
 		thongke.setLayout(new GridLayout(2,1));
+		user.setLayout(new BoxLayout(user, BoxLayout.Y_AXIS));
 		con = getContentPane();
 		con.add(tabbed);
 		tabbed.setFont(new Font("Courier New", Font.CENTER_BASELINE, 26));
 	}
-
 	public void lophoc_UI() {
 		//Add Controls Tab Lophoc
 		actionLH.setLayout(new BorderLayout());
@@ -778,6 +796,233 @@ public class Project_UI extends JFrame {
 		thongke2.add(scrPaneTK2,BorderLayout.CENTER);
 		thongke.add(thongke1);
 		thongke.add(thongke2);
+	}
+	private void userEvent() {
+		tableUS.addMouseListener(eventTblUS);
+		btnthemUS.addActionListener(eventThemUser);
+		btnsuaUS.addActionListener(eventSuaUser);
+		btnxoaUS.addActionListener(eventXoaUser);
+	}
+	MouseListener eventTblUS= new MouseListener() {
+		public void mouseClicked(MouseEvent arg0) {
+			for(int i = tableUS.getSelectedRow();i<=tableUS.getSelectedRow();i++) {
+				for(int y =0;y<tableUS.getColumnCount();y++) {
+					String value =(String)tableUS.getValueAt(i,y);
+					if(y==0) {
+						txtidUS.setText(value);
+					}
+					if(y==1) {
+						txtnameUS.setText(value);
+					}
+					if(y==2) {
+						txtPass.setText(value);
+					}
+				}
+			}
+		}
+		public void mouseEntered(MouseEvent arg0) {
+
+		}
+		public void mouseExited(MouseEvent arg0) {
+
+		}
+		public void mousePressed(MouseEvent arg0) {
+
+		}
+		public void mouseReleased(MouseEvent arg0) {
+
+		}
+	};
+	ActionListener eventXoaUser = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			String id = txtidUS.getText();
+			String user = txtnameUS.getText();
+			String pass = txtPass.getText();
+			try {
+				Statement stm = conn.createStatement();
+				String sql = "delete from `user` where `user_id`='"+id+"'";
+				int x = stm.executeUpdate(sql);
+				if(x>0) {
+					JOptionPane.showMessageDialog(null, "Xóa Thành Công");
+					for(User z: arrUS) {
+						if(id.equals(z.getUserID())) {
+							arrUS.remove(z);
+							break;
+						}
+					}
+					defTableUS.setRowCount(0);
+					for(User f: arrUS) {
+						String row[] = {f.getUserID(),f.getUserName(),f.getUserPass()};
+						defTableUS.addRow(row);
+					}
+				}
+			}
+			catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	};
+	ActionListener eventSuaUser = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			String id = txtidUS.getText();
+			String user = txtnameUS.getText();
+			String pass = txtPass.getText();
+			try {
+				Statement stm = conn.createStatement();
+				String sql="update `user` set `user_id`='"+id+"',`user_name`='"+user+
+						"',`user_password`='"+pass+"'";
+				if(id.isEmpty()||user.isEmpty()||pass.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Chưa Nhập Đủ Dữ Liệu!");
+				}
+				else {
+					int x = stm.executeUpdate(sql);
+					if(x>0) {
+						JOptionPane.showMessageDialog(null, "Update Thành Công!");
+						for(User z: arrUS) {
+							if(id.equals(z.getUserID())) {
+								z.setUserName(user);
+								z.setUserPass(pass);
+							}
+						}
+						defTableUS.setRowCount(0);
+						for(User f: arrUS) {
+							String row[]= {f.getUserID(),f.getUserName(),f.getUserPass()};
+							defTableUS.addRow(row);
+						}
+					}
+				}
+			}
+			catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	};
+	ActionListener eventThemUser = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			String id = txtidUS.getText();
+			String user = txtnameUS.getText();
+			String pass = txtPass.getText();
+			int kt = 0;
+			try {
+				for(User f: arrUS) {
+				if(id.equals(f.getUserID())) {
+					kt = 1;
+				}}
+				if(kt>0){
+					JOptionPane.showMessageDialog(null, "ID Đã Có Người Dùng!");
+				}
+				else if (id.isEmpty()||user.isEmpty()||pass.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn Chưa Nhập Đủ Dữ Liệu!");
+				}
+				else{
+					Statement stm = conn.createStatement();
+					String sql = "insert into `user` (`user_id`,`user_name`,`user_password`)"
+							+ " values ('"+id+"','"+user+"','"+pass+"')";
+					int x = stm.executeUpdate(sql);
+					if(x>0) {
+						JOptionPane.showMessageDialog(null, "Thêm Mới Thành Công!");
+						defTableUS.setRowCount(0);
+						User us = new User(id,user,pass);
+						arrUS.add(us);
+						for(User z: arrUS) {
+							String row[]= {z.getUserID(),z.getUserName(),z.getUserPass()};
+							defTableUS.addRow(row);
+						}
+					}
+				}
+
+			}
+			catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	};
+	private void user_UI() {
+		// Add Controls Tab User
+		defTableUS.addColumn("User ID");
+		defTableUS.addColumn("Tên Người Dùng");
+		defTableUS.addColumn("Mật Khẩu");
+		settingUS = new JPanel();
+		informUS = new JPanel();
+		suaUS = new JPanel();
+		btnstUS = new JPanel();
+		settingUS = new JPanel(new GridLayout(2,1));
+		titidsuaUS = new JLabel("ID Người Dùng");
+		titsuanameUS = new JLabel("Tên Người Dùng Mới");
+		titsuapswUS = new JLabel("Mật Khẩu Hiện Tại");
+		titpswmoiUS= new JLabel("Mật Khẩu");
+		titidmoiUS = new JLabel("ID Người Dùng");
+		titidUS = new JLabel("ID Người Dùng");
+		titthemnameUS = new JLabel("Tên Người Dùng");
+		titthempswUS = new JLabel("Mật Khẩu");
+		titXoaUS = new JLabel("Tên Người Dùng Xóa");
+		titsuapswmoiUS= new JLabel("Mật Khẩu Mới");
+		txtidsuaUS = new JTextField();
+		txtidxoaUS = new JTextField();
+		txtnameUS = new JTextField();
+		txtidUS = new JTextField();
+		txtnamesuaUS = new JTextField();
+		txtnamexoaUS = new JTextField();
+		txtPass = new JPasswordField();
+		txtpasSua= new JPasswordField();
+		txtpasXoa= new JPasswordField();
+		txtpasSuaMoi= new JPasswordField();
+		titidUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		titthemnameUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		titpswmoiUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		txtidsuaUS.setPreferredSize(new Dimension(200,30));
+		txtidxoaUS.setPreferredSize(new Dimension(200,30));
+		txtnameUS.setPreferredSize(new Dimension(200,30));;
+		txtidUS.setPreferredSize(new Dimension(200,30));
+		txtnamesuaUS.setPreferredSize(new Dimension(200,30));
+		txtnamexoaUS.setPreferredSize(new Dimension(200,30));
+		txtPass.setPreferredSize(new Dimension(200,30));
+		txtpasSua.setPreferredSize(new Dimension(200,30));
+		txtpasXoa.setPreferredSize(new Dimension(200,30));
+		txtpasSuaMoi.setPreferredSize(new Dimension(200,30));
+		btnthemUS = new JButton("Thêm Người Dùng");
+		btnsuaUS = new JButton("Sửa Người Dùng");
+		btnxoaUS = new JButton("Xóa Người Dùng");
+		btnthemUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		btnsuaUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		btnxoaUS.setFont(new Font("Courier New", Font.BOLD, 18));
+		Border bor = BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE);
+		TitledBorder tittle = new TitledBorder(bor, "Thông Tin Người Dùng");
+		settingUS.setBorder(tittle);
+		tittle.setTitleFont(new Font("Courier New", Font.BOLD, 30));
+		tableUS.setFont(new Font("Serif", 0, 20));
+		tableUS.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+		informUS.add(titidUS);
+		informUS.add(txtidUS);
+		informUS.add(titthemnameUS);
+		informUS.add(txtnameUS);
+		informUS.add(titpswmoiUS);
+		informUS.add(txtPass);
+		btnstUS.add(btnthemUS);
+		btnstUS.add(btnsuaUS);
+		btnstUS.add(btnxoaUS);
+		settingUS.add(informUS);
+		settingUS.add(btnstUS);
+		user.add(scrPaneUS);
+		user.add(settingUS);
+	}
+	private void showtbUser() {
+		try {
+			Statement stm = conn.createStatement();
+			String sql = "select * from `user`";
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				User us = new User(rs.getString("user_id"),rs.getString("user_name"),
+						rs.getString("user_password"));
+				arrUS.add(us);
+			}
+			for(User z: arrUS) {
+				String row[]= {z.getUserID(),z.getUserName(),z.getUserPass()};
+				defTableUS.addRow(row);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	private void showTableTL() {
 		//Show Table Môn Học Từng Lớp
