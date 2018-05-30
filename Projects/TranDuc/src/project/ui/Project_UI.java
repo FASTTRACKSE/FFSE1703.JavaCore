@@ -678,6 +678,16 @@ public class Project_UI extends JFrame {
 		titLP5 = new JLabel("Điểm LP5");
 		titLP6 = new JLabel("Điểm LP6");
 		titE4IT = new JLabel("Điểm Tiếng Anh");
+		titlopsvND.setPreferredSize(new Dimension(100,30));
+		titmasvND.setPreferredSize(new Dimension(150,30));
+		titLP0.setPreferredSize(new Dimension(150,30));
+		titLP1.setPreferredSize(new Dimension(150,30));
+		titLP2.setPreferredSize(new Dimension(150,30));
+		titLP3.setPreferredSize(new Dimension(150,30));
+		titLP4.setPreferredSize(new Dimension(150,30));
+		titLP5.setPreferredSize(new Dimension(150,30));
+		titLP6.setPreferredSize(new Dimension(150,30));
+		titE4IT.setPreferredSize(new Dimension(170,30));
 		txtlopsvND= new JTextField();
 		txtmasvND = new JTextField();
 		txtlopsvND.setPreferredSize(new Dimension(100, 30));
