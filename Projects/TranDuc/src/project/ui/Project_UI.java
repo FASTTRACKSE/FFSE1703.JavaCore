@@ -172,7 +172,7 @@ public class Project_UI extends JFrame {
 	public void setDisplay() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-//		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		this.setMinimumSize(new Dimension(1900, 1000));
 	}
@@ -498,6 +498,10 @@ public class Project_UI extends JFrame {
 		tittenMH.setText("Tên Môn Học");
 		tittinchiMH.setText("Tín Chỉ");
 		tittimeMH.setText("Thời Gian Học");
+		titmaMH.setPreferredSize(new Dimension(200,30));
+		tittenMH.setPreferredSize(new Dimension(200,30));
+		tittinchiMH.setPreferredSize(new Dimension(200,30));
+		tittimeMH.setPreferredSize(new Dimension(200,30));
 		titmaMH.setFont(new Font("Courier New", Font.BOLD, 20));
 		tittenMH.setFont(new Font("Courier New", Font.BOLD, 20));
 		tittimeMH.setFont(new Font("Courier New", Font.BOLD, 20));
@@ -814,9 +818,6 @@ public class Project_UI extends JFrame {
 					if(y==1) {
 						txtnameUS.setText(value);
 					}
-					if(y==2) {
-						txtPass.setText(value);
-					}
 				}
 			}
 		}
@@ -836,8 +837,6 @@ public class Project_UI extends JFrame {
 	ActionListener eventXoaUser = new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			String id = txtidUS.getText();
-			String user = txtnameUS.getText();
-			String pass = txtPass.getText();
 			try {
 				Statement stm = conn.createStatement();
 				String sql = "delete from `user` where `user_id`='"+id+"'";
@@ -852,7 +851,7 @@ public class Project_UI extends JFrame {
 					}
 					defTableUS.setRowCount(0);
 					for(User f: arrUS) {
-						String row[] = {f.getUserID(),f.getUserName(),f.getUserPass()};
+						String row[] = {f.getUserID(),f.getUserName()};
 						defTableUS.addRow(row);
 					}
 				}
@@ -866,11 +865,11 @@ public class Project_UI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String id = txtidUS.getText();
 			String user = txtnameUS.getText();
-			String pass = txtPass.getText();
+			String pass = MD5Library.md5(txtPass.getText());
 			try {
 				Statement stm = conn.createStatement();
-				String sql="update `user` set `user_id`='"+id+"',`user_name`='"+user+
-						"',`user_password`='"+pass+"'";
+				String sql="update `user` set `user_name`='"+user+
+						"',`user_password`='"+pass+"' where `user_id`='"+id+"'";
 				if(id.isEmpty()||user.isEmpty()||pass.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Bạn Chưa Nhập Đủ Dữ Liệu!");
 				}
@@ -886,7 +885,7 @@ public class Project_UI extends JFrame {
 						}
 						defTableUS.setRowCount(0);
 						for(User f: arrUS) {
-							String row[]= {f.getUserID(),f.getUserName(),f.getUserPass()};
+							String row[]= {f.getUserID(),f.getUserName()};
 							defTableUS.addRow(row);
 						}
 					}
@@ -901,7 +900,7 @@ public class Project_UI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			String id = txtidUS.getText();
 			String user = txtnameUS.getText();
-			String pass = txtPass.getText();
+			String pass = MD5Library.md5(txtPass.getText());
 			int kt = 0;
 			try {
 				for(User f: arrUS) {
@@ -925,7 +924,7 @@ public class Project_UI extends JFrame {
 						User us = new User(id,user,pass);
 						arrUS.add(us);
 						for(User z: arrUS) {
-							String row[]= {z.getUserID(),z.getUserName(),z.getUserPass()};
+							String row[]= {z.getUserID(),z.getUserName()};
 							defTableUS.addRow(row);
 						}
 					}
@@ -941,7 +940,6 @@ public class Project_UI extends JFrame {
 		// Add Controls Tab User
 		defTableUS.addColumn("User ID");
 		defTableUS.addColumn("Tên Người Dùng");
-		defTableUS.addColumn("Mật Khẩu");
 		settingUS = new JPanel();
 		informUS = new JPanel();
 		suaUS = new JPanel();
@@ -1017,7 +1015,7 @@ public class Project_UI extends JFrame {
 				arrUS.add(us);
 			}
 			for(User z: arrUS) {
-				String row[]= {z.getUserID(),z.getUserName(),z.getUserPass()};
+				String row[]= {z.getUserID(),z.getUserName()};
 				defTableUS.addRow(row);
 			}
 		} catch (SQLException e) {
@@ -1031,8 +1029,7 @@ public class Project_UI extends JFrame {
 			String sql ="select * from `mon_hoc_tung_lop`";
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
-				String row[]={rs.getString("ma_lop"),rs.getString("ma_mon"),
-						rs.getString("ten_mh")};
+				String row[]={rs.getString("ma_lop"),rs.getString("ma_mon")};
 				defTableTL.addRow(row);
 			}
 		} catch (SQLException e) {
@@ -1042,6 +1039,7 @@ public class Project_UI extends JFrame {
 	private void showTP() {
 		//Show Thành Phố
 		try {
+			thanhpho.addItem("");
 			Statement statement = conn.createStatement();
 			ResultSet tpRS=statement.executeQuery("Select * from devvn_tinhthanhpho");
 			while (tpRS.next()) {
@@ -1088,11 +1086,11 @@ public class Project_UI extends JFrame {
 		//Show Mã Monhoc Jcombobox
 		try {
 			cbomamhTL.removeAllItems();
-			Statement stm = conn.createStatement();
-			String sql = "Select * from mon_hoc";
-			ResultSet rs = stm.executeQuery(sql);
-			while(rs.next()) {
-				cbomamhTL.addItem(rs.getString("ma_mh"));
+			Statement stm5 = conn.createStatement();
+			String sql5 = "Select * from mon_hoc";
+			ResultSet rs5 = stm5.executeQuery(sql5);
+			while(rs5.next()) {
+				cbomamhTL.addItem(rs5.getString("ma_mh"));
 			}
 		}
 		catch(Exception ex) {
@@ -1647,6 +1645,8 @@ public class Project_UI extends JFrame {
 					arrMH.add(mh);
 					defTableMH.setRowCount(0);
 					showTableMH();
+					cbomamhTL.removeAllItems();
+					showmaMH();
 				}
 			}
 			catch (SQLException e) {
@@ -2054,6 +2054,11 @@ public class Project_UI extends JFrame {
 								phonenumbSV,emailSV,classSV);
 						arrSV.add(sv);
 						defTableSV.setRowCount(0);
+						textmaSV.setText("");
+						texttenSV.setText("");
+						textdiachiSV.setText("");
+						textsdtSV.setText("");
+						textemailSV.setText("");
 							try {
 								String sql2="select * from sinh_vien";
 								ResultSet svRS = statement.executeQuery(sql2);
@@ -2343,5 +2348,4 @@ public class Project_UI extends JFrame {
 			}
 		}
 	};
-
 }

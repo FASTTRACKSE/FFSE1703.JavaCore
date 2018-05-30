@@ -23,6 +23,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import project.model.ConnectDB;
+import project.model.MD5Library;
 import project.model.User;
 import project.ui.Project_UI;
 public class Project_Login extends JFrame {
@@ -86,6 +87,8 @@ public class Project_Login extends JFrame {
 		titpass = new JLabel("Mật Khẩu");
 		txtuser = new JTextField();
 		txtpass = new JPasswordField();
+		tituser.setPreferredSize(new Dimension(150,30));
+		titpass.setPreferredSize(new Dimension(150,30));
 		txtuser.setPreferredSize(new Dimension(350,30));
 		txtpass.setPreferredSize(new Dimension(350,30));
 		btnlogin = new JButton("Đăng Nhập");
@@ -116,7 +119,7 @@ public class Project_Login extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			String user = txtuser.getText();
-			String pass = txtpass.getText();
+			String pass = MD5Library.md5(txtpass.getText());
 			int kt=0;
 			for(User z: arrUS) {
 				if(user.equals(z.getUserName())) {
