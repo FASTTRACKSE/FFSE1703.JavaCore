@@ -32,7 +32,6 @@ public class Project_Login extends JFrame {
 	JPanel login,user,password,action,tittle;
 	JLabel titlogin,tituser,titpass;
 	JTextField txtuser,txtpass;
-//	JPasswordField txtpas;
 	JButton btnlogin,btncancel;
 	ArrayList<User> arrUS = new ArrayList<User>();
 	public Project_Login(String tittle) {
