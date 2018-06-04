@@ -10,6 +10,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -29,6 +33,7 @@ import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 
 import com.toedter.calendar.JTextFieldDateEditor;
+<<<<<<< HEAD
 
 import ffse1703022.model.BienLai;
 import ffse1703022.model.BienLaiModel;
@@ -41,6 +46,23 @@ public class NhapBLUI extends JPanel {
 	@SuppressWarnings({ "rawtypes", "unused" })
 	private JComboBox cboThang, cboNam;
 	private JButton btnAdd, btnRep, btnDel, btnSearch,btnOk;
+=======
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import ffse1703022.model.BienLai;
+import ffse1703022.model.BienLaiModel;
+import ffse1703022.model.KhachHang;
+import ffse1703022.ui.QLKhachHangUI.ClickCustomer;
+
+public class NhapBLUI extends JPanel {
+	private JTextField txtMaCT, txtMaCTKH, txtChuKy,  txtChiSoMoi;
+	private JTextFieldDateEditor txtDate;
+	private JComboBox cboThang, cboNam;
+	private JButton btnAdd, btnRep, btnDel, btnSearch,btnOk;
+	private static ArrayList<BienLai> arrBienLai = new ArrayList<>();
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 	private DefaultTableModel dm;
 	private JTable tbl;
 	private BienLaiModel bienLaiModel = new BienLaiModel();
@@ -208,8 +230,13 @@ public class NhapBLUI extends JPanel {
 					System.out.println(chuKy);
 					int tienDien=calcAmount(chiSoMoi-chiSoCu);
 					BienLai bienlai=new BienLai(maCT,ngay,chuKy,chiSoCu,chiSoMoi,tienDien);
+<<<<<<< HEAD
 				
 					bienLaiModel.addBL(bienlai);
+=======
+					int rs;
+					rs= bienLaiModel.addBL(bienlai);
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 					JOptionPane.showMessageDialog(null, "Thêm thành công!!");
 					btnSearch.doClick();
 					btnOk.doClick();
@@ -274,7 +301,11 @@ public class NhapBLUI extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+<<<<<<< HEAD
 				
+=======
+				int rs;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 				String maCT =txtMaCTKH.getText() ;
 				String ngay= txtDate.getText();
 				int thang = monthChoose.getMonth() + 1;
@@ -286,7 +317,11 @@ public class NhapBLUI extends JPanel {
 				int tienDien=calcAmount(chiSoMoi-chiSoCu);
 				BienLai bienlai=new BienLai(maCT,ngay,chuKy,chiSoCu,chiSoMoi,tienDien);
 				
+<<<<<<< HEAD
 				bienLaiModel.editBL(bienlai);
+=======
+				rs=bienLaiModel.editBL(bienlai);
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 				JOptionPane.showMessageDialog(null, "Sửa thành công!!");
 				btnSearch.doClick();
 

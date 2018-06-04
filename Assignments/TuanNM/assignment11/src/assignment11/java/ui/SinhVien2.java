@@ -3,6 +3,7 @@ package assignment11.java.ui;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop.Action;
 import java.awt.Font;
@@ -20,12 +21,10 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -36,19 +35,27 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.jdbc.Statement;
 
 import assignment11.java.connect.Connect;
+import assignment11.java.connect.ConnectDb;
 import assignment11.java.model.SinhVien;
 
+@SuppressWarnings("unused")
 public class SinhVien2 extends JFrame {
-	final Connection conn = Connect.getConnect("localhost", "Java", "tuan18081999", "tuan123");
+	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField nameSV, maSV, ageSV;
 	private JButton creat, edit, delete, exit, refresh;
+	@SuppressWarnings("rawtypes")
 	private JComboBox classSV;
 	public static ArrayList<SinhVien> arrSv = new ArrayList<SinhVien>();
 	DefaultTableModel modle;
 	JTable table;
 	int stt = 0;
 	String lop = "All";
+	ConnectDb connectDB = new ConnectDb();
 	
 
 	public SinhVien2(String tieude) {
@@ -59,6 +66,7 @@ public class SinhVien2 extends JFrame {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addControls() {
 		Container con = getContentPane();
 		JPanel pnBox = new JPanel();
@@ -118,6 +126,7 @@ public class SinhVien2 extends JFrame {
 		pnBox7.setBorder(borderTitle);
 		modle = new DefaultTableModel();
 		table = new JTable(modle);
+		
 		pnBox7.setLayout(new BorderLayout());
 
 		modle.addColumn("Mã số");
@@ -155,36 +164,25 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			maSV.setText("");
 			nameSV.setText("");
 			ageSV.setText("");
 			maSV.setEditable(true);
+			classSV.showPopup();
+			
+			
+			
 		}
 	};
 
 	ActionListener chonLop = new ActionListener() {
 		public void actionPerformed(ActionEvent ev) {
 			
-			ArrayList<SinhVien> arr = new ArrayList<>();
-			arrSv = arr;
+			arrSv.clear();
+			arrSv= connectDB.selectSinhVien();
+			
 			lop = classSV.getSelectedItem().toString();
 			modle.setRowCount(0);
-			try {
-
-				Statement statement = (Statement) conn.createStatement();
-				ResultSet rs = statement.executeQuery("select * from ConnectSQL");
-				while (rs.next()) {
-					String id = rs.getString("maSV");
-					String name = rs.getString("tenSV");
-					String age = rs.getString("tuoiSV");
-					String class1 = rs.getString("lopSV");
-					arr.add(new SinhVien(id, name, age, class1));
-
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 
 			if (lop == "All") {
 				for (SinhVien sv : arrSv) {
@@ -226,7 +224,7 @@ public class SinhVien2 extends JFrame {
 				try {
 					if (tenSV.isEmpty() || maSinhVien.isEmpty() || tuoi.isEmpty()) {
 						throw new Exception();
-						// JOptionPane.showMessageDialog(null, "Bạn phải nhập số !!");
+						
 					} else if (ktTonTai > 0) {
 						String msg = "Sinh viên " + arrSv.get(ktTonTai).getMaSV() + " đã tồn tạ !!";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
@@ -235,19 +233,7 @@ public class SinhVien2 extends JFrame {
 						String msg = "Vui lòng chọn lớp!!";
 						JOptionPane.showMessageDialog(null, msg, "Lỗi nhập", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						try
-						{
-							String sql="insert into ConnectSQL values('"+maSinhVien+"','"+tenSV+"','"+tuoi+"','"+lop+"')";
-						Statement statement= (Statement) conn.createStatement();
-						int x=statement.executeUpdate(sql);
-						if(x>0)
-						{
-						JOptionPane.showMessageDialog(null, "Lưu thành công\n╚(•⌂•)╝ (-’๏_๏’-) Ƹ̴Ӂ̴Ʒ εїз");
-						}
-						}
-						catch(Exception ex){
-						ex.printStackTrace();
-						}
+						connectDB.insertSinhVien(maSinhVien, tenSV, tuoi, lop);
 						arrSv.add(new SinhVien(maSinhVien, tenSV, tuoi, lop));
 
 						for (int i = (arrSv.size() - 1); i < arrSv.size(); i++) {
@@ -277,7 +263,6 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String maSv = maSV.getText();
 			String tenSv = nameSV.getText();
 			String tuoiSv = ageSV.getText();
@@ -295,31 +280,17 @@ public class SinhVien2 extends JFrame {
 
 					} else {
 						
-						try
-						{
+						
 						arrSv.get(stt).setMaSV(maSv);
 						arrSv.get(stt).setNameSv(tenSv);
 						arrSv.get(stt).setAge(tuoiSv);
-						String sql="UPDATE ConnectSQL SET tenSV='"+tenSv+"',tuoiSV='"+tuoiSv+"' where maSV='"+maSv+"'";
-						Statement statement=(Statement)conn.createStatement();
-						int x=statement.executeUpdate(sql);
-						if(x>0)
-						{
-						JOptionPane.showMessageDialog(null, "Cập nhật thành công <3<3<3 \n (✖╭╮✖) ⊙︿⊙ ⊙﹏⊙ ●︿● ●﹏●");
-						}
-						}
-						catch(Exception ex)
-						{
-						ex.printStackTrace();
-						}
-					
-						
+						connectDB.updateSinhVien(maSv, tenSv, tuoiSv);
+
 						maSV.setText("");
 						nameSV.setText("");
 						ageSV.setText("");
 						maSV.requestFocus();
 						lop = classSV.getSelectedItem().toString();
-
 						modle.setRowCount(0);
 						if (lop == "All") {
 							for (SinhVien sv : arrSv) {
@@ -353,9 +324,9 @@ public class SinhVien2 extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			int col = table.getSelectedRow();
 			String[] row = new String[3];
-			row[0] = (String) table.getValueAt(col, 0);
-			row[1] = (String) table.getValueAt(col, 1);
-			row[2] = (String) table.getValueAt(col, 2);
+			row[0] =  table.getValueAt(col, 0).toString();
+			row[1] = table.getValueAt(col, 1).toString();
+			row[2] = table.getValueAt(col, 2).toString();
 			maSV.setEditable(false);
 			maSV.setText(row[0]);
 			nameSV.setText(row[1]);
@@ -371,33 +342,32 @@ public class SinhVien2 extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			try {
 				String maSv = maSV.getText();
 				String tenSv = nameSV.getText();
 				String tuoiSv = ageSV.getText();
 				arrSv.remove(stt);
-				try
-				{
-				String sql="DELETE from connectSQL WHERE maSV='"+maSv+"' " ;
-				Statement statement=(Statement) conn.createStatement();
-				int x=statement.executeUpdate(sql);
-				if(x>0)
-				{
-				JOptionPane.showMessageDialog(null,
-				"Xóa thành công :)) \n ◖♪_♪|◗ •(⌚_⌚)• !⑈ˆ~ˆ!⑈ ⋋ō_ō` ‹(•¿•)›");
-				}
-				}
-				catch(Exception ex)
-				{
-				ex.printStackTrace();
-				}
+				connectDB.deleteSinhVien(maSv);
+				
+				maSV.requestFocus();
+				lop = classSV.getSelectedItem().toString();
+				modle.setRowCount(0);
 				maSV.setText("");
 				nameSV.setText("");
 				ageSV.setText("");
-				maSV.requestFocus();
-				lop = classSV.getSelectedItem().toString();
-				modle.setRowCount(arrSv.size());
+				if (lop == "All") {
+					for (SinhVien sv : arrSv) {
+						String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
+						modle.addRow(row);
+					}
+				} else {
+					for (SinhVien sv : arrSv) {
+						if (lop.equals(sv.getLopSV())) {
+							String[] row = { sv.getMaSV(), sv.getNameSV(), sv.getAge(), sv.getLopSV() };
+							modle.addRow(row);
+						}
+					}
+				}
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, "Không còn sinh viên nào");
 			}

@@ -8,7 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 
+=======
+import java.util.ArrayList;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,6 +20,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+<<<<<<< HEAD
+=======
+import javax.swing.JOptionPane;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -27,7 +35,13 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 
+<<<<<<< HEAD
 import ffse1703022.model.ThongKeModel;
+=======
+import ffse1703022.model.KhachHangModel;
+import ffse1703022.model.ThongKeModel;
+import ffse1703022.ui.QLKhachHangUI.SelectQuanListener;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 @SuppressWarnings("serial")
 public class ThongKeBaoCao extends JPanel {
@@ -59,7 +73,12 @@ public class ThongKeBaoCao extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		pnFlow.setLayout(new FlowLayout());
 
+<<<<<<< HEAD
 	
+=======
+		JPanel BoxtenKH = new JPanel();
+		JPanel BoxQuanPhuong = new JPanel();
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 		JPanel boxKH = new JPanel();
 		JPanel boxTG = new JPanel();
 		JPanel boxTable = new JPanel();
@@ -286,7 +305,10 @@ public class ThongKeBaoCao extends JPanel {
 		}
 	}
 
+<<<<<<< HEAD
 	@SuppressWarnings("unchecked")
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 	private void getQuan() {
 		ResultSet rs;
 		try {
@@ -302,7 +324,10 @@ public class ThongKeBaoCao extends JPanel {
 	}
 
 	private class SelectQuanListener implements ActionListener {
+<<<<<<< HEAD
 		@SuppressWarnings("unchecked")
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {

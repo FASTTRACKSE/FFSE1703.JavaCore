@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+<<<<<<< HEAD
 
+=======
+import javax.swing.JOptionPane;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 public class BienLaiModel {
 	private Connection conn;

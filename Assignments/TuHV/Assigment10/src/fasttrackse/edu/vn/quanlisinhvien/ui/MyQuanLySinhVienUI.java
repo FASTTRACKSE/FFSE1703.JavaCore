@@ -154,10 +154,10 @@ public class MyQuanLySinhVienUI extends JFrame {
 	public void addEvent() {
 		tbl.addMouseListener(eventTable);
 		cbo.addActionListener(eventChooseClass);
-		btnThoat.addActionListener(eventExit);
-		btnThem.addActionListener(eventAdd);
-		btnXoa.addActionListener(eventDel);
-		btnSua.addActionListener(eventEdit);
+		btnThoat.addActionListener(Exit);
+		btnThem.addActionListener(Add);
+		btnXoa.addActionListener(Del);
+		btnSua.addActionListener(Edit);
 
 	}
 
@@ -201,7 +201,7 @@ public class MyQuanLySinhVienUI extends JFrame {
 
 	};
 
-	ActionListener eventExit = new ActionListener() {
+	ActionListener Exit = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -211,7 +211,7 @@ public class MyQuanLySinhVienUI extends JFrame {
 
 	};
 
-	ActionListener eventAdd = new ActionListener() {
+	ActionListener Add = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -241,7 +241,7 @@ public class MyQuanLySinhVienUI extends JFrame {
 		}
 	};
 
-	ActionListener eventDel = new ActionListener() {
+	ActionListener Del = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -262,7 +262,7 @@ public class MyQuanLySinhVienUI extends JFrame {
 
 	};
 
-	ActionListener eventEdit = new ActionListener() {
+	ActionListener Edit = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {

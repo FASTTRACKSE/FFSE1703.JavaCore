@@ -2,19 +2,34 @@ package ffse1703022.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+<<<<<<< HEAD
+=======
+import java.awt.Container;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
+=======
+import java.awt.event.MouseListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+<<<<<<< HEAD
+=======
+import javax.swing.JFrame;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,12 +43,20 @@ import javax.swing.table.DefaultTableModel;
 import ffse1703022.model.KhachHang;
 import ffse1703022.model.KhachHangModel;
 
+<<<<<<< HEAD
 @SuppressWarnings("serial")
 public class QLKhachHangUI extends JPanel {
 	private JTextField txttenKH, txtHoTen, txtDiaChi, txtSdt, txtEmail, txtMaCT, txtMaKH;
 	@SuppressWarnings("rawtypes")
 	private JComboBox cboquan, cbophuong, cboQuan, cboPhuong;
 	private JButton btnAdd, btnRep, btnDel, btnsearch, btnOk;
+=======
+public class QLKhachHangUI extends JPanel {
+	private JTextField txttenKH, txtHoTen, txtDiaChi, txtSdt, txtEmail, txtMaCT, txtMaKH;
+	private JComboBox cboquan, cbophuong, cboQuan, cboPhuong;
+	private JButton btnAdd, btnRep, btnDel, btnsearch, btnOk;
+	private static ArrayList<KhachHang> arrKhachHang = new ArrayList<>();
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 	private DefaultTableModel dm;
 	private JTable tbl;
 	private KhachHangModel khachHangModel = new KhachHangModel();
@@ -43,7 +66,10 @@ public class QLKhachHangUI extends JPanel {
 		addEvents();
 	}
 
+<<<<<<< HEAD
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 	public void addControls() {
 		JPanel pnFlow = new JPanel();
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -61,7 +87,11 @@ public class QLKhachHangUI extends JPanel {
 		JPanel Boxsdt = new JPanel();
 		JPanel Boxemail = new JPanel();
 		JPanel Boxmact = new JPanel();
+<<<<<<< HEAD
 	
+=======
+		JPanel Box13 = new JPanel();
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 		//
 		JLabel tenKH = new JLabel("Tên Khách Hàng:");
@@ -198,7 +228,10 @@ public class QLKhachHangUI extends JPanel {
 
 	}
 
+<<<<<<< HEAD
 	@SuppressWarnings("unchecked")
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 	private void getQuan() {
 		ResultSet rs;
 		try {
@@ -214,7 +247,10 @@ public class QLKhachHangUI extends JPanel {
 	}
 
 	public class SelectQuanListener implements ActionListener {
+<<<<<<< HEAD
 		@SuppressWarnings("unchecked")
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -235,7 +271,10 @@ public class QLKhachHangUI extends JPanel {
 	}
 
 	private class SelectQuan1Listener implements ActionListener {
+<<<<<<< HEAD
 		@SuppressWarnings("unchecked")
+=======
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -300,7 +339,11 @@ public class QLKhachHangUI extends JPanel {
 				} else if (checkDuplicateMeterID(txtMaCT.getText())) {
 					JOptionPane.showMessageDialog(null, "Mã công tơ đã bị trùng, vui lòng nhập lại");
 				} else {
+<<<<<<< HEAD
 					
+=======
+					int rs;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 					String maKH = null;
 					String hoTen = txtHoTen.getText();
 					String diaChi = txtDiaChi.getText();
@@ -310,7 +353,11 @@ public class QLKhachHangUI extends JPanel {
 					String email = txtEmail.getText();
 					String maCT = txtMaCT.getText();
 					KhachHang kh = new KhachHang(maKH, maCT, hoTen, diaChi, quan, phuong, sdt, email);
+<<<<<<< HEAD
 					 khachHangModel.addCus(kh);
+=======
+					rs = khachHangModel.addCus(kh);
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 					JOptionPane.showMessageDialog(null, "Thêm thành công!!");
 				}
@@ -350,7 +397,11 @@ public class QLKhachHangUI extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+<<<<<<< HEAD
 				
+=======
+				int rs;
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 				String maKH = null;
 				String maCT = txtMaCT.getText();
 				String hoTen = txtHoTen.getText();
@@ -361,7 +412,11 @@ public class QLKhachHangUI extends JPanel {
 				String email = txtEmail.getText();
 				
 
+<<<<<<< HEAD
 				 khachHangModel.repCus(new KhachHang(maKH, maCT, hoTen, diaChi, quan, phuong, sdt, email));
+=======
+				rs = khachHangModel.repCus(new KhachHang(maKH, maCT, hoTen, diaChi, quan, phuong, sdt, email));
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 
 				JOptionPane.showMessageDialog(null, "Sửa thành công!!");
 				btnsearch.doClick();
@@ -423,7 +478,11 @@ public class QLKhachHangUI extends JPanel {
 	public  boolean checkDuplicateMeterID(String meterID) throws SQLException {
 		ResultSet meterIdList = khachHangModel.getMeterIdList();
 		while (meterIdList.next()) {
+<<<<<<< HEAD
 			if (meterID.equals(meterIdList.getString("MaCT"))) {
+=======
+			if (meterID.equals(meterIdList.getString("meterID"))) {
+>>>>>>> b149031eb33d3b97feec315adef76423bd77895d
 				return true;
 			}
 		}
