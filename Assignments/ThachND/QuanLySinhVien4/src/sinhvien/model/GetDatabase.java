@@ -10,7 +10,7 @@ import com.mysql.jdbc.Statement;
 import org.gjt.mm.mysql.Driver;
 
 public class GetDatabase {
-	public static Connection getConnect (String strServer, String strDatabase, String strUser, String strPwd)
+	public static Connection getConnect(String strServer, String strDatabase, String strUser, String strPwd)
 	{
 	Connection conn = null;
 	String strConnect ="jdbc:mysql://"+strServer+"/"+strDatabase;

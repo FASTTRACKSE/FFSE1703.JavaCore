@@ -41,7 +41,6 @@ public class WindowLayout extends JFrame {
 	JTextField txtMaSV, txtTenSV, txtTuoi;
 	JButton btnAdd, btnEdit, btnDelete, btnClose, btnSubmit;
 	DefaultTableModel dm=new DefaultTableModel();
-	
 	final JTable tbl= new JTable(dm);
 	JScrollPane sc= new JScrollPane(tbl);
 	ArrayList<SinhVien> arrSv = new ArrayList<SinhVien>();
@@ -333,7 +332,7 @@ public class WindowLayout extends JFrame {
 //			}
 			try
 			{
-			String sql="insert into quanlysinhvien(MaSV,Ten,Tuoi,Lop) values( '"+maSv+"','"+tenSv+"','"+tuoiSv+"','"+lopSv+"')";
+			String sql="insert into quanlysinhvien(MaSV,Ten,Tuoi,Lop) values('"+maSv+"','"+tenSv+"','"+tuoiSv+"','"+lopSv+"')";
 			Statement statement = (Statement) conn.createStatement();
 			int x = statement.executeUpdate(sql);
 			if(x>0)
