@@ -193,6 +193,7 @@ public class LayoutMagageATM extends JFrame {
 				buttonATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
+				pnKhachHang.duLieu();
 			}
 		});
 		/// sự kiện nhấn nút button Atm
@@ -205,6 +206,7 @@ public class LayoutMagageATM extends JFrame {
 				buttonKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
+				pnATM.duLieu();
 			}
 		});
 		/// sự kiện nhấn nút button thống kê
@@ -217,6 +219,8 @@ public class LayoutMagageATM extends JFrame {
 				buttonKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
+				pnBaoCaoKH.duLieu();
+				
 			}
 		});
 		buttonThongKeATM.addActionListener(new ActionListener() {
@@ -228,6 +232,7 @@ public class LayoutMagageATM extends JFrame {
 				buttonKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonATM.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
 				buttonThongKeKH.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.black));
+				pnBaoCaoKHRutTien.selectDanhSach();
 			}
 		});
 		btnLogout.addActionListener(new ActionListener() {

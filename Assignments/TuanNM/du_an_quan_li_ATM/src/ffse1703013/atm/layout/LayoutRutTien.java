@@ -15,6 +15,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import ffse1703013.atm.model.ComboItem;
 import ffse1703013.atm.model.DatabaseBaoCaoATM;
@@ -45,7 +48,8 @@ public class LayoutRutTien extends JFrame {
 	private JTextField txtMaKH, txtTenKH, txtDc, txtSoThe, txtSoTK, txtSoTien, txtSoTienRut, txtMaPin;
 	private JPasswordField txtKMCu, txtKMMoi, txtKMNhapLai;
 	private JButton btnSoTienRut, btnLuu;
-
+	private CardLayout clDoiMa;
+	private JPanel pnDoiMaPin;
 	public LayoutRutTien() {
 		addControll();
 		addEvents();
@@ -90,6 +94,7 @@ public class LayoutRutTien extends JFrame {
 				JOptionPane.showMessageDialog(null, "Mã pin phải 6 Số", "", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				connectGD.doiMaPin(soThe, mkNhapLai);
+				clDoiMa.show(pnDoiMaPin, "1");
 			}
 		}
 	};
@@ -511,8 +516,8 @@ public class LayoutRutTien extends JFrame {
 		pnSoTien.add(nameSoTien);
 		pnSoTien.add(txtSoTien);
 
-		CardLayout clDoiMa = new CardLayout();
-		JPanel pnDoiMaPin = new JPanel(clDoiMa);
+		clDoiMa = new CardLayout();
+		pnDoiMaPin = new JPanel(clDoiMa);
 		pnDoiMaPin.setOpaque(false);
 		pnDoiMaPin.setPreferredSize(new Dimension(500, 200));
 		pnDoiMaPin.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.black));
@@ -622,8 +627,14 @@ public class LayoutRutTien extends JFrame {
 		JPanel pnSoTienRut = new JPanel();
 		pnSoTienRut.setOpaque(false);
 		pnSoTienRut.setLayout(new BoxLayout(pnSoTienRut, BoxLayout.Y_AXIS));
+		
 		JPanel pnDemo = new JPanel();
+		ImageIcon iconRutTien = new ImageIcon("D:\\FFSE1703.JavaCore\\Assignments\\TuanNM\\du_an_quan_li_ATM\\src\\ffse1703013\\atm\\images\\pnRutTien.png");
+		JLabel nameRutTien = new JLabel(iconRutTien);
+		pnDemo.add(nameRutTien);
 		pnDemo.setOpaque(false);
+		
+		
 		JPanel pnTxt = new JPanel();
 		pnTxt.setOpaque(false);
 		JLabel nameSoTienRut = new JLabel("Số tiền rút :");
@@ -646,15 +657,19 @@ public class LayoutRutTien extends JFrame {
 		pnDuLieu.setPreferredSize(new Dimension(500, 100));
 		pnDuLieu.add(pnTxt);
 		pnDuLieu.add(pnBtn);
+		Border border = BorderFactory.createLineBorder(Color.decode("#191970"));
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(border, "Hệ thống rút tiền TP Bank", TitledBorder.CENTER,
+				TitledBorder.DEFAULT_POSITION);
+		pnDuLieu.setBorder(borderTitle);
 
 		JPanel pnDemo2 = new JPanel();
 		pnDemo2.setOpaque(false);
 		pnDemo2.setPreferredSize(new Dimension(500, 200));
 		pnDemo.setPreferredSize(new Dimension(500, 200));
 
-		pnSoTienRut.add(pnDemo2);
-		pnSoTienRut.add(pnDuLieu);
 		pnSoTienRut.add(pnDemo);
+		pnSoTienRut.add(pnDuLieu);
+		pnSoTienRut.add(pnDemo2);
 
 		pndata.add(pnThongTin, "1");
 		pndata.add(pnSoTienRut, "2");

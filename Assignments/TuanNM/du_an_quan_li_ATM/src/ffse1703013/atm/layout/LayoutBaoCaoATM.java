@@ -577,6 +577,8 @@ public class LayoutBaoCaoATM extends JPanel {
 				cl.show(pnSelect, "1");
 				btnBaoCaoATM.setBorder(BorderFactory.createMatteBorder(4, 1, 0, 1, Color.black));
 				btnBaoCaoRutTien.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+				selectDanhSach();
+				selectMaMay();
 			}
 		});
 		btnBaoCaoRutTien.addActionListener(new ActionListener() {
@@ -586,6 +588,8 @@ public class LayoutBaoCaoATM extends JPanel {
 				cl.show(pnSelect, "2");
 				btnBaoCaoATM.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 				btnBaoCaoRutTien.setBorder(BorderFactory.createMatteBorder(4, 1, 0, 1, Color.black));
+				pnRutTienATM.selectDanhSach();
+				pnRutTienATM.selectMaMay();
 			}
 		});
 

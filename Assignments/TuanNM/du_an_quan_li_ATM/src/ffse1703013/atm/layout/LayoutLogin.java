@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import ffse1703013.atm.model.DatabaseUser;
 
@@ -14,7 +16,8 @@ public class LayoutLogin extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JButton buttonSubmit, buttonSubmitGD;
-	private JTextField txtTenDangNhap, htLoi, txtTenDangNhapGD;
+	private PlaceholderTextField txtTenDangNhap,txtTenDangNhapGD;
+	private JTextField htLoi;
 	private JPasswordField txtMatKhau, txtMatKhauGD;
 
 	public LayoutLogin(String title) {
@@ -35,7 +38,7 @@ public class LayoutLogin extends JFrame {
 		ImageIcon imgLogin = new ImageIcon(
 				"D:\\FFSE1703.JavaCore\\Assignments\\TuanNM\\du_an_quan_li_ATM\\src\\ffse1703013\\atm\\images\\tpbank.jpg");
 		JLabel nameTieuDe = new JLabel(imgLogin);
-
+		
 		tieuDe.add(nameTieuDe);
 
 		JPanel pnLoi = new JPanel();
@@ -56,7 +59,8 @@ public class LayoutLogin extends JFrame {
 		ImageIcon iconName = new ImageIcon(
 				"D:\\FFSE1703.JavaCore\\Assignments\\TuanNM\\du_an_quan_li_ATM\\src\\ffse1703013\\atm\\images\\if_Username_372902.png");
 		JLabel nameDangNhap = new JLabel(iconName);
-		txtTenDangNhap = new JTextField(20);
+		txtTenDangNhap = new PlaceholderTextField(20);
+		txtTenDangNhap.setPlaceholder("Tên đăng Nhập");
 		txtTenDangNhap.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnTenDangNhap.add(nameDangNhap);
 		pnTenDangNhap.add(txtTenDangNhap);
@@ -85,6 +89,10 @@ public class LayoutLogin extends JFrame {
 		pnButton.add(buttonSubmit);
 		// add vào panel
 		JPanel pnLoginQuanLi = new JPanel();
+		Border borderATM = BorderFactory.createLineBorder(Color.decode("#191970"));
+		TitledBorder borderTitleATM = BorderFactory.createTitledBorder(borderATM, "Quản lí ATM",
+				TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+		pnLoginQuanLi.setBorder(borderTitleATM);
 		pnLoginQuanLi.setBackground(Color.decode("#87CEFA"));
 		pnLoginQuanLi.setLayout(new BoxLayout(pnLoginQuanLi, BoxLayout.Y_AXIS));
 		pnLoginQuanLi.setPreferredSize(new Dimension(100, 450));
@@ -99,7 +107,8 @@ public class LayoutLogin extends JFrame {
 				"D:\\FFSE1703.JavaCore\\Assignments\\TuanNM\\du_an_quan_li_ATM\\src\\ffse1703013\\atm\\images\\card.png");
 		JLabel nameDangNhapGD = new JLabel(iconThe);
 
-		txtTenDangNhapGD = new JTextField(20);
+		txtTenDangNhapGD = new PlaceholderTextField(20);
+		txtTenDangNhapGD.setPlaceholder("Số thẻ ATM");
 		txtTenDangNhapGD.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
 		pnTenDangNhapGD.add(nameDangNhapGD);
 		pnTenDangNhapGD.add(txtTenDangNhapGD);
@@ -129,6 +138,9 @@ public class LayoutLogin extends JFrame {
 		pnButtonGD.add(buttonSubmitGD);
 
 		JPanel pnLoginGD = new JPanel();
+		TitledBorder borderTitleATM1 = BorderFactory.createTitledBorder(borderATM, "Hệ thống rút tiền TP Bank",
+				TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
+		pnLoginGD.setBorder(borderTitleATM1);
 		pnLoginGD.setBackground(Color.decode("#87CEFA"));
 		pnLoginGD.setLayout(new BoxLayout(pnLoginGD, BoxLayout.Y_AXIS));
 		pnLoginGD.setPreferredSize(new Dimension(70, 450));
@@ -154,7 +166,7 @@ public class LayoutLogin extends JFrame {
 		r1.setPreferredSize(new Dimension(200, 20));
 		r1.setSelected(true);
 		r1.setBounds(50, 100, 70, 30);
-		JRadioButton r2 = new JRadioButton("Rút tiền khách hàng");
+		JRadioButton r2 = new JRadioButton("Hệ thống rút tiền");
 		r2.setPreferredSize(new Dimension(150, 20));
 		r2.setBackground(Color.decode("#87CEFA"));
 		r2.setBounds(50, 150, 70, 30);
@@ -277,7 +289,7 @@ public class LayoutLogin extends JFrame {
 	}
 
 	public void showWindow() {
-		this.setSize(550, 440);
+		this.setSize(550, 460);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);

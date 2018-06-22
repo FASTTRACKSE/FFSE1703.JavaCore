@@ -89,7 +89,6 @@ public class DatabaseGiaoDich {
 		try {
 
 			String sql = "UPDATE `khachhang` SET `maPin`='" + maPin + "' WHERE `soThe`='" + soThe + "' ";
-			System.out.println(sql);
 			Statement statement = (Statement) conn.createStatement();
 
 			@SuppressWarnings("unused")

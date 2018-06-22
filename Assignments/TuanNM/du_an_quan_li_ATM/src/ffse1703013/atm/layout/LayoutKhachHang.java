@@ -46,7 +46,7 @@ public class LayoutKhachHang extends JPanel {
 	}
 
 	void duLieu() {
-
+		arrKH.clear();
 		arrKH = connectKH.selectKhachHang();
 		model.setRowCount(0);
 		for (KhachHang kh : arrKH) {

@@ -157,7 +157,7 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 					} else if (soNgay < 0) {
 						JOptionPane.showMessageDialog(null, "Ngày bắt đầu ko nhỏ hơn ngày kết thúc");
 					} else if (soNgay > 30) {
-						JOptionPane.showMessageDialog(null, "Khoảng thời gian không quá 90 ngày");
+						JOptionPane.showMessageDialog(null, "Khoảng thời gian không quá 30 ngày");
 					} else {
 						arrBC.clear();
 						model.setRowCount(0);
@@ -178,7 +178,6 @@ public class LayoutBaoCaoRutTienATM extends JPanel {
 								} catch (ParseException ex) {
 									ex.printStackTrace();
 								}
-
 								String[] row = { bc.getMaGD(), bc.getSoThe(), thoiGian, soTien };
 								model.addRow(row);
 							}

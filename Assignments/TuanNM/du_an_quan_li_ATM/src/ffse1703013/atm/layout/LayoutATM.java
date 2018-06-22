@@ -607,7 +607,7 @@ public class LayoutATM extends JPanel {
 	}
 
 	void duLieu() {
-
+		arrATM.clear();
 		arrATM = connectATM.selectATM();
 		model.setRowCount(0);
 		for (ATM atm : arrATM) {
