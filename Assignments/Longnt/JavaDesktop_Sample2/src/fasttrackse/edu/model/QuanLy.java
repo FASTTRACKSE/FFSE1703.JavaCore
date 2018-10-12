@@ -43,7 +43,7 @@ public class QuanLy extends JFrame {
 	Connection conn= DBConnection.ketnoi("localhost", "ffse1703", "thanhlong123",
 			"123456"); 
 	private JTextField maSinhVien,tenSinhVien,tuoiSinhVien;
-	private JButton Nhap,Them,Sua,Xoa,Thoat,Chon;
+	private JButton Nhap,Them,Sua,Xoa,Thoat;
     String[] col = {"Mã Sinh Viên","Tên Sinh Viên","Tuổi Sinh Viên","Lớp"};
     String[] items = {"All","FFSE1701", "FFSE1702", "FFSE1703", "FFSE1704"};
     public static ArrayList<SinhVien> arr = new ArrayList<SinhVien>();
