@@ -275,7 +275,7 @@ public class BienLai extends JPanel {
 									"Chỉ số mới phải lớn hơn hoặc bằng chỉ số cũ, vui lòng nhập lại");
 						} else if (txtMeterID.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Mã công tơ không được để trống");
-						} else if (recentMeterIndex > lastestMeterIndex) {
+						} else {
 							meterNumber = recentMeterIndex - lastestMeterIndex;
 							int thanhtien = heSoQuyDoi(meterNumber);
 
@@ -303,11 +303,10 @@ public class BienLai extends JPanel {
 								}
 
 							}
-						} else {
-							JOptionPane.showMessageDialog(null, "Thêm thất bại");
-						}
+						} 
 					} catch (SQLException e1) {
 						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Thêm thất bại");
 					}
 				} catch (MyException e2) {
 					JOptionPane.showMessageDialog(null, e2);
