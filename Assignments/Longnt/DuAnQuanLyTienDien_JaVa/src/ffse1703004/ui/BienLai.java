@@ -50,8 +50,8 @@ public class BienLai extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	static DBConnection DBConnection = new DBConnection();
-	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "thanhlong123",
-			"123456");
+	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "root",
+			"");
 	JTextField txtSearch, txtMeterID, txtDateAdded, txtMeterIndex;
 	private JButton btnSearch, butThem, butSua, butXoa, butTroVe;
 	private DefaultTableModel model = new DefaultTableModel(
@@ -119,6 +119,7 @@ public class BienLai extends JPanel {
 		butTroVe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				model.setRowCount(0);
 				Display();
 			}
 		});

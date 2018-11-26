@@ -11,7 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.Statement;
 
 public class DBConnection {
-	static Connection conn = ketnoi("localhost", "ffse1703004_java", "thanhlong123", "123456");
+	static Connection conn = ketnoi("localhost", "ffse1703004_java", "root", "");
 	ArrayList<KhachHangMD> arr = new ArrayList<KhachHangMD>();
 
 	public static void main(String[] args) {

@@ -40,8 +40,8 @@ public class ThongKe extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	static DBConnection DBConnection = new DBConnection();
-	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "thanhlong123",
-			"123456");
+	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "root",
+			"");
 	ArrayList<KhachHangMD> arrKH = new ArrayList<>();
 	private JButton btnSearch, btnSearch1, btnBack;
 	private JComboBox<Object> cbBxQuan, cbBxQuan1, cbBxPhuong, cbBxPhuong1;
@@ -274,14 +274,14 @@ public class ThongKe extends JPanel {
 
 					String rows[] = new String[8];
 
-					rows[0] = rs.getString(2);
-					rows[1] = rs.getString(3);
-					rows[2] = rs.getString(4);
-					rows[3] = rs.getString(5);
-					rows[4] = rs.getString(6);
-					rows[5] = rs.getString(7);
-					rows[6] = rs.getString(8);
-					rows[7] = rs.getString(9);
+					rows[0] = rs.getString(1);
+					rows[1] = rs.getString(2);
+					rows[2] = rs.getString(3);
+					rows[3] = rs.getString(4);
+					rows[4] = rs.getString(5);
+					rows[5] = rs.getString(6);
+					rows[6] = rs.getString(7);
+					rows[7] = rs.getString(8);
 					model.addRow(rows);
 
 				}
@@ -318,14 +318,14 @@ public class ThongKe extends JPanel {
 					while (rs.next()) {
 						String rows[] = new String[8];
 
-						rows[0] = rs.getString(2);
-						rows[1] = rs.getString(3);
-						rows[2] = rs.getString(4);
-						rows[3] = rs.getString(5);
-						rows[4] = rs.getString(6);
-						rows[5] = rs.getString(7);
-						rows[6] = rs.getString(8);
-						rows[7] = rs.getString(9);
+						rows[0] = rs.getString(1);
+						rows[1] = rs.getString(2);
+						rows[2] = rs.getString(3);
+						rows[3] = rs.getString(4);
+						rows[4] = rs.getString(5);
+						rows[5] = rs.getString(6);
+						rows[6] = rs.getString(7);
+						rows[7] = rs.getString(8);
 						model.addRow(rows);
 					}
 				}
@@ -366,14 +366,14 @@ public class ThongKe extends JPanel {
 					while (rs.next()) {
 						String rows[] = new String[8];
 
-						rows[0] = rs.getString(2);
-						rows[1] = rs.getString(3);
-						rows[2] = rs.getString(4);
-						rows[3] = rs.getString(5);
-						rows[4] = rs.getString(6);
-						rows[5] = rs.getString(7);
-						rows[6] = rs.getString(8);
-						rows[7] = rs.getString(9);
+						rows[0] = rs.getString(1);
+						rows[1] = rs.getString(2);
+						rows[2] = rs.getString(3);
+						rows[3] = rs.getString(4);
+						rows[4] = rs.getString(5);
+						rows[5] = rs.getString(6);
+						rows[6] = rs.getString(7);
+						rows[7] = rs.getString(8);
 						model.addRow(rows);
 					}
 				} else {
@@ -385,14 +385,14 @@ public class ThongKe extends JPanel {
 					while (rs.next()) {
 						String rows[] = new String[8];
 
-						rows[0] = rs.getString(2);
-						rows[1] = rs.getString(3);
-						rows[2] = rs.getString(4);
-						rows[3] = rs.getString(5);
-						rows[4] = rs.getString(6);
-						rows[5] = rs.getString(7);
-						rows[6] = rs.getString(8);
-						rows[7] = rs.getString(9);
+						rows[0] = rs.getString(1);
+						rows[1] = rs.getString(2);
+						rows[2] = rs.getString(3);
+						rows[3] = rs.getString(4);
+						rows[4] = rs.getString(5);
+						rows[5] = rs.getString(6);
+						rows[6] = rs.getString(7);
+						rows[7] = rs.getString(8);
 						model.addRow(rows);
 					}
 				}
@@ -435,7 +435,7 @@ public class ThongKe extends JPanel {
 	public void DisplayTK() {
 		if (conn != null) {
 
-			String sql = "SELECT  BienLai.id, KhachHang.id, KhachHang.mact , KhachHang.tenkh, KhachHang.diachi, KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email,"
+			String sql = "SELECT  BienLai.id, KhachHang.makh, KhachHang.mact , KhachHang.tenkh, KhachHang.diachi, KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email,"
 					+ "   BienLai.chuki, BienLai.thanhtien"
 					+ " FROM KhachHang, BienLai WHERE  KhachHang.mact = BienLai.mact  ";
 					

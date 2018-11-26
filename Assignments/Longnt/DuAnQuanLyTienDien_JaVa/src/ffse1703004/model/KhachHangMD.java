@@ -1,12 +1,11 @@
 package ffse1703004.model;
 
 public class KhachHangMD {
-	private	String tenKhachHang,diaChi,soDienThoai,email,maCongTo,maKhachHang,id,quan,phuong;
+	private	String tenKhachHang,diaChi,soDienThoai,email,maCongTo,maKhachHang,quan,phuong;
 		public KhachHangMD() {
 			
 		}
-	    public KhachHangMD(String id, String maKhachHang,String maCongTo,String tenKhachHang,String diaChi,String phuong,String quan,String soDienThoai,String email) {
-	    	this.id = id;
+	    public KhachHangMD( String maKhachHang,String maCongTo,String tenKhachHang,String diaChi,String phuong,String quan,String soDienThoai,String email) {
 	    	this.maKhachHang = maKhachHang;
 	    	this.quan = quan;
 	    	this.phuong = phuong;
@@ -52,12 +51,6 @@ public class KhachHangMD {
 		}
 		public void setMaKhachHang(String maKhachHang) {
 			this.maKhachHang = maKhachHang;
-		}
-		public String getId() {
-			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
 		}
 		public String getQuan() {
 			return quan;

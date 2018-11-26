@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class DanhMuc extends JFrame {
-	JButton butKH, butBL, butTK, butLogout, butThoat;
+	JButton butKH, butBL, butTK, butLogout;
 	public DanhMuc(String arg0) throws HeadlessException {
 		super(arg0);
 		// TODO Auto-generated constructor stub
@@ -58,9 +58,15 @@ public class DanhMuc extends JFrame {
 		butTK.setPreferredSize(new Dimension(200, 200));
 		panTK.add(butTK);
 		
+		JPanel panLG = new JPanel();
+		butLogout = new JButton("Logout");
+		butLogout.setPreferredSize(new Dimension(200, 200));
+		panLG.add(butLogout);
+		
 		KhachHang a = new KhachHang();
 		BienLai b = new BienLai();
 		ThongKe c = new ThongKe();
+		Login logout = new Login("Login");
 		pnMain2.add(a, "1");
 		pnMain2.add(b, "2");
 		pnMain2.add(c, "3");
@@ -94,10 +100,20 @@ public class DanhMuc extends JFrame {
 				
 			}
 		});
+      
+      butLogout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logout.showWindow();
+				dispose();
+			}
+		});
 		
 		pnMain1.add(panKH);
 		pnMain1.add(panBL);
 		pnMain1.add(panTK);
+		pnMain1.add(panLG);
 		pnMain2.add(card);
 
 		pnMain.add(pnMain1);

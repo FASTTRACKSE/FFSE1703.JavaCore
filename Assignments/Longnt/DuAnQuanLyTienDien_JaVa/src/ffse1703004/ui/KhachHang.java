@@ -33,8 +33,8 @@ public class KhachHang extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	static DBConnection DBConnection = new DBConnection();
-	static Connection conn= ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "thanhlong123",
-			"123456");
+	static Connection conn= ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "root",
+			"");
 	private JTextField txtMaKH,txtTenKH,txtDiaChi,txtSDT,txtEmail;
 	private static JTextField txtMCT;
 	private JTextField txtTimKiem;
@@ -265,14 +265,14 @@ public class KhachHang extends JPanel {
 					while (rs.next()) {
 						String rows[] = new String[8];
 
-						rows[0] = rs.getString(2);
-						rows[1] = rs.getString(3);
-						rows[2] = rs.getString(4);
-						rows[3] = rs.getString(5);
-						rows[4] = rs.getString(6);
-						rows[5] = rs.getString(7);
-						rows[6] = rs.getString(8);
-						rows[7] = rs.getString(9);
+						rows[0] = rs.getString(1);
+						rows[1] = rs.getString(2);
+						rows[2] = rs.getString(3);
+						rows[3] = rs.getString(4);
+						rows[4] = rs.getString(5);
+						rows[5] = rs.getString(6);
+						rows[6] = rs.getString(7);
+						rows[7] = rs.getString(8);
 						model.addRow(rows);
 					}}
 				} catch (SQLException e) {
@@ -295,14 +295,14 @@ public class KhachHang extends JPanel {
 					while (rs.next()) {
 						String rows[] = new String[8];
 
-						rows[0] = rs.getString(2);
-						rows[1] = rs.getString(3);
-						rows[2] = rs.getString(4);
-						rows[3] = rs.getString(5);
-						rows[4] = rs.getString(6);
-						rows[5] = rs.getString(7);
-						rows[6] = rs.getString(8);
-						rows[7] = rs.getString(9);
+						rows[0] = rs.getString(1);
+						rows[1] = rs.getString(2);
+						rows[2] = rs.getString(3);
+						rows[3] = rs.getString(4);
+						rows[4] = rs.getString(5);
+						rows[5] = rs.getString(6);
+						rows[6] = rs.getString(7);
+						rows[7] = rs.getString(8);
 						model.addRow(rows);
 					}
 				} catch (SQLException e) {
@@ -355,7 +355,7 @@ public class KhachHang extends JPanel {
 						JOptionPane.showMessageDialog(null, "Mã công tơ đã bị trùng, vui lòng nhập lại");
 					} else {
 						if (conn != null) {
-							String sql = "INSERT INTO KhachHang(makh,mact,tenkh,diachi,idphuong,idquan,dienthoai,email) VALUES (?,?,?,?,?,?,?,?)";
+						String sql = "INSERT INTO khachhang(makh,mact,tenkh,diachi,idphuong,idquan,dienthoai,email) VALUES (?,?,?,?,?,?,?,?)";
 							try {
 								PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 								ptmt.setString(1, txtMaKH.getText());
