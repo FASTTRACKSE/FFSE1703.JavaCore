@@ -3,15 +3,13 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -39,28 +37,28 @@ public class DanhMuc extends JFrame {
 		JPanel card = new JPanel();
 		CardLayout tl =new CardLayout();
 		pnMain1.setLayout(new BoxLayout(pnMain1, BoxLayout.Y_AXIS));
-		pnMain1.setPreferredSize(new Dimension(200, 50));
+		pnMain1.setPreferredSize(new Dimension(150, 50));
 		pnMain2.setLayout(tl);
 		
 		
 		JPanel panKH = new JPanel();
 		butKH = new JButton("QUẢN LÝ KHÁCH HÀNG");
-		butKH.setPreferredSize(new Dimension(200,200));
+		butKH.setPreferredSize(new Dimension(180,50));
 		panKH.add(butKH);
 	
 		JPanel panBL = new JPanel();
 		butBL = new JButton("QUẢN LÝ BIÊN LAI");
-		butBL.setPreferredSize(new Dimension(200, 200));
+		butBL.setPreferredSize(new Dimension(150, 50));
 		panBL.add(butBL);
 
 		JPanel panTK = new JPanel();
 		butTK = new JButton("THỐNG KÊ BÁO CÁO");
-		butTK.setPreferredSize(new Dimension(200, 200));
+		butTK.setPreferredSize(new Dimension(150, 50));
 		panTK.add(butTK);
 		
 		JPanel panLG = new JPanel();
 		butLogout = new JButton("Logout");
-		butLogout.setPreferredSize(new Dimension(200, 200));
+		butLogout.setPreferredSize(new Dimension(100, 50));
 		panLG.add(butLogout);
 		
 		KhachHang a = new KhachHang();

@@ -1,11 +1,12 @@
 package ffse1703004.model;
 
 public class KhachHangMD {
-	private	String tenKhachHang,diaChi,soDienThoai,email,maCongTo,maKhachHang,quan,phuong;
+	private	String tenKhachHang,diaChi,email,maCongTo,maKhachHang,quan,phuong;
+	private int soDienThoai;
 		public KhachHangMD() {
 			
 		}
-	    public KhachHangMD( String maKhachHang,String maCongTo,String tenKhachHang,String diaChi,String phuong,String quan,String soDienThoai,String email) {
+	    public KhachHangMD( String maKhachHang,String maCongTo,String tenKhachHang,String diaChi,String phuong,String quan,int soDienThoai,String email) {
 	    	this.maKhachHang = maKhachHang;
 	    	this.quan = quan;
 	    	this.phuong = phuong;
@@ -28,12 +29,7 @@ public class KhachHangMD {
 		public void setDiaChi(String diaChi) {
 			this.diaChi = diaChi;
 		}
-		public String getSoDienThoai() {
-			return soDienThoai;
-		}
-		public void setSoDienThoai(String soDienThoai) {
-			this.soDienThoai = soDienThoai;
-		}
+		
 		public String getEmail() {
 			return email;
 		}
@@ -48,6 +44,13 @@ public class KhachHangMD {
 		}
 		public String getMaKhachHang() {
 			return maKhachHang;
+		}
+		
+		public int getSoDienThoai() {
+			return soDienThoai;
+		}
+		public void setSoDienThoai(int soDienThoai) {
+			this.soDienThoai = soDienThoai;
 		}
 		public void setMaKhachHang(String maKhachHang) {
 			this.maKhachHang = maKhachHang;

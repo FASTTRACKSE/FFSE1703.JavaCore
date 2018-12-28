@@ -323,8 +323,8 @@ public class KhachHang extends JPanel {
 				txtDiaChi.setText((String) table.getValueAt(row, 3));
 				txtEmail.setText((String) table.getValueAt(row, 7));
 				txtSDT.setText((String) table.getValueAt(row, 6));
-				cbBxQuan1.setSelectedItem(table.getValueAt(row, 5));
-				cbBxPhuong1.setSelectedItem(table.getValueAt(row, 4));
+				cbBxQuan1.setSelectedItem(table.getValueAt(row, 4));
+				cbBxPhuong1.setSelectedItem(table.getValueAt(row, 5));
 			}
 	
 		 ListSelectionListener eventDataToTextField = new ListSelectionListener() {
@@ -353,7 +353,10 @@ public class KhachHang extends JPanel {
 						JOptionPane.showMessageDialog(null, "Email không đúng định dạng, vui lòng nhập lại");
 					} else if (checkMCT(txtMCT.getText())) {
 						JOptionPane.showMessageDialog(null, "Mã công tơ đã bị trùng, vui lòng nhập lại");
-					} else {
+					} else if(checkMKH(txtMaKH.getText())) {
+						JOptionPane.showMessageDialog(null, "Mã khách hàng đã bị trùng vui lòng nhập lại" );
+					}
+					else {
 						if (conn != null) {
 						String sql = "INSERT INTO khachhang(makh,mact,tenkh,diachi,idphuong,idquan,dienthoai,email) VALUES (?,?,?,?,?,?,?,?)";
 							try {
@@ -523,6 +526,17 @@ public class KhachHang extends JPanel {
 				return phoneNumber.matches(regex);
 			}
 			
+			public static boolean checkMKH(String makh ) throws SQLException{
+				@SuppressWarnings("static-access")
+				ResultSet iDKH = DBConnection.getIDKHList();
+				while(iDKH.next()) {
+					if(makh.equals(iDKH.getString("makh"))) {
+						return true;
+					}
+				}
+				return false;
+			}
+			
 			public static boolean checkMCT(String mact) throws SQLException {
 				ResultSet meterIdList = ffse1703004.model.DBConnection.getMeterIdList();
 				while (meterIdList.next()) {
@@ -532,6 +546,7 @@ public class KhachHang extends JPanel {
 				}
 				return false;
 			}
+			
 				
 	private	void addComboBoxCounty(ResultSet county, JComboBox<Object> cb) throws SQLException {
 			while (county.next()) {

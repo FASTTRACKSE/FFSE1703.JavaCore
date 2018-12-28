@@ -38,6 +38,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 
@@ -50,12 +51,11 @@ public class BienLai extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	static DBConnection DBConnection = new DBConnection();
-	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "root",
-			"");
+	static Connection conn = ffse1703004.model.DBConnection.ketnoi("localhost", "ffse1703004_java", "root", "");
 	JTextField txtSearch, txtMeterID, txtDateAdded, txtMeterIndex;
 	private JButton btnSearch, butThem, butSua, butXoa, butTroVe;
 	private DefaultTableModel model = new DefaultTableModel(
-			new Object[] { "Mã biên lai", "Mã Công tơ", "Chỉ số công tơ", "Ngày nhập", "Chu kì nhập", "Số tiền" }, 0);
+			new Object[] { "Mã biên lai", "Mã Công tơ",  "Ngày nhập", "Chu kì nhập","Chỉ số công tơ", "Số tiền" }, 0);
 	final JTable table = new JTable(model);
 	JScrollPane sc = new JScrollPane(table);
 	JComboBox<?> cbBxmonth, cbBxyear;
@@ -77,7 +77,7 @@ public class BienLai extends JPanel {
 		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
 
 		JPanel pnTitle = new JPanel();
-		JLabel lblTitle = new JLabel("Quản lí biên lai");
+		JLabel lblTitle = new JLabel("Quản lý biên lai");
 		Font fontTitle = new Font("arial", Font.BOLD, 20);
 		lblTitle.setFont(fontTitle);
 		pnTitle.add(lblTitle);
@@ -119,6 +119,13 @@ public class BienLai extends JPanel {
 		butTroVe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				txtMeterID.setEditable(true);
+				txtMeterIndex.setEditable(true);
+				txtMeterID.setText("");
+				txtDateAdded.setEditable(true);
+				jmc.getMonth();
+				jyc.getYear();
+				txtMeterIndex.setText("");
 				model.setRowCount(0);
 				Display();
 			}
@@ -191,13 +198,12 @@ public class BienLai extends JPanel {
 	public void Display() {
 		if (conn != null) {
 
-			String sql = "select * from BienLai";
+			String sql = "select * from bienlai";
 			try {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 				ResultSet rs = ptmt.executeQuery();
 				while (rs.next()) {
 					String rows[] = new String[6];
-
 					rows[0] = rs.getString(1);
 					rows[1] = rs.getString(2);
 					rows[2] = rs.getString(3);
@@ -205,11 +211,13 @@ public class BienLai extends JPanel {
 					rows[4] = rs.getString(5);
 					rows[5] = rs.getString(6);
 					model.addRow(rows);
+					
 				}
 			} catch (SQLException e) {
 				System.out.println("lỗi" + e.getMessage());
 
 			}
+			
 		} else {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
@@ -243,19 +251,7 @@ public class BienLai extends JPanel {
 				String ngaynhap = txtDateAdded.getText();
 				int month = jmc.getMonth() + 1;
 				int year = jyc.getYear();
-
 				String cycle = year + "/" + month;
-				DateFormat df = new SimpleDateFormat("yyyy/MM");
-				Date cycleday;
-
-				try {
-					cycleday = df.parse(cycle);
-
-				} catch (Exception e1) {
-					cycleday = new Date();
-					e1.printStackTrace();
-				}
-
 				try {
 					MyException.checkInt(txtMeterIndex.getText());
 					int recentMeterIndex = Integer.parseInt(txtMeterIndex.getText());
@@ -273,17 +269,19 @@ public class BienLai extends JPanel {
 						}
 						if (recentMeterIndex < lastestMeterIndex) {
 							JOptionPane.showMessageDialog(null,
-									"Chỉ số mới phải lớn hơn hoặc bằng chỉ số cũ, vui lòng nhập lại");
+									"Chỉ số mới phải lớn hơn hoặc bằng chỉ số cũ, vui lòng nhập lại!");
 						} else if (txtMeterID.getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "Mã công tơ không được để trống");
+							JOptionPane.showMessageDialog(null, "Mã công tơ không được để trống!");
+						} else if (DBConnection.getCountInvoice(mact, cycle)==1) {
+							JOptionPane.showMessageDialog(null, "Biên lai tháng: " +month+ "/" +year+ " đã tồn tại!");
 						} else {
 							meterNumber = recentMeterIndex - lastestMeterIndex;
 							int thanhtien = heSoQuyDoi(meterNumber);
 
-							if (ffse1703004.model.DBConnection.addInvoice(mact, ngaynhap, cycleday, recentMeterIndex,
+							if (ffse1703004.model.DBConnection.addInvoice(mact, ngaynhap, cycle, recentMeterIndex,
 									thanhtien)) {
 								JOptionPane.showMessageDialog(null, "Thêm thành công");
-								String sql = "select * from BienLai";
+								String sql = "select * from bienlai";
 								model.setRowCount(0);
 								try {
 									PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -302,9 +300,11 @@ public class BienLai extends JPanel {
 									System.out.println("Lỗi" + e1.getMessage());
 
 								}
-
+								txtMeterID.setText("");
+								txtDateAdded.setEditable(false);
+								txtMeterIndex.setText("");
 							}
-						} 
+						}
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, "Thêm thất bại");
@@ -316,33 +316,62 @@ public class BienLai extends JPanel {
 		}
 	};
 
-	void getDataToTextField() {
-		int row = table.getSelectedRow();
-		String month = (String) table.getValueAt(row, 4);
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
-		try {
-			date = formatter.parse(month);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		txtMeterID.setEditable(false);
-		txtDateAdded.setEditable(true);
-		txtMeterID.setText((String) table.getValueAt(row, 1));
-		txtDateAdded.setText((String) table.getValueAt(row, 3));
-		jmc.setMonth(cal.get(Calendar.MONTH));
-		jyc.setYear(cal.get(Calendar.YEAR));
-		txtMeterIndex.setText((String) table.getValueAt(row, 2));
-	}
-
+	public class ClickBL extends MouseAdapter {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			try {
+				int row = table.getSelectedRow();
+				if(row==0) {
+					txtMeterIndex.setEditable(true);
+				} else {
+					txtMeterIndex.setEditable(false);
+				}
+				txtMeterID.setEditable(false);
+				jmc.setEnabled(false);
+				jyc.setEnabled(false);
+				txtMeterID.setText(table.getValueAt(row, 1).toString());
+				txtDateAdded.setText(table.getValueAt(row, 2).toString());
+				String chuki = table.getValueAt(row, 3).toString();
+				String[] arr = chuki.split("/");
+				jmc.setMonth(Integer.parseInt(arr[0])-1);
+				jyc.setYear(Integer.parseInt(arr[1]));
+				txtMeterIndex.setText(table.getValueAt(row, 4).toString());
+				} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}	
+			}
+	
 	MouseListener eventDataToTextField = new MouseAdapter() {
 		public void mouseClicked(MouseEvent arg0) {
 			getDataToTextField();
 		}
 	};
+	
+	void getDataToTextField() {
+		int row = table.getSelectedRow();
 
+		String month = (String) table.getValueAt(row, 3);
+		DateFormat formatter = new SimpleDateFormat("yyyy/MM");
+		Date date = null;
+		try {
+			date = formatter.parse(month);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		txtMeterID.setEditable(false);
+		jmc.setEnabled(false);
+		jyc.setEnabled(false);
+		txtMeterID.setText((String) table.getValueAt(row, 1));
+		txtDateAdded.setText((String) table.getValueAt(row, 2));
+		jmc.setMonth(cal.get(Calendar.MONTH));
+		jyc.setYear(cal.get(Calendar.YEAR));
+		txtMeterIndex.setText((String) table.getValueAt(row, 4));
+	}
+	
 	ActionListener eventSua = new ActionListener() {
 
 		@Override
@@ -357,9 +386,10 @@ public class BienLai extends JPanel {
 					JOptionPane.showMessageDialog(null, "Không cho phép thay đổi mã công tơ, vui lòng nhập lại");
 				} else {
 					try {
-						editInvoice();
+						sua();
 						int row = table.getSelectedRow();
 						int col = table.getSelectedColumn();
+						table.requestFocus();
 						table.changeSelection(row, col, false, false);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
@@ -370,7 +400,8 @@ public class BienLai extends JPanel {
 		}
 	};
 
-	void editInvoice() throws SQLException {
+	@SuppressWarnings("static-access")
+	void sua() throws SQLException {
 		int invoiceID = Integer.parseInt((String) table.getValueAt(table.getSelectedRow(), 0));
 		String meterID = (String) table.getValueAt(table.getSelectedRow(), 1);
 		ResultSet preMeterIndexResultSet = ffse1703004.model.DBConnection.getPreMeterIndexForEdit(meterID, invoiceID);
@@ -381,17 +412,8 @@ public class BienLai extends JPanel {
 		int month = jmc.getMonth() + 1;
 		int year = jyc.getYear();
 		String cycle = year + "/" + month;
-		DateFormat df = new SimpleDateFormat("yyyy/MM");
-		Date cycleDate;
-		try {
-			cycleDate = df.parse(cycle);
-		} catch (ParseException e1) {
-			cycleDate = new Date();
-			e1.printStackTrace();
-		}
 
 		int inputMeterIndex = Integer.parseInt(txtMeterIndex.getText());
-		int inputMetterId = Integer.parseInt(txtMeterID.getText());
 		int meterNumber = inputMeterIndex - preMeterIndex;
 		int amount = heSoQuyDoi(meterNumber);
 
@@ -400,44 +422,44 @@ public class BienLai extends JPanel {
 		while (invoiceIdList.next()) {
 			lastInvoiceID = invoiceIdList.getInt(1);
 		}
-
+		int lastMeterIndex = 0;
+		ResultSet lastMeterIndexResult = ffse1703004.model.DBConnection.getLastMeterIndex(meterID);
+		while (lastMeterIndexResult.next()) {
+			lastMeterIndex = lastMeterIndexResult.getInt(1);
+		}
+		ResultSet nextMeterIndexResultSet = ffse1703004.model.DBConnection.getNextMeterIndexForEdit(meterID, invoiceID, lastInvoiceID);
 		int nextMeterIndex = 0;
-		ResultSet nextMeterIndexResultSet = ffse1703004.model.DBConnection.getNextMeterIndexForEdit(meterID, invoiceID,
-				lastInvoiceID);
+
 		while (nextMeterIndexResultSet.next()) {
 			nextMeterIndex = nextMeterIndexResultSet.getInt(1);
 		}
-		if (inputMetterId == lastInvoiceID && inputMeterIndex >= nextMeterIndex) {
-			if (ffse1703004.model.DBConnection.editInvoice(cycleDate, txtMeterIndex.getText(), amount, invoiceID)) {
-				JOptionPane.showMessageDialog(null, "Sửa thành công");
-				model.setRowCount(0);
-				try {
-					String sql1 = "SELECT * FROM BienLai";
-					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql1);
-					ResultSet rs = ptmt.executeQuery();
-					while (rs.next()) {
-						String rows[] = new String[6];
-						rows[0] = rs.getString(1);
-						rows[1] = rs.getString(2);
-						rows[2] = rs.getString(3);
-						rows[3] = rs.getString(4);
-						rows[4] = rs.getString(5);
-						rows[5] = rs.getString(6);
-						model.addRow(rows);
-					}
-				} catch (SQLException e1) {
-					System.out.println("Lỗi" + e1.getMessage());
-
+		if (nextMeterIndex == 0) {
+			nextMeterIndex = lastMeterIndex;
+			if(inputMeterIndex < preMeterIndex) {
+				JOptionPane.showMessageDialog(null,
+						"Chỉ số công tơ nhập vào không được nhỏ hơn chỉ số kì trước, vui lòng nhập lại");
+			}else {
+				if (DBConnection.editInvoice(cycle, txtMeterIndex.getText(), amount, invoiceID)) {
+					JOptionPane.showMessageDialog(null, "Sửa thành công");
+				} else {
+					JOptionPane.showMessageDialog(null, "Sửa thất bại");
 				}
-			} else {
-				JOptionPane.showMessageDialog(null, "Sửa thất bại");
 			}
+			
 		} else {
-			JOptionPane.showMessageDialog(null, "Sửa thất bại");
+
+			if (inputMeterIndex < preMeterIndex || inputMeterIndex > nextMeterIndex) {
+				JOptionPane.showMessageDialog(null,
+						"Chỉ số công tơ nhập vào không được nhỏ hơn chỉ số kì trước hoặc lớn hơn kì sau, vui lòng nhập lại");
+			} else {
+				if (DBConnection.editInvoice(cycle, txtMeterIndex.getText(), amount, invoiceID)) {
+					JOptionPane.showMessageDialog(null, "Sửa thành công");
+				} else {
+					JOptionPane.showMessageDialog(null, "Sửa thất bại");
+				}
+			}
 		}
-
 	}
-
 	void addDataToTable(ResultSet customerList, DefaultTableModel model) throws SQLException {
 		Object[] row = new Object[6];
 		while (customerList.next()) {
@@ -490,7 +512,7 @@ public class BienLai extends JPanel {
 			int myChose = JOptionPane.showConfirmDialog(null, "Bạn cóm muốn xóa dữ liệu này không?", "Xóa",
 					JOptionPane.YES_NO_OPTION);
 			if (myChose == JOptionPane.YES_OPTION) {
-				String sql = "DELETE FROM BienLai WHERE mact=?";
+				String sql = "DELETE FROM bienlai WHERE mact=?";
 				try {
 					PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);
 					ptmt.setString(1, txtMeterID.getText());
@@ -513,7 +535,7 @@ public class BienLai extends JPanel {
 			System.out.println("Kết nối MYSQL thất bại");
 		}
 	}
-
-	PreparedStatement ptmt = null;
-
+	
+	
+;
 }

@@ -97,7 +97,6 @@ public class DBConnection {
 		try {
 			String sql = "select mact from KhachHang";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
-
 			ResultSet result = stm.executeQuery();
 			return result;
 		} catch (Exception e) {
@@ -105,10 +104,36 @@ public class DBConnection {
 			return null;
 		}
 	}
-
+	
+	public static ResultSet getIDKHList() {
+		try {
+			String sql = "select makh from KhachHang";
+			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet result = stm.executeQuery();
+			return result;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public int getCountInvoice(String mact, String chuKi) {
+		try {
+			String sql = "select Count(*) from bienlai where mact=? and chuki=?";
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setString(1, mact);
+			ps.setString(2, chuKi);
+			ResultSet result = ps.executeQuery();
+			result.next();
+			return result.getInt("Count(*)");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	public static ResultSet getInvoice(String meterID) {
 		try {
-			String sql = "SELECT * from BienLai  where mact = ?";
+			String sql = "SELECT * from bienlai  where mact = ?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, meterID);
 			ResultSet result = stm.executeQuery();
@@ -119,14 +144,13 @@ public class DBConnection {
 		}
 	}
 
-	public static boolean addInvoice(String mact, String ngaynhap, Date chuki, int chisoct, int thanhtien) {
+	public static boolean addInvoice(String mact, String ngaynhap, String chuki, int chisoct, int thanhtien) {
 		try {
-			String sql = "insert into BienLai ( mact, ngaynhap, chuki, chisoct, thanhtien) values ( ?, ?, ?, ?, ? )";
+			String sql = "insert into bienlai ( mact, ngaynhap, chuki, chisoct, thanhtien) values ( ?, ?, ?, ?, ? )";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
-			java.sql.Date sqlDate = new java.sql.Date(chuki.getTime());
 			stm.setString(1, mact);
 			stm.setString(2, ngaynhap);
-			stm.setDate(3, sqlDate);
+			stm.setString(3, chuki);
 			stm.setInt(4, chisoct);
 			stm.setInt(5, thanhtien);
 			int x = stm.executeUpdate();
@@ -141,14 +165,11 @@ public class DBConnection {
 		}
 	}
 
-	public static boolean editInvoice(Date cycle, String meterIndex, int amount, int invoiceID) {
+	public static boolean editInvoice(String cycle, String meterIndex, int amount, int invoiceID) {
 		try {
-			String sql = "update BienLai set chuki = ?, chisoct = ?, thanhtien = ? where id=?";
+			String sql = "update bienlai set chuki = ?, chisoct = ?, thanhtien = ? where id=?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
-
-			java.sql.Date sqlDate = new java.sql.Date(cycle.getTime());
-
-			stm.setDate(1, sqlDate);
+			stm.setString(1, cycle);
 			stm.setString(2, meterIndex);
 			stm.setInt(3, amount);
 			stm.setInt(4, invoiceID);
@@ -167,7 +188,7 @@ public class DBConnection {
 
 	public static ResultSet getPreMeterIndexForEdit(String meterID, int invoiceID) {
 		try {
-			String sql = "SELECT max(chisoct) from BienLai where mact = ? AND (id BETWEEN 1 AND ?)";
+			String sql = "SELECT max(chisoct) from bienlai where mact = ? AND (id BETWEEN 1 AND ?)";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, meterID);
 			stm.setInt(2, invoiceID - 1);
@@ -181,7 +202,7 @@ public class DBConnection {
 
 	public static ResultSet getLastMeterIndex(String meterID) {
 		try {
-			String sql = "SELECT chisoct from BienLai where chisoct = ?";
+			String sql = "SELECT chisoct from bienlai where chisoct = ?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, meterID);
 			ResultSet result = stm.executeQuery();
@@ -194,7 +215,7 @@ public class DBConnection {
 
 	public static ResultSet getNextMeterIndexForEdit(String meterID, int invoiceID, int lastInvoiceID) {
 		try {
-			String sql = "SELECT min(chisoct) from BienLai where mact = ? AND (id BETWEEN ? AND ?)";
+			String sql = "SELECT min(chisoct) from bienlai where mact = ? AND (id BETWEEN ? AND ?)";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, meterID);
 			stm.setInt(2, invoiceID + 1);
@@ -209,7 +230,7 @@ public class DBConnection {
 
 	public static ResultSet getLastInvoiceID(String meterID) {
 		try {
-			String sql = "SELECT max(id) from BienLai where mact = ?";
+			String sql = "SELECT max(id) from bienlai where mact = ?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, meterID);
 			ResultSet result = stm.executeQuery();
@@ -222,7 +243,7 @@ public class DBConnection {
 
 	public static ResultSet getMeterId() {
 		try {
-			String sql = "select mact from BienLai";
+			String sql = "select mact from bienlai";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 
 			ResultSet result = stm.executeQuery();
@@ -235,7 +256,7 @@ public class DBConnection {
 
 	public static boolean delInvoice(String invoiceID) {
 		try {
-			String sql = "delete from BienLai where id=?";
+			String sql = "delete from bienlai where id=?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 
 			stm.setString(1, invoiceID);
@@ -254,13 +275,13 @@ public class DBConnection {
 
 	public static ResultSet getDataBySearch1(String customerName, String countyName, String wardName, String cycle) {
 		try {
-			String sql = "SELECT BienLai.id, BienLai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
+			String sql = "SELECT bienlai.id, bienlai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
 					+ " KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email, "
-					+ "BienLai.chuki,BienLai.thanhtien,Phuong.tenphuong, Quan.tenquan "
+					+ "bienlai.chuki,bienlai.thanhtien,Phuong.tenphuong, Quan.tenquan "
 					+ " FROM (((KhachHang INNER JOIN Quan ON KhachHang.idquan = Quan.tenquan)"
 					+ "INNER JOIN Phuong ON KhachHang.idphuong = Phuong.tenphuong)"
-					+ " INNER JOIN BienLai ON KhachHang.mact = BienLai.mact)"
-					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and BienLai.chuki like ?";
+					+ " INNER JOIN bienlai ON KhachHang.mact = bienlai.mact)"
+					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and bienlai.chuki like ?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			stm.setString(1, "%" + customerName + "%");
 			stm.setString(2, "%" + countyName + "%");
@@ -279,13 +300,13 @@ public class DBConnection {
 	public static ResultSet getDataBySearch2(String customerName, String countyName, String wardName, Date cycleStart,
 			Date cycleEnd) {
 		try {
-			String sql = " SELECT BienLai.id, BienLai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
+			String sql = " SELECT bienlai.id, bienlai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
 					+ "KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email,  "
-					+ " BienLai.chuki,BienLai.thanhtien,Phuong.tenphuong, Quan.tenquan "
+					+ " bienlai.chuki,bienlai.thanhtien,Phuong.tenphuong, Quan.tenquan "
 					+ "  FROM (((KhachHang INNER JOIN Quan ON KhachHang.idquan = Quan.tenquan) "
 					+ " INNER JOIN Phuong ON KhachHang.idphuong = Phuong.tenphuong) "
-					+ " INNER JOIN BienLai ON KhachHang.mact = BienLai.mact)"
-					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and (BienLai.chuki  BETWEEN ? and ?)";
+					+ " INNER JOIN bienlai ON KhachHang.mact = bienlai.mact)"
+					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and (bienlai.chuki  BETWEEN ? and ?)";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			java.sql.Date sqlCycleStart = new java.sql.Date(cycleStart.getTime());
 			java.sql.Date sqlCycleEnd = new java.sql.Date(cycleEnd.getTime());
@@ -305,13 +326,13 @@ public class DBConnection {
 	
 	public static ResultSet getDataBySearch3(String customerName, String countyName, String wardName, Date cycle) {
 		try {
-			String sql = "SELECT BienLai.id, BienLai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
+			String sql = "SELECT bienlai.id, bienlai.mact, KhachHang.mact,KhachHang.tenkh, KhachHang.diachi,"
 					+ " KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email, "
-					+ "BienLai.chuki, BienLai.thanhtien, Phuong.tenphuong, Quan.tenquan "
+					+ "bienlai.chuki, bienlai.thanhtien, Phuong.tenphuong, Quan.tenquan "
 					+ " FROM (((KhachHang INNER JOIN Quan ON KhachHang.idquan = Quan.tenquan)"
 					+ "INNER JOIN Phuong ON KhachHang.idphuong = Phuong.tenphuong)"
-					+ " INNER JOIN BienLai ON KhachHang.mact = BienLai.mact)"
-					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and BienLai.chuki like ?";
+					+ " INNER JOIN bienlai ON KhachHang.mact = bienlai.mact)"
+					+ " where KhachHang.tenkh like ? and Quan.tenquan like ? and Phuong.tenphuong like ? and bienlai.chuki like ?";
 			PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
 			java.sql.Date sqlcycle = new java.sql.Date(cycle.getTime());
 			stm.setString(1, "%" + customerName + "%");

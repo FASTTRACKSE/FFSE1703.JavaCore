@@ -1,12 +1,8 @@
 package ffse1703004.main;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import ffse1703004.model.DBConnection;
-import ffse1703004.model.KhachHangMD;
-import ffse1703004.ui.DanhMuc;
-import ffse1703004.ui.KhachHang;
 import ffse1703004.ui.Login;
 
 public class Main {

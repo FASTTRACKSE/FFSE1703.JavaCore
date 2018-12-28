@@ -29,8 +29,10 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
+
 import ffse1703004.model.DBConnection;
 import ffse1703004.model.KhachHangMD;
 
@@ -44,7 +46,7 @@ public class ThongKe extends JPanel {
 			"");
 	ArrayList<KhachHangMD> arrKH = new ArrayList<>();
 	private JButton btnSearch, btnSearch1, btnBack;
-	private JComboBox<Object> cbBxQuan, cbBxQuan1, cbBxPhuong, cbBxPhuong1;
+	private JComboBox<Object> cbBxQuan, cbBxPhuong;
 	private JTextField txtTimKiem;
 	@SuppressWarnings("rawtypes")
 	JComboBox cb, cb1, cb2;
@@ -56,7 +58,7 @@ public class ThongKe extends JPanel {
 	private DefaultTableModel model = new DefaultTableModel(new Object[] { "Mã khách hàng", "Mã công tơ", "Họ tên",
 			"Địa chỉ", "Phường", "Quận", "Điện thoại", "Email" }, 0);
 	private DefaultTableModel model1 = new DefaultTableModel(new Object[] { "Mã biên lai", "Mã khách hàng",
-			"Mã công tơ", "Tên khách hàng", "Địa chỉ",  "Phường","Quận", "Điện thoại", "Email", "Chu kì", "Số tiền" },
+			"Mã công tơ", "Tên khách hàng", "Địa chỉ", "Phường","Quận" , "Điện thoại", "Email", "Chu kì", "Số tiền" },
 			0);
 	final JTable table = new JTable(model);
 	final JTable table1 = new JTable(model1);
@@ -435,9 +437,9 @@ public class ThongKe extends JPanel {
 	public void DisplayTK() {
 		if (conn != null) {
 
-			String sql = "SELECT  BienLai.id, KhachHang.makh, KhachHang.mact , KhachHang.tenkh, KhachHang.diachi, KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email,"
-					+ "   BienLai.chuki, BienLai.thanhtien"
-					+ " FROM KhachHang, BienLai WHERE  KhachHang.mact = BienLai.mact  ";
+			String sql = "SELECT  bienlai.id, KhachHang.makh, KhachHang.mact , KhachHang.tenkh, KhachHang.diachi, KhachHang.idphuong, KhachHang.idquan, KhachHang.dienthoai, KhachHang.email,"
+					+ "   bienlai.chuki, bienlai.thanhtien"
+					+ " FROM KhachHang, bienlai WHERE  KhachHang.mact = bienlai.mact  ";
 					
 			try {
 				PreparedStatement ptmt = (PreparedStatement) conn.prepareStatement(sql);

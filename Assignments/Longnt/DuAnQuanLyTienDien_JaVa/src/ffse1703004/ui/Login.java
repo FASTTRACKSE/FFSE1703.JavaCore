@@ -14,12 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ffse1703004.model.DBConnection;
 
 public class Login extends JFrame {
-	JTextField txtUser, txtPass;
+	JTextField txtUser;
+	private JPasswordField txtPass;
 	JButton ButtonLogin;
 
 	public Login(String title) throws HeadlessException {
@@ -65,8 +67,8 @@ public class Login extends JFrame {
 		JLabel lblPass = new JLabel("Password");
 		lblPass.setPreferredSize(new Dimension(80, 10));
 		lblPass.setFont(fontTitlePass);
-		txtPass = new JTextField(15);
-		pnPass.add(lblPass);
+		txtPass = new JPasswordField(15);
+        pnPass.add(lblPass);
 		pnPass.add(txtPass);
 
 		JPanel pnButtonLogin = new JPanel();
